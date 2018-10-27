@@ -10,7 +10,7 @@ import javax.annotation.Resource;
 import org.springframework.stereotype.Component;
 import org.springrain.cms.directive.AbstractCMSDirective;
 import org.springrain.cms.util.DirectiveUtils;
-import org.springrain.erp.constants.ErpStateEnum;
+import org.springrain.nybusiness.constants.SysStateEnum;
 import org.springrain.system.entity.DicData;
 import org.springrain.system.service.IDicDataService;
 
@@ -37,7 +37,7 @@ public class DicDataListDirective extends AbstractCMSDirective {
 			List<DicData> datas;
 			String typekey = DirectiveUtils.getString(PARAM_TYPEKEY, params);
 			DicData data = new DicData();
-			data.setActive(Integer.parseInt(ErpStateEnum.stateEnum.是.getValue()));
+			data.setActive(Integer.parseInt(SysStateEnum.stateEnum.是.getValue()));
 			datas = dicDataService.findListDicData(typekey, null, data);
 			
 			env.setVariable(DirectiveUtils.OUT_LIST, DirectiveUtils.wrap(datas));

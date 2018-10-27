@@ -11,9 +11,9 @@ import javax.annotation.Resource;
 import org.apache.commons.collections4.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;
-import org.springrain.erp.constants.ErpStateEnum;
 import org.springrain.frame.util.Finder;
 import org.springrain.frame.util.Page;
+import org.springrain.nybusiness.constants.SysStateEnum;
 import org.springrain.system.entity.Org;
 import org.springrain.system.entity.User;
 import org.springrain.system.entity.UserOrg;
@@ -367,7 +367,7 @@ public class OrgServiceImpl extends BaseSpringrainServiceImpl implements
 	public List<Org> findAllBumen() throws Exception {
 		Finder finder = Finder.getSelectFinder(Org.class);
 		finder.append(" where 1 = 1 and orgType = :orgType ").setParam("orgType", "1");
-		finder.append(" and active = :active ").setParam("active", Integer.parseInt(ErpStateEnum.stateEnum.是.getValue()));
+		finder.append(" and active = :active ").setParam("active", Integer.parseInt(SysStateEnum.stateEnum.是.getValue()));
 		return super.queryForList(finder, Org.class);
 	}
 

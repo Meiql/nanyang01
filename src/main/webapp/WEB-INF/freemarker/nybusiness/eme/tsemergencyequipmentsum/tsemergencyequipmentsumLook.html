@@ -1,0 +1,109 @@
+<#ftl output_format="HTML" auto_esc=true>
+<@h.commonHead title="后台管理系统" keywords="开源,永久免费" description="springrain开源系统管理后台"/>
+
+
+</head>
+<body>
+	<div class="layui-layout layui-layout-admin">
+		<@h.naviHeader /><@h.leftMenu />
+		<!-- 主体内容开始 -->
+			<div class="layui-tab layui-tab-brief">
+				<ul class="layui-tab-title site-demo-title">
+		            <li class="layui-this">
+		            </li>
+		             <li style="float:right;">
+				        <button type="button" onclick="history.go(-1)" class="layui-btn layui-btn-small" style="margin-top:8px;"><i class="layui-icon layui-icon-specil">&#xe603;</i>返回</button>
+		             </li>
+	       		</ul>
+				
+				<div class="layui-body layui-tab-content site-demo-body">
+					<div class="layui-tab-item layui-show">
+							<div class="layui-main">
+						          <div id="LAY_preview" class="layui-my-form">
+						          				<header class="larry-personal-tit">
+													<span>添加F2应急救援设施设备汇总表</span>
+												</header>
+												<div class="larry-personal-body clearfix changepwd">
+													<form id="validForm" class="layui-form <!--  -->"  method="post" action="${ctx}/tsemergencyequipmentsum/update">
+																	<div class="layui-form-item col-lg-6">
+																		<label class="layui-form-label">序号*</label>
+																		<div class="layui-inline col-lg-5">  
+																			${(returnDatas.data.serial_number)!''}
+																		</div>
+																		<div class="layui-inline valid-info"></div>
+																	</div>
+																	<div class="layui-form-item col-lg-6">
+																		<label class="layui-form-label">类别*</label>
+																		<div class="layui-inline col-lg-5">  
+																			${(returnDatas.data.category)!''}
+																		</div>
+																		<div class="layui-inline valid-info"></div>
+																	</div>
+																	<div class="layui-form-item col-lg-6">
+																		<label class="layui-form-label">名称*</label>
+																		<div class="layui-inline col-lg-5">  
+																			${(returnDatas.data.name)!''}
+																		</div>
+																		<div class="layui-inline valid-info"></div>
+																	</div>
+																	<div class="layui-form-item col-lg-6">
+																		<label class="layui-form-label">数量*</label>
+																		<div class="layui-inline col-lg-5">  
+																			${(returnDatas.data.quantity)!''}
+																		</div>
+																		<div class="layui-inline valid-info"></div>
+																	</div>
+																	<div class="layui-form-item col-lg-6">
+																		<label class="layui-form-label">单位*</label>
+																		<div class="layui-inline col-lg-5">  
+																			${(returnDatas.data.unit)!''}
+																		</div>
+																		<div class="layui-inline valid-info"></div>
+																	</div>
+																	<div class="layui-form-item col-lg-6">
+																		<label class="layui-form-label">外部供应单位联系方式_联络方式*</label>
+																		<div class="layui-inline col-lg-5">  
+																			${(returnDatas.data.outside_tel)!''}
+																		</div>
+																		<div class="layui-inline valid-info"></div>
+																	</div>
+																	<div class="layui-form-item col-lg-6">
+																		<label class="layui-form-label">外部供应单位联系方式_主要联系人*</label>
+																		<div class="layui-inline col-lg-5">  
+																			${(returnDatas.data.outside_people)!''}
+																		</div>
+																		<div class="layui-inline valid-info"></div>
+																	</div>
+																	<div class="layui-form-item col-lg-6">
+																		<label class="layui-form-label">外部供应单位名称*</label>
+																		<div class="layui-inline col-lg-5">  
+																			${(returnDatas.data.outside_company)!''}
+																		</div>
+																		<div class="layui-inline valid-info"></div>
+																	</div>
+																	<div class="layui-form-item col-lg-6">
+																		<label class="layui-form-label">设备来源_厂外设备*</label>
+																		<div class="layui-inline col-lg-5">  
+																			${(returnDatas.data.out_Equipment)!''}
+																		</div>
+																		<div class="layui-inline valid-info"></div>
+																	</div>
+																	<div class="layui-form-item col-lg-6">
+																		<label class="layui-form-label">设备来源_厂内设备*</label>
+																		<div class="layui-inline col-lg-5">  
+																			${(returnDatas.data.in_Equipment)!''}
+																		</div>
+																		<div class="layui-inline valid-info"></div>
+																	</div>
+													</form>
+												</div>
+								  </div>
+							</div>
+					</div>
+			</div>
+		</div>
+		<!-- 主体内容结束 -->
+		<@h.footer />
+	</div>
+</body>
+</html>

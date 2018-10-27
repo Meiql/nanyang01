@@ -1,0 +1,172 @@
+<#ftl output_format="HTML" auto_esc=true>
+<@h.commonHead title="后台管理系统" keywords="开源,永久免费" description="springrain开源系统管理后台"/>
+
+
+</head>
+<body>
+	<div class="layui-layout layui-layout-admin">
+		<@h.naviHeader /><@h.leftMenu />
+		<!-- 主体内容开始 -->
+			<div class="layui-tab layui-tab-brief">
+				<ul class="layui-tab-title site-demo-title">
+		            <li class="layui-this">
+		            </li>
+		             <li style="float:right;">
+				        <button type="button" onclick="history.go(-1)" class="layui-btn layui-btn-small" style="margin-top:8px;"><i class="layui-icon layui-icon-specil">&#xe603;</i>返回</button>
+		             </li>
+	       		</ul>
+				
+				<div class="layui-body layui-tab-content site-demo-body">
+					<div class="layui-tab-item layui-show">
+							<div class="layui-main">
+						          <div id="LAY_preview" class="layui-my-form">
+						          				<header class="larry-personal-tit">
+													<span>添加化学物质调研表</span>
+												</header>
+												<div class="larry-personal-body clearfix changepwd">
+													<form id="validForm" class="layui-form <!--  -->"  method="post" action="${ctx}/tsmsgchemicalsubstances/update">
+																	<div class="layui-form-item col-lg-6">
+																		<label class="layui-form-label">化学品名称*</label>
+																		<div class="layui-inline col-lg-5">  
+																			${(returnDatas.data.chemistryName)!''}
+																		</div>
+																		<div class="layui-inline valid-info"></div>
+																	</div>
+																	<div class="layui-form-item col-lg-6">
+																		<label class="layui-form-label">CAS 号或危 险废物类类别id 字典*</label>
+																		<div class="layui-inline col-lg-5">  
+																			${(returnDatas.data.casTypeid)!''}
+																		</div>
+																		<div class="layui-inline valid-info"></div>
+																	</div>
+																	<div class="layui-form-item col-lg-6">
+																		<label class="layui-form-label">CAS 号或危 险废物类别 2 name 字典*</label>
+																		<div class="layui-inline col-lg-5">  
+																			${(returnDatas.data.casTypeName)!''}
+																		</div>
+																		<div class="layui-inline valid-info"></div>
+																	</div>
+																	<div class="layui-form-item col-lg-6">
+																		<label class="layui-form-label">最大存量*</label>
+																		<div class="layui-inline col-lg-5">  
+																			${(returnDatas.data.maxstock)!''}
+																		</div>
+																		<div class="layui-inline valid-info"></div>
+																	</div>
+																	<div class="layui-form-item col-lg-6">
+																		<label class="layui-form-label">原料*</label>
+																		<div class="layui-inline col-lg-5">  
+																			${(returnDatas.data.rawmaterial)!''}
+																		</div>
+																		<div class="layui-inline valid-info"></div>
+																	</div>
+																	<div class="layui-form-item col-lg-6">
+																		<label class="layui-form-label">辅料*</label>
+																		<div class="layui-inline col-lg-5">  
+																			${(returnDatas.data.accessories)!''}
+																		</div>
+																		<div class="layui-inline valid-info"></div>
+																	</div>
+																	<div class="layui-form-item col-lg-6">
+																		<label class="layui-form-label">产品*</label>
+																		<div class="layui-inline col-lg-5">  
+																			${(returnDatas.data.product)!''}
+																		</div>
+																		<div class="layui-inline valid-info"></div>
+																	</div>
+																	<div class="layui-form-item col-lg-6">
+																		<label class="layui-form-label">中间产品*</label>
+																		<div class="layui-inline col-lg-5">  
+																			${(returnDatas.data.betweenProduct)!''}
+																		</div>
+																		<div class="layui-inline valid-info"></div>
+																	</div>
+																	<div class="layui-form-item col-lg-6">
+																		<label class="layui-form-label">副产品*</label>
+																		<div class="layui-inline col-lg-5">  
+																			${(returnDatas.data.byProduct)!''}
+																		</div>
+																		<div class="layui-inline valid-info"></div>
+																	</div>
+																	<div class="layui-form-item col-lg-6">
+																		<label class="layui-form-label">催化剂*</label>
+																		<div class="layui-inline col-lg-5">  
+																			${(returnDatas.data.catalyzer)!''}
+																		</div>
+																		<div class="layui-inline valid-info"></div>
+																	</div>
+																	<div class="layui-form-item col-lg-6">
+																		<label class="layui-form-label">废弃物*</label>
+																		<div class="layui-inline col-lg-5">  
+																			${(returnDatas.data.discardedMatter)!''}
+																		</div>
+																		<div class="layui-inline valid-info"></div>
+																	</div>
+																	<div class="layui-form-item col-lg-6">
+																		<label class="layui-form-label">设计环境风险单位*</label>
+																		<div class="layui-inline col-lg-5">  
+																			${(returnDatas.data.riskunit)!''}
+																		</div>
+																		<div class="layui-inline valid-info"></div>
+																	</div>
+																	<div class="layui-form-item col-lg-6">
+																		<label class="layui-form-label">createUser*</label>
+																		<div class="layui-inline col-lg-5">  
+																			${(returnDatas.data.createUser)!''}
+																		</div>
+																		<div class="layui-inline valid-info"></div>
+																	</div>
+																	<div class="layui-form-item col-lg-6">
+																		<label class="layui-form-label">createTime*</label>
+																		<div class="layui-inline col-lg-5">  
+																			${(returnDatas.data.createTime)!''}
+																		</div>
+																		<div class="layui-inline valid-info"></div>
+																	</div>
+																	<div class="layui-form-item col-lg-6">
+																		<label class="layui-form-label">remarks*</label>
+																		<div class="layui-inline col-lg-5">  
+																			${(returnDatas.data.remarks)!''}
+																		</div>
+																		<div class="layui-inline valid-info"></div>
+																	</div>
+																	<div class="layui-form-item col-lg-6">
+																		<label class="layui-form-label">companyId*</label>
+																		<div class="layui-inline col-lg-5">  
+																			${(returnDatas.data.companyId)!''}
+																		</div>
+																		<div class="layui-inline valid-info"></div>
+																	</div>
+																	<div class="layui-form-item col-lg-6">
+																		<label class="layui-form-label">bak1*</label>
+																		<div class="layui-inline col-lg-5">  
+																			${(returnDatas.data.bak1)!''}
+																		</div>
+																		<div class="layui-inline valid-info"></div>
+																	</div>
+																	<div class="layui-form-item col-lg-6">
+																		<label class="layui-form-label">bak2*</label>
+																		<div class="layui-inline col-lg-5">  
+																			${(returnDatas.data.bak2)!''}
+																		</div>
+																		<div class="layui-inline valid-info"></div>
+																	</div>
+																	<div class="layui-form-item col-lg-6">
+																		<label class="layui-form-label">bak3*</label>
+																		<div class="layui-inline col-lg-5">  
+																			${(returnDatas.data.bak3)!''}
+																		</div>
+																		<div class="layui-inline valid-info"></div>
+																	</div>
+													</form>
+												</div>
+								  </div>
+							</div>
+					</div>
+			</div>
+		</div>
+		<!-- 主体内容结束 -->
+		<@h.footer />
+	</div>
+</body>
+</html>

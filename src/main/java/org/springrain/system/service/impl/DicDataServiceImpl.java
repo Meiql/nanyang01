@@ -8,12 +8,11 @@ import org.apache.commons.lang3.StringUtils;
 import org.apache.shiro.util.CollectionUtils;
 import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.stereotype.Service;
-import org.springrain.erp.constants.DicdataTypeEnum;
-import org.springrain.erp.constants.ErpStateEnum;
 import org.springrain.frame.entity.IBaseEntity;
 import org.springrain.frame.util.Finder;
 import org.springrain.frame.util.GlobalStatic;
 import org.springrain.frame.util.Page;
+import org.springrain.nybusiness.constants.SysStateEnum;
 import org.springrain.system.entity.DicData;
 import org.springrain.system.service.BaseSpringrainServiceImpl;
 import org.springrain.system.service.IDicDataService;
@@ -116,7 +115,7 @@ public class DicDataServiceImpl extends BaseSpringrainServiceImpl implements
 			}
 		}*/
 		if(dicData == null || dicData.getActive() == null){
-			finder.append(" and active = :active ").setParam("active", ErpStateEnum.stateEnum.是.getValue());
+			finder.append(" and active = :active ").setParam("active", SysStateEnum.stateEnum.是.getValue());
 		}else{
 			finder.append(" and active = :active ").setParam("active", dicData.getActive());
 			if(StringUtils.isNotEmpty(dicData.getName())){
@@ -214,7 +213,7 @@ public class DicDataServiceImpl extends BaseSpringrainServiceImpl implements
 	public Map<String, DicData> findGongziConfigure() throws Exception {
 		Map<String, DicData> map = new HashMap<String, DicData>();
 		
-		List<DicData> chakanDatas = findListDicData(DicdataTypeEnum.员工工资查询时间.getValue(), null, null);
+		/*List<DicData> chakanDatas = findListDicData(DicdataTypeEnum.员工工资查询时间.getValue(), null, null);
 		List<DicData> bushengchengDatas = findListDicData(DicdataTypeEnum.不生成工资员工.getValue(), null, null);
 		
 		DicData chakanData = null;
@@ -228,7 +227,7 @@ public class DicDataServiceImpl extends BaseSpringrainServiceImpl implements
 		}
 		
 		map.put("chakanData", chakanData);
-		map.put("bushengchengData", bushengchengData);
+		map.put("bushengchengData", bushengchengData);*/
 		return map;
 	}
 
@@ -236,7 +235,7 @@ public class DicDataServiceImpl extends BaseSpringrainServiceImpl implements
 	public Map<String, DicData> findHetongConfigure() throws Exception {
 		Map<String, DicData> map = new HashMap<String, DicData>();
 		
-		List<DicData> sendDatas = findListDicData(DicdataTypeEnum.发送邮件时间.getValue(), null, null);
+		/*List<DicData> sendDatas = findListDicData(DicdataTypeEnum.发送邮件时间.getValue(), null, null);
 		List<DicData> jieshouDatas = findListDicData(DicdataTypeEnum.接收邮箱.getValue(), null, null);
 		
 		DicData sendData = null;
@@ -250,7 +249,7 @@ public class DicDataServiceImpl extends BaseSpringrainServiceImpl implements
 		}
 		
 		map.put("sendDate", sendData);
-		map.put("receiveEmail", jieshouData);
+		map.put("receiveEmail", jieshouData);*/
 		return map;
 	}
 

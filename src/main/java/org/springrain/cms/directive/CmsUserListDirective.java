@@ -11,7 +11,6 @@ import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.math.NumberUtils;
 import org.springframework.stereotype.Component;
 import org.springrain.cms.util.DirectiveUtils;
-import org.springrain.erp.constants.ErpStateEnum;
 import org.springrain.system.entity.User;
 import org.springrain.system.service.IUserService;
 

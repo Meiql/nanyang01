@@ -16,7 +16,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springrain.erp.constants.ErpStateEnum;
 import org.springrain.frame.common.SessionUser;
 import org.springrain.frame.controller.BaseController;
 import org.springrain.frame.util.Finder;
@@ -25,6 +24,7 @@ import org.springrain.frame.util.Page;
 import org.springrain.frame.util.ReturnDatas;
 import org.springrain.frame.util.SecUtils;
 import org.springrain.frame.util.property.MessageUtils;
+import org.springrain.nybusiness.constants.SysStateEnum;
 import org.springrain.system.entity.Role;
 import org.springrain.system.entity.User;
 import org.springrain.system.entity.UserOrg;
@@ -58,7 +58,7 @@ public class UserController extends BaseController {
 	public String list(HttpServletRequest request, Model model, User user)
 			throws Exception {
 		ReturnDatas returnObject = listjson(request, model, user);
-		user.setUserType(ErpStateEnum.userTypeEnum.员工.getValue());
+		user.setUserType(SysStateEnum.userTypeEnum.员工.getValue());
 		List<User> userList = userService.finderUserForList(user,null);
 		model.addAttribute("userList", userList);
 		model.addAttribute(GlobalStatic.returnDatas, returnObject);

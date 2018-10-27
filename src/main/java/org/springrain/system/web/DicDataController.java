@@ -14,13 +14,12 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springrain.erp.constants.DicdataTypeEnum;
-import org.springrain.erp.constants.ErpStateEnum;
 import org.springrain.frame.controller.BaseController;
 import org.springrain.frame.util.GlobalStatic;
 import org.springrain.frame.util.Page;
 import org.springrain.frame.util.ReturnDatas;
 import org.springrain.frame.util.property.MessageUtils;
+import org.springrain.nybusiness.constants.SysStateEnum;
 import org.springrain.system.entity.DicData;
 import org.springrain.system.service.IDicDataService;
 import org.springrain.system.service.ITableindexService;
@@ -57,10 +56,10 @@ public class DicDataController  extends BaseController {
 			throws Exception {
 		ReturnDatas returnObject = listjson(pathtypekey,request, model, dicData);
 		model.addAttribute(GlobalStatic.returnDatas, returnObject);
-		DicData turnDic = dicDataService.findByCodeAndTypeKey(pathtypekey,DicdataTypeEnum.跳转类型.getValue());
-		if(turnDic != null){
-			return "/erp/dicdata/"+turnDic.getCode()+"/dicdataList";
-		}
+//		DicData turnDic = dicDataService.findByCodeAndTypeKey(pathtypekey,DicdataTypeEnum.跳转类型.getValue());
+//		if(turnDic != null){
+//			return "/erp/dicdata/"+turnDic.getCode()+"/dicdataList";
+//		}
 		return listurl;
 	}
 	
@@ -87,7 +86,7 @@ public class DicDataController  extends BaseController {
 //		List<DicData> datas=dicDataService.findListDataByFinder(null, page, DicData.class, dicData);
 		String active = request.getParameter("active");
 		if(StringUtils.isEmpty(active)){
-			dicData.setActive(Integer.parseInt(ErpStateEnum.stateEnum.是.getValue()));
+			dicData.setActive(Integer.parseInt(SysStateEnum.stateEnum.是.getValue()));
 		}
 		List<DicData> datas=dicDataService.findDicDataForList(pathtypekey, page, dicData);
 		//boolean hasNext = page.getHasNext();
@@ -135,10 +134,6 @@ public class DicDataController  extends BaseController {
 		
 		ReturnDatas returnObject = lookjson(pathtypekey,model, request, response);
 		model.addAttribute(GlobalStatic.returnDatas, returnObject);
-		DicData turnDic = dicDataService.findByCodeAndTypeKey(pathtypekey,DicdataTypeEnum.跳转类型.getValue());
-		if(turnDic != null){
-			return "/erp/dicdata/"+turnDic.getCode()+"/dicDataLook";
-		}
 		return "/system/dicData/dicDataLook";
 	}
 
@@ -172,10 +167,6 @@ public class DicDataController  extends BaseController {
 		map.put("typekey", pathtypekey);
 		returnObject.setMap(map);
 		model.addAttribute(GlobalStatic.returnDatas, returnObject);
-		DicData turnDic = dicDataService.findByCodeAndTypeKey(pathtypekey,DicdataTypeEnum.跳转类型.getValue());
-		if(turnDic != null){
-			return "/erp/dicdata/"+turnDic.getCode()+"/dicdataCru";
-		}
 		return "/system/dicdata/dicdataCru";
 	}
 	
