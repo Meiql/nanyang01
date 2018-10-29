@@ -2,6 +2,7 @@ package  org.springrain.nybusiness.mail.web;
 
 import java.io.File;
 import java.util.Arrays;
+import java.util.Date;
 import java.util.List;
 
 import javax.annotation.Resource;
@@ -13,7 +14,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springrain.frame.common.SessionUser;
 import org.springrain.frame.controller.BaseController;
+import org.springrain.frame.util.DateUtils;
 import org.springrain.frame.util.GlobalStatic;
 import org.springrain.frame.util.MessageUtils;
 import org.springrain.frame.util.Page;
@@ -135,7 +138,12 @@ public class TsMailListInsideController  extends BaseController {
 			if(StringUtils.isBlank(id)){
 			  tsMailListInside.setId(null);
 			}
-		
+			if(StringUtils.isBlank(tsMailListInside.getCreateUser())){
+				tsMailListInside.setCreateUser(SessionUser.getUserId());
+			}
+			if(StringUtils.isBlank(tsMailListInside.getCreateTime())){
+				tsMailListInside.setCreateTime(DateUtils.convertDate2String("yyyy-MM-dd HH:mm:ss", new Date()));
+			}
 			tsMailListInsideService.saveorupdate(tsMailListInside);
 			
 		} catch (Exception e) {
