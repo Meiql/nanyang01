@@ -124,7 +124,7 @@ public class TsMsgChemicalSubstancesController  extends BaseController {
 	 * 新增/修改 操作吗,返回json格式数据
 	 * 
 	 */
-	@RequestMapping("/update")
+	@RequestMapping(value = "/update")
 	@ResponseBody      
 	public ReturnDatas saveorupdate(Model model,TsMsgChemicalSubstances tsMsgChemicalSubstances,HttpServletRequest request,HttpServletResponse response) throws Exception{
 		ReturnDatas returnObject = ReturnDatas.getSuccessReturnDatas();
