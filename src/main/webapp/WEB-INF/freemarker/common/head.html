@@ -68,12 +68,14 @@
               	<#if siteId?? && siteId!=''>
               		<@cms_site id=siteId>
               			<a class="logo" href='javascript:springrain.goTo("${ctx}/s/${siteId!''}/index")'; style="left:0px;">
-              				<img id="siteLogo" src="${ctx}/img/erp_r1_c1.jpg" alt="springrain"  style="height:auto;">
+              				<!-- <img id="siteLogo" src="${ctx}/img/erp_r1_c1.jpg" alt="springrain"  style="height:auto;"> -->
+              				<img id="siteLogo" src="${ctx}/img/nanyang04.png" alt="springrain"  style="height:auto;">
               			</a>
               		</@cms_site>
               	<#else>
               		<a class="logo" href='javascript:springrain.goTo("${ctx}/system/index")'; style="left:0px;">
-              			<img id="siteLogo" src="${ctx}/img/erp_r1_c1.jpg" alt="springrain"  >
+              			<!-- <img id="siteLogo" src="${ctx}/img/erp_r1_c1.jpg" alt="springrain"  > -->
+              			<img id="siteLogo" src="${ctx}/img/nanyang04.png" alt="springrain"  >
               		</a>
               	</#if>
             
