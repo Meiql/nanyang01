@@ -1,0 +1,302 @@
+<#escape x as x?html>
+
+<SCRIPT type="text/javascript">
+<!--
+
+jQuery(document).ready(function(){
+	//回选 下拉框
+	//jQuery("#search_state option[value='是']").prop("selected",true);
+	
+	/*
+	$('.date-picker').datepicker({
+		    autoclose: true,
+		    format: 'yyyy-mm-dd',
+		    language: 'zh-CN'
+		    //,todayBtn: 'linked',
+		    //startDate:new Date(2014,10,27),
+			//endDate:'+60d',
+		    //startDate: '+1d',
+		}).next().on(ace.click_event, function(){
+			$(this).prev().focus();
+		});
+	*/
+	
+	
+	
+	});
+	
+	
+//-->
+</SCRIPT>
+
+
+
+<div class="row">
+	<div class="col-xs-12">
+		<form class="form-horizontal" id="validation-form" method="POST" novalidate="novalidate" action="${ctx}/tsemeplanfiling/update" > 
+			<input type="hidden" id="id" name="id" value="${(returnDatas.data.id)!''}"/>	
+<!--input  hidden  End-->
+			<div class="form-group">
+				<label class="control-label col-xs-12 col-sm-3 no-padding-right" for="company_name" >单位名称</label>
+				<div class="col-xs-12 col-sm-9">
+					<div class="clearfix">
+						<input name="company_name" class="col-xs-12 col-sm-6" id="company_name" value="${(returnDatas.data.company_name)!''}"  type="text" />
+					</div><div class="help-block" for="company_name"></div>
+				</div>
+			</div>
+	        <div class="space-2"></div>
+			<div class="form-group">
+				<label class="control-label col-xs-12 col-sm-3 no-padding-right" for="company_code" >机构代码</label>
+				<div class="col-xs-12 col-sm-9">
+					<div class="clearfix">
+						<input name="company_code" class="col-xs-12 col-sm-6" id="company_code" value="${(returnDatas.data.company_code)!''}"  type="text" />
+					</div><div class="help-block" for="company_code"></div>
+				</div>
+			</div>
+	        <div class="space-2"></div>
+			<div class="form-group">
+				<label class="control-label col-xs-12 col-sm-3 no-padding-right" for="legal_person" >法定代表人</label>
+				<div class="col-xs-12 col-sm-9">
+					<div class="clearfix">
+						<input name="legal_person" class="col-xs-12 col-sm-6" id="legal_person" value="${(returnDatas.data.legal_person)!''}"  type="text" />
+					</div><div class="help-block" for="legal_person"></div>
+				</div>
+			</div>
+	        <div class="space-2"></div>
+			<div class="form-group">
+				<label class="control-label col-xs-12 col-sm-3 no-padding-right" for="legal_person_tel" >法定代表人联系电话</label>
+				<div class="col-xs-12 col-sm-9">
+					<div class="clearfix">
+						<input name="legal_person_tel" class="col-xs-12 col-sm-6" id="legal_person_tel" value="${(returnDatas.data.legal_person_tel)!''}"  type="text" />
+					</div><div class="help-block" for="legal_person_tel"></div>
+				</div>
+			</div>
+	        <div class="space-2"></div>
+			<div class="form-group">
+				<label class="control-label col-xs-12 col-sm-3 no-padding-right" for="contacts_people" >联系人</label>
+				<div class="col-xs-12 col-sm-9">
+					<div class="clearfix">
+						<input name="contacts_people" class="col-xs-12 col-sm-6" id="contacts_people" value="${(returnDatas.data.contacts_people)!''}"  type="text" />
+					</div><div class="help-block" for="contacts_people"></div>
+				</div>
+			</div>
+	        <div class="space-2"></div>
+			<div class="form-group">
+				<label class="control-label col-xs-12 col-sm-3 no-padding-right" for="contacts_people_tel" >联系人联系电话</label>
+				<div class="col-xs-12 col-sm-9">
+					<div class="clearfix">
+						<input name="contacts_people_tel" class="col-xs-12 col-sm-6" id="contacts_people_tel" value="${(returnDatas.data.contacts_people_tel)!''}"  type="text" />
+					</div><div class="help-block" for="contacts_people_tel"></div>
+				</div>
+			</div>
+	        <div class="space-2"></div>
+			<div class="form-group">
+				<label class="control-label col-xs-12 col-sm-3 no-padding-right" for="fax" >传真</label>
+				<div class="col-xs-12 col-sm-9">
+					<div class="clearfix">
+						<input name="fax" class="col-xs-12 col-sm-6" id="fax" value="${(returnDatas.data.fax)!''}"  type="text" />
+					</div><div class="help-block" for="fax"></div>
+				</div>
+			</div>
+	        <div class="space-2"></div>
+			<div class="form-group">
+				<label class="control-label col-xs-12 col-sm-3 no-padding-right" for="email" >电子邮件</label>
+				<div class="col-xs-12 col-sm-9">
+					<div class="clearfix">
+						<input name="email" class="col-xs-12 col-sm-6" id="email" value="${(returnDatas.data.email)!''}"  type="text" />
+					</div><div class="help-block" for="email"></div>
+				</div>
+			</div>
+	        <div class="space-2"></div>
+			<div class="form-group">
+				<label class="control-label col-xs-12 col-sm-3 no-padding-right" for="address" >地址</label>
+				<div class="col-xs-12 col-sm-9">
+					<div class="clearfix">
+						<input name="address" class="col-xs-12 col-sm-6" id="address" value="${(returnDatas.data.address)!''}"  type="text" />
+					</div><div class="help-block" for="address"></div>
+				</div>
+			</div>
+	        <div class="space-2"></div>
+			<div class="form-group">
+				<label class="control-label col-xs-12 col-sm-3 no-padding-right" for="center" >经纬度（中心</label>
+				<div class="col-xs-12 col-sm-9">
+					<div class="clearfix">
+						<input name="center" class="col-xs-12 col-sm-6" id="center" value="${(returnDatas.data.center)!''}"  type="text" />
+					</div><div class="help-block" for="center"></div>
+				</div>
+			</div>
+	        <div class="space-2"></div>
+					<!--日期型-->
+			<div class="form-group">
+				<label class="control-label col-xs-12 col-sm-3 no-padding-right" for="signing_date" >签署日期 配合内容使用</label>
+				<div class="col-xs-12 col-sm-9">
+					<div class="clearfix">
+					 <div class="input-group col-xs-12 col-sm-6">
+						<input name="signing_date"  class="form-control date-picker"  id="signing_date" readonly="readonly" value="${(returnDatas.data.signing_date)!''}"  type="text" />
+					        <span class="input-group-addon">
+								<i class="fa fa-calendar bigger-110"></i>
+							</span>
+					   </div>
+					
+					</div><div class="help-block" for="signing_date"></div>
+				</div>
+			</div>
+	        <div class="space-2"></div>
+			<div class="form-group">
+				<label class="control-label col-xs-12 col-sm-3 no-padding-right" for="signing_desc" >签署内容公章等</label>
+				<div class="col-xs-12 col-sm-9">
+					<div class="clearfix">
+						<input name="signing_desc" class="col-xs-12 col-sm-6" id="signing_desc" value="${(returnDatas.data.signing_desc)!''}"  type="text" />
+					</div><div class="help-block" for="signing_desc"></div>
+				</div>
+			</div>
+	        <div class="space-2"></div>
+			<div class="form-group">
+				<label class="control-label col-xs-12 col-sm-3 no-padding-right" for="signing_people" >预案签署人</label>
+				<div class="col-xs-12 col-sm-9">
+					<div class="clearfix">
+						<input name="signing_people" class="col-xs-12 col-sm-6" id="signing_people" value="${(returnDatas.data.signing_people)!''}"  type="text" />
+					</div><div class="help-block" for="signing_people"></div>
+				</div>
+			</div>
+	        <div class="space-2"></div>
+					<!--日期型-->
+			<div class="form-group">
+				<label class="control-label col-xs-12 col-sm-3 no-padding-right" for="delivery_time" >报送时间</label>
+				<div class="col-xs-12 col-sm-9">
+					<div class="clearfix">
+					 <div class="input-group col-xs-12 col-sm-6">
+						<input name="delivery_time"  class="form-control date-picker"  id="delivery_time" readonly="readonly" value="${(returnDatas.data.delivery_time)!''}"  type="text" />
+					        <span class="input-group-addon">
+								<i class="fa fa-calendar bigger-110"></i>
+							</span>
+					   </div>
+					
+					</div><div class="help-block" for="delivery_time"></div>
+				</div>
+			</div>
+	        <div class="space-2"></div>
+			<div class="form-group">
+				<label class="control-label col-xs-12 col-sm-3 no-padding-right" for="file_directory" >预案备案文件目录</label>
+				<div class="col-xs-12 col-sm-9">
+					<div class="clearfix">
+						<input name="file_directory" class="col-xs-12 col-sm-6" id="file_directory" value="${(returnDatas.data.file_directory)!''}"  type="text" />
+					</div><div class="help-block" for="file_directory"></div>
+				</div>
+			</div>
+	        <div class="space-2"></div>
+			<div class="form-group">
+				<label class="control-label col-xs-12 col-sm-3 no-padding-right" for="filing_opinion" >备案意见</label>
+				<div class="col-xs-12 col-sm-9">
+					<div class="clearfix">
+						<input name="filing_opinion" class="col-xs-12 col-sm-6" id="filing_opinion" value="${(returnDatas.data.filing_opinion)!''}"  type="text" />
+					</div><div class="help-block" for="filing_opinion"></div>
+				</div>
+			</div>
+	        <div class="space-2"></div>
+			<div class="form-group">
+				<label class="control-label col-xs-12 col-sm-3 no-padding-right" for="filing_number" >备案编号</label>
+				<div class="col-xs-12 col-sm-9">
+					<div class="clearfix">
+						<input name="filing_number" class="col-xs-12 col-sm-6" id="filing_number" value="${(returnDatas.data.filing_number)!''}"  type="text" />
+					</div><div class="help-block" for="filing_number"></div>
+				</div>
+			</div>
+	        <div class="space-2"></div>
+			<div class="form-group">
+				<label class="control-label col-xs-12 col-sm-3 no-padding-right" for="delivery_company" >报送单位</label>
+				<div class="col-xs-12 col-sm-9">
+					<div class="clearfix">
+						<input name="delivery_company" class="col-xs-12 col-sm-6" id="delivery_company" value="${(returnDatas.data.delivery_company)!''}"  type="text" />
+					</div><div class="help-block" for="delivery_company"></div>
+				</div>
+			</div>
+	        <div class="space-2"></div>
+			<div class="form-group">
+				<label class="control-label col-xs-12 col-sm-3 no-padding-right" for="acceptance_responsible_people" >受理部门负责人</label>
+				<div class="col-xs-12 col-sm-9">
+					<div class="clearfix">
+						<input name="acceptance_responsible_people" class="col-xs-12 col-sm-6" id="acceptance_responsible_people" value="${(returnDatas.data.acceptance_responsible_people)!''}"  type="text" />
+					</div><div class="help-block" for="acceptance_responsible_people"></div>
+				</div>
+			</div>
+	        <div class="space-2"></div>
+			<div class="form-group">
+				<label class="control-label col-xs-12 col-sm-3 no-padding-right" for="acceptance_Agent" >经办人</label>
+				<div class="col-xs-12 col-sm-9">
+					<div class="clearfix">
+						<input name="acceptance_Agent" class="col-xs-12 col-sm-6" id="acceptance_Agent" value="${(returnDatas.data.acceptance_Agent)!''}"  type="text" />
+					</div><div class="help-block" for="acceptance_Agent"></div>
+				</div>
+			</div>
+	        <div class="space-2"></div>
+					<!--日期型-->
+			<div class="form-group">
+				<label class="control-label col-xs-12 col-sm-3 no-padding-right" for="received_date" >收讫日期配合备案意见使用</label>
+				<div class="col-xs-12 col-sm-9">
+					<div class="clearfix">
+					 <div class="input-group col-xs-12 col-sm-6">
+						<input name="received_date"  class="form-control date-picker"  id="received_date" readonly="readonly" value="${(returnDatas.data.received_date)!''}"  type="text" />
+					        <span class="input-group-addon">
+								<i class="fa fa-calendar bigger-110"></i>
+							</span>
+					   </div>
+					
+					</div><div class="help-block" for="received_date"></div>
+				</div>
+			</div>
+	        <div class="space-2"></div>
+			<div class="form-group">
+				<label class="control-label col-xs-12 col-sm-3 no-padding-right" for="plan_name" >预案名称</label>
+				<div class="col-xs-12 col-sm-9">
+					<div class="clearfix">
+						<input name="plan_name" class="col-xs-12 col-sm-6" id="plan_name" value="${(returnDatas.data.plan_name)!''}"  type="text" />
+					</div><div class="help-block" for="plan_name"></div>
+				</div>
+			</div>
+	        <div class="space-2"></div>
+			<div class="form-group">
+				<label class="control-label col-xs-12 col-sm-3 no-padding-right" for="risk_level" >风险级别</label>
+				<div class="col-xs-12 col-sm-9">
+					<div class="clearfix">
+						<input name="risk_level" class="col-xs-12 col-sm-6" id="risk_level" value="${(returnDatas.data.risk_level)!''}"  type="text" />
+					</div><div class="help-block" for="risk_level"></div>
+				</div>
+			</div>
+	        <div class="space-2"></div>
+					<!--日期型-->
+			<div class="form-group">
+				<label class="control-label col-xs-12 col-sm-3 no-padding-right" for="acceptance_date" >受理日期配合备案意见使用</label>
+				<div class="col-xs-12 col-sm-9">
+					<div class="clearfix">
+					 <div class="input-group col-xs-12 col-sm-6">
+						<input name="acceptance_date"  class="form-control date-picker"  id="acceptance_date" readonly="readonly" value="${(returnDatas.data.acceptance_date)!''}"  type="text" />
+					        <span class="input-group-addon">
+								<i class="fa fa-calendar bigger-110"></i>
+							</span>
+					   </div>
+					
+					</div><div class="help-block" for="acceptance_date"></div>
+				</div>
+			</div>
+	        <div class="space-2"></div>
+			<div class="form-group">
+				<label class="control-label col-xs-12 col-sm-3 no-padding-right" for="company_id" >公司id</label>
+				<div class="col-xs-12 col-sm-9">
+					<div class="clearfix">
+						<input name="company_id" class="col-xs-12 col-sm-6" id="company_id" value="${(returnDatas.data.company_id)!''}"  type="text" />
+					</div><div class="help-block" for="company_id"></div>
+				</div>
+			</div>
+	        <div class="space-2"></div>
+		</form>
+		<div class="wizard-actions">
+			<button class="btn btn-success btn-info" data-last="Finish" onclick="commonUpdateForm('validation-form','${ctx}/tsemeplanfiling/list');">
+				保存
+			</button>
+		</div>
+	</div>
+</div>
+
+
+</#escape>

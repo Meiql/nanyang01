@@ -3,8 +3,8 @@ package org.springrain.nybusiness.ergency.service.impl;
 import java.io.File;
 import java.util.List;
 import org.springframework.stereotype.Service;
-import org.springrain.nybusiness.ergency.entity.TsErgencyInvestigation;
-import org.springrain.nybusiness.ergency.service.ITsErgencyInvestigationService;
+import org.springrain.nybusiness.ergency.entity.TsEmeEquSumCategory;
+import org.springrain.nybusiness.ergency.service.ITsEmeEquSumCategoryService;
 import org.springrain.frame.entity.IBaseEntity;
 import org.springrain.frame.util.Finder;
 import org.springrain.frame.util.Page;
@@ -15,33 +15,33 @@ import org.springrain.system.service.BaseSpringrainServiceImpl;
  * TODO 在此加入类描述
  * @copyright {@link 9iu.org}
  * @author springrain<Auto generate>
- * @version  2018-10-30 13:48:27
- * @see org.springrain.nybusiness.ergency.service.impl.TsErgencyInvestigation
+ * @version  2018-10-30 13:45:27
+ * @see org.springrain.nybusiness.ergency.service.impl.TsEmeEquSumCategory
  */
-@Service("tsErgencyInvestigationService")
-public class TsErgencyInvestigationServiceImpl extends BaseSpringrainServiceImpl implements ITsErgencyInvestigationService {
+@Service("tsEmeEquSumCategoryService")
+public class TsEmeEquSumCategoryServiceImpl extends BaseSpringrainServiceImpl implements ITsEmeEquSumCategoryService {
 
    
     @Override
 	public String  save(Object entity ) throws Exception{
-	      TsErgencyInvestigation tsErgencyInvestigation=(TsErgencyInvestigation) entity;
-	       return super.save(tsErgencyInvestigation).toString();
+	      TsEmeEquSumCategory tsEmeEquSumCategory=(TsEmeEquSumCategory) entity;
+	       return super.save(tsEmeEquSumCategory).toString();
 	}
 
     @Override
 	public String  saveorupdate(Object entity ) throws Exception{
-	      TsErgencyInvestigation tsErgencyInvestigation=(TsErgencyInvestigation) entity;
-		 return super.saveorupdate(tsErgencyInvestigation).toString();
+	      TsEmeEquSumCategory tsEmeEquSumCategory=(TsEmeEquSumCategory) entity;
+		 return super.saveorupdate(tsEmeEquSumCategory).toString();
 	}
 	
 	@Override
     public Integer update(IBaseEntity entity ) throws Exception{
-	 TsErgencyInvestigation tsErgencyInvestigation=(TsErgencyInvestigation) entity;
-	return super.update(tsErgencyInvestigation);
+	 TsEmeEquSumCategory tsEmeEquSumCategory=(TsEmeEquSumCategory) entity;
+	return super.update(tsEmeEquSumCategory);
     }
     @Override
-	public TsErgencyInvestigation findTsErgencyInvestigationById(Object id) throws Exception{
-	 return super.findById(id,TsErgencyInvestigation.class);
+	public TsEmeEquSumCategory findTsEmeEquSumCategoryById(Object id) throws Exception{
+	 return super.findById(id,TsEmeEquSumCategory.class);
 	}
 	
 /**

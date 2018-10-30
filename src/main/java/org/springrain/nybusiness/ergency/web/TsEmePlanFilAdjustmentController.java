@@ -16,8 +16,8 @@ import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import org.springrain.nybusiness.ergency.entity.TsErgencyInvestigationType;
-import org.springrain.nybusiness.ergency.service.ITsErgencyInvestigationTypeService;
+import org.springrain.nybusiness.ergency.entity.TsEmePlanFilAdjustment;
+import org.springrain.nybusiness.ergency.service.ITsEmePlanFilAdjustmentService;
 import org.springrain.frame.controller.BaseController;
 import org.springrain.frame.util.GlobalStatic;
 import org.springrain.frame.util.MessageUtils;
@@ -29,16 +29,16 @@ import org.springrain.frame.util.ReturnDatas;
  * TODO 在此加入类描述
  * @copyright {@link 9iu.org}
  * @author springrain<Auto generate>
- * @version  2018-10-30 13:29:10
- * @see org.springrain.nybusiness.ergency.web.TsErgencyInvestigationType
+ * @version  2018-10-30 13:45:45
+ * @see org.springrain.nybusiness.ergency.web.TsEmePlanFilAdjustment
  */
 @Controller
-@RequestMapping(value="/tsergencyinvestigationtype")
-public class TsErgencyInvestigationTypeController  extends BaseController {
+@RequestMapping(value="/tsemeplanfiladjustment")
+public class TsEmePlanFilAdjustmentController  extends BaseController {
 	@Resource
-	private ITsErgencyInvestigationTypeService tsErgencyInvestigationTypeService;
+	private ITsEmePlanFilAdjustmentService tsEmePlanFilAdjustmentService;
 	
-	private String listurl="/nybusiness/ergency/tsergencyinvestigationtype/tsergencyinvestigationtypeList";
+	private String listurl="/nybusiness/ergency/tsemeplanfiladjustment/tsemeplanfiladjustmentList";
 	
 	
 	   
@@ -47,14 +47,14 @@ public class TsErgencyInvestigationTypeController  extends BaseController {
 	 * 
 	 * @param request
 	 * @param model
-	 * @param tsErgencyInvestigationType
+	 * @param tsEmePlanFilAdjustment
 	 * @return
 	 * @throws Exception
 	 */
 	@RequestMapping("/list")
-	public String list(HttpServletRequest request, Model model,TsErgencyInvestigationType tsErgencyInvestigationType) 
+	public String list(HttpServletRequest request, Model model,TsEmePlanFilAdjustment tsEmePlanFilAdjustment) 
 			throws Exception {
-		ReturnDatas returnObject = listjson(request, model, tsErgencyInvestigationType);
+		ReturnDatas returnObject = listjson(request, model, tsEmePlanFilAdjustment);
 		model.addAttribute(GlobalStatic.returnDatas, returnObject);
 		return listurl;
 	}
@@ -64,31 +64,31 @@ public class TsErgencyInvestigationTypeController  extends BaseController {
 	 * 
 	 * @param request
 	 * @param model
-	 * @param tsErgencyInvestigationType
+	 * @param tsEmePlanFilAdjustment
 	 * @return
 	 * @throws Exception
 	 */
 	@RequestMapping("/list/json")
 	public @ResponseBody
-	ReturnDatas listjson(HttpServletRequest request, Model model,TsErgencyInvestigationType tsErgencyInvestigationType) throws Exception{
+	ReturnDatas listjson(HttpServletRequest request, Model model,TsEmePlanFilAdjustment tsEmePlanFilAdjustment) throws Exception{
 		ReturnDatas returnObject = ReturnDatas.getSuccessReturnDatas();
 		// ==构造分页请求
 		Page page = newPage(request);
 		// ==执行分页查询
-		List<TsErgencyInvestigationType> datas=tsErgencyInvestigationTypeService.findListDataByFinder(null,page,TsErgencyInvestigationType.class,tsErgencyInvestigationType);
-			returnObject.setQueryBean(tsErgencyInvestigationType);
+		List<TsEmePlanFilAdjustment> datas=tsEmePlanFilAdjustmentService.findListDataByFinder(null,page,TsEmePlanFilAdjustment.class,tsEmePlanFilAdjustment);
+			returnObject.setQueryBean(tsEmePlanFilAdjustment);
 		returnObject.setPage(page);
 		returnObject.setData(datas);
 		return returnObject;
 	}
 	
 	@RequestMapping("/list/export")
-	public void listexport(HttpServletRequest request,HttpServletResponse response, Model model,TsErgencyInvestigationType tsErgencyInvestigationType) throws Exception{
+	public void listexport(HttpServletRequest request,HttpServletResponse response, Model model,TsEmePlanFilAdjustment tsEmePlanFilAdjustment) throws Exception{
 		// ==构造分页请求
 		Page page = newPage(request);
 	
-		File file = tsErgencyInvestigationTypeService.findDataExportExcel(null,listurl, page,TsErgencyInvestigationType.class,tsErgencyInvestigationType);
-		String fileName="tsErgencyInvestigationType"+GlobalStatic.excelext;
+		File file = tsEmePlanFilAdjustmentService.findDataExportExcel(null,listurl, page,TsEmePlanFilAdjustment.class,tsEmePlanFilAdjustment);
+		String fileName="tsEmePlanFilAdjustment"+GlobalStatic.excelext;
 		downFile(response, file, fileName,true);
 		return;
 	}
@@ -100,7 +100,7 @@ public class TsErgencyInvestigationTypeController  extends BaseController {
 	public String look(Model model,HttpServletRequest request,HttpServletResponse response)  throws Exception {
 		ReturnDatas returnObject = lookjson(model, request, response);
 		model.addAttribute(GlobalStatic.returnDatas, returnObject);
-		return "/nybusiness/ergency/tsergencyinvestigationtype/tsergencyinvestigationtypeLook";
+		return "/nybusiness/ergency/tsemeplanfiladjustment/tsemeplanfiladjustmentLook";
 	}
 
 	
@@ -111,12 +111,10 @@ public class TsErgencyInvestigationTypeController  extends BaseController {
 	public @ResponseBody
 	ReturnDatas lookjson(Model model,HttpServletRequest request,HttpServletResponse response) throws Exception {
 		ReturnDatas returnObject = ReturnDatas.getSuccessReturnDatas();
-		  String  strId=request.getParameter("id");
-		  java.lang.Long id=null;
-		  if(StringUtils.isNotBlank(strId)){
-			 id= java.lang.Long.valueOf(strId.trim());
-		  TsErgencyInvestigationType tsErgencyInvestigationType = tsErgencyInvestigationTypeService.findTsErgencyInvestigationTypeById(id);
-		   returnObject.setData(tsErgencyInvestigationType);
+		java.lang.String id=request.getParameter("id");
+		if(StringUtils.isNotBlank(id)){
+		  TsEmePlanFilAdjustment tsEmePlanFilAdjustment = tsEmePlanFilAdjustmentService.findTsEmePlanFilAdjustmentById(id);
+		   returnObject.setData(tsEmePlanFilAdjustment);
 		}else{
 		returnObject.setStatus(ReturnDatas.ERROR);
 		}
@@ -131,13 +129,17 @@ public class TsErgencyInvestigationTypeController  extends BaseController {
 	 */
 	@RequestMapping("/update")
 	public @ResponseBody
-	ReturnDatas saveorupdate(Model model,TsErgencyInvestigationType tsErgencyInvestigationType,HttpServletRequest request,HttpServletResponse response) throws Exception{
+	ReturnDatas saveorupdate(Model model,TsEmePlanFilAdjustment tsEmePlanFilAdjustment,HttpServletRequest request,HttpServletResponse response) throws Exception{
 		ReturnDatas returnObject = ReturnDatas.getSuccessReturnDatas();
 		returnObject.setMessage(MessageUtils.UPDATE_SUCCESS);
 		try {
 		
+			java.lang.String id =tsEmePlanFilAdjustment.getId();
+			if(StringUtils.isBlank(id)){
+			  tsEmePlanFilAdjustment.setId(null);
+			}
 		
-			tsErgencyInvestigationTypeService.saveorupdate(tsErgencyInvestigationType);
+			tsEmePlanFilAdjustmentService.saveorupdate(tsEmePlanFilAdjustment);
 			
 		} catch (Exception e) {
 			String errorMessage = e.getLocalizedMessage();
@@ -156,7 +158,7 @@ public class TsErgencyInvestigationTypeController  extends BaseController {
 	public String updatepre(Model model,HttpServletRequest request,HttpServletResponse response)  throws Exception{
 		ReturnDatas returnObject = lookjson(model, request, response);
 		model.addAttribute(GlobalStatic.returnDatas, returnObject);
-		return "/nybusiness/ergency/tsergencyinvestigationtype/tsergencyinvestigationtypeCru";
+		return "/nybusiness/ergency/tsemeplanfiladjustment/tsemeplanfiladjustmentCru";
 	}
 	
 	/**
@@ -167,11 +169,9 @@ public class TsErgencyInvestigationTypeController  extends BaseController {
 
 			// 执行删除
 		try {
-		  String  strId=request.getParameter("id");
-		  java.lang.Long id=null;
-		  if(StringUtils.isNotBlank(strId)){
-			 id= java.lang.Long.valueOf(strId.trim());
-				tsErgencyInvestigationTypeService.deleteById(id,TsErgencyInvestigationType.class);
+		java.lang.String id=request.getParameter("id");
+		if(StringUtils.isNotBlank(id)){
+				tsEmePlanFilAdjustmentService.deleteById(id,TsEmePlanFilAdjustment.class);
 				return new ReturnDatas(ReturnDatas.SUCCESS,
 						MessageUtils.DELETE_SUCCESS);
 			} else {
@@ -203,7 +203,7 @@ public class TsErgencyInvestigationTypeController  extends BaseController {
 		}
 		try {
 			List<String> ids = Arrays.asList(rs);
-			tsErgencyInvestigationTypeService.deleteByIds(ids,TsErgencyInvestigationType.class);
+			tsEmePlanFilAdjustmentService.deleteByIds(ids,TsEmePlanFilAdjustment.class);
 		} catch (Exception e) {
 			return new ReturnDatas(ReturnDatas.ERROR,
 					MessageUtils.DELETE_ALL_FAIL);

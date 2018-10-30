@@ -5,7 +5,7 @@
 	<input type="hidden" id="id" name="id" value="${(returnDatas.data.id)!''}"/>	
 <!--input  hidden  End-->
 						<div class="form-group">
-							<label class="control-label col-xs-12 col-sm-3 no-padding-right" for="serial_number" >serial_number</label>
+							<label class="control-label col-xs-12 col-sm-3 no-padding-right" for="serial_number" >序号</label>
 							<div class="col-xs-12 col-sm-9">
 								<div class="clearfix">
 								${(returnDatas.data.serial_number)!''}
@@ -14,7 +14,7 @@
 						</div>
 	                    <div class="space-2"></div>
 						<div class="form-group">
-							<label class="control-label col-xs-12 col-sm-3 no-padding-right" for="category" >category</label>
+							<label class="control-label col-xs-12 col-sm-3 no-padding-right" for="category" >类别</label>
 							<div class="col-xs-12 col-sm-9">
 								<div class="clearfix">
 								${(returnDatas.data.category)!''}
@@ -23,7 +23,7 @@
 						</div>
 	                    <div class="space-2"></div>
 						<div class="form-group">
-							<label class="control-label col-xs-12 col-sm-3 no-padding-right" for="name" >name</label>
+							<label class="control-label col-xs-12 col-sm-3 no-padding-right" for="name" >名称</label>
 							<div class="col-xs-12 col-sm-9">
 								<div class="clearfix">
 								${(returnDatas.data.name)!''}
@@ -32,16 +32,7 @@
 						</div>
 	                    <div class="space-2"></div>
 						<div class="form-group">
-							<label class="control-label col-xs-12 col-sm-3 no-padding-right" for="type_Specifications" >type_Specifications</label>
-							<div class="col-xs-12 col-sm-9">
-								<div class="clearfix">
-								${(returnDatas.data.type_Specifications)!''}
-								</div>
-							</div>
-						</div>
-	                    <div class="space-2"></div>
-						<div class="form-group">
-							<label class="control-label col-xs-12 col-sm-3 no-padding-right" for="quantity" >quantity</label>
+							<label class="control-label col-xs-12 col-sm-3 no-padding-right" for="quantity" >数量</label>
 							<div class="col-xs-12 col-sm-9">
 								<div class="clearfix">
 								${(returnDatas.data.quantity)!''}
@@ -50,7 +41,7 @@
 						</div>
 	                    <div class="space-2"></div>
 						<div class="form-group">
-							<label class="control-label col-xs-12 col-sm-3 no-padding-right" for="unit" >unit</label>
+							<label class="control-label col-xs-12 col-sm-3 no-padding-right" for="unit" >单位</label>
 							<div class="col-xs-12 col-sm-9">
 								<div class="clearfix">
 								${(returnDatas.data.unit)!''}
@@ -59,47 +50,46 @@
 						</div>
 	                    <div class="space-2"></div>
 						<div class="form-group">
-							<label class="control-label col-xs-12 col-sm-3 no-padding-right" for="place" >place</label>
+							<label class="control-label col-xs-12 col-sm-3 no-padding-right" for="outside_tel" >外部供应单位联系方式_联络方式</label>
 							<div class="col-xs-12 col-sm-9">
 								<div class="clearfix">
-								${(returnDatas.data.place)!''}
+								${(returnDatas.data.outside_tel)!''}
 								</div>
 							</div>
 						</div>
 	                    <div class="space-2"></div>
 						<div class="form-group">
-							<label class="control-label col-xs-12 col-sm-3 no-padding-right" for="custodian_or_post" >custodian_or_post</label>
+							<label class="control-label col-xs-12 col-sm-3 no-padding-right" for="outside_people" >外部供应单位联系方式_主要联系人</label>
 							<div class="col-xs-12 col-sm-9">
 								<div class="clearfix">
-								${(returnDatas.data.custodian_or_post)!''}
+								${(returnDatas.data.outside_people)!''}
 								</div>
 							</div>
 						</div>
 	                    <div class="space-2"></div>
 						<div class="form-group">
-							<label class="control-label col-xs-12 col-sm-3 no-padding-right" for="user_or_posts" >user_or_posts</label>
+							<label class="control-label col-xs-12 col-sm-3 no-padding-right" for="outside_company" >外部供应单位名称</label>
 							<div class="col-xs-12 col-sm-9">
 								<div class="clearfix">
-								${(returnDatas.data.user_or_posts)!''}
-								</div>
-							</div>
-						</div>
-	                    <div class="space-2"></div>
-					<!--日期型-->
-						<div class="form-group">
-							<label class="control-label col-xs-12 col-sm-3 no-padding-right" for="final_validity_time" >final_validity_time</label>
-							<div class="col-xs-12 col-sm-9">
-								<div class="clearfix">
-									${((returnDatas.data.final_validity_time)?string('yyyy-MM-dd'))!'' }
+								${(returnDatas.data.outside_company)!''}
 								</div>
 							</div>
 						</div>
 	                    <div class="space-2"></div>
 						<div class="form-group">
-							<label class="control-label col-xs-12 col-sm-3 no-padding-right" for="remarks" >remarks</label>
+							<label class="control-label col-xs-12 col-sm-3 no-padding-right" for="out_Equipment" >设备来源_厂外设备</label>
 							<div class="col-xs-12 col-sm-9">
 								<div class="clearfix">
-								${(returnDatas.data.remarks)!''}
+								${(returnDatas.data.out_Equipment)!''}
+								</div>
+							</div>
+						</div>
+	                    <div class="space-2"></div>
+						<div class="form-group">
+							<label class="control-label col-xs-12 col-sm-3 no-padding-right" for="in_Equipment" >设备来源_厂内设备</label>
+							<div class="col-xs-12 col-sm-9">
+								<div class="clearfix">
+								${(returnDatas.data.in_Equipment)!''}
 								</div>
 							</div>
 						</div>

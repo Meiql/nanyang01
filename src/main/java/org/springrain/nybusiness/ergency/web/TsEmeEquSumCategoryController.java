@@ -16,8 +16,8 @@ import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import org.springrain.nybusiness.ergency.entity.TsErgencyInvestigationType;
-import org.springrain.nybusiness.ergency.service.ITsErgencyInvestigationTypeService;
+import org.springrain.nybusiness.ergency.entity.TsEmeEquSumCategory;
+import org.springrain.nybusiness.ergency.service.ITsEmeEquSumCategoryService;
 import org.springrain.frame.controller.BaseController;
 import org.springrain.frame.util.GlobalStatic;
 import org.springrain.frame.util.MessageUtils;
@@ -29,16 +29,16 @@ import org.springrain.frame.util.ReturnDatas;
  * TODO 在此加入类描述
  * @copyright {@link 9iu.org}
  * @author springrain<Auto generate>
- * @version  2018-10-30 13:29:10
- * @see org.springrain.nybusiness.ergency.web.TsErgencyInvestigationType
+ * @version  2018-10-30 13:45:27
+ * @see org.springrain.nybusiness.ergency.web.TsEmeEquSumCategory
  */
 @Controller
-@RequestMapping(value="/tsergencyinvestigationtype")
-public class TsErgencyInvestigationTypeController  extends BaseController {
+@RequestMapping(value="/tsemeequsumcategory")
+public class TsEmeEquSumCategoryController  extends BaseController {
 	@Resource
-	private ITsErgencyInvestigationTypeService tsErgencyInvestigationTypeService;
+	private ITsEmeEquSumCategoryService tsEmeEquSumCategoryService;
 	
-	private String listurl="/nybusiness/ergency/tsergencyinvestigationtype/tsergencyinvestigationtypeList";
+	private String listurl="/nybusiness/ergency/tsemeequsumcategory/tsemeequsumcategoryList";
 	
 	
 	   
@@ -47,14 +47,14 @@ public class TsErgencyInvestigationTypeController  extends BaseController {
 	 * 
 	 * @param request
 	 * @param model
-	 * @param tsErgencyInvestigationType
+	 * @param tsEmeEquSumCategory
 	 * @return
 	 * @throws Exception
 	 */
 	@RequestMapping("/list")
-	public String list(HttpServletRequest request, Model model,TsErgencyInvestigationType tsErgencyInvestigationType) 
+	public String list(HttpServletRequest request, Model model,TsEmeEquSumCategory tsEmeEquSumCategory) 
 			throws Exception {
-		ReturnDatas returnObject = listjson(request, model, tsErgencyInvestigationType);
+		ReturnDatas returnObject = listjson(request, model, tsEmeEquSumCategory);
 		model.addAttribute(GlobalStatic.returnDatas, returnObject);
 		return listurl;
 	}
@@ -64,31 +64,31 @@ public class TsErgencyInvestigationTypeController  extends BaseController {
 	 * 
 	 * @param request
 	 * @param model
-	 * @param tsErgencyInvestigationType
+	 * @param tsEmeEquSumCategory
 	 * @return
 	 * @throws Exception
 	 */
 	@RequestMapping("/list/json")
 	public @ResponseBody
-	ReturnDatas listjson(HttpServletRequest request, Model model,TsErgencyInvestigationType tsErgencyInvestigationType) throws Exception{
+	ReturnDatas listjson(HttpServletRequest request, Model model,TsEmeEquSumCategory tsEmeEquSumCategory) throws Exception{
 		ReturnDatas returnObject = ReturnDatas.getSuccessReturnDatas();
 		// ==构造分页请求
 		Page page = newPage(request);
 		// ==执行分页查询
-		List<TsErgencyInvestigationType> datas=tsErgencyInvestigationTypeService.findListDataByFinder(null,page,TsErgencyInvestigationType.class,tsErgencyInvestigationType);
-			returnObject.setQueryBean(tsErgencyInvestigationType);
+		List<TsEmeEquSumCategory> datas=tsEmeEquSumCategoryService.findListDataByFinder(null,page,TsEmeEquSumCategory.class,tsEmeEquSumCategory);
+			returnObject.setQueryBean(tsEmeEquSumCategory);
 		returnObject.setPage(page);
 		returnObject.setData(datas);
 		return returnObject;
 	}
 	
 	@RequestMapping("/list/export")
-	public void listexport(HttpServletRequest request,HttpServletResponse response, Model model,TsErgencyInvestigationType tsErgencyInvestigationType) throws Exception{
+	public void listexport(HttpServletRequest request,HttpServletResponse response, Model model,TsEmeEquSumCategory tsEmeEquSumCategory) throws Exception{
 		// ==构造分页请求
 		Page page = newPage(request);
 	
-		File file = tsErgencyInvestigationTypeService.findDataExportExcel(null,listurl, page,TsErgencyInvestigationType.class,tsErgencyInvestigationType);
-		String fileName="tsErgencyInvestigationType"+GlobalStatic.excelext;
+		File file = tsEmeEquSumCategoryService.findDataExportExcel(null,listurl, page,TsEmeEquSumCategory.class,tsEmeEquSumCategory);
+		String fileName="tsEmeEquSumCategory"+GlobalStatic.excelext;
 		downFile(response, file, fileName,true);
 		return;
 	}
@@ -100,7 +100,7 @@ public class TsErgencyInvestigationTypeController  extends BaseController {
 	public String look(Model model,HttpServletRequest request,HttpServletResponse response)  throws Exception {
 		ReturnDatas returnObject = lookjson(model, request, response);
 		model.addAttribute(GlobalStatic.returnDatas, returnObject);
-		return "/nybusiness/ergency/tsergencyinvestigationtype/tsergencyinvestigationtypeLook";
+		return "/nybusiness/ergency/tsemeequsumcategory/tsemeequsumcategoryLook";
 	}
 
 	
@@ -115,8 +115,8 @@ public class TsErgencyInvestigationTypeController  extends BaseController {
 		  java.lang.Long id=null;
 		  if(StringUtils.isNotBlank(strId)){
 			 id= java.lang.Long.valueOf(strId.trim());
-		  TsErgencyInvestigationType tsErgencyInvestigationType = tsErgencyInvestigationTypeService.findTsErgencyInvestigationTypeById(id);
-		   returnObject.setData(tsErgencyInvestigationType);
+		  TsEmeEquSumCategory tsEmeEquSumCategory = tsEmeEquSumCategoryService.findTsEmeEquSumCategoryById(id);
+		   returnObject.setData(tsEmeEquSumCategory);
 		}else{
 		returnObject.setStatus(ReturnDatas.ERROR);
 		}
@@ -131,13 +131,13 @@ public class TsErgencyInvestigationTypeController  extends BaseController {
 	 */
 	@RequestMapping("/update")
 	public @ResponseBody
-	ReturnDatas saveorupdate(Model model,TsErgencyInvestigationType tsErgencyInvestigationType,HttpServletRequest request,HttpServletResponse response) throws Exception{
+	ReturnDatas saveorupdate(Model model,TsEmeEquSumCategory tsEmeEquSumCategory,HttpServletRequest request,HttpServletResponse response) throws Exception{
 		ReturnDatas returnObject = ReturnDatas.getSuccessReturnDatas();
 		returnObject.setMessage(MessageUtils.UPDATE_SUCCESS);
 		try {
 		
 		
-			tsErgencyInvestigationTypeService.saveorupdate(tsErgencyInvestigationType);
+			tsEmeEquSumCategoryService.saveorupdate(tsEmeEquSumCategory);
 			
 		} catch (Exception e) {
 			String errorMessage = e.getLocalizedMessage();
@@ -156,7 +156,7 @@ public class TsErgencyInvestigationTypeController  extends BaseController {
 	public String updatepre(Model model,HttpServletRequest request,HttpServletResponse response)  throws Exception{
 		ReturnDatas returnObject = lookjson(model, request, response);
 		model.addAttribute(GlobalStatic.returnDatas, returnObject);
-		return "/nybusiness/ergency/tsergencyinvestigationtype/tsergencyinvestigationtypeCru";
+		return "/nybusiness/ergency/tsemeequsumcategory/tsemeequsumcategoryCru";
 	}
 	
 	/**
@@ -171,7 +171,7 @@ public class TsErgencyInvestigationTypeController  extends BaseController {
 		  java.lang.Long id=null;
 		  if(StringUtils.isNotBlank(strId)){
 			 id= java.lang.Long.valueOf(strId.trim());
-				tsErgencyInvestigationTypeService.deleteById(id,TsErgencyInvestigationType.class);
+				tsEmeEquSumCategoryService.deleteById(id,TsEmeEquSumCategory.class);
 				return new ReturnDatas(ReturnDatas.SUCCESS,
 						MessageUtils.DELETE_SUCCESS);
 			} else {
@@ -203,7 +203,7 @@ public class TsErgencyInvestigationTypeController  extends BaseController {
 		}
 		try {
 			List<String> ids = Arrays.asList(rs);
-			tsErgencyInvestigationTypeService.deleteByIds(ids,TsErgencyInvestigationType.class);
+			tsEmeEquSumCategoryService.deleteByIds(ids,TsEmeEquSumCategory.class);
 		} catch (Exception e) {
 			return new ReturnDatas(ReturnDatas.ERROR,
 					MessageUtils.DELETE_ALL_FAIL);

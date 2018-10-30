@@ -3,8 +3,8 @@ package org.springrain.nybusiness.ergency.service.impl;
 import java.io.File;
 import java.util.List;
 import org.springframework.stereotype.Service;
-import org.springrain.nybusiness.ergency.entity.TsErgencyInvestigation;
-import org.springrain.nybusiness.ergency.service.ITsErgencyInvestigationService;
+import org.springrain.nybusiness.ergency.entity.TsEmePlanFiling;
+import org.springrain.nybusiness.ergency.service.ITsEmePlanFilingService;
 import org.springrain.frame.entity.IBaseEntity;
 import org.springrain.frame.util.Finder;
 import org.springrain.frame.util.Page;
@@ -15,33 +15,33 @@ import org.springrain.system.service.BaseSpringrainServiceImpl;
  * TODO 在此加入类描述
  * @copyright {@link 9iu.org}
  * @author springrain<Auto generate>
- * @version  2018-10-30 13:48:27
- * @see org.springrain.nybusiness.ergency.service.impl.TsErgencyInvestigation
+ * @version  2018-10-30 13:46:35
+ * @see org.springrain.nybusiness.ergency.service.impl.TsEmePlanFiling
  */
-@Service("tsErgencyInvestigationService")
-public class TsErgencyInvestigationServiceImpl extends BaseSpringrainServiceImpl implements ITsErgencyInvestigationService {
+@Service("tsEmePlanFilingService")
+public class TsEmePlanFilingServiceImpl extends BaseSpringrainServiceImpl implements ITsEmePlanFilingService {
 
    
     @Override
 	public String  save(Object entity ) throws Exception{
-	      TsErgencyInvestigation tsErgencyInvestigation=(TsErgencyInvestigation) entity;
-	       return super.save(tsErgencyInvestigation).toString();
+	      TsEmePlanFiling tsEmePlanFiling=(TsEmePlanFiling) entity;
+	       return super.save(tsEmePlanFiling).toString();
 	}
 
     @Override
 	public String  saveorupdate(Object entity ) throws Exception{
-	      TsErgencyInvestigation tsErgencyInvestigation=(TsErgencyInvestigation) entity;
-		 return super.saveorupdate(tsErgencyInvestigation).toString();
+	      TsEmePlanFiling tsEmePlanFiling=(TsEmePlanFiling) entity;
+		 return super.saveorupdate(tsEmePlanFiling).toString();
 	}
 	
 	@Override
     public Integer update(IBaseEntity entity ) throws Exception{
-	 TsErgencyInvestigation tsErgencyInvestigation=(TsErgencyInvestigation) entity;
-	return super.update(tsErgencyInvestigation);
+	 TsEmePlanFiling tsEmePlanFiling=(TsEmePlanFiling) entity;
+	return super.update(tsEmePlanFiling);
     }
     @Override
-	public TsErgencyInvestigation findTsErgencyInvestigationById(Object id) throws Exception{
-	 return super.findById(id,TsErgencyInvestigation.class);
+	public TsEmePlanFiling findTsEmePlanFilingById(Object id) throws Exception{
+	 return super.findById(id,TsEmePlanFiling.class);
 	}
 	
 /**

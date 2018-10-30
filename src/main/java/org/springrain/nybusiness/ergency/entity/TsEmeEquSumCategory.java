@@ -13,19 +13,19 @@ import org.springrain.frame.entity.BaseEntity;
  * TODO 在此加入类描述
  * @copyright {@link 9iu.org}
  * @author springrain<Auto generate>
- * @version  2018-10-30 13:29:10
- * @see org.springrain.nybusiness.ergency.entity.TsErgencyInvestigationType
+ * @version  2018-10-30 13:45:27
+ * @see org.springrain.nybusiness.ergency.entity.TsEmeEquSumCategory
  */
-@Table(name="ts_ergency_investigation_type")
-public class TsErgencyInvestigationType  extends BaseEntity {
+@Table(name="ts_eme_equ_sum_category")
+public class TsEmeEquSumCategory  extends BaseEntity {
 	
 	private static final long serialVersionUID = 1L;
 
 	//alias
 	/*
-	public static final String TABLE_ALIAS = "F1码表  应急资源现状调查表 类别  1.设备2物资3场所";
+	public static final String TABLE_ALIAS = "F2 码表应急救援设施设备汇总表_类别码表";
 	public static final String ALIAS_ID = "id";
-	public static final String ALIAS_NAME = "name";
+	public static final String ALIAS_NAME = "类别名称";
     */
 	//date formats
 	
@@ -35,17 +35,17 @@ public class TsErgencyInvestigationType  extends BaseEntity {
 	 */
 	private java.lang.Long id;
 	/**
-	 * name
+	 * 类别名称
 	 */
 	private java.lang.String name;
 	//columns END 数据库字段结束
 	
 	//concstructor
 
-	public TsErgencyInvestigationType(){
+	public TsEmeEquSumCategory(){
 	}
 
-	public TsErgencyInvestigationType(
+	public TsEmeEquSumCategory(
 		java.lang.Long id
 	){
 		this.id = id;
@@ -57,7 +57,7 @@ public class TsErgencyInvestigationType  extends BaseEntity {
 	}
 	
 	@Id
-     @WhereSQL(sql="id=:TsErgencyInvestigationType_id")
+     @WhereSQL(sql="id=:TsEmeEquSumCategory_id")
 	public java.lang.Long getId() {
 		return this.id;
 	}
@@ -68,7 +68,7 @@ public class TsErgencyInvestigationType  extends BaseEntity {
 		this.name = value;
 	}
 	
-     @WhereSQL(sql="name=:TsErgencyInvestigationType_name")
+     @WhereSQL(sql="name=:TsEmeEquSumCategory_name")
 	public java.lang.String getName() {
 		return this.name;
 	}
@@ -76,7 +76,7 @@ public class TsErgencyInvestigationType  extends BaseEntity {
 	public String toString() {
 		return new StringBuffer()
 			.append("id[").append(getId()).append("],")
-			.append("name[").append(getName()).append("],")
+			.append("类别名称[").append(getName()).append("],")
 			.toString();
 	}
 	
@@ -87,9 +87,9 @@ public class TsErgencyInvestigationType  extends BaseEntity {
 	}
 	
 	public boolean equals(Object obj) {
-		if(obj instanceof TsErgencyInvestigationType == false) return false;
+		if(obj instanceof TsEmeEquSumCategory == false) return false;
 		if(this == obj) return true;
-		TsErgencyInvestigationType other = (TsErgencyInvestigationType)obj;
+		TsEmeEquSumCategory other = (TsEmeEquSumCategory)obj;
 		return new EqualsBuilder()
 			.append(getId(),other.getId())
 			.isEquals();

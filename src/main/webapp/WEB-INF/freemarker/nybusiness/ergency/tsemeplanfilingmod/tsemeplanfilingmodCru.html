@@ -1,0 +1,137 @@
+<#escape x as x?html>
+
+<SCRIPT type="text/javascript">
+<!--
+
+jQuery(document).ready(function(){
+	//回选 下拉框
+	//jQuery("#search_state option[value='是']").prop("selected",true);
+	
+	/*
+	$('.date-picker').datepicker({
+		    autoclose: true,
+		    format: 'yyyy-mm-dd',
+		    language: 'zh-CN'
+		    //,todayBtn: 'linked',
+		    //startDate:new Date(2014,10,27),
+			//endDate:'+60d',
+		    //startDate: '+1d',
+		}).next().on(ace.click_event, function(){
+			$(this).prev().focus();
+		});
+	*/
+	
+	
+	
+	});
+	
+	
+//-->
+</SCRIPT>
+
+
+
+<div class="row">
+	<div class="col-xs-12">
+		<form class="form-horizontal" id="validation-form" method="POST" novalidate="novalidate" action="${ctx}/tsemeplanfilingmod/update" > 
+			<input type="hidden" id="id" name="id" value="${(returnDatas.data.id)!''}"/>	
+<!--input  hidden  End-->
+			<div class="form-group">
+				<label class="control-label col-xs-12 col-sm-3 no-padding-right" for="company_name" >公司名称</label>
+				<div class="col-xs-12 col-sm-9">
+					<div class="clearfix">
+						<input name="company_name" class="col-xs-12 col-sm-6" id="company_name" value="${(returnDatas.data.company_name)!''}"  type="text" />
+					</div><div class="help-block" for="company_name"></div>
+				</div>
+			</div>
+	        <div class="space-2"></div>
+			<div class="form-group">
+				<label class="control-label col-xs-12 col-sm-3 no-padding-right" for="contact" >联系</label>
+				<div class="col-xs-12 col-sm-9">
+					<div class="clearfix">
+						<input name="contact" class="col-xs-12 col-sm-6" id="contact" value="${(returnDatas.data.contact)!''}"  type="text" />
+					</div><div class="help-block" for="contact"></div>
+				</div>
+			</div>
+	        <div class="space-2"></div>
+			<div class="form-group">
+				<label class="control-label col-xs-12 col-sm-3 no-padding-right" for="contact_tel" >联系电话</label>
+				<div class="col-xs-12 col-sm-9">
+					<div class="clearfix">
+						<input name="contact_tel" class="col-xs-12 col-sm-6" id="contact_tel" value="${(returnDatas.data.contact_tel)!''}"  type="text" />
+					</div><div class="help-block" for="contact_tel"></div>
+				</div>
+			</div>
+	        <div class="space-2"></div>
+			<div class="form-group">
+				<label class="control-label col-xs-12 col-sm-3 no-padding-right" for="beian_number" >备案编号</label>
+				<div class="col-xs-12 col-sm-9">
+					<div class="clearfix">
+						<input name="beian_number" class="col-xs-12 col-sm-6" id="beian_number" value="${(returnDatas.data.beian_number)!''}"  type="text" />
+					</div><div class="help-block" for="beian_number"></div>
+				</div>
+			</div>
+	        <div class="space-2"></div>
+			<div class="form-group">
+				<label class="control-label col-xs-12 col-sm-3 no-padding-right" for="adjustment_id" >补充调整内容 关联到补充调整表</label>
+				<div class="col-xs-12 col-sm-9">
+					<div class="clearfix">
+						<input name="adjustment_id" class="col-xs-12 col-sm-6" id="adjustment_id" value="${(returnDatas.data.adjustment_id)!''}"  type="text" />
+					</div><div class="help-block" for="adjustment_id"></div>
+				</div>
+			</div>
+	        <div class="space-2"></div>
+			<div class="form-group">
+				<label class="control-label col-xs-12 col-sm-3 no-padding-right" for="adjustment_reason" >申请调整或补充理由</label>
+				<div class="col-xs-12 col-sm-9">
+					<div class="clearfix">
+						<input name="adjustment_reason" class="col-xs-12 col-sm-6" id="adjustment_reason" value="${(returnDatas.data.adjustment_reason)!''}"  type="text" />
+					</div><div class="help-block" for="adjustment_reason"></div>
+				</div>
+			</div>
+	        <div class="space-2"></div>
+					<!--日期型-->
+			<div class="form-group">
+				<label class="control-label col-xs-12 col-sm-3 no-padding-right" for="apply_date" >申请日期</label>
+				<div class="col-xs-12 col-sm-9">
+					<div class="clearfix">
+					 <div class="input-group col-xs-12 col-sm-6">
+						<input name="apply_date"  class="form-control date-picker"  id="apply_date" readonly="readonly" value="${(returnDatas.data.apply_date)!''}"  type="text" />
+					        <span class="input-group-addon">
+								<i class="fa fa-calendar bigger-110"></i>
+							</span>
+					   </div>
+					
+					</div><div class="help-block" for="apply_date"></div>
+				</div>
+			</div>
+	        <div class="space-2"></div>
+			<div class="form-group">
+				<label class="control-label col-xs-12 col-sm-3 no-padding-right" for="company_seal" >单位公章</label>
+				<div class="col-xs-12 col-sm-9">
+					<div class="clearfix">
+						<input name="company_seal" class="col-xs-12 col-sm-6" id="company_seal" value="${(returnDatas.data.company_seal)!''}"  type="text" />
+					</div><div class="help-block" for="company_seal"></div>
+				</div>
+			</div>
+	        <div class="space-2"></div>
+			<div class="form-group">
+				<label class="control-label col-xs-12 col-sm-3 no-padding-right" for="company_id" >公司id</label>
+				<div class="col-xs-12 col-sm-9">
+					<div class="clearfix">
+						<input name="company_id" class="col-xs-12 col-sm-6" id="company_id" value="${(returnDatas.data.company_id)!''}"  type="text" />
+					</div><div class="help-block" for="company_id"></div>
+				</div>
+			</div>
+	        <div class="space-2"></div>
+		</form>
+		<div class="wizard-actions">
+			<button class="btn btn-success btn-info" data-last="Finish" onclick="commonUpdateForm('validation-form','${ctx}/tsemeplanfilingmod/list');">
+				保存
+			</button>
+		</div>
+	</div>
+</div>
+
+
+</#escape>

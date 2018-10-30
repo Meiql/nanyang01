@@ -4,9 +4,9 @@ import org.springrain.nybusiness.ergency.entity.TsErgencyInvestigation;
 import org.springrain.system.service.IBaseSpringrainService;
 /**
  * TODO 在此加入类描述
- * @copyright {@link weicms.net}
+ * @copyright {@link 9iu.org}
  * @author springrain<Auto generate>
- * @version  2018-10-27 09:41:01
+ * @version  2018-10-30 13:48:27
  * @see org.springrain.nybusiness.ergency.service.TsErgencyInvestigation
  */
 public interface ITsErgencyInvestigationService extends IBaseSpringrainService {

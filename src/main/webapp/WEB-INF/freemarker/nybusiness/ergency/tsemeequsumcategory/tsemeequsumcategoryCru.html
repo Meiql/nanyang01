@@ -33,11 +33,11 @@ jQuery(document).ready(function(){
 
 <div class="row">
 	<div class="col-xs-12">
-		<form class="form-horizontal" id="validation-form" method="POST" novalidate="novalidate" action="${ctx}/tsergencyinvestigationtype/update" > 
+		<form class="form-horizontal" id="validation-form" method="POST" novalidate="novalidate" action="${ctx}/tsemeequsumcategory/update" > 
 			<input type="hidden" id="id" name="id" value="${(returnDatas.data.id)!''}"/>	
 <!--input  hidden  End-->
 			<div class="form-group">
-				<label class="control-label col-xs-12 col-sm-3 no-padding-right" for="name" >name</label>
+				<label class="control-label col-xs-12 col-sm-3 no-padding-right" for="name" >类别名称</label>
 				<div class="col-xs-12 col-sm-9">
 					<div class="clearfix">
 						<input name="name" class="col-xs-12 col-sm-6" id="name" value="${(returnDatas.data.name)!''}"  type="text" />
@@ -47,7 +47,7 @@ jQuery(document).ready(function(){
 	        <div class="space-2"></div>
 		</form>
 		<div class="wizard-actions">
-			<button class="btn btn-success btn-info" data-last="Finish" onclick="commonUpdateForm('validation-form','${ctx}/tsergencyinvestigationtype/list');">
+			<button class="btn btn-success btn-info" data-last="Finish" onclick="commonUpdateForm('validation-form','${ctx}/tsemeequsumcategory/list');">
 				保存
 			</button>
 		</div>

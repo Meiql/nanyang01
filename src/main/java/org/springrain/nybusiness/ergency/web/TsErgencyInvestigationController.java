@@ -11,22 +11,25 @@ import javax.servlet.http.HttpServletResponse;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.WebDataBinder;
+import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+
+import org.springrain.nybusiness.ergency.entity.TsErgencyInvestigation;
+import org.springrain.nybusiness.ergency.service.ITsErgencyInvestigationService;
 import org.springrain.frame.controller.BaseController;
 import org.springrain.frame.util.GlobalStatic;
 import org.springrain.frame.util.MessageUtils;
 import org.springrain.frame.util.Page;
 import org.springrain.frame.util.ReturnDatas;
-import org.springrain.nybusiness.ergency.entity.TsErgencyInvestigation;
-import org.springrain.nybusiness.ergency.service.ITsErgencyInvestigationService;
 
 
 /**
  * TODO 在此加入类描述
- * @copyright {@link weicms.net}
+ * @copyright {@link 9iu.org}
  * @author springrain<Auto generate>
- * @version  2018-10-27 09:41:01
+ * @version  2018-10-30 13:48:27
  * @see org.springrain.nybusiness.ergency.web.TsErgencyInvestigation
  */
 @Controller
@@ -66,8 +69,8 @@ public class TsErgencyInvestigationController  extends BaseController {
 	 * @throws Exception
 	 */
 	@RequestMapping("/list/json")
-	@ResponseBody   
-	public  ReturnDatas listjson(HttpServletRequest request, Model model,TsErgencyInvestigation tsErgencyInvestigation) throws Exception{
+	public @ResponseBody
+	ReturnDatas listjson(HttpServletRequest request, Model model,TsErgencyInvestigation tsErgencyInvestigation) throws Exception{
 		ReturnDatas returnObject = ReturnDatas.getSuccessReturnDatas();
 		// ==构造分页请求
 		Page page = newPage(request);
@@ -105,8 +108,8 @@ public class TsErgencyInvestigationController  extends BaseController {
 	 * 查看的Json格式数据,为APP端提供数据
 	 */
 	@RequestMapping(value = "/look/json")
-	@ResponseBody      
-	public ReturnDatas lookjson(Model model,HttpServletRequest request,HttpServletResponse response) throws Exception {
+	public @ResponseBody
+	ReturnDatas lookjson(Model model,HttpServletRequest request,HttpServletResponse response) throws Exception {
 		ReturnDatas returnObject = ReturnDatas.getSuccessReturnDatas();
 		  String  strId=request.getParameter("id");
 		  java.lang.Long id=null;
@@ -127,8 +130,8 @@ public class TsErgencyInvestigationController  extends BaseController {
 	 * 
 	 */
 	@RequestMapping("/update")
-	@ResponseBody      
-	public ReturnDatas saveorupdate(Model model,TsErgencyInvestigation tsErgencyInvestigation,HttpServletRequest request,HttpServletResponse response) throws Exception{
+	public @ResponseBody
+	ReturnDatas saveorupdate(Model model,TsErgencyInvestigation tsErgencyInvestigation,HttpServletRequest request,HttpServletResponse response) throws Exception{
 		ReturnDatas returnObject = ReturnDatas.getSuccessReturnDatas();
 		returnObject.setMessage(MessageUtils.UPDATE_SUCCESS);
 		try {
@@ -137,7 +140,8 @@ public class TsErgencyInvestigationController  extends BaseController {
 			tsErgencyInvestigationService.saveorupdate(tsErgencyInvestigation);
 			
 		} catch (Exception e) {
-			logger.error(e.getMessage(),e);
+			String errorMessage = e.getLocalizedMessage();
+			logger.error(errorMessage);
 			returnObject.setStatus(ReturnDatas.ERROR);
 			returnObject.setMessage(MessageUtils.UPDATE_ERROR);
 		}
@@ -159,8 +163,7 @@ public class TsErgencyInvestigationController  extends BaseController {
 	 * 删除操作
 	 */
 	@RequestMapping(value="/delete")
-	@ResponseBody      
-	public  ReturnDatas delete(HttpServletRequest request) throws Exception {
+	public @ResponseBody ReturnDatas delete(HttpServletRequest request) throws Exception {
 
 			// 执行删除
 		try {
@@ -169,9 +172,11 @@ public class TsErgencyInvestigationController  extends BaseController {
 		  if(StringUtils.isNotBlank(strId)){
 			 id= java.lang.Long.valueOf(strId.trim());
 				tsErgencyInvestigationService.deleteById(id,TsErgencyInvestigation.class);
-				return new ReturnDatas(ReturnDatas.SUCCESS,MessageUtils.DELETE_SUCCESS);
+				return new ReturnDatas(ReturnDatas.SUCCESS,
+						MessageUtils.DELETE_SUCCESS);
 			} else {
-				return new ReturnDatas(ReturnDatas.WARNING,MessageUtils.DELETE_WARNING);
+				return new ReturnDatas(ReturnDatas.WARNING,
+						MessageUtils.DELETE_WARNING);
 			}
 		} catch (Exception e) {
 			logger.error(e.getMessage(), e);
@@ -184,24 +189,27 @@ public class TsErgencyInvestigationController  extends BaseController {
 	 * 
 	 */
 	@RequestMapping("/delete/more")
-	@ResponseBody      
-	public ReturnDatas deleteMore(HttpServletRequest request, Model model) {
+	public @ResponseBody
+	ReturnDatas deleteMore(HttpServletRequest request, Model model) {
 		String records = request.getParameter("records");
 		if(StringUtils.isBlank(records)){
-			 return new ReturnDatas(ReturnDatas.ERROR,MessageUtils.DELETE_ALL_FAIL);
+			 return new ReturnDatas(ReturnDatas.ERROR,
+					MessageUtils.DELETE_ALL_FAIL);
 		}
 		String[] rs = records.split(",");
 		if (rs == null || rs.length < 1) {
-			return new ReturnDatas(ReturnDatas.ERROR,MessageUtils.DELETE_NULL_FAIL);
+			return new ReturnDatas(ReturnDatas.ERROR,
+					MessageUtils.DELETE_NULL_FAIL);
 		}
 		try {
 			List<String> ids = Arrays.asList(rs);
 			tsErgencyInvestigationService.deleteByIds(ids,TsErgencyInvestigation.class);
 		} catch (Exception e) {
-			logger.error(e.getMessage(), e);
-			return new ReturnDatas(ReturnDatas.ERROR,MessageUtils.DELETE_ALL_FAIL);
+			return new ReturnDatas(ReturnDatas.ERROR,
+					MessageUtils.DELETE_ALL_FAIL);
 		}
-		return new ReturnDatas(ReturnDatas.SUCCESS,MessageUtils.DELETE_ALL_SUCCESS);
+		return new ReturnDatas(ReturnDatas.SUCCESS,
+				MessageUtils.DELETE_ALL_SUCCESS);
 		
 		
 	}
