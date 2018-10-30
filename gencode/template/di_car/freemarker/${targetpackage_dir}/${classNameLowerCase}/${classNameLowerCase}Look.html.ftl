@@ -1,69 +1,47 @@
-${r'<#ftl output_format="HTML" auto_esc=true>'}
-${r"<@h.commonHead"} title="后台管理系统" keywords="开源,永久免费" description="springrain开源系统管理后台"/>
-
+${r"<#escape x as x?html>"}
 <#assign className = table.className>   
-<#assign tableName = table.tableAlias>   
 <#assign classNameLower = className?uncap_first>  
 <#assign classNameLowerCase = className?lower_case>
 <#assign from = basepackage?last_index_of(".")>
 <#assign rootPagefloder = basepackage?substring(basepackage?last_index_of(".")+1)>
-
-</head>
-<body>
-	<div class="layui-layout layui-layout-admin">
-		${r"<@h.naviHeader />"}${r"<@h.leftMenu />"}
-		<!-- 主体内容开始 -->
-			<div class="layui-tab layui-tab-brief">
-				<ul class="layui-tab-title site-demo-title">
-		            <li class="layui-this">
-		            </li>
-		             <li style="float:right;">
-				        <button type="button" onclick="history.go(-1)" class="layui-btn layui-btn-small" style="margin-top:8px;"><i class="layui-icon layui-icon-specil">&#xe603;</i>返回</button>
-		             </li>
-	       		</ul>
-				
-				<div class="layui-body layui-tab-content site-demo-body">
-					<div class="layui-tab-item layui-show">
-							<div class="layui-main">
-						          <div id="LAY_preview" class="layui-my-form">
-						          				<header class="larry-personal-tit">
-													<span>添加${tableName}</span>
-												</header>
-												<div class="larry-personal-body clearfix changepwd">
-													<form id="validForm" class="layui-form <!--  -->"  method="post" action="${r"${ctx}"}/${classNameLowerCase}/update">
-													<#list table.columns as column>
-														    <#if !column.pk>
-																<#assign columnValue = "("+classNameLower+"."+column.columnNameFirstLower+")!''">
-																<#if column.isDateTimeColumn>
-																	<!--日期型-->
-																	<#assign columnDataValue = column.columnNameFirstLower+")?string('yyyy-MM-dd'))!'' ">
-																	<div class="layui-form-item col-lg-6">
-																		<label class="layui-form-label">${column.columnAlias}*</label>
-																		<div class="layui-inline col-lg-5">  
-																			${r"${((returnDatas.data."}${columnDataValue}${r"}"}
-																		</div>
-																		<div class="layui-inline valid-info"></div>
-																	</div>
-																<#else>
-																	<div class="layui-form-item col-lg-6">
-																		<label class="layui-form-label">${column.columnAlias}*</label>
-																		<div class="layui-inline col-lg-5">  
-																			${r"${(returnDatas.data."}${column.columnNameFirstLower}${r")!''}"}
-																		</div>
-																		<div class="layui-inline valid-info"></div>
-																	</div>
-																</#if>
-															</#if>
-													</#list>
-													</form>
-												</div>
-								  </div>
+<div class="row">
+	<div class="col-xs-12">
+		<!--input  hidden  Start-->
+	<#list table.columns as column>
+		<#if column.pk>
+			<#assign columnValue = "("+classNameLower+"."+column.columnNameFirstLower+")!''">
+	<input type="hidden" id="${column.columnNameFirstLower}" name="${column.columnNameFirstLower}" value="${r"${(returnDatas.data."}${column.columnNameFirstLower}${r")!''}"}"/>	
+		</#if>
+	</#list>
+<!--input  hidden  End-->
+			<#list table.columns as column>
+			  <#if !column.pk>
+				<#assign columnValue = "("+classNameLower+"."+column.columnNameFirstLower+")!''">
+		         <#if column.isDateTimeColumn>
+					<!--日期型-->
+					<#assign columnDataValue = column.columnNameFirstLower+")?string('yyyy-MM-dd'))!'' ">
+						<div class="form-group">
+							<label class="control-label col-xs-12 col-sm-3 no-padding-right" for="${column.columnNameFirstLower}" >${column.columnAlias}</label>
+							<div class="col-xs-12 col-sm-9">
+								<div class="clearfix">
+									${r"${((returnDatas.data."}${columnDataValue}${r"}"}
+								</div>
 							</div>
-					</div>
-			</div>
-		</div>
-		<!-- 主体内容结束 -->
-		${r"<@h.footer />"}
-	</div>
-</body>
-</html>
+						</div>
+	                    <div class="space-2"></div>
+					<#else>
+						<div class="form-group">
+							<label class="control-label col-xs-12 col-sm-3 no-padding-right" for="${column.columnNameFirstLower}" >${column.columnAlias}</label>
+							<div class="col-xs-12 col-sm-9">
+								<div class="clearfix">
+								${r"${(returnDatas.data."}${column.columnNameFirstLower}${r")!''}"}
+								</div>
+							</div>
+						</div>
+	                    <div class="space-2"></div>
+					</#if>
+				</#if>
+				</#list>
+	</div><!-- /.col -->
+</div>
+${r"</#escape>"}
