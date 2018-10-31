@@ -3,8 +3,8 @@ package org.springrain.nybusiness.ergency.service.impl;
 import java.io.File;
 import java.util.List;
 import org.springframework.stereotype.Service;
-import org.springrain.nybusiness.ergency.entity.TsErgencyInvestigationType;
-import org.springrain.nybusiness.ergency.service.ITsErgencyInvestigationTypeService;
+import org.springrain.nybusiness.ergency.entity.TsEmePlanFilingMod;
+import org.springrain.nybusiness.ergency.service.ITsEmePlanFilingModService;
 import org.springrain.frame.entity.IBaseEntity;
 import org.springrain.frame.util.Finder;
 import org.springrain.frame.util.Page;
@@ -15,33 +15,33 @@ import org.springrain.system.service.BaseSpringrainServiceImpl;
  * TODO 在此加入类描述
  * @copyright {@link weicms.net}
  * @author springrain<Auto generate>
- * @version  2018-10-31 10:30:53
- * @see org.springrain.nybusiness.ergency.service.impl.TsErgencyInvestigationType
+ * @version  2018-10-31 10:32:07
+ * @see org.springrain.nybusiness.ergency.service.impl.TsEmePlanFilingMod
  */
-@Service("tsErgencyInvestigationTypeService")
-public class TsErgencyInvestigationTypeServiceImpl extends BaseSpringrainServiceImpl implements ITsErgencyInvestigationTypeService {
+@Service("tsEmePlanFilingModService")
+public class TsEmePlanFilingModServiceImpl extends BaseSpringrainServiceImpl implements ITsEmePlanFilingModService {
 
    
     @Override
 	public String  save(Object entity ) throws Exception{
-	      TsErgencyInvestigationType tsErgencyInvestigationType=(TsErgencyInvestigationType) entity;
-	       return super.save(tsErgencyInvestigationType).toString();
+	      TsEmePlanFilingMod tsEmePlanFilingMod=(TsEmePlanFilingMod) entity;
+	       return super.save(tsEmePlanFilingMod).toString();
 	}
 
     @Override
 	public String  saveorupdate(Object entity ) throws Exception{
-	      TsErgencyInvestigationType tsErgencyInvestigationType=(TsErgencyInvestigationType) entity;
-		 return super.saveorupdate(tsErgencyInvestigationType).toString();
+	      TsEmePlanFilingMod tsEmePlanFilingMod=(TsEmePlanFilingMod) entity;
+		 return super.saveorupdate(tsEmePlanFilingMod).toString();
 	}
 	
 	@Override
     public Integer update(IBaseEntity entity ) throws Exception{
-	 TsErgencyInvestigationType tsErgencyInvestigationType=(TsErgencyInvestigationType) entity;
-	return super.update(tsErgencyInvestigationType);
+	 TsEmePlanFilingMod tsEmePlanFilingMod=(TsEmePlanFilingMod) entity;
+	return super.update(tsEmePlanFilingMod);
     }
     @Override
-	public TsErgencyInvestigationType findTsErgencyInvestigationTypeById(Object id) throws Exception{
-	 return super.findById(id,TsErgencyInvestigationType.class);
+	public TsEmePlanFilingMod findTsEmePlanFilingModById(Object id) throws Exception{
+	 return super.findById(id,TsEmePlanFilingMod.class);
 	}
 	
 /**

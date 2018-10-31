@@ -16,8 +16,8 @@ import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import org.springrain.nybusiness.ergency.entity.TsErgencyInvestigationType;
-import org.springrain.nybusiness.ergency.service.ITsErgencyInvestigationTypeService;
+import org.springrain.nybusiness.ergency.entity.TsEmePlanFiling;
+import org.springrain.nybusiness.ergency.service.ITsEmePlanFilingService;
 import org.springrain.frame.controller.BaseController;
 import org.springrain.frame.util.GlobalStatic;
 import org.springrain.frame.util.MessageUtils;
@@ -29,16 +29,16 @@ import org.springrain.frame.util.ReturnDatas;
  * TODO 在此加入类描述
  * @copyright {@link weicms.net}
  * @author springrain<Auto generate>
- * @version  2018-10-31 10:30:53
- * @see org.springrain.nybusiness.ergency.web.TsErgencyInvestigationType
+ * @version  2018-10-31 10:32:14
+ * @see org.springrain.nybusiness.ergency.web.TsEmePlanFiling
  */
 @Controller
-@RequestMapping(value="/tsergencyinvestigationtype")
-public class TsErgencyInvestigationTypeController  extends BaseController {
+@RequestMapping(value="/tsemeplanfiling")
+public class TsEmePlanFilingController  extends BaseController {
 	@Resource
-	private ITsErgencyInvestigationTypeService tsErgencyInvestigationTypeService;
+	private ITsEmePlanFilingService tsEmePlanFilingService;
 	
-	private String listurl="/nybusiness/ergency/tsergencyinvestigationtype/tsergencyinvestigationtypeList";
+	private String listurl="/nybusiness/ergency/tsemeplanfiling/tsemeplanfilingList";
 	
 	
 	   
@@ -47,14 +47,14 @@ public class TsErgencyInvestigationTypeController  extends BaseController {
 	 * 
 	 * @param request
 	 * @param model
-	 * @param tsErgencyInvestigationType
+	 * @param tsEmePlanFiling
 	 * @return
 	 * @throws Exception
 	 */
 	@RequestMapping("/list")
-	public String list(HttpServletRequest request, Model model,TsErgencyInvestigationType tsErgencyInvestigationType) 
+	public String list(HttpServletRequest request, Model model,TsEmePlanFiling tsEmePlanFiling) 
 			throws Exception {
-		ReturnDatas returnObject = listjson(request, model, tsErgencyInvestigationType);
+		ReturnDatas returnObject = listjson(request, model, tsEmePlanFiling);
 		model.addAttribute(GlobalStatic.returnDatas, returnObject);
 		return listurl;
 	}
@@ -64,31 +64,31 @@ public class TsErgencyInvestigationTypeController  extends BaseController {
 	 * 
 	 * @param request
 	 * @param model
-	 * @param tsErgencyInvestigationType
+	 * @param tsEmePlanFiling
 	 * @return
 	 * @throws Exception
 	 */
 	@RequestMapping("/list/json")
 	@ResponseBody   
-	public  ReturnDatas listjson(HttpServletRequest request, Model model,TsErgencyInvestigationType tsErgencyInvestigationType) throws Exception{
+	public  ReturnDatas listjson(HttpServletRequest request, Model model,TsEmePlanFiling tsEmePlanFiling) throws Exception{
 		ReturnDatas returnObject = ReturnDatas.getSuccessReturnDatas();
 		// ==构造分页请求
 		Page page = newPage(request);
 		// ==执行分页查询
-		List<TsErgencyInvestigationType> datas=tsErgencyInvestigationTypeService.findListDataByFinder(null,page,TsErgencyInvestigationType.class,tsErgencyInvestigationType);
-			returnObject.setQueryBean(tsErgencyInvestigationType);
+		List<TsEmePlanFiling> datas=tsEmePlanFilingService.findListDataByFinder(null,page,TsEmePlanFiling.class,tsEmePlanFiling);
+			returnObject.setQueryBean(tsEmePlanFiling);
 		returnObject.setPage(page);
 		returnObject.setData(datas);
 		return returnObject;
 	}
 	
 	@RequestMapping("/list/export")
-	public void listexport(HttpServletRequest request,HttpServletResponse response, Model model,TsErgencyInvestigationType tsErgencyInvestigationType) throws Exception{
+	public void listexport(HttpServletRequest request,HttpServletResponse response, Model model,TsEmePlanFiling tsEmePlanFiling) throws Exception{
 		// ==构造分页请求
 		Page page = newPage(request);
 	
-		File file = tsErgencyInvestigationTypeService.findDataExportExcel(null,listurl, page,TsErgencyInvestigationType.class,tsErgencyInvestigationType);
-		String fileName="tsErgencyInvestigationType"+GlobalStatic.excelext;
+		File file = tsEmePlanFilingService.findDataExportExcel(null,listurl, page,TsEmePlanFiling.class,tsEmePlanFiling);
+		String fileName="tsEmePlanFiling"+GlobalStatic.excelext;
 		downFile(response, file, fileName,true);
 		return;
 	}
@@ -100,7 +100,7 @@ public class TsErgencyInvestigationTypeController  extends BaseController {
 	public String look(Model model,HttpServletRequest request,HttpServletResponse response)  throws Exception {
 		ReturnDatas returnObject = lookjson(model, request, response);
 		model.addAttribute(GlobalStatic.returnDatas, returnObject);
-		return "/nybusiness/ergency/tsergencyinvestigationtype/tsergencyinvestigationtypeLook";
+		return "/nybusiness/ergency/tsemeplanfiling/tsemeplanfilingLook";
 	}
 
 	
@@ -111,12 +111,10 @@ public class TsErgencyInvestigationTypeController  extends BaseController {
 	@ResponseBody      
 	public ReturnDatas lookjson(Model model,HttpServletRequest request,HttpServletResponse response) throws Exception {
 		ReturnDatas returnObject = ReturnDatas.getSuccessReturnDatas();
-		  String  strId=request.getParameter("id");
-		  java.lang.Long id=null;
-		  if(StringUtils.isNotBlank(strId)){
-			 id= java.lang.Long.valueOf(strId.trim());
-		  TsErgencyInvestigationType tsErgencyInvestigationType = tsErgencyInvestigationTypeService.findTsErgencyInvestigationTypeById(id);
-		   returnObject.setData(tsErgencyInvestigationType);
+		java.lang.String id=request.getParameter("id");
+		if(StringUtils.isNotBlank(id)){
+		  TsEmePlanFiling tsEmePlanFiling = tsEmePlanFilingService.findTsEmePlanFilingById(id);
+		   returnObject.setData(tsEmePlanFiling);
 		}else{
 		returnObject.setStatus(ReturnDatas.ERROR);
 		}
@@ -131,13 +129,17 @@ public class TsErgencyInvestigationTypeController  extends BaseController {
 	 */
 	@RequestMapping("/update")
 	@ResponseBody      
-	public ReturnDatas saveorupdate(Model model,TsErgencyInvestigationType tsErgencyInvestigationType,HttpServletRequest request,HttpServletResponse response) throws Exception{
+	public ReturnDatas saveorupdate(Model model,TsEmePlanFiling tsEmePlanFiling,HttpServletRequest request,HttpServletResponse response) throws Exception{
 		ReturnDatas returnObject = ReturnDatas.getSuccessReturnDatas();
 		returnObject.setMessage(MessageUtils.UPDATE_SUCCESS);
 		try {
 		
+			java.lang.String id =tsEmePlanFiling.getId();
+			if(StringUtils.isBlank(id)){
+			  tsEmePlanFiling.setId(null);
+			}
 		
-			tsErgencyInvestigationTypeService.saveorupdate(tsErgencyInvestigationType);
+			tsEmePlanFilingService.saveorupdate(tsEmePlanFiling);
 			
 		} catch (Exception e) {
 			logger.error(e.getMessage(),e);
@@ -155,7 +157,7 @@ public class TsErgencyInvestigationTypeController  extends BaseController {
 	public String updatepre(Model model,HttpServletRequest request,HttpServletResponse response)  throws Exception{
 		ReturnDatas returnObject = lookjson(model, request, response);
 		model.addAttribute(GlobalStatic.returnDatas, returnObject);
-		return "/nybusiness/ergency/tsergencyinvestigationtype/tsergencyinvestigationtypeCru";
+		return "/nybusiness/ergency/tsemeplanfiling/tsemeplanfilingCru";
 	}
 	
 	/**
@@ -167,11 +169,9 @@ public class TsErgencyInvestigationTypeController  extends BaseController {
 
 			// 执行删除
 		try {
-		  String  strId=request.getParameter("id");
-		  java.lang.Long id=null;
-		  if(StringUtils.isNotBlank(strId)){
-			 id= java.lang.Long.valueOf(strId.trim());
-				tsErgencyInvestigationTypeService.deleteById(id,TsErgencyInvestigationType.class);
+		java.lang.String id=request.getParameter("id");
+		if(StringUtils.isNotBlank(id)){
+				tsEmePlanFilingService.deleteById(id,TsEmePlanFiling.class);
 				return new ReturnDatas(ReturnDatas.SUCCESS,MessageUtils.DELETE_SUCCESS);
 			} else {
 				return new ReturnDatas(ReturnDatas.WARNING,MessageUtils.DELETE_WARNING);
@@ -199,7 +199,7 @@ public class TsErgencyInvestigationTypeController  extends BaseController {
 		}
 		try {
 			List<String> ids = Arrays.asList(rs);
-			tsErgencyInvestigationTypeService.deleteByIds(ids,TsErgencyInvestigationType.class);
+			tsEmePlanFilingService.deleteByIds(ids,TsEmePlanFiling.class);
 		} catch (Exception e) {
 			logger.error(e.getMessage(), e);
 			return new ReturnDatas(ReturnDatas.ERROR,MessageUtils.DELETE_ALL_FAIL);

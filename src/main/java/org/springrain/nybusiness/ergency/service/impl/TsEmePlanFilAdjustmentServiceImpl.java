@@ -3,8 +3,8 @@ package org.springrain.nybusiness.ergency.service.impl;
 import java.io.File;
 import java.util.List;
 import org.springframework.stereotype.Service;
-import org.springrain.nybusiness.ergency.entity.TsErgencyInvestigationType;
-import org.springrain.nybusiness.ergency.service.ITsErgencyInvestigationTypeService;
+import org.springrain.nybusiness.ergency.entity.TsEmePlanFilAdjustment;
+import org.springrain.nybusiness.ergency.service.ITsEmePlanFilAdjustmentService;
 import org.springrain.frame.entity.IBaseEntity;
 import org.springrain.frame.util.Finder;
 import org.springrain.frame.util.Page;
@@ -15,33 +15,33 @@ import org.springrain.system.service.BaseSpringrainServiceImpl;
  * TODO 在此加入类描述
  * @copyright {@link weicms.net}
  * @author springrain<Auto generate>
- * @version  2018-10-31 10:30:53
- * @see org.springrain.nybusiness.ergency.service.impl.TsErgencyInvestigationType
+ * @version  2018-10-31 10:32:34
+ * @see org.springrain.nybusiness.ergency.service.impl.TsEmePlanFilAdjustment
  */
-@Service("tsErgencyInvestigationTypeService")
-public class TsErgencyInvestigationTypeServiceImpl extends BaseSpringrainServiceImpl implements ITsErgencyInvestigationTypeService {
+@Service("tsEmePlanFilAdjustmentService")
+public class TsEmePlanFilAdjustmentServiceImpl extends BaseSpringrainServiceImpl implements ITsEmePlanFilAdjustmentService {
 
    
     @Override
 	public String  save(Object entity ) throws Exception{
-	      TsErgencyInvestigationType tsErgencyInvestigationType=(TsErgencyInvestigationType) entity;
-	       return super.save(tsErgencyInvestigationType).toString();
+	      TsEmePlanFilAdjustment tsEmePlanFilAdjustment=(TsEmePlanFilAdjustment) entity;
+	       return super.save(tsEmePlanFilAdjustment).toString();
 	}
 
     @Override
 	public String  saveorupdate(Object entity ) throws Exception{
-	      TsErgencyInvestigationType tsErgencyInvestigationType=(TsErgencyInvestigationType) entity;
-		 return super.saveorupdate(tsErgencyInvestigationType).toString();
+	      TsEmePlanFilAdjustment tsEmePlanFilAdjustment=(TsEmePlanFilAdjustment) entity;
+		 return super.saveorupdate(tsEmePlanFilAdjustment).toString();
 	}
 	
 	@Override
     public Integer update(IBaseEntity entity ) throws Exception{
-	 TsErgencyInvestigationType tsErgencyInvestigationType=(TsErgencyInvestigationType) entity;
-	return super.update(tsErgencyInvestigationType);
+	 TsEmePlanFilAdjustment tsEmePlanFilAdjustment=(TsEmePlanFilAdjustment) entity;
+	return super.update(tsEmePlanFilAdjustment);
     }
     @Override
-	public TsErgencyInvestigationType findTsErgencyInvestigationTypeById(Object id) throws Exception{
-	 return super.findById(id,TsErgencyInvestigationType.class);
+	public TsEmePlanFilAdjustment findTsEmePlanFilAdjustmentById(Object id) throws Exception{
+	 return super.findById(id,TsEmePlanFilAdjustment.class);
 	}
 	
 /**

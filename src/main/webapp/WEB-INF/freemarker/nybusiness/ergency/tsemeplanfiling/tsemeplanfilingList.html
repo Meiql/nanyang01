@@ -1,0 +1,260 @@
+<#ftl output_format="HTML" auto_esc=true>
+<@h.commonHead title="后台管理系统" keywords="开源,永久免费" description="springrain开源系统管理后台"/>
+<script src="${ctx}/js/custom/common/form.js"></script>
+
+<script>
+	var _state;
+	jQuery(function(){ 
+		_state="${(returnDatas.queryBean.active)!''}";
+		jQuery("#active").val(_state);
+		/*
+		全选、反选
+		*/
+		jQuery("#checkAll").bind('click',function(){
+			var _is_check=jQuery(this).get(0).checked;
+			jQuery("input[name='check_li']").each(function(_i,_o){
+				jQuery(_o).get(0).checked=_is_check;
+			});
+		});
+	});
+	function del(_id){
+		springrain.mydelete(_id,"${ctx}/tsemeplanfiling/delete");
+	}
+</script>
+
+</head>
+<body>
+	<div class="layui-layout layui-layout-admin">
+		<@h.naviHeader /><@h.leftMenu />
+			<!-- 主体内容开始 -->
+			<div class="layui-tab layui-tab-brief">
+				<ul class="layui-tab-title site-demo-title">
+		             <li class="layui-this">
+
+		             </li>
+					 <li style="float:right;">
+		             	<@shiro.hasPermission name="/tsemeplanfiling/update" >
+		             		<button type="button"   class="layui-btn layui-btn-small" data-action="${ctx}/tsemeplanfiling/update/pre"><i class="layui-icon layui-icon-specil">&#xe61f;</i>新增</button>
+		             	</@shiro.hasPermission>
+		             	<@shiro.hasPermission name="/tsemeplanfiling/list/export" >
+				        	<button type="button"   class="layui-btn layui-btn-small"><i class="layui-icon layui-icon-specil">&#xe609;</i>导出</button>
+				        </@shiro.hasPermission>
+		                <button type="button"  class="layui-btn layui-btn-warm layui-btn-small"><i class="layui-icon layui-icon-specil">&#xe601;</i>导入</button>
+		                <@shiro.hasPermission name="/tsemeplanfiling/delete" >
+		               		 <button type="button"  class="layui-btn layui-btn-danger layui-btn-small"><i class="layui-icon">&#xe640;</i>批量删除</button>
+		                </@shiro.hasPermission>
+		             </li>
+	       		</ul>
+				
+				<div class="layui-body layui-tab-content site-demo-body">
+					<div class="layui-tab-item layui-show">
+							<div class="layui-main">
+						          <div id="LAY_preview">
+						          <!-- 查询  开始 -->
+							          <form class="layui-form layui-form-pane" id="searchForm" action="${ctx}/tsemeplanfiling/list" method="post">
+							          <input type="hidden" name="pageIndex" id="pageIndex" value="${(returnDatas.page.pageIndex)!'1'}" /> 
+							          <input type="hidden" name="sort" id="page_sort" value="${(returnDatas.page.sort)!'desc'}" />
+							          <input type="hidden" name="order" id="page_order" value="${(returnDatas.page.order)!'id'}" />
+									  <table class="layui-table search-wrap">
+									  	<colgroup>
+										    <col width="">
+										    <col width="150">
+										</colgroup>
+							          	<tbody>
+							          		<tr>
+							          			<th colspan="2">企业事业单位环境应急预案备案表搜索</th>
+							          		</tr>
+							          		<tr>
+							          			<td>
+							          				<div class="layui-inline">
+									                    <label class="layui-form-label">名称</label>
+									                    <div class="layui-input-inline">
+									                           <input type="text" name="name" value="${(returnDatas.queryBean.name)!''}" placeholder="请输入名称 " class="layui-input">
+									                    </div>
+							                		</div>
+									                 <div class="layui-inline">
+									                    <label class="layui-form-label">是否可用</label>
+									                    <div class="layui-input-inline">
+									                        <select name="active" id="active" class="layui-input">
+									                          <option value="">==请选择==</option>
+															  <option value="1">是</option>
+															  <option value="0">否</option>
+															</select>   
+									                    </div>
+									                </div>
+							          			</td>
+							          			<td>
+							          			   <div class="layui-inline">
+									                    <button class="layui-btn" type="button" onclick="springrain.commonSubmit('searchForm');"><i class="layui-icon" style="top:4px;right:5px;">&#xe615;</i>搜索</button>
+									                </div>
+							          			</td>
+							          		</tr>
+							          	</tbody>
+							          </table>
+									  <!-- 查询  结束 -->
+									</form>
+									<!--start_export-->
+									<table class="layui-table" lay-even>
+										  <colgroup>
+										    <col width="40">
+										    <col width="120">
+										    <col>
+										  </colgroup>
+										  <!--end_no_export-->
+										  <!--first_start_export-->
+											<thead>
+												<tr>
+													<th colspan="9">企业事业单位环境应急预案备案表列表<font id='recordsView' class='recorsView'>共<span></span>页,共 <span></span>条记录</font></th>
+												</tr>
+												<tr>
+												  <!--first_start_no_export-->
+												  <th class="center">
+															<input id="checkAll"  type="checkbox">
+												  </th>
+												  <th>操作</th>
+												  <!--first_end_no_export-->
+														<th id="th_company_name" >单位名称</th>
+														<th id="th_company_code" >机构代码</th>
+														<th id="th_legal_person" >法定代表人</th>
+														<th id="th_legal_person_tel" >法定代表人联系电话</th>
+														<th id="th_contacts_people" >联系人</th>
+														<th id="th_contacts_people_tel" >联系人联系电话</th>
+														<th id="th_fax" >传真</th>
+														<th id="th_email" >电子邮件</th>
+														<th id="th_address" >地址</th>
+														<th id="th_center" >经纬度（中心</th>
+														<th id="th_signing_date" >签署日期 配合内容使用</th>
+														<th id="th_signing_desc" >签署内容公章等</th>
+														<th id="th_signing_people" >预案签署人</th>
+														<th id="th_delivery_time" >报送时间</th>
+														<th id="th_file_directory" >预案备案文件目录</th>
+														<th id="th_filing_opinion" >备案意见</th>
+														<th id="th_filing_number" >备案编号</th>
+														<th id="th_delivery_company" >报送单位</th>
+														<th id="th_acceptance_responsible_people" >受理部门负责人</th>
+														<th id="th_acceptance_Agent" >经办人</th>
+														<th id="th_received_date" >收讫日期配合备案意见使用</th>
+														<th id="th_plan_name" >预案名称</th>
+														<th id="th_risk_level" >风险级别</th>
+														<th id="th_acceptance_date" >受理日期配合备案意见使用</th>
+														<th id="th_company_id" >公司id</th>
+												</tr> 
+											</thead>
+										  <!--first_end_export-->
+										  <!--start_export-->
+										   <tbody>
+										    <#if (returnDatas.data??)&&(returnDatas.data?size>0)> 
+										    	<#list	returnDatas.data as _data>
+										    		<!--start_no_export-->
+													<tr class="">
+														<td class="center">
+																<input name="check_li" value="${_data.id}"  type="checkbox">
+														</td>
+														<td>
+															<@shiro.hasPermission name="/tsemeplanfiling/update" >
+								                           		 <a href="#" data-action="${ctx}/tsemeplanfiling/update/pre?id=" class="layui-btn layui-btn-normal layui-btn-mini">编辑</a>
+								                            </@shiro.hasPermission>
+								                            <@shiro.hasPermission name="/tsemeplanfiling/delete" >
+								                            	<a href="javascript:del('${(_data.id)!''}')" class="layui-btn layui-btn-danger layui-btn-mini ajax-delete">删除</a>
+								                            </@shiro.hasPermission>
+														</td>
+														<!--end_no_export-->
+														<td >
+															${(_data.company_name)!''}
+														</td>
+														<td >
+															${(_data.company_code)!''}
+														</td>
+														<td >
+															${(_data.legal_person)!''}
+														</td>
+														<td >
+															${(_data.legal_person_tel)!''}
+														</td>
+														<td >
+															${(_data.contacts_people)!''}
+														</td>
+														<td >
+															${(_data.contacts_people_tel)!''}
+														</td>
+														<td >
+															${(_data.fax)!''}
+														</td>
+														<td >
+															${(_data.email)!''}
+														</td>
+														<td >
+															${(_data.address)!''}
+														</td>
+														<td >
+															${(_data.center)!''}
+														</td>
+														<td >
+															<!--日期型-->
+														${((_data.signing_date)?string('yyyy-MM-dd'))!''}
+														</td>
+														<td >
+															${(_data.signing_desc)!''}
+														</td>
+														<td >
+															${(_data.signing_people)!''}
+														</td>
+														<td >
+															<!--日期型-->
+														${((_data.delivery_time)?string('yyyy-MM-dd'))!''}
+														</td>
+														<td >
+															${(_data.file_directory)!''}
+														</td>
+														<td >
+															${(_data.filing_opinion)!''}
+														</td>
+														<td >
+															${(_data.filing_number)!''}
+														</td>
+														<td >
+															${(_data.delivery_company)!''}
+														</td>
+														<td >
+															${(_data.acceptance_responsible_people)!''}
+														</td>
+														<td >
+															${(_data.acceptance_Agent)!''}
+														</td>
+														<td >
+															<!--日期型-->
+														${((_data.received_date)?string('yyyy-MM-dd'))!''}
+														</td>
+														<td >
+															${(_data.plan_name)!''}
+														</td>
+														<td >
+															${(_data.risk_level)!''}
+														</td>
+														<td >
+															<!--日期型-->
+														${((_data.acceptance_date)?string('yyyy-MM-dd'))!''}
+														</td>
+														<td >
+															${(_data.company_id)!''}
+														</td>
+													</tr>
+												</#list>
+											 </#if>
+											</tbody>
+										</table>
+									<#if returnDatas.page??> 
+										<div id='laypageDiv'></div>
+										<@h.layPage page=returnDatas.page /> 
+									</#if>
+								</div>
+							</div>
+						</div>
+				</div>
+			</div>
+		<!-- 主体内容结束 -->
+		<@h.footer />
+	</div>
+</body>
+</html>
+

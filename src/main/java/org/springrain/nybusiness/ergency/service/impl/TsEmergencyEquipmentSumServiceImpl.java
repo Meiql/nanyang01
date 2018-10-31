@@ -3,8 +3,8 @@ package org.springrain.nybusiness.ergency.service.impl;
 import java.io.File;
 import java.util.List;
 import org.springframework.stereotype.Service;
-import org.springrain.nybusiness.ergency.entity.TsErgencyInvestigationType;
-import org.springrain.nybusiness.ergency.service.ITsErgencyInvestigationTypeService;
+import org.springrain.nybusiness.ergency.entity.TsEmergencyEquipmentSum;
+import org.springrain.nybusiness.ergency.service.ITsEmergencyEquipmentSumService;
 import org.springrain.frame.entity.IBaseEntity;
 import org.springrain.frame.util.Finder;
 import org.springrain.frame.util.Page;
@@ -15,33 +15,33 @@ import org.springrain.system.service.BaseSpringrainServiceImpl;
  * TODO 在此加入类描述
  * @copyright {@link weicms.net}
  * @author springrain<Auto generate>
- * @version  2018-10-31 10:30:53
- * @see org.springrain.nybusiness.ergency.service.impl.TsErgencyInvestigationType
+ * @version  2018-10-31 10:31:39
+ * @see org.springrain.nybusiness.ergency.service.impl.TsEmergencyEquipmentSum
  */
-@Service("tsErgencyInvestigationTypeService")
-public class TsErgencyInvestigationTypeServiceImpl extends BaseSpringrainServiceImpl implements ITsErgencyInvestigationTypeService {
+@Service("tsEmergencyEquipmentSumService")
+public class TsEmergencyEquipmentSumServiceImpl extends BaseSpringrainServiceImpl implements ITsEmergencyEquipmentSumService {
 
    
     @Override
 	public String  save(Object entity ) throws Exception{
-	      TsErgencyInvestigationType tsErgencyInvestigationType=(TsErgencyInvestigationType) entity;
-	       return super.save(tsErgencyInvestigationType).toString();
+	      TsEmergencyEquipmentSum tsEmergencyEquipmentSum=(TsEmergencyEquipmentSum) entity;
+	       return super.save(tsEmergencyEquipmentSum).toString();
 	}
 
     @Override
 	public String  saveorupdate(Object entity ) throws Exception{
-	      TsErgencyInvestigationType tsErgencyInvestigationType=(TsErgencyInvestigationType) entity;
-		 return super.saveorupdate(tsErgencyInvestigationType).toString();
+	      TsEmergencyEquipmentSum tsEmergencyEquipmentSum=(TsEmergencyEquipmentSum) entity;
+		 return super.saveorupdate(tsEmergencyEquipmentSum).toString();
 	}
 	
 	@Override
     public Integer update(IBaseEntity entity ) throws Exception{
-	 TsErgencyInvestigationType tsErgencyInvestigationType=(TsErgencyInvestigationType) entity;
-	return super.update(tsErgencyInvestigationType);
+	 TsEmergencyEquipmentSum tsEmergencyEquipmentSum=(TsEmergencyEquipmentSum) entity;
+	return super.update(tsEmergencyEquipmentSum);
     }
     @Override
-	public TsErgencyInvestigationType findTsErgencyInvestigationTypeById(Object id) throws Exception{
-	 return super.findById(id,TsErgencyInvestigationType.class);
+	public TsEmergencyEquipmentSum findTsEmergencyEquipmentSumById(Object id) throws Exception{
+	 return super.findById(id,TsEmergencyEquipmentSum.class);
 	}
 	
 /**
