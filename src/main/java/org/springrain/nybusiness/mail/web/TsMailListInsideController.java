@@ -133,7 +133,6 @@ public class TsMailListInsideController  extends BaseController {
 		ReturnDatas returnObject = ReturnDatas.getSuccessReturnDatas();
 		returnObject.setMessage(MessageUtils.UPDATE_SUCCESS);
 		try {
-		
 			java.lang.String id =tsMailListInside.getId();
 			if(StringUtils.isBlank(id)){
 			  tsMailListInside.setId(null);
