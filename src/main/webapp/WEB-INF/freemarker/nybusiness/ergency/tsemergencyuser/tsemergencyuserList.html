@@ -1,0 +1,240 @@
+<#ftl output_format="HTML" auto_esc=true> <@h.commonHead title="后台管理系统" keywords="开源,永久免费"
+description="springrain开源系统管理后台"/>
+<script type="text/javascript" src="${ctx}/js/ztree/js/jquery.ztree.all-3.5.js"></script>
+<script type="text/javascript" src="${ctx}/js/ztree/js/ztreeUtils.js"></script>
+<script type="text/javascript" src="${ctx}/js/select2/js/select2.full.min.js"></script>
+<script type="text/javascript" src="${ctx}/js/select2/js/i18n/zh-CN.js"></script>
+<script type="text/javascript" src="${ctx}/js/validform/validform.min.js"></script>
+<link rel="stylesheet" href="${ctx}/js/select2/css/select2.min.css" type="text/css">
+<link rel="stylesheet" href="${ctx}/js/ztree/css/zTreeStyle/zTreeStyle.css" type="text/css">
+<link rel="stylesheet" href="${ctx}/css/custom/common/myztree.css" type="text/css">
+<link rel="stylesheet" href="${ctx}/js/validform/validform.css" media="all">
+
+</head>
+<body>
+	<div class="layui-layout layui-layout-admin">
+		<@h.naviHeader /> <@h.leftMenu />
+		<!-- 主体内容开始 -->
+			<SCRIPT type="text/javascript">
+				var _valid_form;
+				var selectOrgZtree;
+				var orgjsondata4select;
+				var m_id = "";
+				$(document).ready(function() {
+					jQuery.post("${ctx}/tsemergencyorg/list/json",function(_json) {
+						if (_json.status == "success") {
+							orgjsondata4select = _json;
+							var data = _json.data;
+							m_id = data[0].id;
+							var zTree=springrain.tree({
+								id:"orgListTree",
+								hasMenu:true,
+								data:_json.data,
+								treeNodeClick:function(event, treeId, treeNode){
+									saveType=1;
+									springrain.resetForm(_valid_form);
+									showdata(treeNode);
+								}
+							})
+							zTree.expandAll(true);
+							var emergencyOrgId = $("#emergencyOrgId").val();
+							if(emergencyOrgId == ""){
+								debugger
+								$("#emergencyOrgId").val(m_id);
+								springrain.commonSubmit('searchForm');
+							}
+							 
+						} else {
+							myalert(_json.message);
+						}
+					});
+				});
+				function showdata(result) {
+					$("#emergencyOrgId").val(result["id"]);
+					springrain.commonSubmit('searchForm');
+				}
+				var _type;
+				function showOrgTree(type) {
+					if (!selectOrgZtree || _type != type) {
+						selectOrgZtree=springrain.tree({
+							'hasMenu':false,
+							'id':'selectOrgTree',
+							'data':orgjsondata4select.data,
+							'treeNodeClick':function(event, treeId, treeNode){
+								_type = type;
+								//父级不让选择自己
+								var _now_id=jQuery("#id").val();
+								if(_now_id!=null&&_now_id!=''&&_now_id==treeNode.id){
+									if(_type == 0){
+										jQuery("#pname").val('');
+										jQuery("#pid").val('');
+										springrain.msg("父级不能选择自己",1);
+									}else{
+										springrain.msg("中心不能选择自己",1);
+									}
+									return false;
+								}
+								if(_type == 0){
+									jQuery("#pname").val(treeNode.name);
+									jQuery("#pid").val(treeNode.id);
+								}else{
+									jQuery("#centerName").val(treeNode.name);
+									jQuery("#center").val(treeNode.id);
+								}
+							}
+						});
+						selectOrgZtree.expandAll(true);
+						if(type == 0){
+							selectZtreeOneNode(jQuery("#pid").val(),
+									"selectOrgTree");
+						}else{
+							selectZtreeOneNode(jQuery("#center").val(),
+									"selectOrgTree");
+						}
+					}
+					//页面层-自定义
+					layer.open({
+						shadeClose : true,
+						closeBtn : 1,
+						btn : [ '确定' ], //按钮
+						type : 1,
+						title : "选择父部门",
+						area : [ '600px', '400px' ], //宽高
+						//shadeClose: true,
+						content : $("#div_select_org_tree")
+					});
+
+				}
+				/*
+				保存  0添加   1更新
+				*/
+				var saveType=0;
+				function dosubmit() {
+					var listurl = '${ctx}/tsemergencyorg/list';
+					if (saveType == 0) {
+						_valid_form=springrain.commonSaveForm("validForm",'${ctx}/tsemergencyorg/list', '部门添加成功！');
+					} else {
+						_valid_form=springrain.commonUpdateForm("validForm",'${ctx}/tsemergencyorg/list', '部门更新成功！');
+					
+					}
+				}
+				function del(_id){
+					springrain.mydelete(_id,"${ctx}/tsemergencyuser/delete");
+				}
+			</SCRIPT>
+			<div class="layui-tab layui-tab-brief">
+				<ul class="layui-tab-title site-demo-title">
+	       		</ul>
+	       		<div class="layui-body layui-tab-content site-demo-body">
+					<div class="layui-tab-item layui-show">
+						<div class="layui-main">
+						<div class="container-fluid">
+							<div class="row">
+								<div class="fl per30" style="min-width:360px">
+									<ul id="orgListTree" class="ztree"></ul>
+								</div>
+								<div class="fl per60 rlt">
+									<div class="fl line-vertical"></div>
+									<div class="layui-main">
+										<@shiro.hasPermission name="/tsemergencyuser/update" >
+		             						<button type="button"   class="layui-btn layui-btn-small" data-action="${ctx}/tsemergencyuser/update/pre?emergencyOrgId=${(returnDatas.queryBean.emergencyOrgId)!''}"><i class="layui-icon layui-icon-specil">&#xe61f;</i>新增</button>
+		             					</@shiro.hasPermission>
+						          <div id="LAY_preview">
+						          <!-- 查询  开始 -->
+							          <form class="layui-form layui-form-pane" id="searchForm" action="${ctx}/tsemergencyuser/list" method="post">
+							          <input type="hidden" name="pageIndex" id="pageIndex" value="${(returnDatas.page.pageIndex)!'1'}" /> 
+							          <input type="hidden" name="sort" id="page_sort" value="${(returnDatas.page.sort)!'desc'}" />
+							          <input type="hidden" name="order" id="page_order" value="${(returnDatas.page.order)!'id'}" />
+							          <input type="hidden" id="emergencyOrgId" name="emergencyOrgId" value="${(returnDatas.queryBean.emergencyOrgId)!''}" placeholder="请输入部门名称" class="layui-input">
+									  <table class="layui-table search-wrap">
+									  	<colgroup>
+										    <col width="">
+										    <col width="150">
+										</colgroup>
+							          </table>
+									  <!-- 查询  结束 -->
+									</form>
+									<!--start_export-->
+									<table class="layui-table" lay-even>
+										  <colgroup>
+										    <col width="40">
+										    <col width="120">
+										    <col>
+										  </colgroup>
+										  <!--end_no_export-->
+										  <!--first_start_export-->
+											<thead>
+												<tr>
+													<th colspan="9">外部通讯录列表<font id='recordsView' class='recorsView'>共<span></span>页,共 <span></span>条记录</font></th>
+												</tr>
+												<tr>
+												  <!--first_start_no_export-->
+												  <th class="center">
+															<input id="checkAll"  type="checkbox">
+												  </th>
+												  <th>操作</th>
+												  <!--first_end_no_export-->
+<!-- 														<th id="th_orgid" >部门id</th> -->
+														<th id="th_orgname" >名称</th>
+														<th id="th_createTime" >创建时间</th>
+												</tr> 
+											</thead>
+										  <!--first_end_export-->
+										  <!--start_export-->
+										   <tbody>
+										    <#if (returnDatas.data??)&&(returnDatas.data?size>0)> 
+										    	<#list	returnDatas.data as _data>
+										    		<!--start_no_export-->
+													<tr class="">
+														<td class="center">
+																<input name="check_li" value="${_data.id}"  type="checkbox">
+														</td>
+														<td>
+															<@shiro.hasPermission name="/tsemergencyuser/update" >
+								                           		 <a href="#" data-action="${ctx}/tsemergencyuser/update/pre?id=${(_data.id)!''}" class="layui-btn layui-btn-normal layui-btn-mini">编辑</a>
+								                            </@shiro.hasPermission>
+								                            <@shiro.hasPermission name="/tsemergencyuser/delete" >
+								                            	<a href="javascript:del('${(_data.id)!''}')" class="layui-btn layui-btn-danger layui-btn-mini ajax-delete">删除</a>
+								                            </@shiro.hasPermission>
+														</td>
+														<!--end_no_export-->
+<!-- 														<td > -->
+<!-- 															${(_data.orgid)!''} -->
+<!-- 														</td> -->
+														<td >
+															${(_data.name)!''}
+														</td>
+														<td >
+															${(_data.createTime)!''}
+														</td>
+													</tr>
+												</#list>
+											 </#if>
+											</tbody>
+										</table>
+									<#if returnDatas.page??> 
+										<div id='laypageDiv'></div>
+										<@h.layPage page=returnDatas.page /> 
+									</#if>
+								</div>
+							</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>	
+		
+		<!-- 主体内容结束 -->
+		<@h.footer />
+	</div>
+	<div id="div_select_org_tree" style="display:none;">
+       	<ul id="selectOrgTree" class="ztree"></ul>
+     </div>
+    <script>
+			
+	</script>
+</body>
+</html>
+
