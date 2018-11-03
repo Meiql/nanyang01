@@ -84,7 +84,10 @@ public class TsEmergencyUserServiceImpl extends BaseSpringrainServiceImpl implem
 	public List<TsEmergencyUser> finderListForPage(Page page,
 			TsEmergencyUser tsEmergencyUser) throws Exception {
 		if(StringUtils.isEmpty(tsEmergencyUser.getEmergencyOrgId())){
-			return null;
+			Finder finder = new Finder();
+			finder.append("select * from ts_emergency_user where 1=1 ");
+			List<TsEmergencyUser> list = super.queryForList(finder, TsEmergencyUser.class);
+			return list;
 		}
 		Finder f = new Finder();
 		f.append("select * from ts_emergency_org t where t.pid =:pid");
