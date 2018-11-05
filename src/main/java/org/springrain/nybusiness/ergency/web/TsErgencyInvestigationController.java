@@ -2,6 +2,7 @@ package  org.springrain.nybusiness.ergency.web;
 
 import java.io.File;
 import java.util.Arrays;
+import java.util.Date;
 import java.util.List;
 
 import javax.annotation.Resource;
@@ -18,7 +19,9 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import org.springrain.nybusiness.ergency.entity.TsErgencyInvestigation;
 import org.springrain.nybusiness.ergency.service.ITsErgencyInvestigationService;
+import org.springrain.frame.common.SessionUser;
 import org.springrain.frame.controller.BaseController;
+import org.springrain.frame.util.DateUtils;
 import org.springrain.frame.util.GlobalStatic;
 import org.springrain.frame.util.MessageUtils;
 import org.springrain.frame.util.Page;
@@ -136,7 +139,13 @@ public class TsErgencyInvestigationController  extends BaseController {
 		
 			java.lang.String id =tsErgencyInvestigation.getId();
 			if(StringUtils.isBlank(id)){
-			  tsErgencyInvestigation.setId(null);
+				tsErgencyInvestigation.setId(null);
+			}
+			if(StringUtils.isBlank(tsErgencyInvestigation.getCreate_user())){
+				tsErgencyInvestigation.setCreate_user(SessionUser.getUserId());
+			}
+			if(StringUtils.isBlank(tsErgencyInvestigation.getCreate_time())){
+				tsErgencyInvestigation.setCreate_time(DateUtils.convertDate2String("yyyy-MM-dd HH:mm:ss", new Date()));
 			}
 		
 			tsErgencyInvestigationService.saveorupdate(tsErgencyInvestigation);
