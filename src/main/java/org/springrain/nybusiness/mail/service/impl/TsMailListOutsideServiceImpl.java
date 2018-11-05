@@ -2,12 +2,14 @@ package org.springrain.nybusiness.mail.service.impl;
 
 import java.io.File;
 import java.util.List;
+
+import org.apache.commons.collections.CollectionUtils;
 import org.springframework.stereotype.Service;
-import org.springrain.nybusiness.mail.entity.TsMailListOutside;
-import org.springrain.nybusiness.mail.service.ITsMailListOutsideService;
 import org.springrain.frame.entity.IBaseEntity;
 import org.springrain.frame.util.Finder;
 import org.springrain.frame.util.Page;
+import org.springrain.nybusiness.mail.entity.TsMailListOutside;
+import org.springrain.nybusiness.mail.service.ITsMailListOutsideService;
 import org.springrain.system.service.BaseSpringrainServiceImpl;
 
 
@@ -74,5 +76,18 @@ public class TsMailListOutsideServiceImpl extends BaseSpringrainServiceImpl impl
 			throws Exception {
 			 return super.findDataExportExcel(finder,ftlurl,page,clazz,o);
 		}
+
+	@Override
+	public List<TsMailListOutside> finderTsMaillistForList(Page page,
+			TsMailListOutside tsMailListOutside, List<String> listCompany)
+			throws Exception {
+		if(CollectionUtils.isEmpty(listCompany)){
+			return null;
+		}
+		Finder finder = new Finder();
+		finder.append("SELECT * FROM `ts_mail_list_outside` t where t.companyId in (:companyId)")
+		.setParam("companyId", listCompany);
+		return super.queryForList(finder, TsMailListOutside.class, page);
+	}
 
 }

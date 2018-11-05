@@ -58,7 +58,8 @@ public class UserController extends BaseController {
 	public String list(HttpServletRequest request, Model model, User user)
 			throws Exception {
 		ReturnDatas returnObject = listjson(request, model, user);
-		user.setUserType(SysStateEnum.userTypeEnum.员工.getValue());
+		user.setUserType(SysStateEnum.userTypeEnum.系统账号.getValue());
+		System.out.println(SessionUser.getCompanyid());
 		List<User> userList = userService.finderUserForList(user,null);
 		model.addAttribute("userList", userList);
 		model.addAttribute(GlobalStatic.returnDatas, returnObject);
@@ -175,7 +176,7 @@ public class UserController extends BaseController {
 					managerOrg.setOrgId(managerOrgIds[i]);
 					managerOrg.setUserId(id);//可能为空，service中再补全
 					managerOrg.setManagerType(Integer.valueOf(managerTypes[i]));
-					managerOrg.setHasleaf(Integer.valueOf(hasleafs[i]));
+					managerOrg.setHasleaf(0);
 					if(Integer.valueOf(managerTypes[i])<=10){
 						//会员  或 员工
 						managerOrg.setHasleaf(0);//没有用
@@ -206,6 +207,7 @@ public class UserController extends BaseController {
 				userService.updateUser(user);
 			}
 		} catch (Exception e) {
+			e.printStackTrace();
 			logger.error(e.getMessage(),e);
 			returnObject.setStatus(ReturnDatas.ERROR);
 			returnObject.setMessage(MessageUtils.UPDATE_ERROR);

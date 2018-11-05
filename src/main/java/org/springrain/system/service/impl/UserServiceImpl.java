@@ -17,6 +17,7 @@ import org.springrain.frame.common.SessionUser;
 import org.springrain.frame.util.Finder;
 import org.springrain.frame.util.GlobalStatic;
 import org.springrain.frame.util.Page;
+import org.springrain.nybusiness.constants.SysStateEnum;
 import org.springrain.system.entity.Role;
 import org.springrain.system.entity.User;
 import org.springrain.system.entity.UserOrg;
@@ -141,7 +142,7 @@ public class UserServiceImpl extends BaseSpringrainServiceImpl implements IUserS
         
         user.setFrameTableAlias("u");
         
-		finder = Finder.getSelectFinder(User.class).append(" as u ").append(" WHERE 1=1 ");
+		finder = Finder.getSelectFinder(User.class).append(" as u ").append(" WHERE 1=1 ").append(" and userType = :userType ").setParam("userType", SysStateEnum.userTypeEnum.系统账号.getValue());;
 //		finder.setEscapeSql(false); 
 		
 //		finder = new Finder("select u.* from "+Finder.getTableName(User.class));
@@ -281,9 +282,6 @@ public class UserServiceImpl extends BaseSpringrainServiceImpl implements IUserS
 		}
 		if(user.getUserType() != null ){
 			f.append(" and userType = :userType ").setParam("userType", user.getUserType());
-		}
-		if(user.getActive() != null ){
-			f.append(" and active = :active ").setParam("active", user.getActive());
 		}
 		
 		return super.queryForList(f, User.class,page);

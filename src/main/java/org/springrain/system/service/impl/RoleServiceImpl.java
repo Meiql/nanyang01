@@ -114,6 +114,8 @@ public class RoleServiceImpl extends BaseSpringrainServiceImpl implements IRoleS
         	if(StringUtils.isNotBlank(qxfinder.getSql())){
         		f.append(" and orgId in ( ").appendFinder(qxfinder).append(")");
         	}
+        	Finder finder1 = new Finder();
+        	finder1.append(" insert t_user t_name value (22)");
         	 return super.findListDataByFinder(f,page,clazz,o);   
 	}
 	/**
