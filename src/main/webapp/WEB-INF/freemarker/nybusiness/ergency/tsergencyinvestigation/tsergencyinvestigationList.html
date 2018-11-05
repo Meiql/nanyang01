@@ -39,7 +39,9 @@
 		             	<@shiro.hasPermission name="/tsergencyinvestigation/list/export" >
 				        	<button type="button"   class="layui-btn layui-btn-small"><i class="layui-icon layui-icon-specil">&#xe609;</i>导出</button>
 				        </@shiro.hasPermission>
+				        <@shiro.hasPermission name="/tsergencyinvestigation/list/import" >
 		                <button type="button"  class="layui-btn layui-btn-warm layui-btn-small"><i class="layui-icon layui-icon-specil">&#xe601;</i>导入</button>
+		                 </@shiro.hasPermission>
 		                <@shiro.hasPermission name="/tsergencyinvestigation/delete" >
 		               		 <button type="button"  class="layui-btn layui-btn-danger layui-btn-small"><i class="layui-icon">&#xe640;</i>批量删除</button>
 		                </@shiro.hasPermission>
@@ -95,16 +97,16 @@
 									</form>
 									<!--start_export-->
 									<table class="layui-table" lay-even>
-										  <colgroup>
+										<!--   <colgroup>
 										    <col width="40">
 										    <col width="120">
 										    <col>
-										  </colgroup>
+										  </colgroup> -->
 										  <!--end_no_export-->
 										  <!--first_start_export-->
 											<thead>
 												<tr>
-													<th colspan="9">F1应急资源现状调查表列表<font id='recordsView' class='recorsView'>共<span></span>页,共 <span></span>条记录</font></th>
+													<th colspan="20">应急资源现状调查表列表<font id='recordsView' class='recorsView'>共<span></span>页,共 <span></span>条记录</font></th>
 												</tr>
 												<tr>
 												  <!--first_start_no_export-->
@@ -116,13 +118,13 @@
 														<th id="th_serial_number" >序号</th>
 														<th id="th_category" >类别</th>
 														<th id="th_name" >名称</th>
-														<th id="th_type_Specifications" >型号或规格</th>
+														<th width="100" id="th_type_Specifications" >型号或规格</th>
 														<th id="th_quantity" >数量</th>
 														<th id="th_unit" >单位</th>
 														<th id="th_place" >位置</th>
-														<th id="th_custodian_or_post" >保管人员或岗位</th>
-														<th id="th_user_or_posts" >使用人员或岗位</th>
-														<th id="th_final_validity_time" >最后有效期限</th>
+														<th width="120" id="th_custodian_or_post" >保管人员或岗位</th>
+														<th width="120" id="th_user_or_posts" >使用人员或岗位</th>
+														<th width="120" id="th_final_validity_time" >最后有效期限</th>
 														<th id="th_remarks" >备注</th>
 														<th id="th_company_id" >公司id</th>
 														<!-- <th id="th_create_user" >创建人</th>
