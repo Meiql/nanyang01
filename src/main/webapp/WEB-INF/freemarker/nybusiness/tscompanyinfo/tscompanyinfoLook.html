@@ -1,0 +1,221 @@
+<#ftl output_format="HTML" auto_esc=true>
+<@h.commonHead title="后台管理系统" keywords="开源,永久免费" description="springrain开源系统管理后台"/>
+
+
+</head>
+<body>
+	<div class="layui-layout layui-layout-admin">
+		<@h.naviHeader /><@h.leftMenu />
+		<!-- 主体内容开始 -->
+			<div class="layui-tab layui-tab-brief">
+				<ul class="layui-tab-title site-demo-title">
+		            <li class="layui-this">
+		            </li>
+		             <li style="float:right;">
+				        <button type="button" onclick="history.go(-1)" class="layui-btn layui-btn-small" style="margin-top:8px;"><i class="layui-icon layui-icon-specil">&#xe603;</i>返回</button>
+		             </li>
+	       		</ul>
+				
+				<div class="layui-body layui-tab-content site-demo-body">
+					<div class="layui-tab-item layui-show">
+							<div class="layui-main">
+						          <div id="LAY_preview" class="layui-my-form">
+						          				<header class="larry-personal-tit">
+													<span>添加TsCompanyInfo</span>
+												</header>
+												<div class="larry-personal-body clearfix changepwd">
+													<form id="validForm" class="layui-form <!--  -->"  method="post" action="${ctx}/tscompanyinfo/update">
+																	<div class="layui-form-item col-lg-6">
+																		<label class="layui-form-label">公司名称*</label>
+																		<div class="layui-inline col-lg-5">  
+																			${(returnDatas.data.companyName)!''}
+																		</div>
+																		<div class="layui-inline valid-info"></div>
+																	</div>
+																	<div class="layui-form-item col-lg-6">
+																		<label class="layui-form-label">法人代码*</label>
+																		<div class="layui-inline col-lg-5">  
+																			${(returnDatas.data.corporationCode)!''}
+																		</div>
+																		<div class="layui-inline valid-info"></div>
+																	</div>
+																	<div class="layui-form-item col-lg-6">
+																		<label class="layui-form-label">法人名称*</label>
+																		<div class="layui-inline col-lg-5">  
+																			${(returnDatas.data.corporationName)!''}
+																		</div>
+																		<div class="layui-inline valid-info"></div>
+																	</div>
+																	<div class="layui-form-item col-lg-6">
+																		<label class="layui-form-label">邮政编码*</label>
+																		<div class="layui-inline col-lg-5">  
+																			${(returnDatas.data.postalCode)!''}
+																		</div>
+																		<div class="layui-inline valid-info"></div>
+																	</div>
+																	<div class="layui-form-item col-lg-6">
+																		<label class="layui-form-label">联系人*</label>
+																		<div class="layui-inline col-lg-5">  
+																			${(returnDatas.data.contactsName)!''}
+																		</div>
+																		<div class="layui-inline valid-info"></div>
+																	</div>
+																	<div class="layui-form-item col-lg-6">
+																		<label class="layui-form-label">联系电话*</label>
+																		<div class="layui-inline col-lg-5">  
+																			${(returnDatas.data.phone)!''}
+																		</div>
+																		<div class="layui-inline valid-info"></div>
+																	</div>
+																	<div class="layui-form-item col-lg-6">
+																		<label class="layui-form-label">电子邮箱*</label>
+																		<div class="layui-inline col-lg-5">  
+																			${(returnDatas.data.eamil)!''}
+																		</div>
+																		<div class="layui-inline valid-info"></div>
+																	</div>
+																	<div class="layui-form-item col-lg-6">
+																		<label class="layui-form-label">厂区地址*</label>
+																		<div class="layui-inline col-lg-5">  
+																			${(returnDatas.data.address)!''}
+																		</div>
+																		<div class="layui-inline valid-info"></div>
+																	</div>
+																	<div class="layui-form-item col-lg-6">
+																		<label class="layui-form-label">所在工业园区*</label>
+																		<div class="layui-inline col-lg-5">  
+																			${(returnDatas.data.industrialyuanchu)!''}
+																		</div>
+																		<div class="layui-inline valid-info"></div>
+																	</div>
+																	<div class="layui-form-item col-lg-6">
+																		<label class="layui-form-label">经度*</label>
+																		<div class="layui-inline col-lg-5">  
+																			${(returnDatas.data.longitude)!''}
+																		</div>
+																		<div class="layui-inline valid-info"></div>
+																	</div>
+																	<div class="layui-form-item col-lg-6">
+																		<label class="layui-form-label">纬度*</label>
+																		<div class="layui-inline col-lg-5">  
+																			${(returnDatas.data.latitude)!''}
+																		</div>
+																		<div class="layui-inline valid-info"></div>
+																	</div>
+																	<div class="layui-form-item col-lg-6">
+																		<label class="layui-form-label">运行天数*</label>
+																		<div class="layui-inline col-lg-5">  
+																			${(returnDatas.data.runningDays)!''}
+																		</div>
+																		<div class="layui-inline valid-info"></div>
+																	</div>
+																	<div class="layui-form-item col-lg-6">
+																		<label class="layui-form-label">主要业务*</label>
+																		<div class="layui-inline col-lg-5">  
+																			${(returnDatas.data.mainBusiness)!''}
+																		</div>
+																		<div class="layui-inline valid-info"></div>
+																	</div>
+																	<div class="layui-form-item col-lg-6">
+																		<label class="layui-form-label">行业类别*</label>
+																		<div class="layui-inline col-lg-5">  
+																			${(returnDatas.data.industryCategary)!''}
+																		</div>
+																		<div class="layui-inline valid-info"></div>
+																	</div>
+																	<div class="layui-form-item col-lg-6">
+																		<label class="layui-form-label">行业编码*</label>
+																		<div class="layui-inline col-lg-5">  
+																			${(returnDatas.data.industryCode)!''}
+																		</div>
+																		<div class="layui-inline valid-info"></div>
+																	</div>
+																	<div class="layui-form-item col-lg-6">
+																		<label class="layui-form-label">注册类型*</label>
+																		<div class="layui-inline col-lg-5">  
+																			${(returnDatas.data.registerType)!''}
+																		</div>
+																		<div class="layui-inline valid-info"></div>
+																	</div>
+																	<div class="layui-form-item col-lg-6">
+																		<label class="layui-form-label">企业规模*</label>
+																		<div class="layui-inline col-lg-5">  
+																			${(returnDatas.data.enterprisesize)!''}
+																		</div>
+																		<div class="layui-inline valid-info"></div>
+																	</div>
+																	<div class="layui-form-item col-lg-6">
+																		<label class="layui-form-label">建厂时间*</label>
+																		<div class="layui-inline col-lg-5">  
+																			${(returnDatas.data.factoryTime)!''}
+																		</div>
+																		<div class="layui-inline valid-info"></div>
+																	</div>
+																	<div class="layui-form-item col-lg-6">
+																		<label class="layui-form-label">废水排放量*</label>
+																		<div class="layui-inline col-lg-5">  
+																			${(returnDatas.data.wasterEmission)!''}
+																		</div>
+																		<div class="layui-inline valid-info"></div>
+																	</div>
+																	<div class="layui-form-item col-lg-6">
+																		<label class="layui-form-label">废水排放去向*</label>
+																		<div class="layui-inline col-lg-5">  
+																			${(returnDatas.data.wasterWhereabouts)!''}
+																		</div>
+																		<div class="layui-inline valid-info"></div>
+																	</div>
+																	<div class="layui-form-item col-lg-6">
+																		<label class="layui-form-label">管辖机构id*</label>
+																		<div class="layui-inline col-lg-5">  
+																			${(returnDatas.data.orgid)!''}
+																		</div>
+																		<div class="layui-inline valid-info"></div>
+																	</div>
+																	<div class="layui-form-item col-lg-6">
+																		<label class="layui-form-label">用户id*</label>
+																		<div class="layui-inline col-lg-5">  
+																			${(returnDatas.data.userId)!''}
+																		</div>
+																		<div class="layui-inline valid-info"></div>
+																	</div>
+																	<div class="layui-form-item col-lg-6">
+																		<label class="layui-form-label">创建时间*</label>
+																		<div class="layui-inline col-lg-5">  
+																			${(returnDatas.data.createTime)!''}
+																		</div>
+																		<div class="layui-inline valid-info"></div>
+																	</div>
+																	<div class="layui-form-item col-lg-6">
+																		<label class="layui-form-label">bak1*</label>
+																		<div class="layui-inline col-lg-5">  
+																			${(returnDatas.data.bak1)!''}
+																		</div>
+																		<div class="layui-inline valid-info"></div>
+																	</div>
+																	<div class="layui-form-item col-lg-6">
+																		<label class="layui-form-label">bak2*</label>
+																		<div class="layui-inline col-lg-5">  
+																			${(returnDatas.data.bak2)!''}
+																		</div>
+																		<div class="layui-inline valid-info"></div>
+																	</div>
+																	<div class="layui-form-item col-lg-6">
+																		<label class="layui-form-label">bak3*</label>
+																		<div class="layui-inline col-lg-5">  
+																			${(returnDatas.data.bak3)!''}
+																		</div>
+																		<div class="layui-inline valid-info"></div>
+																	</div>
+													</form>
+												</div>
+								  </div>
+							</div>
+					</div>
+			</div>
+		</div>
+		<!-- 主体内容结束 -->
+		<@h.footer />
+	</div>
+</body>
+</html>

@@ -1,5 +1,8 @@
 package org.springrain.nybusiness.mail.service;
 
+import java.util.List;
+
+import org.springrain.frame.util.Page;
 import org.springrain.nybusiness.mail.entity.TsMailListInside;
 import org.springrain.system.service.IBaseSpringrainService;
 /**
@@ -18,6 +21,16 @@ public interface ITsMailListInsideService extends IBaseSpringrainService {
 	 * @throws Exception
 	 */
 	TsMailListInside findTsMailListInsideById(Object id) throws Exception;
+	
+	
+	/**
+	 * 
+	 * @param page
+	 * @param tsMailListInside
+	 * @return
+	 * @throws Exception
+	 */
+	List<TsMailListInside> finderTsMaillistForList(Page page,TsMailListInside tsMailListInside,List<String> listCompany)throws Exception;
 	
 	
 	

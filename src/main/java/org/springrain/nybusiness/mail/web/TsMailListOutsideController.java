@@ -21,6 +21,7 @@ import org.springrain.frame.util.GlobalStatic;
 import org.springrain.frame.util.MessageUtils;
 import org.springrain.frame.util.Page;
 import org.springrain.frame.util.ReturnDatas;
+import org.springrain.nybusiness.company.service.ITsCompanyInfoService;
 import org.springrain.nybusiness.mail.entity.TsMailListOutside;
 import org.springrain.nybusiness.mail.service.ITsMailListOutsideService;
 
@@ -37,7 +38,8 @@ import org.springrain.nybusiness.mail.service.ITsMailListOutsideService;
 public class TsMailListOutsideController  extends BaseController {
 	@Resource
 	private ITsMailListOutsideService tsMailListOutsideService;
-	
+	@Resource
+	private ITsCompanyInfoService tsCompanyInfoService;
 	private String listurl="/nybusiness/mail/tsmaillistoutside/tsmaillistoutsideList";
 	
 	
@@ -75,7 +77,8 @@ public class TsMailListOutsideController  extends BaseController {
 		// ==构造分页请求
 		Page page = newPage(request);
 		// ==执行分页查询
-		List<TsMailListOutside> datas=tsMailListOutsideService.findListDataByFinder(null,page,TsMailListOutside.class,tsMailListOutside);
+		List<String> listCompany = tsCompanyInfoService.finderCompanyIdByUserId(SessionUser.getUserId());
+		List<TsMailListOutside> datas=tsMailListOutsideService.finderTsMaillistForList(page, tsMailListOutside, listCompany);
 			returnObject.setQueryBean(tsMailListOutside);
 		returnObject.setPage(page);
 		returnObject.setData(datas);
@@ -144,6 +147,8 @@ public class TsMailListOutsideController  extends BaseController {
 			if(StringUtils.isBlank(tsMailListOutside.getCreateTime())){
 				tsMailListOutside.setCreateTime(DateUtils.convertDate2String("yyyy-MM-dd HH:mm:ss", new Date()));
 			}
+			//添加企业id信息
+			tsMailListOutside.setCompanyId(SessionUser.getCompanyid());
 			tsMailListOutsideService.saveorupdate(tsMailListOutside);
 			
 		} catch (Exception e) {

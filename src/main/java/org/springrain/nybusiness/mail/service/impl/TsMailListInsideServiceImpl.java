@@ -1,7 +1,11 @@
 package org.springrain.nybusiness.mail.service.impl;
 
 import java.io.File;
+import java.util.ArrayList;
 import java.util.List;
+
+import org.apache.commons.collections.CollectionUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;
 import org.springrain.nybusiness.mail.entity.TsMailListInside;
 import org.springrain.nybusiness.mail.service.ITsMailListInsideService;
@@ -74,5 +78,18 @@ public class TsMailListInsideServiceImpl extends BaseSpringrainServiceImpl imple
 			throws Exception {
 			 return super.findDataExportExcel(finder,ftlurl,page,clazz,o);
 		}
+
+	@Override
+	public List<TsMailListInside> finderTsMaillistForList(Page page,
+			TsMailListInside tsMailListInside, List<String> listCompany)
+			throws Exception {
+		if(CollectionUtils.isEmpty(listCompany)){
+			return null;
+		}
+		Finder finder = new Finder();
+		finder.append("SELECT * FROM `ts_mail_list_inside` t where t.companyId in (:companyId)")
+		.setParam("companyId", listCompany);
+		return super.queryForList(finder, TsMailListInside.class, page);
+	}
 
 }

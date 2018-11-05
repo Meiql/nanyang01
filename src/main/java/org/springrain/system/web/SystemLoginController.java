@@ -2,8 +2,7 @@ package org.springrain.system.web;
 
 import java.io.File;
 import java.util.Date;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.List;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
@@ -28,13 +27,17 @@ import org.springrain.cms.util.SiteUtils;
 import org.springrain.frame.common.SessionUser;
 import org.springrain.frame.controller.BaseController;
 import org.springrain.frame.shiro.FrameAuthenticationToken;
-import org.springrain.frame.util.DateUtils;
 import org.springrain.frame.util.DesSecUtils;
 import org.springrain.frame.util.GlobalStatic;
 import org.springrain.frame.util.QrCodeUtils;
 import org.springrain.frame.util.ReturnDatas;
 import org.springrain.frame.util.SecUtils;
+import org.springrain.nybusiness.company.entity.TsCompanyInfo;
+import org.springrain.nybusiness.company.service.ITsCompanyInfoService;
+import org.springrain.nybusiness.constants.SysStateEnum;
+import org.springrain.system.entity.Org;
 import org.springrain.system.entity.User;
+import org.springrain.system.service.IOrgService;
 import org.springrain.system.service.IUserService;
 
 @Controller
@@ -42,6 +45,12 @@ import org.springrain.system.service.IUserService;
 public class SystemLoginController extends BaseController {
 	@Resource
 	IUserService userService;
+
+	@Resource
+	private IOrgService orgService;
+	
+	@Resource
+	private ITsCompanyInfoService tsCompanyInfoService;
 	@Resource
 	private CacheManager cacheManager;
 	
@@ -125,12 +134,28 @@ public class SystemLoginController extends BaseController {
 	public String loginPost(User currUser, HttpSession session, Model model,
 			HttpServletRequest request) throws Exception {
 		Subject user = SecurityUtils.getSubject();
+		User userInfo = userService.findUserByAccount(currUser.getAccount());
+		if(userInfo!=null && userInfo.getUserType().equals(SysStateEnum.userTypeEnum.企业账户信息.getValue())){
+			if(StringUtils.isBlank(userInfo.getConpanyid())){
+				model.addAttribute("message", "未找到注册企业");
+				return "/system/login";
+			}
+			String companyId =  userInfo.getConpanyid();
+			TsCompanyInfo tsCompanyInfo = tsCompanyInfoService.findById(companyId, TsCompanyInfo.class);
+			if(tsCompanyInfo == null){
+				model.addAttribute("message", "未找到注册企业");
+				return "/system/login";
+			}
+			if(!"1".equals(tsCompanyInfo.getState())){
+				model.addAttribute("message", "账号正在审核中，请等待！");
+				return "/system/login";
+			}
+		}
 		// 系统产生的验证码
 		String code = (String) session
 				.getAttribute(GlobalStatic.DEFAULT_CAPTCHA_PARAM);
 
 		session.removeAttribute(GlobalStatic.DEFAULT_CAPTCHA_PARAM);
-
 		String systemSiteId = request.getParameter("systemSiteId");
 		if (StringUtils.isNotBlank(systemSiteId)) {
 			model.addAttribute("systemSiteId", systemSiteId);
@@ -182,7 +207,7 @@ public class SystemLoginController extends BaseController {
 			user.login(token);
 		} catch (UnknownAccountException e) {
 			logger.error(e.getMessage(), e);
-			model.addAttribute("message", "账号不存在!");
+			model.addAttribute("message", "账号不存在!"); 
 			if (StringUtils.isNotBlank(gotourl)) {
 				model.addAttribute("gotourl", gotourl);
 			}
@@ -207,6 +232,7 @@ public class SystemLoginController extends BaseController {
 			}
 			return "/system/login";
 		} catch (Exception e) {
+			e.printStackTrace();
 			logger.error(e.getMessage(), e);
 			model.addAttribute("message", "未知错误,请联系管理员.");
 			if (StringUtils.isNotBlank(gotourl)) {
@@ -333,59 +359,17 @@ public class SystemLoginController extends BaseController {
 	 * @return
 	 * @throws Exception
 	 */
-	@SuppressWarnings({ "rawtypes", "unchecked" })
-	@RequestMapping("/ajax/sendpwdbymail")
+	@RequestMapping("/ajax/register")
 	@ResponseBody
-	public ReturnDatas sendpwdbymail(HttpServletRequest request, Model model, HttpSession session) {
+	public ReturnDatas register(HttpServletRequest request,TsCompanyInfo companyInfo, HttpSession session) {
 		ReturnDatas returnObject = ReturnDatas.getSuccessReturnDatas();
 		try {
-			// 系统产生的验证码
-			String code = (String) session
-					.getAttribute(GlobalStatic.DEFAULT_CAPTCHA_PARAM);
-			session.removeAttribute(GlobalStatic.DEFAULT_CAPTCHA_PARAM);
-			// 用户产生的验证码
-			String submitCode = WebUtils.getCleanParam(request,
-					GlobalStatic.DEFAULT_CAPTCHA_PARAM);
-			if (StringUtils.isNotBlank(submitCode)) {
-				submitCode = submitCode.toLowerCase();
-			}
-			 // 如果验证码不匹配,跳转到登录
-			 if (StringUtils.isBlank(submitCode) || StringUtils.isBlank(code)
-					 || !code.equals(submitCode)) {
-					returnObject.setStatus(ReturnDatas.ERROR);
-					returnObject.setMessage("验证码错误");
-					return returnObject;
-			 }
-			
-			//账号校验
-			String account=request.getParameter("account");
-			if(StringUtils.isBlank(account)){
-				returnObject.setStatus(ReturnDatas.ERROR);
-				returnObject.setMessage("账号不能为空");
-				return returnObject;
-			}
-			 
-			User u=userService.findUserByAccount(account);
-			if(u==null){
-				returnObject.setStatus(ReturnDatas.ERROR);
-				returnObject.setMessage("输入的账号不存在");
-				return returnObject;
-			}
-			
-			String strIn=SecUtils.getUUID()+","+account+","+String.valueOf(new Date().getTime());
-			String strSec=new DesSecUtils().encrypt(strIn); 
-			//放入缓存
-			userService.cleanCache(BACKPWDSTRSEC); 
-			userService.putByCache(BACKPWDSTRSEC, account, strSec);
-			
-			String linkurl=SiteUtils.getBaseURL(request)+"/system/backpwdchange?checkstr="+strSec;
-			//发送邮件
-			Map map = new HashMap();
-			map.put("linkurl", linkurl);
-			map.put("timestr", DateUtils.convertDate2String("yyyy-MM-dd HH:mm:ss", new Date()));
-			
+			tsCompanyInfoService.saveRegisterCompany(companyInfo);
+			returnObject.setMessage("注册成功，请等待审核结果！");
 		} catch (Exception e) {
+			e.printStackTrace();
 			returnObject.setStatus(ReturnDatas.ERROR);
+			returnObject.setMessage("注册失败，请联系管理人员");
 			logger.error(e.getMessage(),e);
 		}
 		return returnObject;
@@ -448,6 +432,10 @@ public class SystemLoginController extends BaseController {
 	public String backpwd(HttpServletRequest request) {
 		return "/system/user/backpwd";
 	}
+	@RequestMapping(value = "/registeredUser")
+	public String registeredUser(HttpServletRequest request) {
+		return "/system/user/registeredUser";
+	}
 	
 	/**
 	 * 修改密码页面
@@ -498,6 +486,15 @@ public class SystemLoginController extends BaseController {
 		}
 		
 		return pageurl;
+	}
+	
+	@RequestMapping("/listOrg")
+	@ResponseBody 
+	public ReturnDatas listOrg(HttpServletRequest request, Model model) throws Exception {
+		ReturnDatas returnObject = ReturnDatas.getSuccessReturnDatas();
+		List<Org> list = orgService.finderListOrg();
+		returnObject.setData(list);
+		return returnObject;
 	}
 
 }

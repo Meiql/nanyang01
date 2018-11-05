@@ -40,6 +40,8 @@ public class ShiroUser implements Serializable {
 	 * 0.女1.男
 	 */
 	private java.lang.String sex;
+	
+	private java.lang.String companyid;
 
 	public ShiroUser() {
 
@@ -52,6 +54,7 @@ public class ShiroUser implements Serializable {
 		this.email = user.getEmail();
 		this.userType = user.getUserType();
 		this.sex=user.getSex();
+		this.companyid = user.getConpanyid();
 	}
 
 	/**
@@ -137,4 +140,20 @@ public class ShiroUser implements Serializable {
 	public void setUserType(java.lang.Integer userType) {
 		this.userType = userType;
 	}
+
+	/**
+	 * @return the companyid
+	 */
+	public java.lang.String getCompanyid() {
+		return companyid;
+	}
+
+	/**
+	 * @param companyid the companyid to set
+	 */
+	public void setCompanyid(java.lang.String companyid) {
+		this.companyid = companyid;
+	}
+	
+	
 }

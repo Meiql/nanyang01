@@ -1,0 +1,154 @@
+<#ftl output_format="HTML" auto_esc=true> 
+<@h.commonHead title="注册账户" keywords="" description=""/>
+
+<script src="${ctx}/js/validform/validform.min.js"></script>
+<link rel="stylesheet" href="${ctx}/js/validform/validform.css" media="all">
+<script type="text/javascript" src="${ctx}/js/select2/js/select2.full.min.js"></script>
+<script type="text/javascript" src="${ctx}/js/select2/js/i18n/zh-CN.js"></script>
+<script type="text/javascript" src="${ctx}/js/custom/common/select2remote.js"></script>
+<link rel="stylesheet" href="${ctx}/js/select2/css/select2.min.css" type="text/css">
+<style type="text/css">
+			.login_name input{
+				width: 80%;border:0;border-bottom: 2px solid #dddddd;
+				height: 40px;padding-left: 10px;font-size: 16px;
+				font-family: "微软雅黑";
+				}
+			.login_name .input_div{
+				height: 40px;float: left;width: 60%;
+			}
+			.login_name .yzm_img{
+				height: 40px;float: left;width: 40%;overflow: hidden;
+			}
+			.login_name .input_div input{width: 98%;height: 40px;border: 0;border-bottom: 2px solid #DDDDDD;}
+</style>
+</head>
+<body>
+	<div class="layui-layout layui-layout-admin">
+		<!-- 主体内容开始 -->
+					<div class="layui-tab-item layui-show">
+							<div class="layui-main">
+						          <div id="LAY_preview" class="layui-my-form">
+				          				<header class="larry-personal-tit">
+											<span>注册账号</span>
+										</header>
+										<!-- /header -->
+										<form id="validForm" class="layui-form"  method="post" action="${ctx}/system/ajax/register">
+										<div class="larry-personal-body clearfix changepwd" align="center">
+											 	<div class="layui-form-item col-lg-6" >
+													<div class="layui-inline col-lg-6">  
+													  <label class="layui-form-label">企业名称*</label>	<input type="text" id="companyName" name="companyName"  style="width:250px;" datatype="*" nullmsg="请输入企业名称"  autocomplete="off" class="layui-input" >
+													</div>
+													<div class="layui-inline valid-info"></div>
+												</div>
+												<div class="layui-form-item col-lg-6" >
+													<div class="layui-inline col-lg-6">  
+													  <label class="layui-form-label">联系人*</label>	<input type="text" id="contactsName" name="contactsName"  style="width:250px;" datatype="*" nullmsg="请输入联系人"  autocomplete="off" class="layui-input" >
+													</div>
+													<div class="layui-inline valid-info"></div>
+												</div>
+												<div class="layui-form-item col-lg-6" >
+													<div class="layui-inline col-lg-6">  
+													  <label class="layui-form-label">电话*</label>	<input type="text" id="phone" name="phone"  style="width:250px;" datatype="*" nullmsg="请输入电话"  autocomplete="off" class="layui-input" >
+													</div>
+													<div class="layui-inline valid-info"></div>
+												</div>
+												<div class="layui-form-item col-lg-6" >
+													<div class="layui-inline col-lg-6">  
+													  <label class="layui-form-label">邮政编码*</label>	<input type="text" id="postalCode" name="postalCode"  style="width:250px;" datatype="*" nullmsg="请输入邮政编码"  autocomplete="off" class="layui-input" >
+													</div>
+													<div class="layui-inline valid-info"></div>
+												</div>
+												<div class="layui-form-item col-lg-6" >
+													<div class="layui-inline col-lg-6">  
+													  <label class="layui-form-label">单位地址*</label>	<input type="text" id="address" name="address"  style="width:250px;" datatype="*" nullmsg="请输入单位地址"  autocomplete="off" class="layui-input" >
+													</div>
+													<div class="layui-inline valid-info"></div>
+												</div>
+													<div class="layui-form-item  col-lg-6">
+																		    <div class="layui-inline  col-lg-6" id="roleDiv">
+																		     <label class="layui-form-label">管辖单位*</label>
+																		      <select id="orgid" name="orgid"  class="nolayer" datatype="*" nullmsg="管辖单位不能为空"  multiple data-placeholder="请选择管辖单位">
+																		      	<option value=""></option>
+																		      </select>
+																		    </div>
+																	     <div class="layui-inline valid-info"></div>
+																  	</div>
+												<div class="layui-form-item col-lg-6" >
+													<div class="layui-inline col-lg-6">  
+													  <label class="layui-form-label">帐户*</label>	<input type="text" id="account" name="account"  style="width:250px;" datatype="*" nullmsg="请输入账号"  autocomplete="off" class="layui-input" >
+													</div>
+													<div class="layui-inline valid-info"></div>
+												</div>
+												<div class="layui-form-item col-lg-6" >
+													<div class="layui-inline col-lg-6">  
+													  <label class="layui-form-label">密码*</label>	<input type="text" id="password" name="password"  style="width:250px;" datatype="*" nullmsg="请输入账号"  autocomplete="off" class="layui-input" >
+													</div>
+													<div class="layui-inline valid-info"></div>
+												</div>
+					
+												
+
+												<div class="layui-form-item change-submit  col-lg-6">
+													<label class="layui-form-label"></label>
+													<div class="layui-inline">
+<!-- 														<input type="button" class="layui-btn" id="btnsendmail" value="发送邮件" onclick="sendmail();"/> -->
+														<button type="button" class="layui-btn" id="smtbtn">注册</button>
+													</div>
+												</div>
+												</form>
+										</div>
+								  </div>
+							</div>
+					</div>
+		<!-- 主体内容结束 -->
+		<@h.footer />
+	</div>
+</body>
+
+<script>
+jQuery(function(){
+	 /*
+	 init_valid(_before,_after)
+	 @_before:提交表单前，调用 的函数   可以为空，一般有validform处理不了，独自进行处理时使用
+	 @_after:保存成功后，调用的函数  可以为空，一般为对应的列表页面
+	 */
+	 springrain.initValid(null,function(_json){
+		 if(_json.status == 'success'){
+			 springrain.alert(_json.message);
+		 }else{
+		     springrain.alert(_json.message);
+		  
+		     setTimeout(function() {
+		    	   springrain.goTo('${ctx}/system/index');
+		     }, 2000);
+		 }
+	 });
+});
+jQuery(document).ready(function(){
+    //加载角色
+    jQuery.ajax({
+        url : ctx+"/system/listOrg",
+        type : "post",
+        dataType : "json",
+        success : function(_json) {
+            if(_json.status=="error"){
+                return;
+            }
+            
+            jQuery(_json.data).each(function(i,_obj){
+                jQuery("#orgid").append("<option value='"+_obj.id+"'>"+_obj.name+"</option>");
+            });
+            
+            jQuery("#orgid").select2({
+                language: "zh-CN", //设置 提示语言
+                width: "200px", //设置下拉框的宽度
+                placeholder: "请选择", // 空值提示内容，选项值为 null
+           });
+            
+        }
+    });
+});
+	 
+</script>
+</html>
+
