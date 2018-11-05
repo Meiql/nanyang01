@@ -143,7 +143,7 @@
 														</td>
 														<td>
 															<@shiro.hasPermission name="/tsergencyinvestigation/update" >
-								                           		 <a href="#" data-action="${ctx}/tsergencyinvestigation/update/pre?id=" class="layui-btn layui-btn-normal layui-btn-mini">编辑</a>
+								                           		 <a href="#" data-action="${ctx}/tsergencyinvestigation/update/pre?id=${(_data.id)!''}" class="layui-btn layui-btn-normal layui-btn-mini">编辑</a>
 								                            </@shiro.hasPermission>
 								                            <@shiro.hasPermission name="/tsergencyinvestigation/delete" >
 								                            	<a href="javascript:del('${(_data.id)!''}')" class="layui-btn layui-btn-danger layui-btn-mini ajax-delete">删除</a>
@@ -186,18 +186,18 @@
 														<td >
 															${(_data.company_id)!''}
 														</td>
-														<td >
+													<!--	<td >
 															${(_data.create_user)!''}
 														</td>
 														<td >
 															${(_data.create_time)!''}
 														</td>
-														<td >
+														 <td >
 															${(_data.bak1)!''}
 														</td>
 														<td >
 															${(_data.bak2)!''}
-														</td>
+														</td> -->
 													</tr>
 												</#list>
 											 </#if>
