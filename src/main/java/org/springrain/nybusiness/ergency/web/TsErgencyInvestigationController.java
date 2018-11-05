@@ -29,7 +29,7 @@ import org.springrain.frame.util.ReturnDatas;
  * TODO 在此加入类描述
  * @copyright {@link weicms.net}
  * @author springrain<Auto generate>
- * @version  2018-10-31 10:30:32
+ * @version  2018-11-05 16:24:44
  * @see org.springrain.nybusiness.ergency.web.TsErgencyInvestigation
  */
 @Controller
@@ -111,10 +111,8 @@ public class TsErgencyInvestigationController  extends BaseController {
 	@ResponseBody      
 	public ReturnDatas lookjson(Model model,HttpServletRequest request,HttpServletResponse response) throws Exception {
 		ReturnDatas returnObject = ReturnDatas.getSuccessReturnDatas();
-		  String  strId=request.getParameter("id");
-		  java.lang.Long id=null;
-		  if(StringUtils.isNotBlank(strId)){
-			 id= java.lang.Long.valueOf(strId.trim());
+		java.lang.String id=request.getParameter("id");
+		if(StringUtils.isNotBlank(id)){
 		  TsErgencyInvestigation tsErgencyInvestigation = tsErgencyInvestigationService.findTsErgencyInvestigationById(id);
 		   returnObject.setData(tsErgencyInvestigation);
 		}else{
@@ -136,6 +134,10 @@ public class TsErgencyInvestigationController  extends BaseController {
 		returnObject.setMessage(MessageUtils.UPDATE_SUCCESS);
 		try {
 		
+			java.lang.String id =tsErgencyInvestigation.getId();
+			if(StringUtils.isBlank(id)){
+			  tsErgencyInvestigation.setId(null);
+			}
 		
 			tsErgencyInvestigationService.saveorupdate(tsErgencyInvestigation);
 			
@@ -167,10 +169,8 @@ public class TsErgencyInvestigationController  extends BaseController {
 
 			// 执行删除
 		try {
-		  String  strId=request.getParameter("id");
-		  java.lang.Long id=null;
-		  if(StringUtils.isNotBlank(strId)){
-			 id= java.lang.Long.valueOf(strId.trim());
+		java.lang.String id=request.getParameter("id");
+		if(StringUtils.isNotBlank(id)){
 				tsErgencyInvestigationService.deleteById(id,TsErgencyInvestigation.class);
 				return new ReturnDatas(ReturnDatas.SUCCESS,MessageUtils.DELETE_SUCCESS);
 			} else {

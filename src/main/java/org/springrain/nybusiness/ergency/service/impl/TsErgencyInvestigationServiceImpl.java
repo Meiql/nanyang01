@@ -15,7 +15,7 @@ import org.springrain.system.service.BaseSpringrainServiceImpl;
  * TODO 在此加入类描述
  * @copyright {@link weicms.net}
  * @author springrain<Auto generate>
- * @version  2018-10-31 10:30:32
+ * @version  2018-11-05 16:24:44
  * @see org.springrain.nybusiness.ergency.service.impl.TsErgencyInvestigation
  */
 @Service("tsErgencyInvestigationService")
