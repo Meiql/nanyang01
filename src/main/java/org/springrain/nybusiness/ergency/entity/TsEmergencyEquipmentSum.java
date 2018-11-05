@@ -13,7 +13,7 @@ import org.springrain.frame.entity.BaseEntity;
  * TODO 在此加入类描述
  * @copyright {@link weicms.net}
  * @author springrain<Auto generate>
- * @version  2018-10-31 10:31:39
+ * @version  2018-11-05 21:01:39
  * @see org.springrain.nybusiness.ergency.entity.TsEmergencyEquipmentSum
  */
 @Table(name="ts_emergency_equipment_sum")
@@ -35,6 +35,8 @@ public class TsEmergencyEquipmentSum  extends BaseEntity {
 	public static final String ALIAS_OUTSIDE_COMPANY = "外部供应单位名称";
 	public static final String ALIAS_OUT_EQUIPMENT = "设备来源_厂外设备";
 	public static final String ALIAS_IN_EQUIPMENT = "设备来源_厂内设备";
+	public static final String ALIAS_CREATE_USER = "创建用户";
+	public static final String ALIAS_CREATE_TIME = "创建时间";
 	public static final String ALIAS_COMPANY_ID = "公司id";
     */
 	//date formats
@@ -84,6 +86,14 @@ public class TsEmergencyEquipmentSum  extends BaseEntity {
 	 * 设备来源_厂内设备
 	 */
 	private java.lang.String in_Equipment;
+	/**
+	 * 创建用户
+	 */
+	private java.lang.String create_user;
+	/**
+	 * 创建时间
+	 */
+	private java.lang.String create_time;
 	/**
 	 * 公司id
 	 */
@@ -304,6 +314,44 @@ public class TsEmergencyEquipmentSum  extends BaseEntity {
 		return this.in_Equipment;
 	}
 		/**
+		 * 创建用户
+		 */
+	public void setCreate_user(java.lang.String value) {
+		    if(StringUtils.isNotBlank(value)){
+			 value=value.trim();
+			}
+		this.create_user = value;
+	}
+	
+	
+	
+	/**
+	 * 创建用户
+	 */
+     @WhereSQL(sql="create_user=:TsEmergencyEquipmentSum_create_user")
+	public java.lang.String getCreate_user() {
+		return this.create_user;
+	}
+		/**
+		 * 创建时间
+		 */
+	public void setCreate_time(java.lang.String value) {
+		    if(StringUtils.isNotBlank(value)){
+			 value=value.trim();
+			}
+		this.create_time = value;
+	}
+	
+	
+	
+	/**
+	 * 创建时间
+	 */
+     @WhereSQL(sql="create_time=:TsEmergencyEquipmentSum_create_time")
+	public java.lang.String getCreate_time() {
+		return this.create_time;
+	}
+		/**
 		 * 公司id
 		 */
 	public void setCompany_id(java.lang.String value) {
@@ -336,6 +384,8 @@ public class TsEmergencyEquipmentSum  extends BaseEntity {
 			.append("外部供应单位名称[").append(getOutside_company()).append("],")
 			.append("设备来源_厂外设备[").append(getOut_Equipment()).append("],")
 			.append("设备来源_厂内设备[").append(getIn_Equipment()).append("],")
+			.append("创建用户[").append(getCreate_user()).append("],")
+			.append("创建时间[").append(getCreate_time()).append("],")
 			.append("公司id[").append(getCompany_id()).append("],")
 			.toString();
 	}

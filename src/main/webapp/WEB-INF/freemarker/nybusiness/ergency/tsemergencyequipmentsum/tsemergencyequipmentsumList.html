@@ -123,6 +123,8 @@
 														<th id="th_outside_company" >外部供应单位名称</th>
 														<th id="th_out_Equipment" >设备来源_厂外设备</th>
 														<th id="th_in_Equipment" >设备来源_厂内设备</th>
+														<!-- <th id="th_create_user" >创建用户</th>
+														<th id="th_create_time" >创建时间</th> -->
 														<th id="th_company_id" >公司id</th>
 												</tr> 
 											</thead>
@@ -138,7 +140,7 @@
 														</td>
 														<td>
 															<@shiro.hasPermission name="/tsemergencyequipmentsum/update" >
-								                           		 <a href="#" data-action="${ctx}/tsemergencyequipmentsum/update/pre?id=" class="layui-btn layui-btn-normal layui-btn-mini">编辑</a>
+								                           		 <a href="#" data-action="${ctx}/tsemergencyequipmentsum/update/pre?id=${(_data.id)!''}" class="layui-btn layui-btn-normal layui-btn-mini">编辑</a>
 								                            </@shiro.hasPermission>
 								                            <@shiro.hasPermission name="/tsemergencyequipmentsum/delete" >
 								                            	<a href="javascript:del('${(_data.id)!''}')" class="layui-btn layui-btn-danger layui-btn-mini ajax-delete">删除</a>
@@ -175,6 +177,12 @@
 														<td >
 															${(_data.in_Equipment)!''}
 														</td>
+														<!-- <td >
+															${(_data.create_user)!''}
+														</td>
+														<td >
+															${(_data.create_time)!''}
+														</td> -->
 														<td >
 															${(_data.company_id)!''}
 														</td>
