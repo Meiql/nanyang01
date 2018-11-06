@@ -109,6 +109,7 @@ public class User  extends BaseEntity {
 	private java.lang.String bak4;
 	private java.lang.String bak5;
 	private String state;
+	private String conpanyid;
 	
 	//columns END 数据库字段结束
 	
@@ -422,6 +423,14 @@ public class User  extends BaseEntity {
 
 		public void setState(String state) {
 			this.state = state;
+		}
+
+		public String getConpanyid() {
+			return conpanyid;
+		}
+
+		public void setConpanyid(String conpanyid) {
+			this.conpanyid = conpanyid;
 		}
 	
 	

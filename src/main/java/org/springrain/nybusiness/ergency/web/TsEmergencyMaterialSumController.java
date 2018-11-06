@@ -2,6 +2,7 @@ package  org.springrain.nybusiness.ergency.web;
 
 import java.io.File;
 import java.util.Arrays;
+import java.util.Date;
 import java.util.List;
 
 import javax.annotation.Resource;
@@ -18,7 +19,9 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import org.springrain.nybusiness.ergency.entity.TsEmergencyMaterialSum;
 import org.springrain.nybusiness.ergency.service.ITsEmergencyMaterialSumService;
+import org.springrain.frame.common.SessionUser;
 import org.springrain.frame.controller.BaseController;
+import org.springrain.frame.util.DateUtils;
 import org.springrain.frame.util.GlobalStatic;
 import org.springrain.frame.util.MessageUtils;
 import org.springrain.frame.util.Page;
@@ -29,7 +32,7 @@ import org.springrain.frame.util.ReturnDatas;
  * TODO 在此加入类描述
  * @copyright {@link weicms.net}
  * @author springrain<Auto generate>
- * @version  2018-10-31 10:31:16
+ * @version  2018-11-05 21:18:49
  * @see org.springrain.nybusiness.ergency.web.TsEmergencyMaterialSum
  */
 @Controller
@@ -139,6 +142,13 @@ public class TsEmergencyMaterialSumController  extends BaseController {
 			  tsEmergencyMaterialSum.setId(null);
 			}
 		
+			if(StringUtils.isBlank(tsEmergencyMaterialSum.getCreate_user())){
+				tsEmergencyMaterialSum.setCreate_user(SessionUser.getUserId());
+			}
+			if(StringUtils.isBlank(tsEmergencyMaterialSum.getCreate_time())){
+				tsEmergencyMaterialSum.setCreate_time(DateUtils.convertDate2String("yyyy-MM-dd HH:mm:ss", new Date()));
+			}
+			
 			tsEmergencyMaterialSumService.saveorupdate(tsEmergencyMaterialSum);
 			
 		} catch (Exception e) {

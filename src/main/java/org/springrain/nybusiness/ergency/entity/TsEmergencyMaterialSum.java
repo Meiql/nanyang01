@@ -13,7 +13,7 @@ import org.springrain.frame.entity.BaseEntity;
  * TODO 在此加入类描述
  * @copyright {@link weicms.net}
  * @author springrain<Auto generate>
- * @version  2018-10-31 10:31:16
+ * @version  2018-11-05 21:18:49
  * @see org.springrain.nybusiness.ergency.entity.TsEmergencyMaterialSum
  */
 @Table(name="ts_emergency_material_sum")
@@ -34,7 +34,12 @@ public class TsEmergencyMaterialSum  extends BaseEntity {
 	public static final String ALIAS_OUTSIDE_PEOPLE = "外部供应单位主要联系人";
 	public static final String ALIAS_OUTSIDE_COMPANY = "外部供应单位名称";
 	public static final String ALIAS_OUT_EQUIPMENT = "设备来源-外部供应";
+	public static final String ALIAS_CREATE_USER = "创建用户";
+	public static final String ALIAS_CREATE_TIME = "创建时间";
 	public static final String ALIAS_COMPANY_ID = "公司id";
+	public static final String ALIAS_BAK1 = "bak1";
+	public static final String ALIAS_BAK2 = "bak2";
+	public static final String ALIAS_BAK3 = "bak3";
     */
 	//date formats
 	
@@ -80,9 +85,29 @@ public class TsEmergencyMaterialSum  extends BaseEntity {
 	 */
 	private java.lang.String out_equipment;
 	/**
+	 * 创建用户
+	 */
+	private java.lang.String create_user;
+	/**
+	 * 创建时间
+	 */
+	private java.lang.String create_time;
+	/**
 	 * 公司id
 	 */
 	private java.lang.String company_id;
+	/**
+	 * bak1
+	 */
+	private java.lang.String bak1;
+	/**
+	 * bak2
+	 */
+	private java.lang.String bak2;
+	/**
+	 * bak3
+	 */
+	private java.lang.String bak3;
 	//columns END 数据库字段结束
 	
 	//concstructor
@@ -283,6 +308,44 @@ public class TsEmergencyMaterialSum  extends BaseEntity {
 		return this.out_equipment;
 	}
 		/**
+		 * 创建用户
+		 */
+	public void setCreate_user(java.lang.String value) {
+		    if(StringUtils.isNotBlank(value)){
+			 value=value.trim();
+			}
+		this.create_user = value;
+	}
+	
+	
+	
+	/**
+	 * 创建用户
+	 */
+     @WhereSQL(sql="create_user=:TsEmergencyMaterialSum_create_user")
+	public java.lang.String getCreate_user() {
+		return this.create_user;
+	}
+		/**
+		 * 创建时间
+		 */
+	public void setCreate_time(java.lang.String value) {
+		    if(StringUtils.isNotBlank(value)){
+			 value=value.trim();
+			}
+		this.create_time = value;
+	}
+	
+	
+	
+	/**
+	 * 创建时间
+	 */
+     @WhereSQL(sql="create_time=:TsEmergencyMaterialSum_create_time")
+	public java.lang.String getCreate_time() {
+		return this.create_time;
+	}
+		/**
 		 * 公司id
 		 */
 	public void setCompany_id(java.lang.String value) {
@@ -301,6 +364,63 @@ public class TsEmergencyMaterialSum  extends BaseEntity {
 	public java.lang.String getCompany_id() {
 		return this.company_id;
 	}
+		/**
+		 * bak1
+		 */
+	public void setBak1(java.lang.String value) {
+		    if(StringUtils.isNotBlank(value)){
+			 value=value.trim();
+			}
+		this.bak1 = value;
+	}
+	
+	
+	
+	/**
+	 * bak1
+	 */
+     @WhereSQL(sql="bak1=:TsEmergencyMaterialSum_bak1")
+	public java.lang.String getBak1() {
+		return this.bak1;
+	}
+		/**
+		 * bak2
+		 */
+	public void setBak2(java.lang.String value) {
+		    if(StringUtils.isNotBlank(value)){
+			 value=value.trim();
+			}
+		this.bak2 = value;
+	}
+	
+	
+	
+	/**
+	 * bak2
+	 */
+     @WhereSQL(sql="bak2=:TsEmergencyMaterialSum_bak2")
+	public java.lang.String getBak2() {
+		return this.bak2;
+	}
+		/**
+		 * bak3
+		 */
+	public void setBak3(java.lang.String value) {
+		    if(StringUtils.isNotBlank(value)){
+			 value=value.trim();
+			}
+		this.bak3 = value;
+	}
+	
+	
+	
+	/**
+	 * bak3
+	 */
+     @WhereSQL(sql="bak3=:TsEmergencyMaterialSum_bak3")
+	public java.lang.String getBak3() {
+		return this.bak3;
+	}
 	@Override
 	public String toString() {
 		return new StringBuilder()
@@ -314,7 +434,12 @@ public class TsEmergencyMaterialSum  extends BaseEntity {
 			.append("外部供应单位主要联系人[").append(getOutside_people()).append("],")
 			.append("外部供应单位名称[").append(getOutside_company()).append("],")
 			.append("设备来源-外部供应[").append(getOut_equipment()).append("],")
+			.append("创建用户[").append(getCreate_user()).append("],")
+			.append("创建时间[").append(getCreate_time()).append("],")
 			.append("公司id[").append(getCompany_id()).append("],")
+			.append("bak1[").append(getBak1()).append("],")
+			.append("bak2[").append(getBak2()).append("],")
+			.append("bak3[").append(getBak3()).append("],")
 			.toString();
 	}
 	@Override

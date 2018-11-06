@@ -70,7 +70,7 @@
 							          		<tr>
 							          			<td>
 								                		<div class="layui-inline">
-										                      <label class="layui-form-label">员工名称</label>
+										                      <label class="layui-form-label">名称</label>
 									                    <div class="layui-input-inline">
 																	 <select id="name" name="name"  class="nolayer" style="width:320px; height: 40px;border: 1px solid #e6e6e6;"  >
 																		<option value="">请选择</option>
@@ -83,12 +83,12 @@
 									                    </div>
 								                		</div>
 										                 <div class="layui-inline">
-										                    <label class="layui-form-label">在职状态</label>
+										                    <label class="layui-form-label">是否可用</label>
 										                    <div class="layui-input-inline">
 										                        <select name="active" id="active">
 										                          <option value>==请选择==</option>
-																  <option value="1">在职</option>
-																  <option value="0">离职</option>
+																  <option value="1">可用</option>
+																  <option value="0">不可用</option>
 																</select>   
 										                    </div>
 										                </div>
@@ -132,7 +132,7 @@
 <!-- 														<th id="th_email" >邮箱</th> -->
 														<!-- <th id="th_weixinId" >微信Id</th>-->
 														<th id="th_userType" >用户类型</th> 
-														<th id="th_active" >在职状态</th>
+														<th id="th_active" >状态</th>
 <!-- 														<th id="th_endDate" >离职时间</th> -->
 <!-- 														<th id="th_lizhiremark" >离职原因</th> -->
 												</tr> 
@@ -178,16 +178,15 @@
 														</td> -->
 														<td >
 															<#if (_data.active)?? && (_data.userType==1)>
-																	员工
 																<#else>
 																	系统账号
 																</#if>
 														</td>
 														 <td >
 															<#if (_data.active)?? && (_data.active==1)>
-																	在职
+																	可用
 																<#else>
-																	离职
+																	无效
 																</#if>
 														</td>
 													</tr>

@@ -6,7 +6,7 @@ import org.springrain.system.service.IBaseSpringrainService;
  * TODO 在此加入类描述
  * @copyright {@link weicms.net}
  * @author springrain<Auto generate>
- * @version  2018-10-31 10:31:39
+ * @version  2018-11-05 21:01:39
  * @see org.springrain.nybusiness.ergency.service.TsEmergencyEquipmentSum
  */
 public interface ITsEmergencyEquipmentSumService extends IBaseSpringrainService {

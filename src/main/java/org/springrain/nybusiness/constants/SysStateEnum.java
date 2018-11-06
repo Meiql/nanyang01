@@ -52,7 +52,7 @@ public class SysStateEnum {
 
 
 	public enum userActiveEnum {
-		在职("在职", 1), 离职("离职", 0);
+		可用("可用", 1), 不可用("不可用", 0);
 		private String name;
 		private int value;
 
@@ -79,7 +79,7 @@ public class SysStateEnum {
 
 	}
 	public enum userTypeEnum {
-		系统账号("系统账号", 0), 员工("员工", 1);
+		系统账号("系统账号", 0), 企业账户信息("企业账户信息", 1);
 		private String name;
 		private int value;
 

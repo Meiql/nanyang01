@@ -99,5 +99,12 @@ public class SessionUser {
 		}
 		return shiroUser.getEmail();
 	}
+	public static String getCompanyid() {
+		ShiroUser shiroUser = getShiroUser();
+		if (shiroUser == null) {
+			return null;
+		}
+		return shiroUser.getCompanyid();
+	}
 
 }

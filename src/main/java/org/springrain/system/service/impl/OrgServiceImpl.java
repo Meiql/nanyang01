@@ -10,6 +10,7 @@ import javax.annotation.Resource;
 
 import org.apache.commons.collections4.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
+import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.stereotype.Service;
 import org.springrain.frame.util.Finder;
 import org.springrain.frame.util.Page;
@@ -387,6 +388,21 @@ public class OrgServiceImpl extends BaseSpringrainServiceImpl implements
 		finder.setParam("active", 0);
 		finder.append(" where 1 = 1 and (oaorgId not in (:oaorgIds) or oaorgId is null ) ").setParam("oaorgIds", oaorgIds);
 		super.update(finder);
+	}
+
+	@Override
+	public List<Org> finderListOrg() throws Exception {
+		Finder finder = Finder.getSelectFinder(Org.class)
+				.append(" WHERE active=:active ").setParam("active", 1);
+
+		finder.append(" order by sortno asc ");
+
+		List<Org> list = super.queryForList(finder, Org.class);
+		if (CollectionUtils.isEmpty(list)) {
+			return null;
+		}
+
+		return list;
 	}
 	
 	

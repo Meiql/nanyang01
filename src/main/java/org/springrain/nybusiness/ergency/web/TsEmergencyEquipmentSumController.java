@@ -2,6 +2,7 @@ package  org.springrain.nybusiness.ergency.web;
 
 import java.io.File;
 import java.util.Arrays;
+import java.util.Date;
 import java.util.List;
 
 import javax.annotation.Resource;
@@ -18,7 +19,9 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import org.springrain.nybusiness.ergency.entity.TsEmergencyEquipmentSum;
 import org.springrain.nybusiness.ergency.service.ITsEmergencyEquipmentSumService;
+import org.springrain.frame.common.SessionUser;
 import org.springrain.frame.controller.BaseController;
+import org.springrain.frame.util.DateUtils;
 import org.springrain.frame.util.GlobalStatic;
 import org.springrain.frame.util.MessageUtils;
 import org.springrain.frame.util.Page;
@@ -29,7 +32,7 @@ import org.springrain.frame.util.ReturnDatas;
  * TODO 在此加入类描述
  * @copyright {@link weicms.net}
  * @author springrain<Auto generate>
- * @version  2018-10-31 10:31:39
+ * @version  2018-11-05 21:01:39
  * @see org.springrain.nybusiness.ergency.web.TsEmergencyEquipmentSum
  */
 @Controller
@@ -137,6 +140,13 @@ public class TsEmergencyEquipmentSumController  extends BaseController {
 			java.lang.String id =tsEmergencyEquipmentSum.getId();
 			if(StringUtils.isBlank(id)){
 			  tsEmergencyEquipmentSum.setId(null);
+			}
+			
+			if(StringUtils.isBlank(tsEmergencyEquipmentSum.getCreate_user())){
+				tsEmergencyEquipmentSum.setCreate_user(SessionUser.getUserId());
+			}
+			if(StringUtils.isBlank(tsEmergencyEquipmentSum.getCreate_time())){
+				tsEmergencyEquipmentSum.setCreate_time(DateUtils.convertDate2String("yyyy-MM-dd HH:mm:ss", new Date()));
 			}
 		
 			tsEmergencyEquipmentSumService.saveorupdate(tsEmergencyEquipmentSum);
