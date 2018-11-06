@@ -16,8 +16,10 @@ import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springrain.nybusiness.company.service.ITsCompanyInfoService;
 
 import org.springrain.nybusiness.ergency.entity.TsEmergencyMaterialSum;
+import org.springrain.nybusiness.ergency.entity.TsErgencyInvestigation;
 import org.springrain.nybusiness.ergency.service.ITsEmergencyMaterialSumService;
 import org.springrain.frame.common.SessionUser;
 import org.springrain.frame.controller.BaseController;
@@ -26,6 +28,7 @@ import org.springrain.frame.util.GlobalStatic;
 import org.springrain.frame.util.MessageUtils;
 import org.springrain.frame.util.Page;
 import org.springrain.frame.util.ReturnDatas;
+
 
 
 /**
@@ -40,7 +43,8 @@ import org.springrain.frame.util.ReturnDatas;
 public class TsEmergencyMaterialSumController  extends BaseController {
 	@Resource
 	private ITsEmergencyMaterialSumService tsEmergencyMaterialSumService;
-	
+	@Resource
+	private ITsCompanyInfoService tsCompanyInfoService;
 	private String listurl="/nybusiness/ergency/tsemergencymaterialsum/tsemergencymaterialsumList";
 	
 	
@@ -78,8 +82,14 @@ public class TsEmergencyMaterialSumController  extends BaseController {
 		// ==构造分页请求
 		Page page = newPage(request);
 		// ==执行分页查询
-		List<TsEmergencyMaterialSum> datas=tsEmergencyMaterialSumService.findListDataByFinder(null,page,TsEmergencyMaterialSum.class,tsEmergencyMaterialSum);
+		//List<TsEmergencyMaterialSum> datas=tsEmergencyMaterialSumService.findListDataByFinder(null,page,TsEmergencyMaterialSum.class,tsEmergencyMaterialSum);
+		//	returnObject.setQueryBean(tsEmergencyMaterialSum);
+		
+		
+		List<String> listCompany = tsCompanyInfoService.finderCompanyIdByUserId(SessionUser.getUserId());
+		List<TsEmergencyMaterialSum> datas=tsEmergencyMaterialSumService.finderTsMaillistForList(page, tsEmergencyMaterialSum, listCompany);
 			returnObject.setQueryBean(tsEmergencyMaterialSum);
+		
 		returnObject.setPage(page);
 		returnObject.setData(datas);
 		return returnObject;
@@ -148,7 +158,8 @@ public class TsEmergencyMaterialSumController  extends BaseController {
 			if(StringUtils.isBlank(tsEmergencyMaterialSum.getCreate_time())){
 				tsEmergencyMaterialSum.setCreate_time(DateUtils.convertDate2String("yyyy-MM-dd HH:mm:ss", new Date()));
 			}
-			
+			java.lang.String companyId = SessionUser.getCompanyid(); 
+			tsEmergencyMaterialSum.setCompany_id(companyId);
 			tsEmergencyMaterialSumService.saveorupdate(tsEmergencyMaterialSum);
 			
 		} catch (Exception e) {

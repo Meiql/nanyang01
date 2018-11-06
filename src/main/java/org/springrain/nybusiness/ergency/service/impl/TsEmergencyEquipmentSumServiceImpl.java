@@ -2,8 +2,11 @@ package org.springrain.nybusiness.ergency.service.impl;
 
 import java.io.File;
 import java.util.List;
+
+import org.apache.commons.collections.CollectionUtils;
 import org.springframework.stereotype.Service;
 import org.springrain.nybusiness.ergency.entity.TsEmergencyEquipmentSum;
+import org.springrain.nybusiness.ergency.entity.TsErgencyInvestigation;
 import org.springrain.nybusiness.ergency.service.ITsEmergencyEquipmentSumService;
 import org.springrain.frame.entity.IBaseEntity;
 import org.springrain.frame.util.Finder;
@@ -74,5 +77,17 @@ public class TsEmergencyEquipmentSumServiceImpl extends BaseSpringrainServiceImp
 			throws Exception {
 			 return super.findDataExportExcel(finder,ftlurl,page,clazz,o);
 		}
+
+	@Override
+	public List<TsEmergencyEquipmentSum> finderTsMaillistForList(Page page,
+			TsEmergencyEquipmentSum tsEmergencyEquipmentSum, List<String> listCompany) throws Exception {
+		if(CollectionUtils.isEmpty(listCompany)){
+			return null;
+		}
+		Finder finder = new Finder();
+		finder.append("SELECT * FROM `ts_emergency_equipment_sum` t where t.company_id in (:companyId)")
+		.setParam("companyId", listCompany);
+		return super.queryForList(finder, TsEmergencyEquipmentSum.class, page);
+	}
 
 }

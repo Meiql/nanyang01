@@ -1,5 +1,8 @@
 package org.springrain.nybusiness.ergency.service;
 
+import java.util.List;
+
+import org.springrain.frame.util.Page;
 import org.springrain.nybusiness.ergency.entity.TsErgencyInvestigation;
 import org.springrain.system.service.IBaseSpringrainService;
 /**
@@ -19,6 +22,14 @@ public interface ITsErgencyInvestigationService extends IBaseSpringrainService {
 	 */
 	TsErgencyInvestigation findTsErgencyInvestigationById(Object id) throws Exception;
 	
-	
+	/**
+	 *  分页查询
+	 * @param page
+	 * @param tsMailListOutside
+	 * @param listCompany
+	 * @return
+	 * @throws Exception
+	 */
+	List<TsErgencyInvestigation> finderTsMaillistForList(Page page,TsErgencyInvestigation tsErgencyInvestigation,List<String> listCompany)throws Exception;
 	
 }

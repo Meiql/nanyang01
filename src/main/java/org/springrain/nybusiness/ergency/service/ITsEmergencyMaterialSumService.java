@@ -1,6 +1,10 @@
 package org.springrain.nybusiness.ergency.service;
 
+import java.util.List;
+
+import org.springrain.frame.util.Page;
 import org.springrain.nybusiness.ergency.entity.TsEmergencyMaterialSum;
+import org.springrain.nybusiness.ergency.entity.TsErgencyInvestigation;
 import org.springrain.system.service.IBaseSpringrainService;
 /**
  * TODO 在此加入类描述
@@ -19,6 +23,15 @@ public interface ITsEmergencyMaterialSumService extends IBaseSpringrainService {
 	 */
 	TsEmergencyMaterialSum findTsEmergencyMaterialSumById(Object id) throws Exception;
 	
+	/**
+	 *  分页查询
+	 * @param page
+	 * @param tsMailListOutside
+	 * @param listCompany
+	 * @return
+	 * @throws Exception
+	 */
+	List<TsEmergencyMaterialSum> finderTsMaillistForList(Page page,TsEmergencyMaterialSum tsEmergencyMaterialSum,List<String> listCompany)throws Exception;
 	
 	
 }
