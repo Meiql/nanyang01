@@ -122,3 +122,7 @@ INSERT INTO `t_role_menu` (`id`, `roleId`, `menuId`, `bak1`, `bak2`, `bak3`, `ba
 -- 用户管理 新增字段
 alter table t_user add COLUMN conpanyid VARCHAR(200) DEFAULT NULL; 
 
+-- 应急组织结构新增companyID 2018-11-06
+alter table ts_emergency_org add COLUMN companyId VARCHAR(200) DEFAULT NULL;
+alter table ts_emergency_user add COLUMN companyId VARCHAR(200) DEFAULT NULL;
+
