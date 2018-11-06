@@ -66,23 +66,16 @@
 																		<div class="layui-inline valid-info"></div>
 																	</div>
 																	<div class="layui-form-item col-lg-6">
-																		<label class="layui-form-label">设备来源-厂内设备*</label>
+																		<label class="layui-form-label">厂内自备*</label>
 																		<div class="layui-inline col-lg-5">  
 																			<input type="text" name="in_Equipment" id="in_Equipment" datatype="*" nullmsg="不能为空" errormsg="不能为空！" autocomplete="off" class="layui-input" value="${(returnDatas.data.in_Equipment)!''}">
 																		</div>
 																		<div class="layui-inline valid-info"></div>
 																	</div>
 																	<div class="layui-form-item col-lg-6">
-																		<label class="layui-form-label">外部供应单位主要联系方式*</label>
+																		<label class="layui-form-label">外部供应*</label>
 																		<div class="layui-inline col-lg-5">  
-																			<input type="text" name="outside_tel" id="outside_tel" datatype="*" nullmsg="不能为空" errormsg="不能为空！" autocomplete="off" class="layui-input" value="${(returnDatas.data.outside_tel)!''}">
-																		</div>
-																		<div class="layui-inline valid-info"></div>
-																	</div>
-																	<div class="layui-form-item col-lg-6">
-																		<label class="layui-form-label">外部供应单位主要联系人*</label>
-																		<div class="layui-inline col-lg-5">  
-																			<input type="text" name="outside_people" id="outside_people" datatype="*" nullmsg="不能为空" errormsg="不能为空！" autocomplete="off" class="layui-input" value="${(returnDatas.data.outside_people)!''}">
+																			<input type="text" name="out_equipment" id="out_equipment" datatype="*" nullmsg="不能为空" errormsg="不能为空！" autocomplete="off" class="layui-input" value="${(returnDatas.data.out_equipment)!''}">
 																		</div>
 																		<div class="layui-inline valid-info"></div>
 																	</div>
@@ -94,12 +87,22 @@
 																		<div class="layui-inline valid-info"></div>
 																	</div>
 																	<div class="layui-form-item col-lg-6">
-																		<label class="layui-form-label">设备来源-外部供应*</label>
+																		<label class="layui-form-label">外部供应单位主要联系人*</label>
 																		<div class="layui-inline col-lg-5">  
-																			<input type="text" name="out_equipment" id="out_equipment" datatype="*" nullmsg="不能为空" errormsg="不能为空！" autocomplete="off" class="layui-input" value="${(returnDatas.data.out_equipment)!''}">
+																			<input type="text" name="outside_people" id="outside_people" datatype="*" nullmsg="不能为空" errormsg="不能为空！" autocomplete="off" class="layui-input" value="${(returnDatas.data.outside_people)!''}">
 																		</div>
 																		<div class="layui-inline valid-info"></div>
 																	</div>
+																	<div class="layui-form-item col-lg-6">
+																		<label class="layui-form-label">外部供应单位主要联系方式*</label>
+																		<div class="layui-inline col-lg-5">  
+																			<input type="text" name="outside_tel" id="outside_tel" datatype="*" nullmsg="不能为空" errormsg="不能为空！" autocomplete="off" class="layui-input" value="${(returnDatas.data.outside_tel)!''}">
+																		</div>
+																		<div class="layui-inline valid-info"></div>
+																	</div>
+																	
+																	
+																	
 																	<!-- <div class="layui-form-item col-lg-6">
 																		<label class="layui-form-label">创建用户*</label>
 																		<div class="layui-inline col-lg-5">  
@@ -113,7 +116,7 @@
 																			<input type="text" name="create_time" id="create_time" datatype="*" nullmsg="不能为空" errormsg="不能为空！" autocomplete="off" class="layui-input" value="${(returnDatas.data.create_time)!''}">
 																		</div>
 																		<div class="layui-inline valid-info"></div>
-																	</div> -->
+																	</div> 
 																	<div class="layui-form-item col-lg-6">
 																		<label class="layui-form-label">公司id*</label>
 																		<div class="layui-inline col-lg-5">  
@@ -121,7 +124,7 @@
 																		</div>
 																		<div class="layui-inline valid-info"></div>
 																	</div>
-																	<!-- <div class="layui-form-item col-lg-6">
+																 <div class="layui-form-item col-lg-6">
 																		<label class="layui-form-label">bak1*</label>
 																		<div class="layui-inline col-lg-5">  
 																			<input type="text" name="bak1" id="bak1" datatype="*" nullmsg="不能为空" errormsg="不能为空！" autocomplete="off" class="layui-input" value="${(returnDatas.data.bak1)!''}">

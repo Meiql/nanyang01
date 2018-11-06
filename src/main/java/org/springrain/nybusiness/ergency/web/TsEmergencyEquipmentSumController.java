@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import org.springrain.nybusiness.ergency.entity.TsEmergencyEquipmentSum;
+import org.springrain.nybusiness.ergency.entity.TsErgencyInvestigation;
 import org.springrain.nybusiness.ergency.service.ITsEmergencyEquipmentSumService;
 import org.springrain.frame.common.SessionUser;
 import org.springrain.frame.controller.BaseController;
@@ -26,6 +27,7 @@ import org.springrain.frame.util.GlobalStatic;
 import org.springrain.frame.util.MessageUtils;
 import org.springrain.frame.util.Page;
 import org.springrain.frame.util.ReturnDatas;
+import org.springrain.nybusiness.company.service.ITsCompanyInfoService;
 
 
 /**
@@ -40,7 +42,8 @@ import org.springrain.frame.util.ReturnDatas;
 public class TsEmergencyEquipmentSumController  extends BaseController {
 	@Resource
 	private ITsEmergencyEquipmentSumService tsEmergencyEquipmentSumService;
-	
+	@Resource
+	private ITsCompanyInfoService tsCompanyInfoService;
 	private String listurl="/nybusiness/ergency/tsemergencyequipmentsum/tsemergencyequipmentsumList";
 	
 	
@@ -78,8 +81,13 @@ public class TsEmergencyEquipmentSumController  extends BaseController {
 		// ==构造分页请求
 		Page page = newPage(request);
 		// ==执行分页查询
-		List<TsEmergencyEquipmentSum> datas=tsEmergencyEquipmentSumService.findListDataByFinder(null,page,TsEmergencyEquipmentSum.class,tsEmergencyEquipmentSum);
+		//List<TsEmergencyEquipmentSum> datas=tsEmergencyEquipmentSumService.findListDataByFinder(null,page,TsEmergencyEquipmentSum.class,tsEmergencyEquipmentSum);
+			//returnObject.setQueryBean(tsEmergencyEquipmentSum);
+		
+		List<String> listCompany = tsCompanyInfoService.finderCompanyIdByUserId(SessionUser.getUserId());
+		List<TsEmergencyEquipmentSum> datas=tsEmergencyEquipmentSumService.finderTsMaillistForList(page, tsEmergencyEquipmentSum, listCompany);
 			returnObject.setQueryBean(tsEmergencyEquipmentSum);
+		
 		returnObject.setPage(page);
 		returnObject.setData(datas);
 		return returnObject;
@@ -148,7 +156,8 @@ public class TsEmergencyEquipmentSumController  extends BaseController {
 			if(StringUtils.isBlank(tsEmergencyEquipmentSum.getCreate_time())){
 				tsEmergencyEquipmentSum.setCreate_time(DateUtils.convertDate2String("yyyy-MM-dd HH:mm:ss", new Date()));
 			}
-		
+			java.lang.String companyId = SessionUser.getCompanyid(); 
+			tsEmergencyEquipmentSum.setCompany_id(companyId);
 			tsEmergencyEquipmentSumService.saveorupdate(tsEmergencyEquipmentSum);
 			
 		} catch (Exception e) {

@@ -5,8 +5,8 @@
 <script>
 	var _state;
 	jQuery(function(){ 
-		_state="${(returnDatas.queryBean.active)!''}";
-		jQuery("#active").val(_state);
+		_state="${(returnDatas.queryBean.category)!''}";
+		jQuery("#category").val(_category);
 		/*
 		全选、反选
 		*/
@@ -39,8 +39,10 @@
 		             	<@shiro.hasPermission name="/tsemergencyequipmentsum/list/export" >
 				        	<button type="button"   class="layui-btn layui-btn-small"><i class="layui-icon layui-icon-specil">&#xe609;</i>导出</button>
 				        </@shiro.hasPermission>
+				        <@shiro.hasPermission name="/tsemergencyequipmentsum/list/import" >
 		                <button type="button"  class="layui-btn layui-btn-warm layui-btn-small"><i class="layui-icon layui-icon-specil">&#xe601;</i>导入</button>
-		                <@shiro.hasPermission name="/tsemergencyequipmentsum/delete" >
+		                </@shiro.hasPermission>
+		                <@shiro.hasPermission name="/tsemergencyequipmentsum/deleteAll" >
 		               		 <button type="button"  class="layui-btn layui-btn-danger layui-btn-small"><i class="layui-icon">&#xe640;</i>批量删除</button>
 		                </@shiro.hasPermission>
 		             </li>
@@ -73,12 +75,16 @@
 									                    </div>
 							                		</div>
 									                 <div class="layui-inline">
-									                    <label class="layui-form-label">是否可用</label>
+									                      <label class="layui-form-label">类别</label>
 									                    <div class="layui-input-inline">
-									                        <select name="active" id="active" class="layui-input">
-									                          <option value="">==请选择==</option>
-															  <option value="1">是</option>
-															  <option value="0">否</option>
+									                        <select name="category" id="category" class="layui-input">
+									                         <option value="">==请选择类别==</option>
+															 <option value="1">医疗救护仪器</option>
+															 <option value="2">个人防护装备器材</option>
+															 <option value="3">消防设施</option>
+															 <option value="4">应急交通工具</option>
+															 <option value="5">应急监测设备</option>
+															 <option value="6">其他设施设备</option>
 															</select>   
 									                    </div>
 									                </div>
@@ -108,25 +114,35 @@
 												</tr>
 												<tr>
 												  <!--first_start_no_export-->
-												  <th class="center">
+												  <th class="center" rowspan="2">
 															<input id="checkAll"  type="checkbox">
 												  </th>
-												  <th>操作</th>
+												  <th rowspan="2">操作</th>
 												  <!--first_end_no_export-->
-														<th id="th_serial_number" >序号</th>
-														<th id="th_category" >类别</th>
-														<th id="th_name" >名称</th>
-														<th id="th_quantity" >数量</th>
-														<th id="th_unit" >单位</th>
-														<th id="th_outside_tel" >外部供应单位联系方式_联络方式</th>
-														<th id="th_outside_people" >外部供应单位联系方式_主要联系人</th>
-														<th id="th_outside_company" >外部供应单位名称</th>
-														<th id="th_out_Equipment" >设备来源_厂外设备</th>
-														<th id="th_in_Equipment" >设备来源_厂内设备</th>
+														<th id="th_serial_number" rowspan="2">序号</th>
+														<th id="th_category" rowspan="2">类别</th>
+														<th id="th_name" rowspan="2">名称</th>
+														<th id="th_quantity" rowspan="2">数量</th>
+														<th id="th_unit" rowspan="2">单位</th>
+														
+														
+														<th id="" colspan="2"  >设备来源</th>
+														<th id="th_outside_company" rowspan="2">外部供应单位名称</th>
+														<th id="" colspan="2">外部供应单位联系方式</th>
+														
+														
 														<!-- <th id="th_create_user" >创建用户</th>
-														<th id="th_create_time" >创建时间</th> -->
-														<th id="th_company_id" >公司id</th>
+														<th id="th_create_time" >创建时间</th> 
+														<th id="th_company_id" rowspan="2">公司id</th>-->
 												</tr> 
+												
+												<tr>
+												<th id="th_in_Equipment" >厂内自备</th>
+												<th id="th_out_Equipment" >外部供应</th>
+											    <th id="th_outside_people" >主要联系人</th>
+											    <th id="th_outside_tel" >联络方式</th>
+												
+												</tr>
 											</thead>
 										  <!--first_end_export-->
 										  <!--start_export-->
@@ -151,7 +167,20 @@
 															${(_data.serial_number)!0}
 														</td>
 														<td >
-															${(_data.category)!0}
+																<#if (_data.category)?? && (_data.category==1)>
+																	医疗救护仪器
+																<#elseif (_data.category)?? && (_data.category==2)>
+																	个人防护装备器材
+																<#elseif (_data.category)?? && (_data.category==3)>
+																	消防设施
+																<#elseif (_data.category)?? && (_data.category==4)>
+																	应急交通工具
+																<#elseif (_data.category)?? && (_data.category==5)>
+																	应急监测设备
+																<#elseif (_data.category)?? && (_data.category==6)>
+																	其他设施设备
+															</#if>
+															
 														</td>
 														<td >
 															${(_data.name)!''}
@@ -162,30 +191,34 @@
 														<td >
 															${(_data.unit)!''}
 														</td>
+													
 														<td >
-															${(_data.outside_tel)!''}
+															${(_data.in_Equipment)!''}
+														</td>
+														<td >
+															${(_data.out_Equipment)!''}
+														</td>
+														
+														<td >
+															${(_data.outside_company)!''}
 														</td>
 														<td >
 															${(_data.outside_people)!''}
 														</td>
 														<td >
-															${(_data.outside_company)!''}
+															${(_data.outside_tel)!''}
 														</td>
-														<td >
-															${(_data.out_Equipment)!''}
-														</td>
-														<td >
-															${(_data.in_Equipment)!''}
-														</td>
+														
+													
 														<!-- <td >
 															${(_data.create_user)!''}
 														</td>
 														<td >
 															${(_data.create_time)!''}
-														</td> -->
+														</td> 
 														<td >
 															${(_data.company_id)!''}
-														</td>
+														</td>-->
 													</tr>
 												</#list>
 											 </#if>

@@ -16,9 +16,10 @@ import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
-
+import org.springrain.nybusiness.company.service.ITsCompanyInfoService;
 import org.springrain.nybusiness.ergency.entity.TsErgencyInvestigation;
 import org.springrain.nybusiness.ergency.service.ITsErgencyInvestigationService;
+
 import org.springrain.frame.common.SessionUser;
 import org.springrain.frame.controller.BaseController;
 import org.springrain.frame.util.DateUtils;
@@ -40,7 +41,8 @@ import org.springrain.frame.util.ReturnDatas;
 public class TsErgencyInvestigationController  extends BaseController {
 	@Resource
 	private ITsErgencyInvestigationService tsErgencyInvestigationService;
-	
+	@Resource
+	private ITsCompanyInfoService tsCompanyInfoService;
 	private String listurl="/nybusiness/ergency/tsergencyinvestigation/tsergencyinvestigationList";
 	
 	
@@ -78,8 +80,13 @@ public class TsErgencyInvestigationController  extends BaseController {
 		// ==构造分页请求
 		Page page = newPage(request);
 		// ==执行分页查询
-		List<TsErgencyInvestigation> datas=tsErgencyInvestigationService.findListDataByFinder(null,page,TsErgencyInvestigation.class,tsErgencyInvestigation);
-			returnObject.setQueryBean(tsErgencyInvestigation);
+		//List<TsErgencyInvestigation> datas=tsErgencyInvestigationService.findListDataByFinder(null,page,TsErgencyInvestigation.class,tsErgencyInvestigation);
+			//returnObject.setQueryBean(tsErgencyInvestigation);
+			
+			List<String> listCompany = tsCompanyInfoService.finderCompanyIdByUserId(SessionUser.getUserId());
+			List<TsErgencyInvestigation> datas=tsErgencyInvestigationService.finderTsMaillistForList(page, tsErgencyInvestigation, listCompany);
+				returnObject.setQueryBean(tsErgencyInvestigation);
+			
 		returnObject.setPage(page);
 		returnObject.setData(datas);
 		return returnObject;
@@ -141,13 +148,17 @@ public class TsErgencyInvestigationController  extends BaseController {
 			if(StringUtils.isBlank(id)){
 				tsErgencyInvestigation.setId(null);
 			}
+			
 			if(StringUtils.isBlank(tsErgencyInvestigation.getCreate_user())){
 				tsErgencyInvestigation.setCreate_user(SessionUser.getUserId());
 			}
 			if(StringUtils.isBlank(tsErgencyInvestigation.getCreate_time())){
 				tsErgencyInvestigation.setCreate_time(DateUtils.convertDate2String("yyyy-MM-dd HH:mm:ss", new Date()));
 			}
-		
+			java.lang.String companyId = SessionUser.getCompanyid(); 
+			tsErgencyInvestigation.setCompany_id(companyId);
+			
+			
 			tsErgencyInvestigationService.saveorupdate(tsErgencyInvestigation);
 			
 		} catch (Exception e) {

@@ -5,8 +5,8 @@
 <script>
 	var _state;
 	jQuery(function(){ 
-		_state="${(returnDatas.queryBean.active)!''}";
-		jQuery("#active").val(_state);
+		_state="${(returnDatas.queryBean.category)!''}";
+		jQuery("#category").val(_state);
 		/*
 		全选、反选
 		*/
@@ -42,7 +42,7 @@
 				        <@shiro.hasPermission name="/tsergencyinvestigation/list/import" >
 		                <button type="button"  class="layui-btn layui-btn-warm layui-btn-small"><i class="layui-icon layui-icon-specil">&#xe601;</i>导入</button>
 		                 </@shiro.hasPermission>
-		                <@shiro.hasPermission name="/tsergencyinvestigation/delete" >
+		                <@shiro.hasPermission name="/tsergencyinvestigation/deleteAll" >
 		               		 <button type="button"  class="layui-btn layui-btn-danger layui-btn-small"><i class="layui-icon">&#xe640;</i>批量删除</button>
 		                </@shiro.hasPermission>
 		             </li>
@@ -75,12 +75,13 @@
 									                    </div>
 							                		</div>
 									                 <div class="layui-inline">
-									                    <label class="layui-form-label">是否可用</label>
+									                    <label class="layui-form-label">类别</label>
 									                    <div class="layui-input-inline">
-									                        <select name="active" id="active" class="layui-input">
-									                          <option value="">==请选择==</option>
-															  <option value="1">是</option>
-															  <option value="0">否</option>
+									                        <select name="category" id="category" class="layui-input">
+									                         <option value="">==请选择类别==</option>
+															 <option value="1">设备</option>
+															 <option value="2">物资</option>
+															 <option value="3">场所</option>
 															</select>   
 									                    </div>
 									                </div>
@@ -97,11 +98,10 @@
 									</form>
 									<!--start_export-->
 									<table class="layui-table" lay-even>
-										<!--   <colgroup>
+										 <colgroup>
 										    <col width="40">
 										    <col width="120">
-										    <col>
-										  </colgroup> -->
+										  </colgroup> 
 										  <!--end_no_export-->
 										  <!--first_start_export-->
 											<thead>
@@ -113,20 +113,19 @@
 												  <th class="center">
 															<input id="checkAll"  type="checkbox">
 												  </th>
-												  <th>操作</th>
+												  <th style="width: 100px">操作</th>
 												  <!--first_end_no_export-->
-														<th id="th_serial_number" >序号</th>
-														<th id="th_category" >类别</th>
-														<th id="th_name" >名称</th>
-														<th width="100" id="th_type_Specifications" >型号或规格</th>
-														<th id="th_quantity" >数量</th>
-														<th id="th_unit" >单位</th>
-														<th id="th_place" >位置</th>
-														<th width="120" id="th_custodian_or_post" >保管人员或岗位</th>
-														<th width="120" id="th_user_or_posts" >使用人员或岗位</th>
-														<th width="120" id="th_final_validity_time" >最后有效期限</th>
-														<th id="th_remarks" >备注</th>
-														<th id="th_company_id" >公司id</th>
+														<th id="th_serial_number" style="width: 10px">序号</th>
+														<th id="th_category" style="width: 180px">类别</th>
+														<th id="th_name" style="width: 80px">名称</th>
+														<th id="th_type_Specifications" style="width: 200px">型号或规格</th>
+														<th id="th_quantity" style="width: 10px">数量</th>
+														<th id="th_unit" style="width: 200px">单位</th>
+														<th id="th_place" style="width: 200px">位置</th>
+														<th  id="th_custodian_or_post" style="width: 100px">保管人员或岗位</th>
+														<th  id="th_user_or_posts" style="width: 100px">使用人员或岗位</th>
+														<th  id="th_final_validity_time" style="width: 100px">最后有效期限</th>
+														<th id="th_remarks" style="width: 100px">备注</th>
 														<!-- <th id="th_create_user" >创建人</th>
 														<th id="th_create_time" >创建时间</th>
 														<th id="th_bak1" >bak1</th>
@@ -156,7 +155,17 @@
 															${(_data.serial_number)!''}
 														</td>
 														<td >
-															${(_data.category)!0}
+															
+															<#if (_data.category)?? && (_data.category==1)>
+																	设备
+																<#elseif (_data.category)?? && (_data.category==2)>
+																	物资
+																<#elseif (_data.category)?? && (_data.category==3)>
+																	场所
+															</#if>
+															
+															
+															
 														</td>
 														<td >
 															${(_data.name)!''}
@@ -185,10 +194,10 @@
 														<td >
 															${(_data.remarks)!''}
 														</td>
-														<td >
+														<!--<td >
 															${(_data.company_id)!''}
 														</td>
-													<!--	<td >
+														<td >
 															${(_data.create_user)!''}
 														</td>
 														<td >
