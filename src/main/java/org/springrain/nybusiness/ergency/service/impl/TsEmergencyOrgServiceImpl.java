@@ -8,79 +8,92 @@ import javax.annotation.Resource;
 import org.apache.commons.collections4.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;
+import org.springrain.frame.common.SessionUser;
 import org.springrain.frame.entity.IBaseEntity;
 import org.springrain.frame.util.Finder;
 import org.springrain.frame.util.Page;
+import org.springrain.nybusiness.company.service.ITsCompanyInfoService;
 import org.springrain.nybusiness.ergency.entity.TsEmergencyOrg;
 import org.springrain.nybusiness.ergency.service.ITsEmergencyOrgService;
 import org.springrain.system.service.BaseSpringrainServiceImpl;
 import org.springrain.system.service.ITableindexService;
 
-
 /**
  * TODO 在此加入类描述
+ * 
  * @copyright {@link weicms.net}
  * @author springrain<Auto generate>
- * @version  2018-11-03 10:32:40
+ * @version 2018-11-03 10:32:40
  * @see org.springrain.nybusiness.ergency.service.impl.TsEmergencyOrg
  */
 @Service("tsEmergencyOrgService")
-public class TsEmergencyOrgServiceImpl extends BaseSpringrainServiceImpl implements ITsEmergencyOrgService {
+public class TsEmergencyOrgServiceImpl extends BaseSpringrainServiceImpl
+		implements ITsEmergencyOrgService {
 	@Resource
 	private ITableindexService tableindexService;
-   
-    @Override
-	public String  save(Object entity ) throws Exception{
-	      TsEmergencyOrg tsEmergencyOrg=(TsEmergencyOrg) entity;
-	       return super.save(tsEmergencyOrg).toString();
+	@Resource
+	private ITsCompanyInfoService tsCompanyInfoService; 
+
+	@Override
+	public String save(Object entity) throws Exception {
+		TsEmergencyOrg tsEmergencyOrg = (TsEmergencyOrg) entity;
+		return super.save(tsEmergencyOrg).toString();
 	}
 
-    @Override
-	public String  saveorupdate(Object entity ) throws Exception{
-	      TsEmergencyOrg tsEmergencyOrg=(TsEmergencyOrg) entity;
-		 return super.saveorupdate(tsEmergencyOrg).toString();
-	}
-	
 	@Override
-    public Integer update(IBaseEntity entity ) throws Exception{
-	 TsEmergencyOrg tsEmergencyOrg=(TsEmergencyOrg) entity;
-	return super.update(tsEmergencyOrg);
-    }
-    @Override
-	public TsEmergencyOrg findTsEmergencyOrgById(Object id) throws Exception{
-	 return super.findById(id,TsEmergencyOrg.class);
+	public String saveorupdate(Object entity) throws Exception {
+		TsEmergencyOrg tsEmergencyOrg = (TsEmergencyOrg) entity;
+		return super.saveorupdate(tsEmergencyOrg).toString();
 	}
-	
-/**
- * 列表查询,每个service都会重载,要把sql语句封装到service中,Finder只是最后的方案
- * @param finder
- * @param page
- * @param clazz
- * @param o
- * @return
- * @throws Exception
- */
-        @Override
-    public <T> List<T> findListDataByFinder(Finder finder, Page page, Class<T> clazz,
-			Object o) throws Exception{
-			 return super.findListDataByFinder(finder,page,clazz,o);
-			}
+
+	@Override
+	public Integer update(IBaseEntity entity) throws Exception {
+		TsEmergencyOrg tsEmergencyOrg = (TsEmergencyOrg) entity;
+		return super.update(tsEmergencyOrg);
+	}
+
+	@Override
+	public TsEmergencyOrg findTsEmergencyOrgById(Object id) throws Exception {
+		return super.findById(id, TsEmergencyOrg.class);
+	}
+
 	/**
-	 * 根据查询列表的宏,导出Excel
-	 * @param finder 为空则只查询 clazz表
-	 * @param ftlurl 类表的模版宏
-	 * @param page 分页对象
-	 * @param clazz 要查询的对象
-	 * @param o  querybean
+	 * 列表查询,每个service都会重载,要把sql语句封装到service中,Finder只是最后的方案
+	 * 
+	 * @param finder
+	 * @param page
+	 * @param clazz
+	 * @param o
 	 * @return
 	 * @throws Exception
 	 */
-		@Override
-	public <T> File findDataExportExcel(Finder finder,String ftlurl, Page page,
-			Class<T> clazz, Object o)
-			throws Exception {
-			 return super.findDataExportExcel(finder,ftlurl,page,clazz,o);
-		}
+	@Override
+	public <T> List<T> findListDataByFinder(Finder finder, Page page,
+			Class<T> clazz, Object o) throws Exception {
+		return super.findListDataByFinder(finder, page, clazz, o);
+	}
+
+	/**
+	 * 根据查询列表的宏,导出Excel
+	 * 
+	 * @param finder
+	 *            为空则只查询 clazz表
+	 * @param ftlurl
+	 *            类表的模版宏
+	 * @param page
+	 *            分页对象
+	 * @param clazz
+	 *            要查询的对象
+	 * @param o
+	 *            querybean
+	 * @return
+	 * @throws Exception
+	 */
+	@Override
+	public <T> File findDataExportExcel(Finder finder, String ftlurl,
+			Page page, Class<T> clazz, Object o) throws Exception {
+		return super.findDataExportExcel(finder, ftlurl, page, clazz, o);
+	}
 
 	@Override
 	public String findOrgNewComcode(String id, String pid) throws Exception {
@@ -107,19 +120,18 @@ public class TsEmergencyOrgServiceImpl extends BaseSpringrainServiceImpl impleme
 	public String saveTsEmergencyOrg(TsEmergencyOrg entity) throws Exception {
 
 		String id = null;
-		if (StringUtils.isNotBlank(entity.getId())) { 
-			id=entity.getId();
+		if (StringUtils.isNotBlank(entity.getId())) {
+			id = entity.getId();
 		} else {
 			id = tableindexService.updateNewId(TsEmergencyOrg.class);
 		}
-		entity.setId(id); 
+		entity.setId(id);
 
 		String comcode = findOrgNewComcode(id, entity.getPid());
 
 		entity.setComcode(comcode);
 
 		super.save(entity);
-
 
 		return id;
 	}
@@ -133,7 +145,8 @@ public class TsEmergencyOrgServiceImpl extends BaseSpringrainServiceImpl impleme
 			return null;
 		}
 
-		Finder f_old_c = Finder.getSelectFinder(TsEmergencyOrg.class, "comcode")
+		Finder f_old_c = Finder
+				.getSelectFinder(TsEmergencyOrg.class, "comcode")
 				.append(" WHERE id=:id ").setParam("id", id);
 
 		String old_c = super.queryForObject(f_old_c, String.class);
@@ -147,10 +160,12 @@ public class TsEmergencyOrgServiceImpl extends BaseSpringrainServiceImpl impleme
 		entity.setComcode(new_c);
 		Integer update = super.update(entity, true);
 		// 级联更新
-		Finder f_s_list = Finder.getSelectFinder(TsEmergencyOrg.class, "id,comcode")
+		Finder f_s_list = Finder
+				.getSelectFinder(TsEmergencyOrg.class, "id,comcode")
 				.append(" WHERE comcode like :comcode and id<>:id ")
 				.setParam("comcode", old_c + "%").setParam("id", id);
-		List<TsEmergencyOrg> list = super.queryForList(f_s_list, TsEmergencyOrg.class);
+		List<TsEmergencyOrg> list = super.queryForList(f_s_list,
+				TsEmergencyOrg.class);
 		if (CollectionUtils.isEmpty(list)) {
 			return update;
 		}
@@ -166,6 +181,21 @@ public class TsEmergencyOrgServiceImpl extends BaseSpringrainServiceImpl impleme
 		super.update(list, true);
 
 		return update;
+	}
+
+	@Override
+	public List<TsEmergencyOrg> finderTsEmergencyOrgForList() throws Exception {
+
+		List<String> listCompanyId = tsCompanyInfoService.finderCompanyIdByUserId(SessionUser.getUserId());
+		
+		Finder finder = new Finder("SELECT o.* FROM ").append(Finder.getTableName(TsEmergencyOrg.class)).append(" o ");
+		finder.append(" WHERE o.active=:active and  o.companyId in (:companyId)");
+		finder.setParam("active", 1).setParam("companyId", listCompanyId);
+		finder.append(" order by o.sortno asc ");
+
+		List<TsEmergencyOrg> datas = super.queryForList(finder,
+				TsEmergencyOrg.class);
+		return datas;
 	}
 
 }

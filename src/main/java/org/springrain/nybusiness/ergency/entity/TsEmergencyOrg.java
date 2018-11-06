@@ -93,6 +93,8 @@ public class TsEmergencyOrg  extends BaseEntity {
 	 * bak5
 	 */
 	private java.lang.String bak5;
+	
+	private String companyId;
 	//columns END 数据库字段结束
 	
 	//concstructor
@@ -346,6 +348,15 @@ public class TsEmergencyOrg  extends BaseEntity {
 	public java.lang.String getBak5() {
 		return this.bak5;
 	}
+     
+	public String getCompanyId() {
+		return companyId;
+	}
+
+	public void setCompanyId(String companyId) {
+		this.companyId = companyId;
+	}
+
 	@Override
 	public String toString() {
 		return new StringBuilder()

@@ -1,6 +1,8 @@
 <#ftl output_format="HTML" auto_esc=true>
 <@h.commonHead title="后台管理系统" keywords="开源,永久免费" description="springrain开源系统管理后台"/>
 <script src="${ctx}/js/custom/common/form.js"></script>
+<script type="text/javascript" src="${ctx}/js/My97DatePicker/WdatePicker.js"></script>
+<link rel="stylesheet" href="${ctx}/js/My97DatePicker/skin/default/datepicker.css" />
 
 <script>
 	var _state;
@@ -58,12 +60,16 @@
 							          			<th colspan="2">内部通讯录搜索</th>
 							          		</tr>
 							          		<tr>
-							          			<td>
+							          			<td> ssss
 							          				<div class="layui-inline">
 									                    <label class="layui-form-label">单位名称</label>
 									                    <div class="layui-input-inline">
 									                           <input type="text" name="unitName" value="${(returnDatas.queryBean.unitName)!''}" placeholder="请输入单位名称 " class="layui-input">
 									                    </div>
+									                    <label class="layui-form-label">月份*</label>
+														<div class="layui-input-inline">  
+																<input type="text" name="monthdate" id="0_monthdate" datatype="*" nullmsg="不能为空" errormsg="不能为空！" onClick="WdatePicker()" class="layui-input" value="">
+														</div>
 							                		</div>
 									               <!--   <div class="layui-inline">
 									                    <label class="layui-form-label">是否可用</label>

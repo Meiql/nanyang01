@@ -150,6 +150,7 @@ public class TsEmergencyUserController  extends BaseController {
 			if(StringUtils.isBlank(tsEmergencyUser.getCreateTime())){
 				tsEmergencyUser.setCreateTime(DateUtils.convertDate2String("yyyy-MM-dd HH:mm:ss", new Date()));
 			}
+			tsEmergencyUser.setCompanyId(SessionUser.getCompanyid());
 			tsEmergencyUserService.saveorupdate(tsEmergencyUser);
 			
 		} catch (Exception e) {

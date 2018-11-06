@@ -73,7 +73,7 @@ public class TsEmergencyOrgController  extends BaseController {
 		// ==构造分页请求
 		Page page = newPage(request);
 		// ==执行分页查询
-		List<TsEmergencyOrg> datas=tsEmergencyOrgService.findListDataByFinder(null,page,TsEmergencyOrg.class,tsEmergencyOrg);
+		List<TsEmergencyOrg> datas=tsEmergencyOrgService.finderTsEmergencyOrgForList();
 			returnObject.setQueryBean(tsEmergencyOrg);
 		returnObject.setPage(page);
 		returnObject.setData(datas);
@@ -137,7 +137,7 @@ public class TsEmergencyOrgController  extends BaseController {
 				if(StringUtils.isBlank(pid)){
 					tsEmergencyOrg.setPid(null);
 				}
-				
+				tsEmergencyOrg.setCompanyId(SessionUser.getCompanyid());
 				if(StringUtils.isBlank(id)){
 					tsEmergencyOrg.setId(null);
 					tsEmergencyOrgService.saveTsEmergencyOrg(tsEmergencyOrg);
