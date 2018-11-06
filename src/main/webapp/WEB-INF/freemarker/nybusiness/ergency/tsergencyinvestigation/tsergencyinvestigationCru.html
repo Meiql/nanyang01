@@ -3,6 +3,8 @@
 
 <script src="${ctx}/js/validform/validform.min.js"></script>
 <link rel="stylesheet" href="${ctx}/js/validform/validform.css" media="all">
+<script type="text/javascript" src="${ctx}/js/My97DatePicker/WdatePicker.js"></script>
+<link rel="stylesheet" href="${ctx}/js/My97DatePicker/skin/default/datepicker.css" />
 <script>
  var _state;
 	 jQuery(function(){
@@ -119,7 +121,7 @@
 																	<div class="layui-form-item col-lg-6">
 																		<label class="layui-form-label">最后有效期限*</label>
 																		<div class="layui-inline col-lg-5">  
-																			<input type="text" name="final_validity_time" id="final_validity_time" datatype="*" nullmsg="不能为空" errormsg="不能为空！" autocomplete="off" class="layui-input" value="${(returnDatas.data.final_validity_time)!''}">
+																			<input type="text" name="final_validity_time" id="final_validity_time" onClick="WdatePicker()" datatype="*" nullmsg="不能为空" errormsg="不能为空！" autocomplete="off" class="layui-input" value="${(returnDatas.data.final_validity_time)!''}">
 																		</div>
 																		<div class="layui-inline valid-info"></div>
 																	</div>
