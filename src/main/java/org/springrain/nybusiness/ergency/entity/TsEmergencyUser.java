@@ -88,6 +88,8 @@ public class TsEmergencyUser  extends BaseEntity {
 	 * bak5
 	 */
 	private java.lang.String bak5;
+	
+	private String companyId;
 	//columns END 数据库字段结束
 	
 	//concstructor
@@ -324,6 +326,14 @@ public class TsEmergencyUser  extends BaseEntity {
 	
 	
 	
+	public String getCompanyId() {
+			return companyId;
+		}
+
+		public void setCompanyId(String companyId) {
+			this.companyId = companyId;
+		}
+
 	/**
 	 * bak5
 	 */

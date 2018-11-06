@@ -49,6 +49,7 @@ description="springrain开源系统管理后台"/>
 					});
 				});
 				function showdata(result) {
+					alert(result["id"])
 					$("#emergencyOrgId").val(result["id"]);
 					springrain.commonSubmit('searchForm');
 				}
@@ -144,7 +145,7 @@ description="springrain开源系统管理后台"/>
 							          <input type="hidden" name="pageIndex" id="pageIndex" value="${(returnDatas.page.pageIndex)!'1'}" /> 
 							          <input type="hidden" name="sort" id="page_sort" value="${(returnDatas.page.sort)!'desc'}" />
 							          <input type="hidden" name="order" id="page_order" value="${(returnDatas.page.order)!'id'}" />
-							          <input type="hidden" id="emergencyOrgId" name="emergencyOrgId" value="${(returnDatas.queryBean.emergencyOrgId)!''}" placeholder="请输入部门名称" class="layui-input">
+							          <input type="text" id="emergencyOrgId" name="emergencyOrgId" value="${(returnDatas.queryBean.emergencyOrgId)!''}" placeholder="请输入部门名称" class="layui-input">
 									  <table class="layui-table search-wrap">
 									  	<colgroup>
 										    <col width="">

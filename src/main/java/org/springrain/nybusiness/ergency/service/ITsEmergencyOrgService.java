@@ -1,5 +1,7 @@
 package org.springrain.nybusiness.ergency.service;
 
+import java.util.List;
+
 import org.springrain.nybusiness.ergency.entity.TsEmergencyOrg;
 import org.springrain.system.service.IBaseSpringrainService;
 /**
@@ -46,4 +48,10 @@ public interface ITsEmergencyOrgService extends IBaseSpringrainService {
 	public Integer updateTsEmergencyOrg(TsEmergencyOrg entity) throws Exception;
 	
 	
+	/**
+	 * 
+	 * @return 查询部门信息
+	 * @throws Exception
+	 */
+	public List<TsEmergencyOrg> finderTsEmergencyOrgForList()throws Exception;
 }

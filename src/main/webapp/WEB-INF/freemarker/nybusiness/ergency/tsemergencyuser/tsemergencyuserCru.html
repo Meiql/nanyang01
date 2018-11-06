@@ -38,9 +38,9 @@
 													<form id="validForm" class="layui-form <!--  -->"  method="post" action="${ctx}/tsemergencyuser/update">
 																<input type="hidden" id="id" name="id" value="${(returnDatas.data.id)!''}"/>
 																<#if (returnDatas.data.id)??>
-																	<input type="hidden" id="emergencyOrgId" name="emergencyOrgId" value="${(returnDatas.data.emergencyOrgId)!''}"/>
+																	<input type="text" id="emergencyOrgId" name="emergencyOrgId" value="${(returnDatas.data.emergencyOrgId)!''}"/>
 																	<#else> 
-																	<input type="hidden" id="emergencyOrgId" name="emergencyOrgId" value="${emergencyOrgId!''}"/>
+																	<input type="text" id="emergencyOrgId" name="emergencyOrgId" value="${emergencyOrgId!''}"/>
 																</#if>
 																
 																	<div class="layui-form-item col-lg-6">

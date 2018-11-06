@@ -170,6 +170,7 @@ public class TsCompanyInfoServiceImpl extends BaseSpringrainServiceImpl implemen
 		}
 		//如果是企业账号直接返回
 		if(SysStateEnum.userTypeEnum.企业账户信息.getValue() == user.getUserType()){
+			System.out.println("公司id"+SessionUser.getCompanyid());
 			listStr.add(SessionUser.getCompanyid());
 			return listStr;
 		}
