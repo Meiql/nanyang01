@@ -1,7 +1,9 @@
 package  org.springrain.nybusiness.msg.web;
 
 import java.io.File;
+import java.text.SimpleDateFormat;
 import java.util.Arrays;
+import java.util.Date;
 import java.util.List;
 
 import javax.annotation.Resource;
@@ -129,6 +131,12 @@ public class TsMsgChemicalSubstancesController  extends BaseController {
 	public ReturnDatas saveorupdate(Model model,TsMsgChemicalSubstances tsMsgChemicalSubstances,HttpServletRequest request,HttpServletResponse response) throws Exception{
 		ReturnDatas returnObject = ReturnDatas.getSuccessReturnDatas();
 		returnObject.setMessage(MessageUtils.UPDATE_SUCCESS);
+		Date date = new Date();
+		SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+		String formatStr =formatter.format(date);
+		System.out.println(formatStr);
+		tsMsgChemicalSubstances.setCreateTime(formatStr);
+		tsMsgChemicalSubstances.setCreateUser("gdy");
 		try {
 		
 			java.lang.String id =tsMsgChemicalSubstances.getId();
