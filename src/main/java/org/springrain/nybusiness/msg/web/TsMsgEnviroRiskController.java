@@ -18,24 +18,24 @@ import org.springrain.frame.util.GlobalStatic;
 import org.springrain.frame.util.MessageUtils;
 import org.springrain.frame.util.Page;
 import org.springrain.frame.util.ReturnDatas;
-import org.springrain.nybusiness.msg.entity.TsMsgTechnology;
-import org.springrain.nybusiness.msg.service.ITsMsgTechnologyService;
+import org.springrain.nybusiness.msg.entity.TsMsgEnviroRisk;
+import org.springrain.nybusiness.msg.service.ITsMsgEnviroRiskService;
 
 
 /**
- * TODO 在此加入类描述
+ * TODO 环境风险表 
  * @copyright {@link weicms.net}
  * @author springrain<Auto generate>
  * @version  2018-10-27 09:44:38
- * @see org.springrain.nybusiness.msg.web.TsMsgTechnology
+ * @see org.springrain.nybusiness.msg.web.TsMsgEnviroRisk
  */
 @Controller
 @RequestMapping(value="/tsmsgenvirorisk")
 public class TsMsgEnviroRiskController  extends BaseController {
 	@Resource
-	private ITsMsgTechnologyService tsMsgTechnologyService;
+	private ITsMsgEnviroRiskService TsMsgEnviroRiskService;
 	
-	private String listurl="/nybusiness/msg/tsmsgenvirorisk/tsmsgenviroriskList.html";
+	private String listurl="/nybusiness/msg/tsmsgenvirorisk/tsmsgenviroriskList";
 	
 	
 	   
@@ -44,14 +44,14 @@ public class TsMsgEnviroRiskController  extends BaseController {
 	 * 
 	 * @param request
 	 * @param model
-	 * @param tsMsgTechnology
+	 * @param TsMsgEnviroRisk
 	 * @return
 	 * @throws Exception
 	 */
 	@RequestMapping("/list")
-	public String list(HttpServletRequest request, Model model,TsMsgTechnology tsMsgTechnology) 
+	public String list(HttpServletRequest request, Model model,TsMsgEnviroRisk tsMsgEnviroRisk) 
 			throws Exception {
-		ReturnDatas returnObject = listjson(request, model, tsMsgTechnology);
+		ReturnDatas returnObject = listjson(request, model, tsMsgEnviroRisk);
 		model.addAttribute(GlobalStatic.returnDatas, returnObject);
 		return listurl;
 	}
@@ -61,31 +61,31 @@ public class TsMsgEnviroRiskController  extends BaseController {
 	 * 
 	 * @param request
 	 * @param model
-	 * @param tsMsgTechnology
+	 * @param TsMsgEnviroRisk
 	 * @return
 	 * @throws Exception
 	 */
 	@RequestMapping("/list/json")
 	@ResponseBody   
-	public  ReturnDatas listjson(HttpServletRequest request, Model model,TsMsgTechnology tsMsgTechnology) throws Exception{
+	public  ReturnDatas listjson(HttpServletRequest request, Model model,TsMsgEnviroRisk TsMsgEnviroRisk) throws Exception{
 		ReturnDatas returnObject = ReturnDatas.getSuccessReturnDatas();
 		// ==构造分页请求
 		Page page = newPage(request);
 		// ==执行分页查询
-		List<TsMsgTechnology> datas=tsMsgTechnologyService.findListDataByFinder(null,page,TsMsgTechnology.class,tsMsgTechnology);
-			returnObject.setQueryBean(tsMsgTechnology);
+		List<TsMsgEnviroRisk> datas=TsMsgEnviroRiskService.findListDataByFinder(null,page,TsMsgEnviroRisk.class,TsMsgEnviroRisk);
+			returnObject.setQueryBean(TsMsgEnviroRisk);
 		returnObject.setPage(page);
 		returnObject.setData(datas);
 		return returnObject;
 	}
 	
 	@RequestMapping("/list/export")
-	public void listexport(HttpServletRequest request,HttpServletResponse response, Model model,TsMsgTechnology tsMsgTechnology) throws Exception{
+	public void listexport(HttpServletRequest request,HttpServletResponse response, Model model,TsMsgEnviroRisk TsMsgEnviroRisk) throws Exception{
 		// ==构造分页请求
 		Page page = newPage(request);
 	
-		File file = tsMsgTechnologyService.findDataExportExcel(null,listurl, page,TsMsgTechnology.class,tsMsgTechnology);
-		String fileName="tsMsgTechnology"+GlobalStatic.excelext;
+		File file = TsMsgEnviroRiskService.findDataExportExcel(null,listurl, page,TsMsgEnviroRisk.class,TsMsgEnviroRisk);
+		String fileName="TsMsgEnviroRisk"+GlobalStatic.excelext;
 		downFile(response, file, fileName,true);
 		return;
 	}
@@ -97,7 +97,7 @@ public class TsMsgEnviroRiskController  extends BaseController {
 	public String look(Model model,HttpServletRequest request,HttpServletResponse response)  throws Exception {
 		ReturnDatas returnObject = lookjson(model, request, response);
 		model.addAttribute(GlobalStatic.returnDatas, returnObject);
-		return "/nybusiness/msg/tsmsgtechnology/tsmsgtechnologyLook";
+		return "/nybusiness/msg/TsMsgEnviroRisk/TsMsgEnviroRiskLook";
 	}
 
 	
@@ -110,8 +110,8 @@ public class TsMsgEnviroRiskController  extends BaseController {
 		ReturnDatas returnObject = ReturnDatas.getSuccessReturnDatas();
 		java.lang.String id=request.getParameter("id");
 		if(StringUtils.isNotBlank(id)){
-		  TsMsgTechnology tsMsgTechnology = tsMsgTechnologyService.findTsMsgTechnologyById(id);
-		   returnObject.setData(tsMsgTechnology);
+		  TsMsgEnviroRisk TsMsgEnviroRisk = TsMsgEnviroRiskService.findTsMsgEnviroRiskById(id);
+		   returnObject.setData(TsMsgEnviroRisk);
 		}else{
 		returnObject.setStatus(ReturnDatas.ERROR);
 		}
@@ -126,20 +126,21 @@ public class TsMsgEnviroRiskController  extends BaseController {
 	 */
 	@RequestMapping("/update")
 	@ResponseBody      
-	public ReturnDatas saveorupdate(Model model,TsMsgTechnology tsMsgTechnology,HttpServletRequest request,HttpServletResponse response) throws Exception{
+	public ReturnDatas saveorupdate(Model model,TsMsgEnviroRisk tsMsgEnviroRisk,HttpServletRequest request,HttpServletResponse response) throws Exception{
 		ReturnDatas returnObject = ReturnDatas.getSuccessReturnDatas();
 		returnObject.setMessage(MessageUtils.UPDATE_SUCCESS);
 		try {
 		
-			java.lang.String id =tsMsgTechnology.getId();
+			java.lang.String id =tsMsgEnviroRisk.getId();
 			if(StringUtils.isBlank(id)){
-			  tsMsgTechnology.setId(null);
+				tsMsgEnviroRisk.setId(null);
 			}
 		
-			tsMsgTechnologyService.saveorupdate(tsMsgTechnology);
+			TsMsgEnviroRiskService.saveorupdate(tsMsgEnviroRisk);
 			
 		} catch (Exception e) {
 			logger.error(e.getMessage(),e);
+			e.printStackTrace();
 			returnObject.setStatus(ReturnDatas.ERROR);
 			returnObject.setMessage(MessageUtils.UPDATE_ERROR);
 		}
@@ -154,7 +155,7 @@ public class TsMsgEnviroRiskController  extends BaseController {
 	public String updatepre(Model model,HttpServletRequest request,HttpServletResponse response)  throws Exception{
 		ReturnDatas returnObject = lookjson(model, request, response);
 		model.addAttribute(GlobalStatic.returnDatas, returnObject);
-		return "/nybusiness/msg/tsmsgtechnology/tsmsgtechnologyCru";
+		return "/nybusiness/msg/TsMsgEnviroRisk/TsMsgEnviroRiskCru";
 	}
 	
 	/**
@@ -168,7 +169,7 @@ public class TsMsgEnviroRiskController  extends BaseController {
 		try {
 		java.lang.String id=request.getParameter("id");
 		if(StringUtils.isNotBlank(id)){
-				tsMsgTechnologyService.deleteById(id,TsMsgTechnology.class);
+				TsMsgEnviroRiskService.deleteById(id,TsMsgEnviroRisk.class);
 				return new ReturnDatas(ReturnDatas.SUCCESS,MessageUtils.DELETE_SUCCESS);
 			} else {
 				return new ReturnDatas(ReturnDatas.WARNING,MessageUtils.DELETE_WARNING);
@@ -196,7 +197,7 @@ public class TsMsgEnviroRiskController  extends BaseController {
 		}
 		try {
 			List<String> ids = Arrays.asList(rs);
-			tsMsgTechnologyService.deleteByIds(ids,TsMsgTechnology.class);
+			TsMsgEnviroRiskService.deleteByIds(ids,TsMsgEnviroRisk.class);
 		} catch (Exception e) {
 			logger.error(e.getMessage(), e);
 			return new ReturnDatas(ReturnDatas.ERROR,MessageUtils.DELETE_ALL_FAIL);

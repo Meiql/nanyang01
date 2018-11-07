@@ -23,7 +23,7 @@ import org.springrain.nybusiness.msg.service.ITsMsgChemicalSubstancesService;
 
 
 /**
- * TODO 在此加入类描述
+ * TODO 化学物质处理
  * @copyright {@link weicms.net}
  * @author springrain<Auto generate>
  * @version  2018-10-27 09:44:12
