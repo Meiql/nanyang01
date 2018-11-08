@@ -19,6 +19,14 @@ public interface ITsMsgEnviroRiskService extends IBaseSpringrainService {
 	 */
 	TsMsgEnviroRisk findTsMsgEnviroRiskById(Object id) throws Exception;
 	
+	/**
+	 * 新增
+	 * @param id
+	 * @return
+	 * @throws Exception
+	 */
+	TsMsgEnviroRisk saveTsMsgEnviroRisk(TsMsgEnviroRisk tsMsgEnviroRisk) throws Exception;
+	
 	
 	
 }

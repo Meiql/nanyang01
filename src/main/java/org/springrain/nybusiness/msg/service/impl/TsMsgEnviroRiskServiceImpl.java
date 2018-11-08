@@ -75,4 +75,10 @@ public class TsMsgEnviroRiskServiceImpl extends BaseSpringrainServiceImpl implem
 			 return super.findDataExportExcel(finder,ftlurl,page,clazz,o);
 		}
 
+	@Override
+	public TsMsgEnviroRisk saveTsMsgEnviroRisk(TsMsgEnviroRisk tsMsgEnviroRisk) throws Exception {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 }
