@@ -1,12 +1,16 @@
 package org.springrain.nybusiness.ergency.service;
 
+import java.util.List;
+
+import org.springrain.frame.util.Page;
 import org.springrain.nybusiness.ergency.entity.TsEmePlanFiling;
+import org.springrain.nybusiness.ergency.entity.TsEmergencyEquipmentSum;
 import org.springrain.system.service.IBaseSpringrainService;
 /**
  * TODO 在此加入类描述
  * @copyright {@link weicms.net}
  * @author springrain<Auto generate>
- * @version  2018-10-31 10:32:14
+ * @version  2018-11-08 21:32:48
  * @see org.springrain.nybusiness.ergency.service.TsEmePlanFiling
  */
 public interface ITsEmePlanFilingService extends IBaseSpringrainService {
@@ -18,7 +22,14 @@ public interface ITsEmePlanFilingService extends IBaseSpringrainService {
 	 * @throws Exception
 	 */
 	TsEmePlanFiling findTsEmePlanFilingById(Object id) throws Exception;
-	
-	
+	/**
+	 *  分页查询
+	 * @param page
+	 * @param tsMailListOutside
+	 * @param listCompany
+	 * @return
+	 * @throws Exception
+	 */
+	List<TsEmePlanFiling> finderTsMaillistForList(Page page,TsEmePlanFiling tsEmePlanFiling,List<String> listCompany)throws Exception;
 	
 }

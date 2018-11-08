@@ -13,7 +13,7 @@ import org.springrain.frame.entity.BaseEntity;
  * TODO 在此加入类描述
  * @copyright {@link weicms.net}
  * @author springrain<Auto generate>
- * @version  2018-10-31 10:32:34
+ * @version  2018-11-08 21:33:26
  * @see org.springrain.nybusiness.ergency.entity.TsEmePlanFilAdjustment
  */
 @Table(name="ts_eme_plan_fil_adjustment")
@@ -24,16 +24,16 @@ public class TsEmePlanFilAdjustment  extends BaseEntity {
 	//alias
 	/*
 	public static final String TABLE_ALIAS = "补充或调整内容 与环境应急预案变更备案表 关联 adjustment_id 关联";
-	public static final String ALIAS_ADJUSTMENT_ID = "adjustment_id";
+	public static final String ALIAS_ADJUSTMENT_ID = "补充id";
 	public static final String ALIAS_ADJUSTMENT_CATALOG = "调整或补充文件目录";
 	public static final String ALIAS_ADJUSTMENT_DESC = "调整或补充内容";
-	public static final String ALIAS_ID = "id";
+	public static final String ALIAS_ID = "主键id";
     */
 	//date formats
 	
 	//columns START
 	/**
-	 * adjustment_id
+	 * 补充id
 	 */
 	private java.lang.String adjustment_id;
 	/**
@@ -45,7 +45,7 @@ public class TsEmePlanFilAdjustment  extends BaseEntity {
 	 */
 	private java.lang.String adjustment_desc;
 	/**
-	 * id
+	 * 主键id
 	 */
 	private java.lang.String id;
 	//columns END 数据库字段结束
@@ -63,7 +63,7 @@ public class TsEmePlanFilAdjustment  extends BaseEntity {
 
 	//get and set
 		/**
-		 * adjustment_id
+		 * 补充id
 		 */
 	public void setAdjustment_id(java.lang.String value) {
 		    if(StringUtils.isNotBlank(value)){
@@ -75,7 +75,7 @@ public class TsEmePlanFilAdjustment  extends BaseEntity {
 	
 	
 	/**
-	 * adjustment_id
+	 * 补充id
 	 */
      @WhereSQL(sql="adjustment_id=:TsEmePlanFilAdjustment_adjustment_id")
 	public java.lang.String getAdjustment_id() {
@@ -120,7 +120,7 @@ public class TsEmePlanFilAdjustment  extends BaseEntity {
 		return this.adjustment_desc;
 	}
 		/**
-		 * id
+		 * 主键id
 		 */
 	public void setId(java.lang.String value) {
 		    if(StringUtils.isNotBlank(value)){
@@ -132,7 +132,7 @@ public class TsEmePlanFilAdjustment  extends BaseEntity {
 	
 	
 	/**
-	 * id
+	 * 主键id
 	 */
 	@Id
      @WhereSQL(sql="id=:TsEmePlanFilAdjustment_id")
@@ -142,10 +142,10 @@ public class TsEmePlanFilAdjustment  extends BaseEntity {
 	@Override
 	public String toString() {
 		return new StringBuilder()
-			.append("adjustment_id[").append(getAdjustment_id()).append("],")
+			.append("补充id[").append(getAdjustment_id()).append("],")
 			.append("调整或补充文件目录[").append(getAdjustment_catalog()).append("],")
 			.append("调整或补充内容[").append(getAdjustment_desc()).append("],")
-			.append("id[").append(getId()).append("],")
+			.append("主键id[").append(getId()).append("],")
 			.toString();
 	}
 	@Override

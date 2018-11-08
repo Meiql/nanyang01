@@ -39,7 +39,9 @@
 		             	<@shiro.hasPermission name="/tsemeplanfiling/list/export" >
 				        	<button type="button"   class="layui-btn layui-btn-small"><i class="layui-icon layui-icon-specil">&#xe609;</i>导出</button>
 				        </@shiro.hasPermission>
+				        <@shiro.hasPermission name="/tsemeplanfiling/list/import" >
 		                <button type="button"  class="layui-btn layui-btn-warm layui-btn-small"><i class="layui-icon layui-icon-specil">&#xe601;</i>导入</button>
+		                </@shiro.hasPermission>
 		                <@shiro.hasPermission name="/tsemeplanfiling/delete" >
 		               		 <button type="button"  class="layui-btn layui-btn-danger layui-btn-small"><i class="layui-icon">&#xe640;</i>批量删除</button>
 		                </@shiro.hasPermission>
@@ -137,7 +139,12 @@
 														<th id="th_plan_name" >预案名称</th>
 														<th id="th_risk_level" >风险级别</th>
 														<th id="th_acceptance_date" >受理日期配合备案意见使用</th>
-														<th id="th_company_id" >公司id</th>
+														<!-- <th id="th_company_id" >公司id</th>
+														<th id="th_create_user" >创建者</th>
+														<th id="th_create_time" >创建时间</th>
+														<th id="th_bak1" >bak1</th>
+														<th id="th_bak2" >bak2</th>
+														<th id="th_bak3" >bak3</th> -->
 												</tr> 
 											</thead>
 										  <!--first_end_export-->
@@ -237,6 +244,21 @@
 														</td>
 														<td >
 															${(_data.company_id)!''}
+														</td>
+														<td >
+															${(_data.create_user)!''}
+														</td>
+														<td >
+															${(_data.create_time)!''}
+														</td>
+														<td >
+															${(_data.bak1)!''}
+														</td>
+														<td >
+															${(_data.bak2)!''}
+														</td>
+														<td >
+															${(_data.bak3)!''}
 														</td>
 													</tr>
 												</#list>

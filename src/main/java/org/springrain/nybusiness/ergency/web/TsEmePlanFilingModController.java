@@ -2,6 +2,7 @@ package  org.springrain.nybusiness.ergency.web;
 
 import java.io.File;
 import java.util.Arrays;
+import java.util.Date;
 import java.util.List;
 
 import javax.annotation.Resource;
@@ -15,10 +16,13 @@ import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
-
+import org.springrain.nybusiness.company.service.ITsCompanyInfoService;
+import org.springrain.nybusiness.ergency.entity.TsEmePlanFiling;
 import org.springrain.nybusiness.ergency.entity.TsEmePlanFilingMod;
 import org.springrain.nybusiness.ergency.service.ITsEmePlanFilingModService;
+import org.springrain.frame.common.SessionUser;
 import org.springrain.frame.controller.BaseController;
+import org.springrain.frame.util.DateUtils;
 import org.springrain.frame.util.GlobalStatic;
 import org.springrain.frame.util.MessageUtils;
 import org.springrain.frame.util.Page;
@@ -29,7 +33,7 @@ import org.springrain.frame.util.ReturnDatas;
  * TODO 在此加入类描述
  * @copyright {@link weicms.net}
  * @author springrain<Auto generate>
- * @version  2018-10-31 10:32:07
+ * @version  2018-11-08 21:32:38
  * @see org.springrain.nybusiness.ergency.web.TsEmePlanFilingMod
  */
 @Controller
@@ -37,7 +41,8 @@ import org.springrain.frame.util.ReturnDatas;
 public class TsEmePlanFilingModController  extends BaseController {
 	@Resource
 	private ITsEmePlanFilingModService tsEmePlanFilingModService;
-	
+	@Resource
+	private ITsCompanyInfoService tsCompanyInfoService;
 	private String listurl="/nybusiness/ergency/tsemeplanfilingmod/tsemeplanfilingmodList";
 	
 	
@@ -75,8 +80,12 @@ public class TsEmePlanFilingModController  extends BaseController {
 		// ==构造分页请求
 		Page page = newPage(request);
 		// ==执行分页查询
-		List<TsEmePlanFilingMod> datas=tsEmePlanFilingModService.findListDataByFinder(null,page,TsEmePlanFilingMod.class,tsEmePlanFilingMod);
+		/*List<TsEmePlanFilingMod> datas=tsEmePlanFilingModService.findListDataByFinder(null,page,TsEmePlanFilingMod.class,tsEmePlanFilingMod);
+			returnObject.setQueryBean(tsEmePlanFilingMod);*/
+		List<String> listCompany = tsCompanyInfoService.finderCompanyIdByUserId(SessionUser.getUserId());
+		List<TsEmePlanFilingMod> datas=tsEmePlanFilingModService.finderTsMaillistForList(page, tsEmePlanFilingMod, listCompany);
 			returnObject.setQueryBean(tsEmePlanFilingMod);
+			
 		returnObject.setPage(page);
 		returnObject.setData(datas);
 		return returnObject;
@@ -138,7 +147,15 @@ public class TsEmePlanFilingModController  extends BaseController {
 			if(StringUtils.isBlank(id)){
 			  tsEmePlanFilingMod.setId(null);
 			}
-		
+			if(StringUtils.isBlank(tsEmePlanFilingMod.getCreate_user())){
+				tsEmePlanFilingMod.setCreate_user(SessionUser.getUserId());
+			}
+			if(StringUtils.isBlank(tsEmePlanFilingMod.getCreate_time())){
+				tsEmePlanFilingMod.setCreate_time(DateUtils.convertDate2String("yyyy-MM-dd HH:mm:ss", new Date()));
+			}
+			java.lang.String companyId = SessionUser.getCompanyid(); 
+			tsEmePlanFilingMod.setCompany_id(companyId);
+			
 			tsEmePlanFilingModService.saveorupdate(tsEmePlanFilingMod);
 			
 		} catch (Exception e) {

@@ -2,8 +2,11 @@ package org.springrain.nybusiness.ergency.service.impl;
 
 import java.io.File;
 import java.util.List;
+
+import org.apache.commons.collections.CollectionUtils;
 import org.springframework.stereotype.Service;
 import org.springrain.nybusiness.ergency.entity.TsEmePlanFiling;
+import org.springrain.nybusiness.ergency.entity.TsEmergencyEquipmentSum;
 import org.springrain.nybusiness.ergency.service.ITsEmePlanFilingService;
 import org.springrain.frame.entity.IBaseEntity;
 import org.springrain.frame.util.Finder;
@@ -15,7 +18,7 @@ import org.springrain.system.service.BaseSpringrainServiceImpl;
  * TODO 在此加入类描述
  * @copyright {@link weicms.net}
  * @author springrain<Auto generate>
- * @version  2018-10-31 10:32:14
+ * @version  2018-11-08 21:32:48
  * @see org.springrain.nybusiness.ergency.service.impl.TsEmePlanFiling
  */
 @Service("tsEmePlanFilingService")
@@ -73,6 +76,18 @@ public class TsEmePlanFilingServiceImpl extends BaseSpringrainServiceImpl implem
 			Class<T> clazz, Object o)
 			throws Exception {
 			 return super.findDataExportExcel(finder,ftlurl,page,clazz,o);
+		}
+		
+		@Override
+		public List<TsEmePlanFiling> finderTsMaillistForList(Page page,
+				TsEmePlanFiling tsEmePlanFiling, List<String> listCompany) throws Exception {
+			if(CollectionUtils.isEmpty(listCompany)){
+				return null;
+			}
+			Finder finder = new Finder();
+			finder.append("SELECT * FROM `ts_eme_plan_filing` t where t.company_id in (:companyId)")
+			.setParam("companyId", listCompany);
+			return super.queryForList(finder, TsEmePlanFiling.class, page);
 		}
 
 }
