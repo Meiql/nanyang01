@@ -1,5 +1,6 @@
 package org.springrain.nybusiness.msg.entity;
 
+import javax.persistence.Id;
 import javax.persistence.Table;
 
 import org.apache.commons.lang3.StringUtils;
@@ -31,8 +32,8 @@ public class TsMsgEnviroRisk  extends BaseEntity {
 	public static final String ALIAS_CREATETIME = "createTime";
 	public static final String ALIAS_REMARKS = "remarks";
 	public static final String ALIAS_COMPANYID = "企业id";
-	public static final String ALIAS_BAK1 = "bak1";
-	public static final String ALIAS_BAK2 = "bak2";
+	public static final String ALIAS_INVOLVECHEMICAL = "involveChemical";
+	public static final String ALIAS_DEscribes = "describes";
 	public static final String ALIAS_BAK3 = "bak3";
     */
 	//date formats
@@ -75,13 +76,13 @@ public class TsMsgEnviroRisk  extends BaseEntity {
 	 */
 	private java.lang.String companyId;
 	/**
-	 * bak1
+	 * involveChemical
 	 */
-	private java.lang.String bak1;
+	private java.lang.String involveChemical;
 	/**
-	 * bak2
+	 * describes
 	 */
-	private java.lang.String bak2;
+	private java.lang.String describes;
 	/**
 	 * bak3
 	 */
@@ -89,9 +90,16 @@ public class TsMsgEnviroRisk  extends BaseEntity {
 	//columns END 数据库字段结束
 	
 	//concstructor
-
+	public TsMsgEnviroRisk(){
+		
+	}
 
 	//get and set
+	public TsMsgEnviroRisk(
+		java.lang.String id
+	){
+		this.id = id;
+	}
 		/**
 		 * 主键id
 		 */
@@ -107,6 +115,7 @@ public class TsMsgEnviroRisk  extends BaseEntity {
 	/**
 	 * 主键id
 	 */
+	@Id
      @WhereSQL(sql="id=:TsMsgEnviroRisk_id")
 	public java.lang.String getId() {
 		return this.id;
@@ -196,9 +205,7 @@ public class TsMsgEnviroRisk  extends BaseEntity {
 			}
 		this.createUser = value;
 	}
-	
-	
-	
+		
 	/**
 	 * createUser
 	 */
@@ -264,42 +271,42 @@ public class TsMsgEnviroRisk  extends BaseEntity {
 		return this.companyId;
 	}
 		/**
-		 * bak1
+		 * involveChemical
 		 */
-	public void setBak1(java.lang.String value) {
+	public void setInvolveChemical(java.lang.String value) {
 		    if(StringUtils.isNotBlank(value)){
 			 value=value.trim();
 			}
-		this.bak1 = value;
+		this.involveChemical = value;
 	}
 	
 	
 	
 	/**
-	 * bak1
+	 * involveChemical
 	 */
-     @WhereSQL(sql="bak1=:TsMsgEnviroRisk_bak1")
-	public java.lang.String getBak1() {
-		return this.bak1;
+     @WhereSQL(sql="involveChemical=:TsMsgEnviroRisk_involveChemical")
+	public java.lang.String getInvolveChemical() {
+		return this.involveChemical;
 	}
 		/**
-		 * bak2
+		 * describes
 		 */
-	public void setBak2(java.lang.String value) {
+	public void setDescribes(java.lang.String value) {
 		    if(StringUtils.isNotBlank(value)){
 			 value=value.trim();
 			}
-		this.bak2 = value;
+		this.describes = value;
 	}
 	
 	
 	
 	/**
-	 * bak2
+	 * describes
 	 */
-     @WhereSQL(sql="bak2=:TsMsgEnviroRisk_bak2")
-	public java.lang.String getBak2() {
-		return this.bak2;
+     @WhereSQL(sql="describes=:TsMsgEnviroRisk_describes")
+	public java.lang.String getDescribes() {
+		return this.describes;
 	}
 		/**
 		 * bak3
@@ -332,14 +339,15 @@ public class TsMsgEnviroRisk  extends BaseEntity {
 			.append("createTime[").append(getCreateTime()).append("],")
 			.append("remarks[").append(getRemarks()).append("],")
 			.append("企业id[").append(getCompanyId()).append("],")
-			.append("bak1[").append(getBak1()).append("],")
-			.append("bak2[").append(getBak2()).append("],")
+			.append("involveChemical[").append(getInvolveChemical()).append("],")
+			.append("describes[").append(getDescribes()).append("],")
 			.append("bak3[").append(getBak3()).append("],")
 			.toString();
 	}
 	@Override
 	public int hashCode() {
 		return new HashCodeBuilder()
+			.append(getId())
 			.toHashCode();
 	}
 	@Override
@@ -354,6 +362,7 @@ public class TsMsgEnviroRisk  extends BaseEntity {
 		
 		TsMsgEnviroRisk other = (TsMsgEnviroRisk)obj;
 		return new EqualsBuilder()
+			.append(getId(),other.getId())
 			.isEquals();
 	}
 }
