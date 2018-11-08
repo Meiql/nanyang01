@@ -36,13 +36,6 @@
 		             	<@shiro.hasPermission name="/tsmsgchemicalsubstances/update" >
 		             		<button type="button"   class="layui-btn layui-btn-small" data-action="${ctx}/tsmsgchemicalsubstances/update/pre"><i class="layui-icon layui-icon-specil">&#xe61f;</i>新增</button>
 		             	</@shiro.hasPermission>
-		             	<@shiro.hasPermission name="/tsmsgchemicalsubstances/list/export" >
-				        	<button type="button"   class="layui-btn layui-btn-small"><i class="layui-icon layui-icon-specil">&#xe609;</i>导出</button>
-				        </@shiro.hasPermission>
-		                <button type="button"  class="layui-btn layui-btn-warm layui-btn-small"><i class="layui-icon layui-icon-specil">&#xe601;</i>导入</button>
-		                <@shiro.hasPermission name="/tsmsgchemicalsubstances/delete" >
-		               		 <button type="button"  class="layui-btn layui-btn-danger layui-btn-small"><i class="layui-icon">&#xe640;</i>批量删除</button>
-		                </@shiro.hasPermission>
 		             </li>
 	       		</ul>
 				
@@ -67,22 +60,18 @@
 							          		<tr>
 							          			<td>
 							          				<div class="layui-inline">
-									                    <label class="layui-form-label">名称</label>
+									                    <label class="layui-form-label">化学名称</label>
 									                    <div class="layui-input-inline">
 									                           <input type="text" name="chemistryName" value="${(returnDatas.queryBean.chemistryName)!''}" placeholder="请输入名称 " class="layui-input">
 									                    </div>
 							                		</div>
-									                 <div class="layui-inline">
-									                    <label class="layui-form-label">是否可用</label>
+							                		<div class="layui-inline">
+									                    <label class="layui-form-label">公司代码</label>
 									                    <div class="layui-input-inline">
-									                        <select name="active" id="active" class="layui-input">
-									                          <option value="">==请选择==</option>
-															  <option value="1">是</option>
-															  <option value="0">否</option>
-															</select>   
+									                           <input type="text" name="companyId" value="${(returnDatas.queryBean.companyId)!''}" placeholder="请输入名称 " class="layui-input">
 									                    </div>
-									                </div>
-							          			</td>
+							                		</div>									    
+							          			</td>							    
 							          			<td>
 							          			   <div class="layui-inline">
 									                    <button class="layui-btn" type="button" onclick="springrain.commonSubmit('searchForm');"><i class="layui-icon" style="top:4px;right:5px;">&#xe615;</i>搜索</button>
@@ -114,8 +103,7 @@
 												  <th>操作</th>
 												  <!--first_end_no_export-->
 														<th id="th_chemistryName" >化学品名称</th>
-														<th id="th_casTypeid" >CAS 号或危 险废物类类别id 字典</th>
-														<th id="th_casTypeName" >CAS 号或危 险废物类别 2 name 字典</th>
+														<th id="th_casTypeName" >CAS 号或危 险废物类别 2</th>
 														<th id="th_maxstock" >最大存量</th>
 														<th id="th_rawmaterial" >原料</th>
 														<th id="th_accessories" >辅料</th>
@@ -125,13 +113,9 @@
 														<th id="th_catalyzer" >催化剂</th>
 														<th id="th_discardedMatter" >废弃物</th>
 														<th id="th_riskunit" >设计环境风险单位</th>
-														<th id="th_createUser" >createUser</th>
-														<th id="th_createTime" >createTime</th>
-														<th id="th_remarks" >remarks</th>
-														<th id="th_companyId" >companyId</th>
-														<th id="th_bak1" >bak1</th>
-														<th id="th_bak2" >bak2</th>
-														<th id="th_bak3" >bak3</th>
+														<th id="th_createUser" >创建用户</th>
+														<th id="th_createTime" >创建或修改时间</th>
+														<th id="th_companyId" >公司代码</th>
 												</tr> 
 											</thead>
 										  <!--first_end_export-->
@@ -155,9 +139,6 @@
 														<!--end_no_export-->
 														<td >
 															${(_data.chemistryName)!''}
-														</td>
-														<td >
-															${(_data.casTypeid)!''}
 														</td>
 														<td >
 															${(_data.casTypeName)!''}
@@ -196,19 +177,7 @@
 															${(_data.createTime)!''}
 														</td>
 														<td >
-															${(_data.remarks)!''}
-														</td>
-														<td >
 															${(_data.companyId)!''}
-														</td>
-														<td >
-															${(_data.bak1)!''}
-														</td>
-														<td >
-															${(_data.bak2)!''}
-														</td>
-														<td >
-															${(_data.bak3)!''}
 														</td>
 													</tr>
 												</#list>

@@ -12,6 +12,17 @@
 		 */
 		 springrain.initValid(null,function(){window.location.href="${ctx}/tsmsgchemicalsubstances/list?springraintoken="+springraintoken});
 	 });
+	  function today(){
+	        var today=new Date();
+	        var h=today.getFullYear();
+	        var m=today.getMonth()+1;
+	        var d=today.getDate();
+	        var H = today.getHours();
+	        var M = today.getMinutes();
+	        var S = today.getSeconds();	  
+	        alert(h+"-"+m+"-"+d+" "+H+":"+M+":"+S)
+	        document.getElementById("createTime").value = h+"-"+m+"-"+d+" "+H+":"+M+":"+S; 
+	}
 </script>
 </head>
 <body>
@@ -40,133 +51,77 @@
 																	<div class="layui-form-item col-lg-6">
 																		<label class="layui-form-label">化学品名称*</label>
 																		<div class="layui-inline col-lg-5">  
-																			<input type="text" name="chemistryName" id="chemistryName" datatype="*" nullmsg="不能为空" errormsg="不能为空！" autocomplete="off" class="layui-input" value="${(returnDatas.data.chemistryName)!''}">
+																			<input type="text" name="chemistryName" id="chemistryName" nullmsg="不能为空" errormsg="不能为空！" autocomplete="off" class="layui-input" value="${(returnDatas.data.chemistryName)!''}">
 																		</div>
 																		<div class="layui-inline valid-info"></div>
 																	</div>
 																	<div class="layui-form-item col-lg-6">
-																		<label class="layui-form-label">CAS 号或危 险废物类类别id 字典*</label>
+																		<label class="layui-form-label">CAS 号或危 险废物类别 2*</label>
 																		<div class="layui-inline col-lg-5">  
-																			<input type="text" name="casTypeid" id="casTypeid" datatype="*" nullmsg="不能为空" errormsg="不能为空！" autocomplete="off" class="layui-input" value="${(returnDatas.data.casTypeid)!''}">
-																		</div>
-																		<div class="layui-inline valid-info"></div>
-																	</div>
-																	<div class="layui-form-item col-lg-6">
-																		<label class="layui-form-label">CAS 号或危 险废物类别 2 name 字典*</label>
-																		<div class="layui-inline col-lg-5">  
-																			<input type="text" name="casTypeName" id="casTypeName" datatype="*" nullmsg="不能为空" errormsg="不能为空！" autocomplete="off" class="layui-input" value="${(returnDatas.data.casTypeName)!''}">
+																			<input type="text" name="casTypeName" id="casTypeName" nullmsg="不能为空" errormsg="不能为空！" autocomplete="off" class="layui-input" value="${(returnDatas.data.casTypeName)!''}">
 																		</div>
 																		<div class="layui-inline valid-info"></div>
 																	</div>
 																	<div class="layui-form-item col-lg-6">
 																		<label class="layui-form-label">最大存量*</label>
 																		<div class="layui-inline col-lg-5">  
-																			<input type="text" name="maxstock" id="maxstock" datatype="*" nullmsg="不能为空" errormsg="不能为空！" autocomplete="off" class="layui-input" value="${(returnDatas.data.maxstock)!''}">
+																			<input type="text" name="maxstock" id="maxstock" nullmsg="不能为空" errormsg="不能为空！" autocomplete="off" class="layui-input" value="${(returnDatas.data.maxstock)!''}">
 																		</div>
 																		<div class="layui-inline valid-info"></div>
 																	</div>
 																	<div class="layui-form-item col-lg-6">
 																		<label class="layui-form-label">原料*</label>
 																		<div class="layui-inline col-lg-5">  
-																			<input type="text" name="rawmaterial" id="rawmaterial" datatype="*" nullmsg="不能为空" errormsg="不能为空！" autocomplete="off" class="layui-input" value="${(returnDatas.data.rawmaterial)!''}">
+																			<input type="text" name="rawmaterial" id="rawmaterial" nullmsg="不能为空" errormsg="不能为空！" autocomplete="off" class="layui-input" value="${(returnDatas.data.rawmaterial)!''}">
 																		</div>
 																		<div class="layui-inline valid-info"></div>
 																	</div>
 																	<div class="layui-form-item col-lg-6">
 																		<label class="layui-form-label">辅料*</label>
 																		<div class="layui-inline col-lg-5">  
-																			<input type="text" name="accessories" id="accessories" datatype="*" nullmsg="不能为空" errormsg="不能为空！" autocomplete="off" class="layui-input" value="${(returnDatas.data.accessories)!''}">
+																			<input type="text" name="accessories" id="accessories" nullmsg="不能为空" errormsg="不能为空！" autocomplete="off" class="layui-input" value="${(returnDatas.data.accessories)!''}">
 																		</div>
 																		<div class="layui-inline valid-info"></div>
 																	</div>
 																	<div class="layui-form-item col-lg-6">
 																		<label class="layui-form-label">产品*</label>
 																		<div class="layui-inline col-lg-5">  
-																			<input type="text" name="product" id="product" datatype="*" nullmsg="不能为空" errormsg="不能为空！" autocomplete="off" class="layui-input" value="${(returnDatas.data.product)!''}">
+																			<input type="text" name="product" id="product" nullmsg="不能为空" errormsg="不能为空！" autocomplete="off" class="layui-input" value="${(returnDatas.data.product)!''}">
 																		</div>
 																		<div class="layui-inline valid-info"></div>
 																	</div>
 																	<div class="layui-form-item col-lg-6">
 																		<label class="layui-form-label">中间产品*</label>
 																		<div class="layui-inline col-lg-5">  
-																			<input type="text" name="betweenProduct" id="betweenProduct" datatype="*" nullmsg="不能为空" errormsg="不能为空！" autocomplete="off" class="layui-input" value="${(returnDatas.data.betweenProduct)!''}">
+																			<input type="text" name="betweenProduct" id="betweenProduct" nullmsg="不能为空" errormsg="不能为空！" autocomplete="off" class="layui-input" value="${(returnDatas.data.betweenProduct)!''}">
 																		</div>
 																		<div class="layui-inline valid-info"></div>
 																	</div>
 																	<div class="layui-form-item col-lg-6">
 																		<label class="layui-form-label">副产品*</label>
 																		<div class="layui-inline col-lg-5">  
-																			<input type="text" name="byProduct" id="byProduct" datatype="*" nullmsg="不能为空" errormsg="不能为空！" autocomplete="off" class="layui-input" value="${(returnDatas.data.byProduct)!''}">
+																			<input type="text" name="byProduct" id="byProduct" nullmsg="不能为空" errormsg="不能为空！" autocomplete="off" class="layui-input" value="${(returnDatas.data.byProduct)!''}">
 																		</div>
 																		<div class="layui-inline valid-info"></div>
 																	</div>
 																	<div class="layui-form-item col-lg-6">
 																		<label class="layui-form-label">催化剂*</label>
 																		<div class="layui-inline col-lg-5">  
-																			<input type="text" name="catalyzer" id="catalyzer" datatype="*" nullmsg="不能为空" errormsg="不能为空！" autocomplete="off" class="layui-input" value="${(returnDatas.data.catalyzer)!''}">
+																			<input type="text" name="catalyzer" id="catalyzer" nullmsg="不能为空" errormsg="不能为空！" autocomplete="off" class="layui-input" value="${(returnDatas.data.catalyzer)!''}">
 																		</div>
 																		<div class="layui-inline valid-info"></div>
 																	</div>
 																	<div class="layui-form-item col-lg-6">
 																		<label class="layui-form-label">废弃物*</label>
 																		<div class="layui-inline col-lg-5">  
-																			<input type="text" name="discardedMatter" id="discardedMatter" datatype="*" nullmsg="不能为空" errormsg="不能为空！" autocomplete="off" class="layui-input" value="${(returnDatas.data.discardedMatter)!''}">
+																			<input type="text" name="discardedMatter" id="discardedMatter" nullmsg="不能为空" errormsg="不能为空！" autocomplete="off" class="layui-input" value="${(returnDatas.data.discardedMatter)!''}">
 																		</div>
 																		<div class="layui-inline valid-info"></div>
 																	</div>
 																	<div class="layui-form-item col-lg-6">
 																		<label class="layui-form-label">设计环境风险单位*</label>
 																		<div class="layui-inline col-lg-5">  
-																			<input type="text" name="riskunit" id="riskunit" datatype="*" nullmsg="不能为空" errormsg="不能为空！" autocomplete="off" class="layui-input" value="${(returnDatas.data.riskunit)!''}">
-																		</div>
-																		<div class="layui-inline valid-info"></div>
-																	</div>
-																	<div class="layui-form-item col-lg-6">
-																		<label class="layui-form-label">createUser*</label>
-																		<div class="layui-inline col-lg-5">  
-																			<input type="text" name="createUser" id="createUser" datatype="*" nullmsg="不能为空" errormsg="不能为空！" autocomplete="off" class="layui-input" value="${(returnDatas.data.createUser)!''}">
-																		</div>
-																		<div class="layui-inline valid-info"></div>
-																	</div>
-																	<div class="layui-form-item col-lg-6">
-																		<label class="layui-form-label">createTime*</label>
-																		<div class="layui-inline col-lg-5">  
-																			<input type="text" name="createTime" id="createTime" datatype="*" nullmsg="不能为空" errormsg="不能为空！" autocomplete="off" class="layui-input" value="${(returnDatas.data.createTime)!''}">
-																		</div>
-																		<div class="layui-inline valid-info"></div>
-																	</div>
-																	<div class="layui-form-item col-lg-6">
-																		<label class="layui-form-label">remarks*</label>
-																		<div class="layui-inline col-lg-5">  
-																			<input type="text" name="remarks" id="remarks" datatype="*" nullmsg="不能为空" errormsg="不能为空！" autocomplete="off" class="layui-input" value="${(returnDatas.data.remarks)!''}">
-																		</div>
-																		<div class="layui-inline valid-info"></div>
-																	</div>
-																	<div class="layui-form-item col-lg-6">
-																		<label class="layui-form-label">companyId*</label>
-																		<div class="layui-inline col-lg-5">  
-																			<input type="text" name="companyId" id="companyId" datatype="*" nullmsg="不能为空" errormsg="不能为空！" autocomplete="off" class="layui-input" value="${(returnDatas.data.companyId)!''}">
-																		</div>
-																		<div class="layui-inline valid-info"></div>
-																	</div>
-																	<div class="layui-form-item col-lg-6">
-																		<label class="layui-form-label">bak1*</label>
-																		<div class="layui-inline col-lg-5">  
-																			<input type="text" name="bak1" id="bak1" datatype="*" nullmsg="不能为空" errormsg="不能为空！" autocomplete="off" class="layui-input" value="${(returnDatas.data.bak1)!''}">
-																		</div>
-																		<div class="layui-inline valid-info"></div>
-																	</div>
-																	<div class="layui-form-item col-lg-6">
-																		<label class="layui-form-label">bak2*</label>
-																		<div class="layui-inline col-lg-5">  
-																			<input type="text" name="bak2" id="bak2" datatype="*" nullmsg="不能为空" errormsg="不能为空！" autocomplete="off" class="layui-input" value="${(returnDatas.data.bak2)!''}">
-																		</div>
-																		<div class="layui-inline valid-info"></div>
-																	</div>
-																	<div class="layui-form-item col-lg-6">
-																		<label class="layui-form-label">bak3*</label>
-																		<div class="layui-inline col-lg-5">  
-																			<input type="text" name="bak3" id="bak3" datatype="*" nullmsg="不能为空" errormsg="不能为空！" autocomplete="off" class="layui-input" value="${(returnDatas.data.bak3)!''}">
+																			<input type="text" name="riskunit" id="riskunit" nullmsg="不能为空" errormsg="不能为空！" autocomplete="off" class="layui-input" value="${(returnDatas.data.riskunit)!''}">
 																		</div>
 																		<div class="layui-inline valid-info"></div>
 																	</div>

@@ -26,21 +26,14 @@
 												<div class="larry-personal-body clearfix changepwd">
 													<form id="validForm" class="layui-form <!--  -->"  method="post" action="${ctx}/tsmsgenvirorisk/update">
 																	<div class="layui-form-item col-lg-6">
-																		<label class="layui-form-label">风险单位名称*</label>
+																		<label class="layui-form-label">风险单元名称*</label>
 																		<div class="layui-inline col-lg-5">  
 																			${(returnDatas.data.riskUnitName)!''}
 																		</div>
 																		<div class="layui-inline valid-info"></div>
 																	</div>
 																	<div class="layui-form-item col-lg-6">
-																		<label class="layui-form-label">风险单位类型*</label>
-																		<div class="layui-inline col-lg-5">  
-																			${(returnDatas.data.riskUnitTypeid)!''}
-																		</div>
-																		<div class="layui-inline valid-info"></div>
-																	</div>
-																	<div class="layui-form-item col-lg-6">
-																		<label class="layui-form-label">风险单位类别 name *</label>
+																		<label class="layui-form-label">风险单元类别*</label>
 																		<div class="layui-inline col-lg-5">  
 																			${(returnDatas.data.riskUnitTypeName)!''}
 																		</div>
@@ -54,54 +47,33 @@
 																		<div class="layui-inline valid-info"></div>
 																	</div>
 																	<div class="layui-form-item col-lg-6">
-																		<label class="layui-form-label">createUser*</label>
+																		<label class="layui-form-label">主要涉及的化学品*</label>
+																		<div class="layui-inline col-lg-5">  
+																			${(returnDatas.data.involveChemical)!''}
+																		</div>
+																		<div class="layui-inline valid-info"></div>
+																	</div>
+																	<div class="layui-form-item col-lg-6">
+																		<label class="layui-form-label">描述（用途、特征、危险性、曾发生事故等）*</label>
+																		<div class="layui-inline col-lg-5">  
+																			${(returnDatas.data.describes)!''}
+																		</div>
+																		<div class="layui-inline valid-info"></div>
+																	</div>
+																	<div class="layui-form-item col-lg-6">
+																		<label class="layui-form-label">创建用户*</label>
 																		<div class="layui-inline col-lg-5">  
 																			${(returnDatas.data.createUser)!''}
 																		</div>
 																		<div class="layui-inline valid-info"></div>
-																	</div>
-																	<div class="layui-form-item col-lg-6">
-																		<label class="layui-form-label">createTime*</label>
-																		<div class="layui-inline col-lg-5">  
-																			${(returnDatas.data.createTime)!''}
-																		</div>
-																		<div class="layui-inline valid-info"></div>
-																	</div>
-																	<div class="layui-form-item col-lg-6">
-																		<label class="layui-form-label">remarks*</label>
-																		<div class="layui-inline col-lg-5">  
-																			${(returnDatas.data.remarks)!''}
-																		</div>
-																		<div class="layui-inline valid-info"></div>
-																	</div>
+																	</div>												
 																	<div class="layui-form-item col-lg-6">
 																		<label class="layui-form-label">企业id*</label>
 																		<div class="layui-inline col-lg-5">  
 																			${(returnDatas.data.companyId)!''}
 																		</div>
 																		<div class="layui-inline valid-info"></div>
-																	</div>
-																	<div class="layui-form-item col-lg-6">
-																		<label class="layui-form-label">bak1*</label>
-																		<div class="layui-inline col-lg-5">  
-																			${(returnDatas.data.bak1)!''}
-																		</div>
-																		<div class="layui-inline valid-info"></div>
-																	</div>
-																	<div class="layui-form-item col-lg-6">
-																		<label class="layui-form-label">bak2*</label>
-																		<div class="layui-inline col-lg-5">  
-																			${(returnDatas.data.bak2)!''}
-																		</div>
-																		<div class="layui-inline valid-info"></div>
-																	</div>
-																	<div class="layui-form-item col-lg-6">
-																		<label class="layui-form-label">bak3*</label>
-																		<div class="layui-inline col-lg-5">  
-																			${(returnDatas.data.bak3)!''}
-																		</div>
-																		<div class="layui-inline valid-info"></div>
-																	</div>
+																	</div>																	
 													</form>
 												</div>
 								  </div>

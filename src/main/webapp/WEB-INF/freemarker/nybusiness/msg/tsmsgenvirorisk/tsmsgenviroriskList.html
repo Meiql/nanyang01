@@ -109,17 +109,14 @@
 												  </th>
 												  <th>操作</th>
 												  <!--first_end_no_export-->
-														<th id="th_riskUnitName" >风险单位名称</th>
-														<th id="th_riskUnitTypeid" >风险单位类型</th>
-														<th id="th_riskUnitTypeName" >风险单位类别 name </th>
-														<th id="th_reserves" >设计能力或储量</th>
-														<th id="th_createUser" >createUser</th>
-														<th id="th_createTime" >createTime</th>
-														<th id="th_remarks" >remarks</th>
+														<th id="th_riskUnitName" >风险单元名称</th>
+														<th id="th_riskUnitTypeName" >风险单元类别</th>
+														<th id="th_reserves" >设计能力/储量</th>
+														<th id="th_involveChemical" >主要涉及的化学品</th>														
+														<th id="th_createUser" >创建用户</th>
+														<th id="th_createTime" >创建时间</th>
 														<th id="th_companyId" >企业id</th>
-														<th id="th_bak1" >bak1</th>
-														<th id="th_bak2" >bak2</th>
-														<th id="th_bak3" >bak3</th>
+														<th id="th_describes" >描述（用途、特征、危险性、曾发生事故等）</th>
 												</tr> 
 											</thead>
 										  <!--first_end_export-->
@@ -142,13 +139,7 @@
 														</td>
 														<!--end_no_export-->
 														<td >
-															${(_data.id)!''}
-														</td>
-														<td >
 															${(_data.riskUnitName)!''}
-														</td>
-														<td >
-															${(_data.riskUnitTypeid)!''}
 														</td>
 														<td >
 															${(_data.riskUnitTypeName)!''}
@@ -157,26 +148,20 @@
 															${(_data.reserves)!''}
 														</td>
 														<td >
+															${(_data.involveChemical)!''}
+														</td>														
+														<td >
 															${(_data.createUser)!''}
 														</td>
 														<td >
 															${(_data.createTime)!''}
 														</td>
 														<td >
-															${(_data.remarks)!''}
-														</td>
-														<td >
 															${(_data.companyId)!''}
 														</td>
 														<td >
-															${(_data.bak1)!''}
-														</td>
-														<td >
-															${(_data.bak2)!''}
-														</td>
-														<td >
-															${(_data.bak3)!''}
-														</td>
+															${(_data.describes)!''}
+														</td>												
 													</tr>
 												</#list>
 											 </#if>
