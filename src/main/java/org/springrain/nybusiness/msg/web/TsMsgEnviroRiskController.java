@@ -33,7 +33,7 @@ import org.springrain.nybusiness.msg.service.ITsMsgEnviroRiskService;
 @RequestMapping(value="/tsmsgenvirorisk")
 public class TsMsgEnviroRiskController  extends BaseController {
 	@Resource
-	private ITsMsgEnviroRiskService TsMsgEnviroRiskService;
+	private ITsMsgEnviroRiskService tsMsgEnviroRiskService;
 	
 	private String listurl="/nybusiness/msg/tsmsgenvirorisk/tsmsgenviroriskList";
 	
@@ -72,7 +72,7 @@ public class TsMsgEnviroRiskController  extends BaseController {
 		// ==构造分页请求
 		Page page = newPage(request);
 		// ==执行分页查询
-		List<TsMsgEnviroRisk> datas=TsMsgEnviroRiskService.findListDataByFinder(null,page,TsMsgEnviroRisk.class,TsMsgEnviroRisk);
+		List<TsMsgEnviroRisk> datas=tsMsgEnviroRiskService.findListDataByFinder(null,page,TsMsgEnviroRisk.class,TsMsgEnviroRisk);
 			returnObject.setQueryBean(TsMsgEnviroRisk);
 		returnObject.setPage(page);
 		returnObject.setData(datas);
@@ -84,7 +84,7 @@ public class TsMsgEnviroRiskController  extends BaseController {
 		// ==构造分页请求
 		Page page = newPage(request);
 	
-		File file = TsMsgEnviroRiskService.findDataExportExcel(null,listurl, page,TsMsgEnviroRisk.class,TsMsgEnviroRisk);
+		File file = tsMsgEnviroRiskService.findDataExportExcel(null,listurl, page,TsMsgEnviroRisk.class,TsMsgEnviroRisk);
 		String fileName="TsMsgEnviroRisk"+GlobalStatic.excelext;
 		downFile(response, file, fileName,true);
 		return;
@@ -110,7 +110,7 @@ public class TsMsgEnviroRiskController  extends BaseController {
 		ReturnDatas returnObject = ReturnDatas.getSuccessReturnDatas();
 		java.lang.String id=request.getParameter("id");
 		if(StringUtils.isNotBlank(id)){
-		  TsMsgEnviroRisk TsMsgEnviroRisk = TsMsgEnviroRiskService.findTsMsgEnviroRiskById(id);
+		  TsMsgEnviroRisk TsMsgEnviroRisk = tsMsgEnviroRiskService.findTsMsgEnviroRiskById(id);
 		   returnObject.setData(TsMsgEnviroRisk);
 		}else{
 		returnObject.setStatus(ReturnDatas.ERROR);
@@ -136,7 +136,7 @@ public class TsMsgEnviroRiskController  extends BaseController {
 				tsMsgEnviroRisk.setId(null);
 			}
 		
-			TsMsgEnviroRiskService.saveorupdate(tsMsgEnviroRisk);
+			tsMsgEnviroRiskService.saveorupdate(tsMsgEnviroRisk);
 			
 		} catch (Exception e) {
 			logger.error(e.getMessage(),e);
@@ -169,7 +169,7 @@ public class TsMsgEnviroRiskController  extends BaseController {
 		try {
 		java.lang.String id=request.getParameter("id");
 		if(StringUtils.isNotBlank(id)){
-				TsMsgEnviroRiskService.deleteById(id,TsMsgEnviroRisk.class);
+			tsMsgEnviroRiskService.deleteById(id,TsMsgEnviroRisk.class);
 				return new ReturnDatas(ReturnDatas.SUCCESS,MessageUtils.DELETE_SUCCESS);
 			} else {
 				return new ReturnDatas(ReturnDatas.WARNING,MessageUtils.DELETE_WARNING);
@@ -197,7 +197,7 @@ public class TsMsgEnviroRiskController  extends BaseController {
 		}
 		try {
 			List<String> ids = Arrays.asList(rs);
-			TsMsgEnviroRiskService.deleteByIds(ids,TsMsgEnviroRisk.class);
+			tsMsgEnviroRiskService.deleteByIds(ids,TsMsgEnviroRisk.class);
 		} catch (Exception e) {
 			logger.error(e.getMessage(), e);
 			return new ReturnDatas(ReturnDatas.ERROR,MessageUtils.DELETE_ALL_FAIL);

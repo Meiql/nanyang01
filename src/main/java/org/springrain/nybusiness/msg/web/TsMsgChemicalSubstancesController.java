@@ -15,6 +15,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springrain.frame.common.SessionUser;
 import org.springrain.frame.controller.BaseController;
 import org.springrain.frame.util.GlobalStatic;
 import org.springrain.frame.util.MessageUtils;
@@ -135,8 +136,19 @@ public class TsMsgChemicalSubstancesController  extends BaseController {
 		SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 		String formatStr =formatter.format(date);
 		System.out.println(formatStr);
-		tsMsgChemicalSubstances.setCreateTime(formatStr);
-		tsMsgChemicalSubstances.setCreateUser("gdy");
+		//创建时间
+		if(StringUtils.isBlank(tsMsgChemicalSubstances.getCreateTime())){
+			tsMsgChemicalSubstances.setCreateTime(formatStr);
+		}
+		//创建用户
+		if(StringUtils.isBlank(tsMsgChemicalSubstances.getCreateUser())){
+			tsMsgChemicalSubstances.setCreateUser(SessionUser.getUserId());
+		}
+		//公司代码
+		java.lang.String companyId = SessionUser.getCompanyid(); 
+		if(StringUtils.isBlank(tsMsgChemicalSubstances.getCompanyId())){
+			tsMsgChemicalSubstances.setCompanyId(companyId);
+		}
 		try {
 		
 			java.lang.String id =tsMsgChemicalSubstances.getId();
