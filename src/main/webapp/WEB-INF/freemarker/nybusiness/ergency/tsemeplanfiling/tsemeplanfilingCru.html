@@ -45,13 +45,6 @@
 																		<div class="layui-inline valid-info"></div>
 																	</div>
 																	<div class="layui-form-item col-lg-6">
-																		<label class="layui-form-label">地址*</label>
-																		<div class="layui-inline col-lg-5">  
-																			<input type="text" name="address" id="address" datatype="*" nullmsg="不能为空" errormsg="不能为空！" autocomplete="off" class="layui-input" value="${(returnDatas.data.address)!''}">
-																		</div>
-																		<div class="layui-inline valid-info"></div>
-																	</div>
-																	<div class="layui-form-item col-lg-6">
 																		<label class="layui-form-label">机构代码*</label>
 																		<div class="layui-inline col-lg-5">  
 																			<input type="text" name="company_code" id="company_code" datatype="*" nullmsg="不能为空" errormsg="不能为空！" autocomplete="off" class="layui-input" value="${(returnDatas.data.companyCode)!''}">
@@ -61,11 +54,11 @@
 																	<div class="layui-form-item col-lg-6">
 																		<label class="layui-form-label">法定代表人*</label>
 																		<div class="layui-inline col-lg-5">  
-																			<input type="text" name="legal_person" id="legal_person" datatype="*" nullmsg="不能为空" errormsg="不能为空！" autocomplete="off" class="layui-input" value="${(returnDatas.data.legal_person)!''}">
+																			<input type="text" name="legal_person" id="legal_person" datatype="*" nullmsg="不能为空" errormsg="不能为空！" autocomplete="off" class="layui-input" value="${(returnDatas.data.corporationName)!''}">
 																		</div>
 																		<div class="layui-inline valid-info"></div>
 																	</div>
-														<!-- 			<div class="layui-form-item col-lg-6">
+																	<div class="layui-form-item col-lg-6">
 																		<label class="layui-form-label">法定代表人联系电话*</label>
 																		<div class="layui-inline col-lg-5">  
 																			<input type="text" name="legal_person_tel" id="legal_person_tel" datatype="*" nullmsg="不能为空" errormsg="不能为空！" autocomplete="off" class="layui-input" value="${(returnDatas.data.legal_person_tel)!''}">
@@ -75,7 +68,7 @@
 																	<div class="layui-form-item col-lg-6">
 																		<label class="layui-form-label">联系人*</label>
 																		<div class="layui-inline col-lg-5">  
-																			<input type="text" name="contacts_people" id="contacts_people" datatype="*" nullmsg="不能为空" errormsg="不能为空！" autocomplete="off" class="layui-input" value="${(returnDatas.data.contacts_people)!''}">
+																			<input type="text" name="contacts_people" id="contacts_people" datatype="*" nullmsg="不能为空" errormsg="不能为空！" autocomplete="off" class="layui-input" value="${(returnDatas.data.contactsName)!''}">
 																		</div>
 																		<div class="layui-inline valid-info"></div>
 																	</div>
@@ -83,6 +76,14 @@
 																		<label class="layui-form-label">联系人联系电话*</label>
 																		<div class="layui-inline col-lg-5">  
 																			<input type="text" name="contacts_people_tel" id="contacts_people_tel" datatype="*" nullmsg="不能为空" errormsg="不能为空！" autocomplete="off" class="layui-input" value="${(returnDatas.data.contacts_people_tel)!''}">
+																		</div>
+																		<div class="layui-inline valid-info"></div>
+																	</div>
+																	
+																	<div class="layui-form-item col-lg-6">
+																		<label class="layui-form-label">地址*</label>
+																		<div class="layui-inline col-lg-5">  
+																			<input type="text" name="address" id="address" datatype="*" nullmsg="不能为空" errormsg="不能为空！" autocomplete="off" class="layui-input" value="${(returnDatas.data.address)!''}">
 																		</div>
 																		<div class="layui-inline valid-info"></div>
 																	</div>
@@ -114,8 +115,25 @@
 																		</div>
 																		<div class="layui-inline valid-info"></div>
 																	</div>
-																	日期型
+																		<div class="layui-form-item col-lg-6">
+																		<label class="layui-form-label">预案名称*</label>
+																		<div class="layui-inline col-lg-5">  
+																			<input type="text" name="plan_name" id="plan_name" datatype="*" nullmsg="不能为空" errormsg="不能为空！" autocomplete="off" class="layui-input" value="${(returnDatas.data.plan_name)!''}">
+																		</div>
+																		<div class="layui-inline valid-info"></div>
+																	</div>
 																	<div class="layui-form-item col-lg-6">
+																		<label class="layui-form-label">风险级别*</label>
+																		<div class="layui-inline col-lg-5">  
+																			<input type="text" name="risk_level" id="risk_level" datatype="*" nullmsg="不能为空" errormsg="不能为空！" autocomplete="off" class="layui-input" value="${(returnDatas.data.risk_level)!''}">
+																		</div>
+																		<div class="layui-inline valid-info"></div>
+																	</div>
+																	
+																	
+																	
+																	
+																	<!-- <div class="layui-form-item col-lg-6">
 																		<label class="layui-form-label">签署日期 配合内容使用*</label>
 																		<div class="layui-inline col-lg-5">  
 																			<input type="datetime" name="signing_date" id="signing_date" datatype="*" nullmsg="不能为空" errormsg="不能为空！" autocomplete="off" class="layui-input" value="${(returnDatas.data.signing_date)!''}">
@@ -128,7 +146,9 @@
 																			<input type="text" name="signing_desc" id="signing_desc" datatype="*" nullmsg="不能为空" errormsg="不能为空！" autocomplete="off" class="layui-input" value="${(returnDatas.data.signing_desc)!''}">
 																		</div>
 																		<div class="layui-inline valid-info"></div>
-																	</div>
+																	</div> -->
+																	
+																	
 																	<div class="layui-form-item col-lg-6">
 																		<label class="layui-form-label">预案签署人*</label>
 																		<div class="layui-inline col-lg-5">  
@@ -136,7 +156,7 @@
 																		</div>
 																		<div class="layui-inline valid-info"></div>
 																	</div>
-																	日期型
+																
 																	<div class="layui-form-item col-lg-6">
 																		<label class="layui-form-label">报送时间*</label>
 																		<div class="layui-inline col-lg-5">  
@@ -144,6 +164,10 @@
 																		</div>
 																		<div class="layui-inline valid-info"></div>
 																	</div>
+																	
+																	
+																	
+																	
 																	<div class="layui-form-item col-lg-6">
 																		<label class="layui-form-label">预案备案文件目录*</label>
 																		<div class="layui-inline col-lg-5">  
@@ -151,13 +175,34 @@
 																		</div>
 																		<div class="layui-inline valid-info"></div>
 																	</div>
-																	<div class="layui-form-item col-lg-6">
+																	
+																	<!-- <div class="layui-form-item col-lg-6">
 																		<label class="layui-form-label">备案意见*</label>
 																		<div class="layui-inline col-lg-5">  
 																			<input type="text" name="filing_opinion" id="filing_opinion" datatype="*" nullmsg="不能为空" errormsg="不能为空！" autocomplete="off" class="layui-input" value="${(returnDatas.data.filing_opinion)!''}">
 																		</div>
 																		<div class="layui-inline valid-info"></div>
 																	</div>
+																	日期型
+																	<div class="layui-form-item col-lg-6">
+																		<label class="layui-form-label">收讫日期配合备案意见使用*</label>
+																		<div class="layui-inline col-lg-5">  
+																			<input type="datetime" name="received_date" id="received_date" datatype="*" nullmsg="不能为空" errormsg="不能为空！" autocomplete="off" class="layui-input" value="${(returnDatas.data.received_date)!''}">
+																		</div>
+																		<div class="layui-inline valid-info"></div>
+																	</div>
+																
+																	日期型
+																	<div class="layui-form-item col-lg-6">
+																		<label class="layui-form-label">受理日期配合备案意见使用*</label>
+																		<div class="layui-inline col-lg-5">  
+																			<input type="datetime" name="acceptance_date" id="acceptance_date" datatype="*" nullmsg="不能为空" errormsg="不能为空！" autocomplete="off" class="layui-input" value="${(returnDatas.data.acceptance_date)!''}">
+																		</div>
+																		<div class="layui-inline valid-info"></div>
+																	</div>  -->
+																	
+																	
+																	
 																	<div class="layui-form-item col-lg-6">
 																		<label class="layui-form-label">备案编号*</label>
 																		<div class="layui-inline col-lg-5">  
@@ -165,6 +210,7 @@
 																		</div>
 																		<div class="layui-inline valid-info"></div>
 																	</div>
+																	
 																	<div class="layui-form-item col-lg-6">
 																		<label class="layui-form-label">报送单位*</label>
 																		<div class="layui-inline col-lg-5">  
@@ -186,36 +232,8 @@
 																		</div>
 																		<div class="layui-inline valid-info"></div>
 																	</div>
-																	日期型
-																	<div class="layui-form-item col-lg-6">
-																		<label class="layui-form-label">收讫日期配合备案意见使用*</label>
-																		<div class="layui-inline col-lg-5">  
-																			<input type="datetime" name="received_date" id="received_date" datatype="*" nullmsg="不能为空" errormsg="不能为空！" autocomplete="off" class="layui-input" value="${(returnDatas.data.received_date)!''}">
-																		</div>
-																		<div class="layui-inline valid-info"></div>
-																	</div>
-																	<div class="layui-form-item col-lg-6">
-																		<label class="layui-form-label">预案名称*</label>
-																		<div class="layui-inline col-lg-5">  
-																			<input type="text" name="plan_name" id="plan_name" datatype="*" nullmsg="不能为空" errormsg="不能为空！" autocomplete="off" class="layui-input" value="${(returnDatas.data.plan_name)!''}">
-																		</div>
-																		<div class="layui-inline valid-info"></div>
-																	</div>
-																	<div class="layui-form-item col-lg-6">
-																		<label class="layui-form-label">风险级别*</label>
-																		<div class="layui-inline col-lg-5">  
-																			<input type="text" name="risk_level" id="risk_level" datatype="*" nullmsg="不能为空" errormsg="不能为空！" autocomplete="off" class="layui-input" value="${(returnDatas.data.risk_level)!''}">
-																		</div>
-																		<div class="layui-inline valid-info"></div>
-																	</div>
-																	日期型
-																	<div class="layui-form-item col-lg-6">
-																		<label class="layui-form-label">受理日期配合备案意见使用*</label>
-																		<div class="layui-inline col-lg-5">  
-																			<input type="datetime" name="acceptance_date" id="acceptance_date" datatype="*" nullmsg="不能为空" errormsg="不能为空！" autocomplete="off" class="layui-input" value="${(returnDatas.data.acceptance_date)!''}">
-																		</div>
-																		<div class="layui-inline valid-info"></div>
-																	</div> -->
+																	
+														
 																<!-- 	<div class="layui-form-item col-lg-6">
 																		<label class="layui-form-label">公司id*</label>
 																		<div class="layui-inline col-lg-5">  
