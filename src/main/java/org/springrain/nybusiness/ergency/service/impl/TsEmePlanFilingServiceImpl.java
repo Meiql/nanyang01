@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.apache.commons.collections.CollectionUtils;
 import org.springframework.stereotype.Service;
+import org.springrain.nybusiness.company.entity.TsCompanyInfo;
 import org.springrain.nybusiness.ergency.entity.TsEmePlanFiling;
 import org.springrain.nybusiness.ergency.entity.TsEmergencyEquipmentSum;
 import org.springrain.nybusiness.ergency.service.ITsEmePlanFilingService;
@@ -46,6 +47,7 @@ public class TsEmePlanFilingServiceImpl extends BaseSpringrainServiceImpl implem
 	public TsEmePlanFiling findTsEmePlanFilingById(Object id) throws Exception{
 	 return super.findById(id,TsEmePlanFiling.class);
 	}
+   
 	
 /**
  * 列表查询,每个service都会重载,要把sql语句封装到service中,Finder只是最后的方案
@@ -89,5 +91,20 @@ public class TsEmePlanFilingServiceImpl extends BaseSpringrainServiceImpl implem
 			.setParam("companyId", listCompany);
 			return super.queryForList(finder, TsEmePlanFiling.class, page);
 		}
+		@Override
+		public List<TsCompanyInfo> finderCompanyInfo(List<String> listCompany) throws Exception {
+			if(CollectionUtils.isEmpty(listCompany)){
+				return null;
+			}
+			Finder finder = new Finder();
+			finder.append("SELECT * FROM `ts_company_info` t where t.id in (:companyId)")
+			.setParam("companyId", listCompany);
+			return super.queryForList(finder, TsCompanyInfo.class, null);
+		}
+		 //公司信息
+	    @Override
+	   	public TsCompanyInfo findCompanyInfoById(Object id) throws Exception{
+	   	 return super.findById(id,TsCompanyInfo.class);
+	   	}
 
 }

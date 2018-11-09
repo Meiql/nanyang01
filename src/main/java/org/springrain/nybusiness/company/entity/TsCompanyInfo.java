@@ -64,6 +64,10 @@ public class TsCompanyInfo  extends BaseEntity {
 	 */
 	private java.lang.String companyName;
 	/**
+	 * 公司代码
+	 */
+	private java.lang.String companyCode;
+	/**
 	 * 法人代码
 	 */
 	private java.lang.String corporationCode;
@@ -223,6 +227,28 @@ public class TsCompanyInfo  extends BaseEntity {
 	public java.lang.String getCompanyName() {
 		return this.companyName;
 	}
+     
+     
+ 	/**
+		 * 公司代码
+		 */
+	public void setCompanyCode(java.lang.String value) {
+		    if(StringUtils.isNotBlank(value)){
+			 value=value.trim();
+			}
+		this.companyCode = value;
+	}
+	
+	
+	
+	/**
+	 * 公司代码
+	 */
+  @WhereSQL(sql="companyCode=:TsCompanyInfo_companyCode")
+	public java.lang.String getCompanyCode() {
+		return this.companyCode;
+	}
+     
 		/**
 		 * 法人代码
 		 */

@@ -33,8 +33,8 @@
 
 		             </li>
 					 <li style="float:right;">
-		             	<@shiro.hasPermission name="/tsemeplanfiling/update" >
-		             		<button type="button"   class="layui-btn layui-btn-small" data-action="${ctx}/tsemeplanfiling/update/pre"><i class="layui-icon layui-icon-specil">&#xe61f;</i>新增</button>
+		             	<@shiro.hasPermission name="/tsemeplanfiling/add" >
+		             		<button type="button"   class="layui-btn layui-btn-small" data-action="${ctx}/tsemeplanfiling/add/pre"><i class="layui-icon layui-icon-specil">&#xe61f;</i>新增</button>
 		             	</@shiro.hasPermission>
 		             	<@shiro.hasPermission name="/tsemeplanfiling/list/export" >
 				        	<button type="button"   class="layui-btn layui-btn-small"><i class="layui-icon layui-icon-specil">&#xe609;</i>导出</button>
@@ -42,7 +42,7 @@
 				        <@shiro.hasPermission name="/tsemeplanfiling/list/import" >
 		                <button type="button"  class="layui-btn layui-btn-warm layui-btn-small"><i class="layui-icon layui-icon-specil">&#xe601;</i>导入</button>
 		                </@shiro.hasPermission>
-		                <@shiro.hasPermission name="/tsemeplanfiling/delete" >
+		                <@shiro.hasPermission name="/tsemeplanfiling/deleteAll" >
 		               		 <button type="button"  class="layui-btn layui-btn-danger layui-btn-small"><i class="layui-icon">&#xe640;</i>批量删除</button>
 		                </@shiro.hasPermission>
 		             </li>
@@ -106,7 +106,7 @@
 										  <!--first_start_export-->
 											<thead>
 												<tr>
-													<th colspan="9">企业事业单位环境应急预案备案表列表<font id='recordsView' class='recorsView'>共<span></span>页,共 <span></span>条记录</font></th>
+													<th colspan="30">企业事业单位环境应急预案备案表列表<font id='recordsView' class='recorsView'>共<span></span>页,共 <span></span>条记录</font></th>
 												</tr>
 												<tr>
 												  <!--first_start_no_export-->
@@ -159,7 +159,7 @@
 														</td>
 														<td>
 															<@shiro.hasPermission name="/tsemeplanfiling/update" >
-								                           		 <a href="#" data-action="${ctx}/tsemeplanfiling/update/pre?id=" class="layui-btn layui-btn-normal layui-btn-mini">编辑</a>
+								                           		 <a href="#" data-action="${ctx}/tsemeplanfiling/update/pre?id=${(_data.id)!''}" class="layui-btn layui-btn-normal layui-btn-mini">编辑</a>
 								                            </@shiro.hasPermission>
 								                            <@shiro.hasPermission name="/tsemeplanfiling/delete" >
 								                            	<a href="javascript:del('${(_data.id)!''}')" class="layui-btn layui-btn-danger layui-btn-mini ajax-delete">删除</a>
@@ -242,7 +242,7 @@
 															<!--日期型-->
 														${((_data.acceptance_date)?string('yyyy-MM-dd'))!''}
 														</td>
-														<td >
+<!-- 														<td >
 															${(_data.company_id)!''}
 														</td>
 														<td >
@@ -259,7 +259,7 @@
 														</td>
 														<td >
 															${(_data.bak3)!''}
-														</td>
+														</td> -->
 													</tr>
 												</#list>
 											 </#if>

@@ -16,6 +16,7 @@ import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springrain.nybusiness.company.entity.TsCompanyInfo;
 import org.springrain.nybusiness.company.service.ITsCompanyInfoService;
 import org.springrain.nybusiness.ergency.entity.TsEmePlanFiling;
 import org.springrain.nybusiness.ergency.entity.TsEmePlanFilingMod;
@@ -125,6 +126,9 @@ public class TsEmePlanFilingModController  extends BaseController {
 		  TsEmePlanFilingMod tsEmePlanFilingMod = tsEmePlanFilingModService.findTsEmePlanFilingModById(id);
 		   returnObject.setData(tsEmePlanFilingMod);
 		}else{
+			 java.lang.String companyId = SessionUser.getCompanyid();
+			 TsCompanyInfo tsCompanyInfo = tsEmePlanFilingModService.findCompanyInfoById(companyId);
+			 returnObject.setData(tsCompanyInfo);
 		returnObject.setStatus(ReturnDatas.ERROR);
 		}
 		return returnObject;
@@ -170,11 +174,21 @@ public class TsEmePlanFilingModController  extends BaseController {
 	/**
 	 * 进入修改页面,APP端可以调用 lookjson 获取json格式数据
 	 */
+	@RequestMapping(value = "/add/pre")
+	public String addpre(Model model,HttpServletRequest request,HttpServletResponse response)  throws Exception{
+		ReturnDatas returnObject = lookjson(model, request, response);
+		model.addAttribute(GlobalStatic.returnDatas, returnObject);
+		return "/nybusiness/ergency/tsemeplanfilingmod/tsemeplanfilingmodCru";
+	}
+	
+	/**
+	 * 进入修改页面,APP端可以调用 lookjson 获取json格式数据
+	 */
 	@RequestMapping(value = "/update/pre")
 	public String updatepre(Model model,HttpServletRequest request,HttpServletResponse response)  throws Exception{
 		ReturnDatas returnObject = lookjson(model, request, response);
 		model.addAttribute(GlobalStatic.returnDatas, returnObject);
-		return "/nybusiness/ergency/tsemeplanfilingmod/tsemeplanfilingmodCru";
+		return "/nybusiness/ergency/tsemeplanfilingmod/tsemeplanfilingmodCru2";
 	}
 	
 	/**

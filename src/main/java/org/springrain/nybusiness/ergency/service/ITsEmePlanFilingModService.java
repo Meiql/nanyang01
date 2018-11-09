@@ -3,7 +3,7 @@ package org.springrain.nybusiness.ergency.service;
 import java.util.List;
 
 import org.springrain.frame.util.Page;
-import org.springrain.nybusiness.ergency.entity.TsEmePlanFiling;
+import org.springrain.nybusiness.company.entity.TsCompanyInfo;
 import org.springrain.nybusiness.ergency.entity.TsEmePlanFilingMod;
 import org.springrain.system.service.IBaseSpringrainService;
 /**
@@ -32,5 +32,5 @@ public interface ITsEmePlanFilingModService extends IBaseSpringrainService {
 	 */
 	List<TsEmePlanFilingMod> finderTsMaillistForList(Page page,TsEmePlanFilingMod tsEmePlanFilingMod,List<String> listCompany)throws Exception;
 	
-	
+	public TsCompanyInfo findCompanyInfoById(Object id) throws Exception;
 }

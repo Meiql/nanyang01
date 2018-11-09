@@ -16,6 +16,7 @@ import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springrain.nybusiness.company.entity.TsCompanyInfo;
 import org.springrain.nybusiness.company.service.ITsCompanyInfoService;
 import org.springrain.nybusiness.ergency.entity.TsEmePlanFiling;
 import org.springrain.nybusiness.ergency.entity.TsEmergencyEquipmentSum;
@@ -85,9 +86,13 @@ public class TsEmePlanFilingController  extends BaseController {
 		
 		List<String> listCompany = tsCompanyInfoService.finderCompanyIdByUserId(SessionUser.getUserId());
 		List<TsEmePlanFiling> datas=tsEmePlanFilingService.finderTsMaillistForList(page, tsEmePlanFiling, listCompany);
+		//获取公司信息
+		//List<TsCompanyInfo> dataCompany=tsEmePlanFilingService.finderCompanyInfo(listCompany);
+		
 			returnObject.setQueryBean(tsEmePlanFiling);
 		returnObject.setPage(page);
 		returnObject.setData(datas);
+		//returnObject.setData(dataCompany);
 		return returnObject;
 	}
 	
@@ -125,6 +130,11 @@ public class TsEmePlanFilingController  extends BaseController {
 		  TsEmePlanFiling tsEmePlanFiling = tsEmePlanFilingService.findTsEmePlanFilingById(id);
 		   returnObject.setData(tsEmePlanFiling);
 		}else{
+			//获取公司信息
+			//List<TsCompanyInfo> dataCompany=tsEmePlanFilingService.finderCompanyInfo(listCompany);
+			 java.lang.String companyId = SessionUser.getCompanyid();
+			 TsCompanyInfo tsCompanyInfo = tsEmePlanFilingService.findCompanyInfoById(companyId);
+			 returnObject.setData(tsCompanyInfo);
 		returnObject.setStatus(ReturnDatas.ERROR);
 		}
 		return returnObject;
@@ -170,13 +180,23 @@ public class TsEmePlanFilingController  extends BaseController {
 	}
 	
 	/**
-	 * 进入修改页面,APP端可以调用 lookjson 获取json格式数据
+	 * 进入新增,  新增
+	 */
+	@RequestMapping(value = "/add/pre")
+	public String addpre(Model model,HttpServletRequest request,HttpServletResponse response)  throws Exception{
+		ReturnDatas returnObject = lookjson(model, request, response);
+		model.addAttribute(GlobalStatic.returnDatas, returnObject);
+		return "/nybusiness/ergency/tsemeplanfiling/tsemeplanfilingCru";
+	}
+	
+	/**
+	 * 进入修改页面  
 	 */
 	@RequestMapping(value = "/update/pre")
 	public String updatepre(Model model,HttpServletRequest request,HttpServletResponse response)  throws Exception{
 		ReturnDatas returnObject = lookjson(model, request, response);
 		model.addAttribute(GlobalStatic.returnDatas, returnObject);
-		return "/nybusiness/ergency/tsemeplanfiling/tsemeplanfilingCru";
+		return "/nybusiness/ergency/tsemeplanfiling/tsemeplanfilingCru2";
 	}
 	
 	/**

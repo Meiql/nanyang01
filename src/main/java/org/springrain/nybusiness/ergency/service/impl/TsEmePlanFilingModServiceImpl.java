@@ -5,7 +5,7 @@ import java.util.List;
 
 import org.apache.commons.collections.CollectionUtils;
 import org.springframework.stereotype.Service;
-import org.springrain.nybusiness.ergency.entity.TsEmePlanFiling;
+import org.springrain.nybusiness.company.entity.TsCompanyInfo;
 import org.springrain.nybusiness.ergency.entity.TsEmePlanFilingMod;
 import org.springrain.nybusiness.ergency.service.ITsEmePlanFilingModService;
 import org.springrain.frame.entity.IBaseEntity;
@@ -89,5 +89,9 @@ public class TsEmePlanFilingModServiceImpl extends BaseSpringrainServiceImpl imp
 		.setParam("companyId", listCompany);
 		return super.queryForList(finder, TsEmePlanFilingMod.class, page);
 	}
-
+	 //公司信息
+    @Override
+   	public TsCompanyInfo findCompanyInfoById(Object id) throws Exception{
+   	 return super.findById(id,TsCompanyInfo.class);
+   	}
 }
