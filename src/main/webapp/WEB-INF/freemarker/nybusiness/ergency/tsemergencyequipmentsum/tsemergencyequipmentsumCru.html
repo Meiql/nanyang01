@@ -3,11 +3,16 @@
 
 <script src="${ctx}/js/validform/validform.min.js"></script>
 <link rel="stylesheet" href="${ctx}/js/validform/validform.css" media="all">
+<script type="text/javascript" src="${ctx}/js/jquery/jquery.min.js"></script>
+<script type="text/javascript" src="${ctx}/js/jquery/jquery-1.12.4.js"></script>
 <script>
 var _state;
 jQuery(function(){
 	 _state="${(returnDatas.data.category)!''}";
 	 jQuery("#category").val(_state);
+	 
+	 _in_Equipment="${(returnDatas.data.in_Equipment)!''}";
+	 jQuery("#in_Equipment").val(_in_Equipment);
 		 /*
 		 init_valid(_before,_after)
 		 @_before:提交表单前，调用 的函数   可以为空，一般有validform处理不了，独自进行处理时使用
@@ -15,7 +20,25 @@ jQuery(function(){
 		 */
 		 springrain.initValid(null,function(){window.location.href="${ctx}/tsemergencyequipmentsum/list?springraintoken="+springraintoken});
 	 });
+	 
+	 
+ 	 function aa(){
+ 		alert("I am an alert box!!");
+} 	 
+ 	 
+ 	var form = layui.form, layer = layui.layer;
+ // 监听
+ $("#in_Equipment").ready(function() {       
+     // select下拉框选中触发事件
+     form.on("select", function(data){
+             alert("111");
+     });
+  
+ });
 </script>
+
+
+
 </head>
 <body>
 	<div class="layui-layout layui-layout-admin">
@@ -90,12 +113,27 @@ jQuery(function(){
 																    <div class="layui-inline">
 																      <label class="layui-form-label">外部供应单位名称*</label>
 																		<div class="layui-input-inline">  
-																			<input type="text" name="outside_company" id="outside_company" datatype="*" nullmsg="不能为空" errormsg="不能为空！" autocomplete="off" class="layui-input" value="${(returnDatas.data.outside_company)!''}">
+																			<input type="text" name="outside_company" id="outside_company" datatype="*" nullmsg="不能为空" errormsg="不能为空！" autocomplete="off" class="layui-input" value="${(returnDatas.data.outside_company)!''}" onclick="aa();">
 																		</div>
 																	</div>
 																  </div>
 																  
-																  <div class="layui-form-item">
+																   <div class="layui-form-item">
+																    <div class="layui-inline">
+																      <label class="layui-form-label">设备来源*</label>
+																		<div class="layui-input-inline ">  
+																			 <select class="form-control" name="in_Equipment" id="in_Equipment" datatype="*"  nullmsg="不能为空" >
+														                             <option value="">==请选择类别==</option>
+														                             <option value="1">厂内自备</option>
+																					 <option value="2">外部供应</option>
+																					 
+																			  </select>
+																			</div>
+																			
+																		</div>
+																  </div>
+																  
+																  <!-- <div class="layui-form-item">
 																    <div class="layui-inline">
 																      <label class="layui-form-label">厂内自备*</label>
 																		<div class="layui-input-inline">  
@@ -108,7 +146,7 @@ jQuery(function(){
 																			<input type="text" name="out_Equipment" id="out_Equipment" datatype="*" nullmsg="不能为空" errormsg="不能为空！" autocomplete="off" class="layui-input" value="${(returnDatas.data.out_Equipment)!''}">
 																		</div>
 																		</div>
-																  </div>
+																  </div> -->
 																  <div class="layui-form-item">
 																    <div class="layui-inline">
 																      <label class="layui-form-label">主要联系人*</label>
