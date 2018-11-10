@@ -36,11 +36,11 @@
 												</header>
 												<div class="larry-personal-body clearfix changepwd">
 													<form id="validForm" class="layui-form <!--  -->"  method="post" action="${ctx}/tsemeplanfilingmod/update">
-																<input type="hidden" id="id" name="id" />	
+																<input type="hidden" id="id" name="id" value="${(returnDatas.data.id)!''}"/>	
 																	<div class="layui-form-item col-lg-6">
-																		<label class="layui-form-label">单位名称*</label>
+																		<label class="layui-form-label">公司名称*</label>
 																		<div class="layui-inline col-lg-5">  
-																			<input type="text" name="company_name" id="company_name" datatype="*" nullmsg="不能为空" errormsg="不能为空！" autocomplete="off" class="layui-input" value="${(returnDatas.data.companyName)!''}">
+																			<input type="text" name="company_name" id="company_name" datatype="*" nullmsg="不能为空" errormsg="不能为空！" autocomplete="off" class="layui-input" value="${(returnDatas.data.company_name)!''}">
 																		</div>
 																		<div class="layui-inline valid-info"></div>
 																	</div>
@@ -80,7 +80,7 @@
 																		<div class="layui-inline valid-info"></div>
 																	</div>
 																	<!--日期型-->
-															<!-- 		<div class="layui-form-item col-lg-6">
+															<!--		<div class="layui-form-item col-lg-6">
 																		<label class="layui-form-label">申请日期*</label>
 																		<div class="layui-inline col-lg-5">  
 																			<input type="datetime" name="apply_date" id="apply_date" datatype="*" nullmsg="不能为空" errormsg="不能为空！" autocomplete="off" class="layui-input" value="${(returnDatas.data.apply_date)!''}">
@@ -94,7 +94,7 @@
 																		</div>
 																		<div class="layui-inline valid-info"></div>
 																	</div>
-																	<div class="layui-form-item col-lg-6">
+															 		<div class="layui-form-item col-lg-6">
 																		<label class="layui-form-label">公司id*</label>
 																		<div class="layui-inline col-lg-5">  
 																			<input type="text" name="company_id" id="company_id" datatype="*" nullmsg="不能为空" errormsg="不能为空！" autocomplete="off" class="layui-input" value="${(returnDatas.data.company_id)!''}">

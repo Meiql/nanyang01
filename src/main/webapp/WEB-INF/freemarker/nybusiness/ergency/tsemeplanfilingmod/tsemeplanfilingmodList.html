@@ -33,14 +33,16 @@
 
 		             </li>
 					 <li style="float:right;">
-		             	<@shiro.hasPermission name="/tsemeplanfilingmod/update" >
-		             		<button type="button"   class="layui-btn layui-btn-small" data-action="${ctx}/tsemeplanfilingmod/update/pre"><i class="layui-icon layui-icon-specil">&#xe61f;</i>新增</button>
+		             	<@shiro.hasPermission name="/tsemeplanfilingmod/add" >
+		             		<button type="button"   class="layui-btn layui-btn-small" data-action="${ctx}/tsemeplanfilingmod/add/pre"><i class="layui-icon layui-icon-specil">&#xe61f;</i>新增</button>
 		             	</@shiro.hasPermission>
 		             	<@shiro.hasPermission name="/tsemeplanfilingmod/list/export" >
 				        	<button type="button"   class="layui-btn layui-btn-small"><i class="layui-icon layui-icon-specil">&#xe609;</i>导出</button>
 				        </@shiro.hasPermission>
+				        <@shiro.hasPermission name="/tsemeplanfilingmod/list/import" >
 		                <button type="button"  class="layui-btn layui-btn-warm layui-btn-small"><i class="layui-icon layui-icon-specil">&#xe601;</i>导入</button>
-		                <@shiro.hasPermission name="/tsemeplanfilingmod/delete" >
+		                </@shiro.hasPermission>
+		                <@shiro.hasPermission name="/tsemeplanfilingmod/deleteAll" >
 		               		 <button type="button"  class="layui-btn layui-btn-danger layui-btn-small"><i class="layui-icon">&#xe640;</i>批量删除</button>
 		                </@shiro.hasPermission>
 		             </li>
@@ -119,9 +121,14 @@
 														<th id="th_beian_number" >备案编号</th>
 														<th id="th_adjustment_id" >补充调整内容 关联到补充调整表</th>
 														<th id="th_adjustment_reason" >申请调整或补充理由</th>
-														<th id="th_apply_date" >申请日期</th>
+														<!--<th id="th_apply_date" >申请日期</th>
 														<th id="th_company_seal" >单位公章</th>
-														<th id="th_company_id" >公司id</th>
+														 <th id="th_company_id" >公司id</th>
+														<th id="th_create_user" >创建人</th>
+														<th id="th_create_time" >创建时间</th>
+														<th id="th_bak1" >bak1</th>
+														<th id="th_bak2" >bak2</th>
+														<th id="th_bak3" >bak3</th> -->
 												</tr> 
 											</thead>
 										  <!--first_end_export-->
@@ -136,7 +143,7 @@
 														</td>
 														<td>
 															<@shiro.hasPermission name="/tsemeplanfilingmod/update" >
-								                           		 <a href="#" data-action="${ctx}/tsemeplanfilingmod/update/pre?id=" class="layui-btn layui-btn-normal layui-btn-mini">编辑</a>
+								                           		 <a href="#" data-action="${ctx}/tsemeplanfilingmod/update/pre?id=${(_data.id)!''}" class="layui-btn layui-btn-normal layui-btn-mini">编辑</a>
 								                            </@shiro.hasPermission>
 								                            <@shiro.hasPermission name="/tsemeplanfilingmod/delete" >
 								                            	<a href="javascript:del('${(_data.id)!''}')" class="layui-btn layui-btn-danger layui-btn-mini ajax-delete">删除</a>
@@ -158,11 +165,11 @@
 														<td >
 															${(_data.adjustment_id)!''}
 														</td>
-														<td >
+														 <td >
 															${(_data.adjustment_reason)!''}
 														</td>
-														<td >
-															<!--日期型-->
+													<!--	<td >
+															日期型
 														${((_data.apply_date)?string('yyyy-MM-dd'))!''}
 														</td>
 														<td >
@@ -171,6 +178,21 @@
 														<td >
 															${(_data.company_id)!''}
 														</td>
+														<td >
+															${(_data.create_user)!''}
+														</td>
+														<td >
+															${(_data.create_time)!''}
+														</td>
+														<td >
+															${(_data.bak1)!''}
+														</td>
+														<td >
+															${(_data.bak2)!''}
+														</td>
+														<td >
+															${(_data.bak3)!''}
+														</td> -->
 													</tr>
 												</#list>
 											 </#if>

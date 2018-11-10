@@ -14,7 +14,7 @@ import org.springrain.frame.entity.BaseEntity;
  * TODO 在此加入类描述
  * @copyright {@link weicms.net}
  * @author springrain<Auto generate>
- * @version  2018-10-31 10:32:14
+ * @version  2018-11-08 21:32:48
  * @see org.springrain.nybusiness.ergency.entity.TsEmePlanFiling
  */
 @Table(name="ts_eme_plan_filing")
@@ -51,6 +51,11 @@ public class TsEmePlanFiling  extends BaseEntity {
 	public static final String ALIAS_RISK_LEVEL = "风险级别";
 	public static final String ALIAS_ACCEPTANCE_DATE = "受理日期配合备案意见使用";
 	public static final String ALIAS_COMPANY_ID = "公司id";
+	public static final String ALIAS_CREATE_USER = "创建者";
+	public static final String ALIAS_CREATE_TIME = "创建时间";
+	public static final String ALIAS_BAK1 = "bak1";
+	public static final String ALIAS_BAK2 = "bak2";
+	public static final String ALIAS_BAK3 = "bak3";
     */
 	//date formats
 	//public static final String FORMAT_SIGNING_DATE = DateUtils.DATETIME_FORMAT;
@@ -163,6 +168,26 @@ public class TsEmePlanFiling  extends BaseEntity {
 	 * 公司id
 	 */
 	private java.lang.String company_id;
+	/**
+	 * 创建者
+	 */
+	private java.lang.String create_user;
+	/**
+	 * 创建时间
+	 */
+	private java.lang.String create_time;
+	/**
+	 * bak1
+	 */
+	private java.lang.String bak1;
+	/**
+	 * bak2
+	 */
+	private java.lang.String bak2;
+	/**
+	 * bak3
+	 */
+	private java.lang.String bak3;
 	//columns END 数据库字段结束
 	
 	//concstructor
@@ -692,6 +717,101 @@ public class TsEmePlanFiling  extends BaseEntity {
 	public java.lang.String getCompany_id() {
 		return this.company_id;
 	}
+		/**
+		 * 创建者
+		 */
+	public void setCreate_user(java.lang.String value) {
+		    if(StringUtils.isNotBlank(value)){
+			 value=value.trim();
+			}
+		this.create_user = value;
+	}
+	
+	
+	
+	/**
+	 * 创建者
+	 */
+     @WhereSQL(sql="create_user=:TsEmePlanFiling_create_user")
+	public java.lang.String getCreate_user() {
+		return this.create_user;
+	}
+		/**
+		 * 创建时间
+		 */
+	public void setCreate_time(java.lang.String value) {
+		    if(StringUtils.isNotBlank(value)){
+			 value=value.trim();
+			}
+		this.create_time = value;
+	}
+	
+	
+	
+	/**
+	 * 创建时间
+	 */
+     @WhereSQL(sql="create_time=:TsEmePlanFiling_create_time")
+	public java.lang.String getCreate_time() {
+		return this.create_time;
+	}
+		/**
+		 * bak1
+		 */
+	public void setBak1(java.lang.String value) {
+		    if(StringUtils.isNotBlank(value)){
+			 value=value.trim();
+			}
+		this.bak1 = value;
+	}
+	
+	
+	
+	/**
+	 * bak1
+	 */
+     @WhereSQL(sql="bak1=:TsEmePlanFiling_bak1")
+	public java.lang.String getBak1() {
+		return this.bak1;
+	}
+		/**
+		 * bak2
+		 */
+	public void setBak2(java.lang.String value) {
+		    if(StringUtils.isNotBlank(value)){
+			 value=value.trim();
+			}
+		this.bak2 = value;
+	}
+	
+	
+	
+	/**
+	 * bak2
+	 */
+     @WhereSQL(sql="bak2=:TsEmePlanFiling_bak2")
+	public java.lang.String getBak2() {
+		return this.bak2;
+	}
+		/**
+		 * bak3
+		 */
+	public void setBak3(java.lang.String value) {
+		    if(StringUtils.isNotBlank(value)){
+			 value=value.trim();
+			}
+		this.bak3 = value;
+	}
+	
+	
+	
+	/**
+	 * bak3
+	 */
+     @WhereSQL(sql="bak3=:TsEmePlanFiling_bak3")
+	public java.lang.String getBak3() {
+		return this.bak3;
+	}
 	@Override
 	public String toString() {
 		return new StringBuilder()
@@ -721,6 +841,11 @@ public class TsEmePlanFiling  extends BaseEntity {
 			.append("风险级别[").append(getRisk_level()).append("],")
 			.append("受理日期配合备案意见使用[").append(getAcceptance_date()).append("],")
 			.append("公司id[").append(getCompany_id()).append("],")
+			.append("创建者[").append(getCreate_user()).append("],")
+			.append("创建时间[").append(getCreate_time()).append("],")
+			.append("bak1[").append(getBak1()).append("],")
+			.append("bak2[").append(getBak2()).append("],")
+			.append("bak3[").append(getBak3()).append("],")
 			.toString();
 	}
 	@Override

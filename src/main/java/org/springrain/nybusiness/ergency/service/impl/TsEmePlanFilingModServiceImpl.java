@@ -2,7 +2,10 @@ package org.springrain.nybusiness.ergency.service.impl;
 
 import java.io.File;
 import java.util.List;
+
+import org.apache.commons.collections.CollectionUtils;
 import org.springframework.stereotype.Service;
+import org.springrain.nybusiness.company.entity.TsCompanyInfo;
 import org.springrain.nybusiness.ergency.entity.TsEmePlanFilingMod;
 import org.springrain.nybusiness.ergency.service.ITsEmePlanFilingModService;
 import org.springrain.frame.entity.IBaseEntity;
@@ -15,7 +18,7 @@ import org.springrain.system.service.BaseSpringrainServiceImpl;
  * TODO 在此加入类描述
  * @copyright {@link weicms.net}
  * @author springrain<Auto generate>
- * @version  2018-10-31 10:32:07
+ * @version  2018-11-08 21:32:38
  * @see org.springrain.nybusiness.ergency.service.impl.TsEmePlanFilingMod
  */
 @Service("tsEmePlanFilingModService")
@@ -75,4 +78,20 @@ public class TsEmePlanFilingModServiceImpl extends BaseSpringrainServiceImpl imp
 			 return super.findDataExportExcel(finder,ftlurl,page,clazz,o);
 		}
 
+	@Override
+	public List<TsEmePlanFilingMod> finderTsMaillistForList(Page page, TsEmePlanFilingMod tsEmePlanFilingMod,
+			List<String> listCompany) throws Exception {
+		if(CollectionUtils.isEmpty(listCompany)){
+			return null;
+		}
+		Finder finder = new Finder();
+		finder.append("SELECT * FROM `ts_eme_plan_filing_mod` t where t.company_id in (:companyId)")
+		.setParam("companyId", listCompany);
+		return super.queryForList(finder, TsEmePlanFilingMod.class, page);
+	}
+	 //公司信息
+    @Override
+   	public TsCompanyInfo findCompanyInfoById(Object id) throws Exception{
+   	 return super.findById(id,TsCompanyInfo.class);
+   	}
 }

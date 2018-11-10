@@ -14,7 +14,7 @@ import org.springrain.frame.entity.BaseEntity;
  * TODO 在此加入类描述
  * @copyright {@link weicms.net}
  * @author springrain<Auto generate>
- * @version  2018-10-31 10:32:07
+ * @version  2018-11-08 21:32:38
  * @see org.springrain.nybusiness.ergency.entity.TsEmePlanFilingMod
  */
 @Table(name="ts_eme_plan_filing_mod")
@@ -25,7 +25,7 @@ public class TsEmePlanFilingMod  extends BaseEntity {
 	//alias
 	/*
 	public static final String TABLE_ALIAS = "环境应急预案变更备案表";
-	public static final String ALIAS_ID = "id";
+	public static final String ALIAS_ID = "主键id";
 	public static final String ALIAS_COMPANY_NAME = "公司名称";
 	public static final String ALIAS_CONTACT = "联系";
 	public static final String ALIAS_CONTACT_TEL = "联系电话";
@@ -35,13 +35,18 @@ public class TsEmePlanFilingMod  extends BaseEntity {
 	public static final String ALIAS_APPLY_DATE = "申请日期";
 	public static final String ALIAS_COMPANY_SEAL = "单位公章";
 	public static final String ALIAS_COMPANY_ID = "公司id";
+	public static final String ALIAS_CREATE_USER = "创建人";
+	public static final String ALIAS_CREATE_TIME = "创建时间";
+	public static final String ALIAS_BAK1 = "bak1";
+	public static final String ALIAS_BAK2 = "bak2";
+	public static final String ALIAS_BAK3 = "bak3";
     */
 	//date formats
 	//public static final String FORMAT_APPLY_DATE = DateUtils.DATETIME_FORMAT;
 	
 	//columns START
 	/**
-	 * id
+	 * 主键id
 	 */
 	private java.lang.String id;
 	/**
@@ -80,6 +85,26 @@ public class TsEmePlanFilingMod  extends BaseEntity {
 	 * 公司id
 	 */
 	private java.lang.String company_id;
+	/**
+	 * 创建人
+	 */
+	private java.lang.String create_user;
+	/**
+	 * 创建时间
+	 */
+	private java.lang.String create_time;
+	/**
+	 * bak1
+	 */
+	private java.lang.String bak1;
+	/**
+	 * bak2
+	 */
+	private java.lang.String bak2;
+	/**
+	 * bak3
+	 */
+	private java.lang.String bak3;
 	//columns END 数据库字段结束
 	
 	//concstructor
@@ -95,7 +120,7 @@ public class TsEmePlanFilingMod  extends BaseEntity {
 
 	//get and set
 		/**
-		 * id
+		 * 主键id
 		 */
 	public void setId(java.lang.String value) {
 		    if(StringUtils.isNotBlank(value)){
@@ -107,7 +132,7 @@ public class TsEmePlanFilingMod  extends BaseEntity {
 	
 	
 	/**
-	 * id
+	 * 主键id
 	 */
 	@Id
      @WhereSQL(sql="id=:TsEmePlanFilingMod_id")
@@ -290,10 +315,105 @@ public class TsEmePlanFilingMod  extends BaseEntity {
 	public java.lang.String getCompany_id() {
 		return this.company_id;
 	}
+		/**
+		 * 创建人
+		 */
+	public void setCreate_user(java.lang.String value) {
+		    if(StringUtils.isNotBlank(value)){
+			 value=value.trim();
+			}
+		this.create_user = value;
+	}
+	
+	
+	
+	/**
+	 * 创建人
+	 */
+     @WhereSQL(sql="create_user=:TsEmePlanFilingMod_create_user")
+	public java.lang.String getCreate_user() {
+		return this.create_user;
+	}
+		/**
+		 * 创建时间
+		 */
+	public void setCreate_time(java.lang.String value) {
+		    if(StringUtils.isNotBlank(value)){
+			 value=value.trim();
+			}
+		this.create_time = value;
+	}
+	
+	
+	
+	/**
+	 * 创建时间
+	 */
+     @WhereSQL(sql="create_time=:TsEmePlanFilingMod_create_time")
+	public java.lang.String getCreate_time() {
+		return this.create_time;
+	}
+		/**
+		 * bak1
+		 */
+	public void setBak1(java.lang.String value) {
+		    if(StringUtils.isNotBlank(value)){
+			 value=value.trim();
+			}
+		this.bak1 = value;
+	}
+	
+	
+	
+	/**
+	 * bak1
+	 */
+     @WhereSQL(sql="bak1=:TsEmePlanFilingMod_bak1")
+	public java.lang.String getBak1() {
+		return this.bak1;
+	}
+		/**
+		 * bak2
+		 */
+	public void setBak2(java.lang.String value) {
+		    if(StringUtils.isNotBlank(value)){
+			 value=value.trim();
+			}
+		this.bak2 = value;
+	}
+	
+	
+	
+	/**
+	 * bak2
+	 */
+     @WhereSQL(sql="bak2=:TsEmePlanFilingMod_bak2")
+	public java.lang.String getBak2() {
+		return this.bak2;
+	}
+		/**
+		 * bak3
+		 */
+	public void setBak3(java.lang.String value) {
+		    if(StringUtils.isNotBlank(value)){
+			 value=value.trim();
+			}
+		this.bak3 = value;
+	}
+	
+	
+	
+	/**
+	 * bak3
+	 */
+     @WhereSQL(sql="bak3=:TsEmePlanFilingMod_bak3")
+	public java.lang.String getBak3() {
+		return this.bak3;
+	}
 	@Override
 	public String toString() {
 		return new StringBuilder()
-			.append("id[").append(getId()).append("],")
+			.append("主键id[").append(getId()).append("],")
 			.append("公司名称[").append(getCompany_name()).append("],")
 			.append("联系[").append(getContact()).append("],")
 			.append("联系电话[").append(getContact_tel()).append("],")
@@ -303,6 +423,11 @@ public class TsEmePlanFilingMod  extends BaseEntity {
 			.append("申请日期[").append(getApply_date()).append("],")
 			.append("单位公章[").append(getCompany_seal()).append("],")
 			.append("公司id[").append(getCompany_id()).append("],")
+			.append("创建人[").append(getCreate_user()).append("],")
+			.append("创建时间[").append(getCreate_time()).append("],")
+			.append("bak1[").append(getBak1()).append("],")
+			.append("bak2[").append(getBak2()).append("],")
+			.append("bak3[").append(getBak3()).append("],")
 			.toString();
 	}
 	@Override

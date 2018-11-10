@@ -2,6 +2,7 @@ package  org.springrain.nybusiness.ergency.web;
 
 import java.io.File;
 import java.util.Arrays;
+import java.util.Date;
 import java.util.List;
 
 import javax.annotation.Resource;
@@ -15,10 +16,14 @@ import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
-
+import org.springrain.nybusiness.company.entity.TsCompanyInfo;
+import org.springrain.nybusiness.company.service.ITsCompanyInfoService;
 import org.springrain.nybusiness.ergency.entity.TsEmePlanFiling;
+import org.springrain.nybusiness.ergency.entity.TsEmergencyEquipmentSum;
 import org.springrain.nybusiness.ergency.service.ITsEmePlanFilingService;
+import org.springrain.frame.common.SessionUser;
 import org.springrain.frame.controller.BaseController;
+import org.springrain.frame.util.DateUtils;
 import org.springrain.frame.util.GlobalStatic;
 import org.springrain.frame.util.MessageUtils;
 import org.springrain.frame.util.Page;
@@ -29,7 +34,7 @@ import org.springrain.frame.util.ReturnDatas;
  * TODO 在此加入类描述
  * @copyright {@link weicms.net}
  * @author springrain<Auto generate>
- * @version  2018-10-31 10:32:14
+ * @version  2018-11-08 21:32:48
  * @see org.springrain.nybusiness.ergency.web.TsEmePlanFiling
  */
 @Controller
@@ -37,7 +42,8 @@ import org.springrain.frame.util.ReturnDatas;
 public class TsEmePlanFilingController  extends BaseController {
 	@Resource
 	private ITsEmePlanFilingService tsEmePlanFilingService;
-	
+	@Resource
+	private ITsCompanyInfoService tsCompanyInfoService;
 	private String listurl="/nybusiness/ergency/tsemeplanfiling/tsemeplanfilingList";
 	
 	
@@ -75,10 +81,18 @@ public class TsEmePlanFilingController  extends BaseController {
 		// ==构造分页请求
 		Page page = newPage(request);
 		// ==执行分页查询
-		List<TsEmePlanFiling> datas=tsEmePlanFilingService.findListDataByFinder(null,page,TsEmePlanFiling.class,tsEmePlanFiling);
+		/*List<TsEmePlanFiling> datas=tsEmePlanFilingService.findListDataByFinder(null,page,TsEmePlanFiling.class,tsEmePlanFiling);
+			returnObject.setQueryBean(tsEmePlanFiling);*/
+		
+		List<String> listCompany = tsCompanyInfoService.finderCompanyIdByUserId(SessionUser.getUserId());
+		List<TsEmePlanFiling> datas=tsEmePlanFilingService.finderTsMaillistForList(page, tsEmePlanFiling, listCompany);
+		//获取公司信息
+		//List<TsCompanyInfo> dataCompany=tsEmePlanFilingService.finderCompanyInfo(listCompany);
+		
 			returnObject.setQueryBean(tsEmePlanFiling);
 		returnObject.setPage(page);
 		returnObject.setData(datas);
+		//returnObject.setData(dataCompany);
 		return returnObject;
 	}
 	
@@ -116,6 +130,11 @@ public class TsEmePlanFilingController  extends BaseController {
 		  TsEmePlanFiling tsEmePlanFiling = tsEmePlanFilingService.findTsEmePlanFilingById(id);
 		   returnObject.setData(tsEmePlanFiling);
 		}else{
+			//获取公司信息
+			//List<TsCompanyInfo> dataCompany=tsEmePlanFilingService.finderCompanyInfo(listCompany);
+			 java.lang.String companyId = SessionUser.getCompanyid();
+			 TsCompanyInfo tsCompanyInfo = tsEmePlanFilingService.findCompanyInfoById(companyId);
+			 returnObject.setData(tsCompanyInfo);
 		returnObject.setStatus(ReturnDatas.ERROR);
 		}
 		return returnObject;
@@ -139,6 +158,16 @@ public class TsEmePlanFilingController  extends BaseController {
 			  tsEmePlanFiling.setId(null);
 			}
 		
+			if(StringUtils.isBlank(tsEmePlanFiling.getCreate_user())){
+				tsEmePlanFiling.setCreate_user(SessionUser.getUserId());
+			}
+			if(StringUtils.isBlank(tsEmePlanFiling.getCreate_time())){
+				tsEmePlanFiling.setCreate_time(DateUtils.convertDate2String("yyyy-MM-dd HH:mm:ss", new Date()));
+			}
+			java.lang.String companyId = SessionUser.getCompanyid(); 
+			tsEmePlanFiling.setCompany_id(companyId);
+			
+			
 			tsEmePlanFilingService.saveorupdate(tsEmePlanFiling);
 			
 		} catch (Exception e) {
@@ -151,13 +180,23 @@ public class TsEmePlanFilingController  extends BaseController {
 	}
 	
 	/**
-	 * 进入修改页面,APP端可以调用 lookjson 获取json格式数据
+	 * 进入新增,  新增
+	 */
+	@RequestMapping(value = "/add/pre")
+	public String addpre(Model model,HttpServletRequest request,HttpServletResponse response)  throws Exception{
+		ReturnDatas returnObject = lookjson(model, request, response);
+		model.addAttribute(GlobalStatic.returnDatas, returnObject);
+		return "/nybusiness/ergency/tsemeplanfiling/tsemeplanfilingCru";
+	}
+	
+	/**
+	 * 进入修改页面  
 	 */
 	@RequestMapping(value = "/update/pre")
 	public String updatepre(Model model,HttpServletRequest request,HttpServletResponse response)  throws Exception{
 		ReturnDatas returnObject = lookjson(model, request, response);
 		model.addAttribute(GlobalStatic.returnDatas, returnObject);
-		return "/nybusiness/ergency/tsemeplanfiling/tsemeplanfilingCru";
+		return "/nybusiness/ergency/tsemeplanfiling/tsemeplanfilingCru2";
 	}
 	
 	/**
