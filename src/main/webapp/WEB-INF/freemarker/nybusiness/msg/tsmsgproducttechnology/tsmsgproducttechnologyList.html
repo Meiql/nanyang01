@@ -36,13 +36,6 @@
 		             	<@shiro.hasPermission name="/tsmsgproducttechnology/update" >
 		             		<button type="button"   class="layui-btn layui-btn-small" data-action="${ctx}/tsmsgproducttechnology/update/pre"><i class="layui-icon layui-icon-specil">&#xe61f;</i>新增</button>
 		             	</@shiro.hasPermission>
-		             	<@shiro.hasPermission name="/tsmsgproducttechnology/list/export" >
-				        	<button type="button"   class="layui-btn layui-btn-small"><i class="layui-icon layui-icon-specil">&#xe609;</i>导出</button>
-				        </@shiro.hasPermission>
-		                <button type="button"  class="layui-btn layui-btn-warm layui-btn-small"><i class="layui-icon layui-icon-specil">&#xe601;</i>导入</button>
-		                <@shiro.hasPermission name="/tsmsgproducttechnology/delete" >
-		               		 <button type="button"  class="layui-btn layui-btn-danger layui-btn-small"><i class="layui-icon">&#xe640;</i>批量删除</button>
-		                </@shiro.hasPermission>
 		             </li>
 	       		</ul>
 				
@@ -72,16 +65,6 @@
 									                           <input type="text" name="name" value="${(returnDatas.queryBean.name)!''}" placeholder="请输入名称 " class="layui-input">
 									                    </div>
 							                		</div>
-									                 <div class="layui-inline">
-									                    <label class="layui-form-label">是否可用</label>
-									                    <div class="layui-input-inline">
-									                        <select name="active" id="active" class="layui-input">
-									                          <option value="">==请选择==</option>
-															  <option value="1">是</option>
-															  <option value="0">否</option>
-															</select>   
-									                    </div>
-									                </div>
 							          			</td>
 							          			<td>
 							          			   <div class="layui-inline">
@@ -113,16 +96,13 @@
 												  </th>
 												  <th>操作</th>
 												  <!--first_end_no_export-->
-														<th id="th_technologyId" >工艺id</th>
+														<th id="th_technologyName" >工艺类型名称</th>
+														<th id="th_whetherOrNot" >是否涉及此工艺类型</th>
 														<th id="th_riskUnitNumber" >涉及到的风险单元套数</th>
 														<th id="th_riskUnit" >涉及到的风险单元</th>
-														<th id="th_createUser" >createUser</th>
-														<th id="th_createTime" >createTime</th>
-														<th id="th_remarks" >remarks</th>
-														<th id="th_companyId" >companyId</th>
-														<th id="th_bak1" >bak1</th>
-														<th id="th_bak2" >bak2</th>
-														<th id="th_bak3" >bak3</th>
+														<th id="th_createTime" >创建或修改时间</th>
+														<th id="th_remarks" >创建用户</th>
+														<th id="th_companyId" >公司代码</th>
 												</tr> 
 											</thead>
 										  <!--first_end_export-->
@@ -148,16 +128,16 @@
 															${(_data.id)!''}
 														</td>
 														<td >
-															${(_data.technologyId)!''}
+															${(_data.technologyName)!''}
+														</td>
+														<td >
+															${(_data.whetherOrNot)!''}
 														</td>
 														<td >
 															${(_data.riskUnitNumber)!''}
 														</td>
 														<td >
 															${(_data.riskUnit)!''}
-														</td>
-														<td >
-															${(_data.createUser)!''}
 														</td>
 														<td >
 															${(_data.createTime)!''}
@@ -167,15 +147,6 @@
 														</td>
 														<td >
 															${(_data.companyId)!''}
-														</td>
-														<td >
-															${(_data.bak1)!''}
-														</td>
-														<td >
-															${(_data.bak2)!''}
-														</td>
-														<td >
-															${(_data.bak3)!''}
 														</td>
 													</tr>
 												</#list>

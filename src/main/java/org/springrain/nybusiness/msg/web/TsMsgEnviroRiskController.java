@@ -1,7 +1,9 @@
 package  org.springrain.nybusiness.msg.web;
 
 import java.io.File;
+import java.text.SimpleDateFormat;
 import java.util.Arrays;
+import java.util.Date;
 import java.util.List;
 
 import javax.annotation.Resource;
@@ -13,6 +15,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springrain.frame.common.SessionUser;
 import org.springrain.frame.controller.BaseController;
 import org.springrain.frame.util.GlobalStatic;
 import org.springrain.frame.util.MessageUtils;
@@ -135,7 +138,28 @@ public class TsMsgEnviroRiskController  extends BaseController {
 			if(StringUtils.isBlank(id)){
 				tsMsgEnviroRisk.setId(null);
 			}
-		
+			Date date = new Date();
+			SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+			String formatStr =formatter.format(date);
+			System.out.println(formatStr);
+			//创建时间
+			if(StringUtils.isBlank(tsMsgEnviroRisk.getCreateTime())){
+				tsMsgEnviroRisk.setCreateTime(formatStr);
+			}
+			//创建用户id
+			if(StringUtils.isBlank(tsMsgEnviroRisk.getCreateUser())){
+				tsMsgEnviroRisk.setCreateUser(SessionUser.getUserId());
+			}
+			//创建用户name
+			if(StringUtils.isBlank(tsMsgEnviroRisk.getCreateUserName())){
+				tsMsgEnviroRisk.setCreateUserName(SessionUser.getUserName());
+			}
+			//公司代码
+			java.lang.String companyId = SessionUser.getCompanyid(); 
+			if(StringUtils.isBlank(tsMsgEnviroRisk.getCompanyId())){
+				tsMsgEnviroRisk.setCompanyId(companyId);
+			}
+			
 			tsMsgEnviroRiskService.saveorupdate(tsMsgEnviroRisk);
 			
 		} catch (Exception e) {

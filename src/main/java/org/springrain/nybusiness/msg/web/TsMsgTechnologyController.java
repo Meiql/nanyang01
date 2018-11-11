@@ -1,7 +1,9 @@
 package  org.springrain.nybusiness.msg.web;
 
 import java.io.File;
+import java.text.SimpleDateFormat;
 import java.util.Arrays;
+import java.util.Date;
 import java.util.List;
 
 import javax.annotation.Resource;
@@ -13,6 +15,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springrain.frame.common.SessionUser;
 import org.springrain.frame.controller.BaseController;
 import org.springrain.frame.util.GlobalStatic;
 import org.springrain.frame.util.MessageUtils;
@@ -23,7 +26,7 @@ import org.springrain.nybusiness.msg.service.ITsMsgTechnologyService;
 
 
 /**
- * TODO 在此加入类描述
+ * TODO 管理生产工艺类型
  * @copyright {@link weicms.net}
  * @author springrain<Auto generate>
  * @version  2018-10-27 09:44:38
@@ -135,7 +138,22 @@ public class TsMsgTechnologyController  extends BaseController {
 			if(StringUtils.isBlank(id)){
 			  tsMsgTechnology.setId(null);
 			}
-		
+			Date date = new Date();
+			SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+			String formatStr =formatter.format(date);
+			System.out.println(formatStr);
+			//创建时间
+			if(StringUtils.isBlank(tsMsgTechnology.getCreateTime())){
+				tsMsgTechnology.setCreateTime(formatStr);
+			}
+			//创建用户id
+			if(StringUtils.isBlank(tsMsgTechnology.getCreateUser())){
+				tsMsgTechnology.setCreateUser(SessionUser.getUserId());
+			}
+			//创建用户name
+			if(StringUtils.isBlank(tsMsgTechnology.getRemarks())){
+				tsMsgTechnology.setRemarks(SessionUser.getUserName());
+			}
 			tsMsgTechnologyService.saveorupdate(tsMsgTechnology);
 			
 		} catch (Exception e) {

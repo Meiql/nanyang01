@@ -18,7 +18,9 @@ import org.springrain.frame.util.GlobalStatic;
 import org.springrain.frame.util.MessageUtils;
 import org.springrain.frame.util.Page;
 import org.springrain.frame.util.ReturnDatas;
+import org.springrain.nybusiness.msg.entity.TsMsgProductTechnology;
 import org.springrain.nybusiness.msg.entity.TsMsgTechnology;
+import org.springrain.nybusiness.msg.service.ITsMsgProductTechnologyService;
 import org.springrain.nybusiness.msg.service.ITsMsgTechnologyService;
 
 
@@ -30,10 +32,13 @@ import org.springrain.nybusiness.msg.service.ITsMsgTechnologyService;
  * @see org.springrain.nybusiness.msg.web.TsMsgTechnology
  */
 @Controller
-@RequestMapping(value="/tsmsgproduct")
+@RequestMapping(value="/tsmsgproducttechnology")
 public class TsMsgProductController  extends BaseController {
 	@Resource
 	private ITsMsgTechnologyService tsMsgTechnologyService;
+	
+	@Resource
+	private ITsMsgProductTechnologyService iTsMsgProductTechnologyService;
 	
 	private String listurl="/nybusiness/msg/tsmsgproducttechnology/tsmsgproducttechnologyList";
 	
@@ -49,9 +54,9 @@ public class TsMsgProductController  extends BaseController {
 	 * @throws Exception
 	 */
 	@RequestMapping("/list")
-	public String list(HttpServletRequest request, Model model,TsMsgTechnology tsMsgTechnology) 
+	public String list(HttpServletRequest request, Model model,TsMsgProductTechnology tsMsgProductTechnology,TsMsgTechnology tsMsgTechnology) 
 			throws Exception {
-		ReturnDatas returnObject = listjson(request, model, tsMsgTechnology);
+		ReturnDatas returnObject = listjson(request, model, tsMsgProductTechnology,tsMsgTechnology);
 		model.addAttribute(GlobalStatic.returnDatas, returnObject);
 		return listurl;
 	}
@@ -65,15 +70,28 @@ public class TsMsgProductController  extends BaseController {
 	 * @return
 	 * @throws Exception
 	 */
+	@SuppressWarnings("null")
 	@RequestMapping("/list/json")
 	@ResponseBody   
-	public  ReturnDatas listjson(HttpServletRequest request, Model model,TsMsgTechnology tsMsgTechnology) throws Exception{
+	public  ReturnDatas listjson(HttpServletRequest request, Model model,TsMsgProductTechnology tsMsgProductTechnology,TsMsgTechnology tsMsgTechnology) throws Exception{
 		ReturnDatas returnObject = ReturnDatas.getSuccessReturnDatas();
 		// ==构造分页请求
 		Page page = newPage(request);
+		List<TsMsgTechnology> datatype=tsMsgTechnologyService.findListDataByFinder(null,page,TsMsgTechnology.class,tsMsgTechnology);
 		// ==执行分页查询
-		List<TsMsgTechnology> datas=tsMsgTechnologyService.findListDataByFinder(null,page,TsMsgTechnology.class,tsMsgTechnology);
-			returnObject.setQueryBean(tsMsgTechnology);
+		List<TsMsgProductTechnology> datas=iTsMsgProductTechnologyService.findListDataByFinder(null,page,TsMsgProductTechnology.class,tsMsgProductTechnology);
+		if(datas==null) {
+			for(TsMsgTechnology technology : datatype) {
+				String technologyId = technology.getId();
+				String technologyName = technology.getName();
+				tsMsgProductTechnology.setTechnologyName(technologyName);
+				tsMsgProductTechnology.setId(technologyId);
+				datas.add(tsMsgProductTechnology);
+			}
+			
+		}
+		
+		returnObject.setQueryBean(tsMsgProductTechnology);
 		returnObject.setPage(page);
 		returnObject.setData(datas);
 		return returnObject;

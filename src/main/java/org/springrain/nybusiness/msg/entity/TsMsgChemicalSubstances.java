@@ -40,7 +40,7 @@ public class TsMsgChemicalSubstances  extends BaseEntity {
 	public static final String ALIAS_CREATETIME = "createTime";
 	public static final String ALIAS_REMARKS = "remarks";
 	public static final String ALIAS_COMPANYID = "companyId";
-	public static final String ALIAS_BAK1 = "bak1";
+	public static final String ALIAS_CREATEUSER = "createUserName";
 	public static final String ALIAS_BAK2 = "bak2";
 	public static final String ALIAS_BAK3 = "bak3";
     */
@@ -116,9 +116,9 @@ public class TsMsgChemicalSubstances  extends BaseEntity {
 	 */
 	private java.lang.String companyId;
 	/**
-	 * bak1
+	 * createUserName
 	 */
-	private java.lang.String bak1;
+	private java.lang.String createUserName;
 	/**
 	 * bak2
 	 */
@@ -466,23 +466,23 @@ public class TsMsgChemicalSubstances  extends BaseEntity {
 		return this.companyId;
 	}
 		/**
-		 * bak1
+		 * createUserName
 		 */
-	public void setBak1(java.lang.String value) {
+	public void setCreateUserName(java.lang.String value) {
 		    if(StringUtils.isNotBlank(value)){
 			 value=value.trim();
 			}
-		this.bak1 = value;
+		this.createUserName = value;
 	}
 	
 	
 	
 	/**
-	 * bak1
+	 * createUserName
 	 */
-     @WhereSQL(sql="bak1=:TsMsgChemicalSubstances_bak1")
-	public java.lang.String getBak1() {
-		return this.bak1;
+     @WhereSQL(sql="createUserName=:TsMsgChemicalSubstances_createUserName")
+	public java.lang.String getCreateUserName() {
+		return this.createUserName;
 	}
 		/**
 		 * bak2
@@ -542,7 +542,7 @@ public class TsMsgChemicalSubstances  extends BaseEntity {
 			.append("createTime[").append(getCreateTime()).append("],")
 			.append("remarks[").append(getRemarks()).append("],")
 			.append("companyId[").append(getCompanyId()).append("],")
-			.append("bak1[").append(getBak1()).append("],")
+			.append("createUserName[").append(getCreateUserName()).append("],")
 			.append("bak2[").append(getBak2()).append("],")
 			.append("bak3[").append(getBak3()).append("],")
 			.toString();

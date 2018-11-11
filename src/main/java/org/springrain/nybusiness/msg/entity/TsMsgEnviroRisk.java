@@ -34,7 +34,7 @@ public class TsMsgEnviroRisk  extends BaseEntity {
 	public static final String ALIAS_COMPANYID = "企业id";
 	public static final String ALIAS_INVOLVECHEMICAL = "involveChemical";
 	public static final String ALIAS_DEscribes = "describes";
-	public static final String ALIAS_BAK3 = "bak3";
+	public static final String ALIAS_CREATEUSERNAME = "createUserName";
     */
 	//date formats
 	
@@ -84,9 +84,9 @@ public class TsMsgEnviroRisk  extends BaseEntity {
 	 */
 	private java.lang.String describes;
 	/**
-	 * bak3
+	 * createUserName
 	 */
-	private java.lang.String bak3;
+	private java.lang.String createUserName;
 	//columns END 数据库字段结束
 	
 	//concstructor
@@ -309,23 +309,23 @@ public class TsMsgEnviroRisk  extends BaseEntity {
 		return this.describes;
 	}
 		/**
-		 * bak3
+		 * createUserName
 		 */
-	public void setBak3(java.lang.String value) {
+	public void setCreateUserName(java.lang.String value) {
 		    if(StringUtils.isNotBlank(value)){
 			 value=value.trim();
 			}
-		this.bak3 = value;
+		this.createUserName = value;
 	}
 	
 	
 	
 	/**
-	 * bak3
+	 * createUserName
 	 */
-     @WhereSQL(sql="bak3=:TsMsgEnviroRisk_bak3")
-	public java.lang.String getBak3() {
-		return this.bak3;
+     @WhereSQL(sql="createUserName=:TsMsgEnviroRisk_createUserName")
+	public java.lang.String getCreateUserName() {
+		return this.createUserName;
 	}
 	@Override
 	public String toString() {
@@ -341,7 +341,7 @@ public class TsMsgEnviroRisk  extends BaseEntity {
 			.append("企业id[").append(getCompanyId()).append("],")
 			.append("involveChemical[").append(getInvolveChemical()).append("],")
 			.append("describes[").append(getDescribes()).append("],")
-			.append("bak3[").append(getBak3()).append("],")
+			.append("createUserName[").append(getCreateUserName()).append("],")
 			.toString();
 	}
 	@Override

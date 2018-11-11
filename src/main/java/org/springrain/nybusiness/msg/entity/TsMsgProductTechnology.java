@@ -30,8 +30,8 @@ public class TsMsgProductTechnology  extends BaseEntity {
 	public static final String ALIAS_CREATETIME = "createTime";
 	public static final String ALIAS_REMARKS = "remarks";
 	public static final String ALIAS_COMPANYID = "companyId";
-	public static final String ALIAS_BAK1 = "bak1";
-	public static final String ALIAS_BAK2 = "bak2";
+	public static final String ALIAS_TECHNOLOGYNAME = "technologyName";
+	public static final String ALIAS_WHETHERORNOT = "whetherOrNot";
 	public static final String ALIAS_BAK3 = "bak3";
     */
 	//date formats
@@ -70,13 +70,13 @@ public class TsMsgProductTechnology  extends BaseEntity {
 	 */
 	private java.lang.String companyId;
 	/**
-	 * bak1
+	 * technologyName
 	 */
-	private java.lang.String bak1;
+	private java.lang.String technologyName;
 	/**
-	 * bak2
+	 * whetherOrNot
 	 */
-	private java.lang.String bak2;
+	private java.lang.String whetherOrNot;
 	/**
 	 * bak3
 	 */
@@ -84,7 +84,16 @@ public class TsMsgProductTechnology  extends BaseEntity {
 	//columns END 数据库字段结束
 	
 	//concstructor
+	public TsMsgProductTechnology(){
+		
+	}
 
+	//get and set
+	public TsMsgProductTechnology(
+		java.lang.String id
+	){
+		this.id = id;
+	}
 
 	//get and set
 		/**
@@ -240,42 +249,42 @@ public class TsMsgProductTechnology  extends BaseEntity {
 		return this.companyId;
 	}
 		/**
-		 * bak1
+		 * technologyName
 		 */
-	public void setBak1(java.lang.String value) {
+	public void setTechnologyName(java.lang.String value) {
 		    if(StringUtils.isNotBlank(value)){
 			 value=value.trim();
 			}
-		this.bak1 = value;
+		this.technologyName = value;
 	}
 	
 	
 	
 	/**
-	 * bak1
+	 * technologyName
 	 */
-     @WhereSQL(sql="bak1=:TsMsgProductTechnology_bak1")
-	public java.lang.String getBak1() {
-		return this.bak1;
+     @WhereSQL(sql="technologyName=:TsMsgProductTechnology_technologyName")
+	public java.lang.String getTechnologyName() {
+		return this.technologyName;
 	}
 		/**
-		 * bak2
+		 * whetherOrNot
 		 */
-	public void setBak2(java.lang.String value) {
+	public void setWhetherOrNot(java.lang.String value) {
 		    if(StringUtils.isNotBlank(value)){
 			 value=value.trim();
 			}
-		this.bak2 = value;
+		this.whetherOrNot = value;
 	}
 	
 	
 	
 	/**
-	 * bak2
+	 * whetherOrNot
 	 */
-     @WhereSQL(sql="bak2=:TsMsgProductTechnology_bak2")
-	public java.lang.String getBak2() {
-		return this.bak2;
+     @WhereSQL(sql="whetherOrNot=:TsMsgProductTechnology_whetherOrNot")
+	public java.lang.String getWhetherOrNot() {
+		return this.whetherOrNot;
 	}
 		/**
 		 * bak3
@@ -307,14 +316,15 @@ public class TsMsgProductTechnology  extends BaseEntity {
 			.append("createTime[").append(getCreateTime()).append("],")
 			.append("remarks[").append(getRemarks()).append("],")
 			.append("companyId[").append(getCompanyId()).append("],")
-			.append("bak1[").append(getBak1()).append("],")
-			.append("bak2[").append(getBak2()).append("],")
+			.append("technologyName[").append(getTechnologyName()).append("],")
+			.append("whetherOrNot[").append(getWhetherOrNot()).append("],")
 			.append("bak3[").append(getBak3()).append("],")
 			.toString();
 	}
 	@Override
 	public int hashCode() {
 		return new HashCodeBuilder()
+			.append(getId())
 			.toHashCode();
 	}
 	@Override
@@ -329,8 +339,8 @@ public class TsMsgProductTechnology  extends BaseEntity {
 		
 		TsMsgProductTechnology other = (TsMsgProductTechnology)obj;
 		return new EqualsBuilder()
+			.append(getId(),other.getId())
 			.isEquals();
 	}
 }
-
 	
