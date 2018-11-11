@@ -5,6 +5,8 @@
 <link rel="stylesheet" href="${ctx}/js/validform/validform.css" media="all">
 <script type="text/javascript" src="${ctx}/js/My97DatePicker/WdatePicker.js"></script>
 <link rel="stylesheet" href="${ctx}/js/My97DatePicker/skin/default/datepicker.css" />
+<script type="text/javascript" src="${ctx}/js/jquery/jquery.min.js"></script>
+<script type="text/javascript" src="${ctx}/js/jquery/jquery-1.12.4.js"></script>
 <script>
  var _state;
 	 jQuery(function(){
@@ -37,140 +39,104 @@
 							<div class="layui-main">
 						          <div id="LAY_preview" class="layui-my-form">
 						          				<header class="larry-personal-tit">
-													<span>添加F1应急资源现状调查表</span>
+													<span>应急资源现状调查表</span>
 												</header>
 												<div class="larry-personal-body clearfix changepwd">
-													<form id="validForm" class="layui-form <!--  -->"  method="post" action="${ctx}/tsergencyinvestigation/update">
+													<form id="validForm" class="layui-form"  method="post" action="${ctx}/tsergencyinvestigation/update">
 																<input type="hidden" id="id" name="id" value="${(returnDatas.data.id)!''}"/>	
-																	<div class="layui-form-item col-lg-6">
-																		<label class="layui-form-label">序号*</label>
-																		<div class="layui-inline col-lg-5">  
+																  <div class="layui-form-item">
+																    <div class="layui-inline">
+																      <label class="layui-form-label">序号*</label>
+																		<div class="layui-input-inline">  
 																			<input type="text" name="serial_number" id="serial_number" datatype="*" nullmsg="不能为空" errormsg="不能为空！" autocomplete="off" class="layui-input" value="${(returnDatas.data.serial_number)!''}">
 																		</div>
-																		<div class="layui-inline valid-info"></div>
-																	</div>
-																	<div class="layui-form-item col-lg-6">
-																		<label class="layui-form-label">类别*</label>
-																		<div class="layui-inline col-lg-5">  
-																		<!-- 	<input type="text" name="category" 
-																			id="category" datatype="*" nullmsg="不能为空" 
-																			errormsg="不能为空！" autocomplete="off" class="layui-input" 
-																			value="${(returnDatas.data.category)!''}"> -->
+																		
+																    </div>
+																    <div class="layui-inline">
+																      <label class="layui-form-label">类别*</label>
+																		<div class="layui-input-inline ">  
 																			 <select class="form-control" name="category" id="category" datatype="*"  nullmsg="不能为空">
 														                          <option value="">==请选择类别==</option>
 																				  <option value="1">设备</option>
 																				  <option value="2">物资</option>
 																				  <option value="3">场所</option>
 																			  </select>
+																			</div>
 																			
 																		</div>
-																		<div class="layui-inline valid-info"></div>
-																	</div>
-																	
-															
-																	
-																	<div class="layui-form-item col-lg-6">
-																		<label class="layui-form-label">名称*</label>
-																		<div class="layui-inline col-lg-5">  
+																  </div>
+																  
+																 <div class="layui-form-item">
+																    <div class="layui-inline">
+																      <label class="layui-form-label">名称*</label>
+																		<div class="layui-input-inline">  
 																			<input type="text" name="name" id="name" datatype="*" nullmsg="不能为空" errormsg="不能为空！" autocomplete="off" class="layui-input" value="${(returnDatas.data.name)!''}">
 																		</div>
-																		<div class="layui-inline valid-info"></div>
-																	</div>
-																	<div class="layui-form-item col-lg-6">
-																		<label class="layui-form-label">型号或规格*</label>
-																		<div class="layui-inline col-lg-5">  
+																    </div>
+																    <div class="layui-inline">
+																      <label class="layui-form-label">型号或规格*</label>
+																		<div class="layui-input-inline">  
 																			<input type="text" name="type_Specifications" id="type_Specifications" datatype="*" nullmsg="不能为空" errormsg="不能为空！" autocomplete="off" class="layui-input" value="${(returnDatas.data.type_Specifications)!''}">
 																		</div>
-																		<div class="layui-inline valid-info"></div>
 																	</div>
-																	<div class="layui-form-item col-lg-6">
-																		<label class="layui-form-label">数量*</label>
-																		<div class="layui-inline col-lg-5">  
+																  </div>
+																
+																  <div class="layui-form-item">
+																    <div class="layui-inline">
+																      <label class="layui-form-label">数量*</label>
+																		<div class="layui-input-inline">  
 																			<input type="text" name="quantity" id="quantity" datatype="*" nullmsg="不能为空" errormsg="不能为空！" autocomplete="off" class="layui-input" value="${(returnDatas.data.quantity)!''}">
 																		</div>
-																		<div class="layui-inline valid-info"></div>
-																	</div>
-																	<div class="layui-form-item col-lg-6">
-																		<label class="layui-form-label">单位*</label>
-																		<div class="layui-inline col-lg-5">  
+																    </div>
+																    <div class="layui-inline">
+																      <label class="layui-form-label">单位*</label>
+																		<div class="layui-input-inline">  
 																			<input type="text" name="unit" id="unit" datatype="*" nullmsg="不能为空" errormsg="不能为空！" autocomplete="off" class="layui-input" value="${(returnDatas.data.unit)!''}">
 																		</div>
-																		<div class="layui-inline valid-info"></div>
 																	</div>
-																	<div class="layui-form-item col-lg-6">
-																		<label class="layui-form-label">位置*</label>
-																		<div class="layui-inline col-lg-5">  
+																  </div>
+																  
+																  <div class="layui-form-item">
+																    <div class="layui-inline">
+																      <label class="layui-form-label">位置*</label>
+																		<div class="layui-input-inline">  
 																			<input type="text" name="place" id="place" datatype="*" nullmsg="不能为空" errormsg="不能为空！" autocomplete="off" class="layui-input" value="${(returnDatas.data.place)!''}">
 																		</div>
-																		<div class="layui-inline valid-info"></div>
-																	</div>
-																	<div class="layui-form-item col-lg-6">
-																		<label class="layui-form-label">保管人员或岗位*</label>
-																		<div class="layui-inline col-lg-5">  
+																    </div>
+																    <div class="layui-inline">
+																      <label class="layui-form-label">保管人员或岗位*</label>
+																		<div class="layui-input-inline">  
 																			<input type="text" name="custodian_or_post" id="custodian_or_post" datatype="*" nullmsg="不能为空" errormsg="不能为空！" autocomplete="off" class="layui-input" value="${(returnDatas.data.custodian_or_post)!''}">
 																		</div>
-																		<div class="layui-inline valid-info"></div>
-																	</div>
-																	<div class="layui-form-item col-lg-6">
-																		<label class="layui-form-label">使用人员或岗位*</label>
-																		<div class="layui-inline col-lg-5">  
+																		</div>
+																  </div>
+																  <div class="layui-form-item">
+																    <div class="layui-inline">
+																      <label class="layui-form-label">使用人员或岗位*</label>
+																		<div class="layui-input-inline">  
 																			<input type="text" name="user_or_posts" id="user_or_posts" datatype="*" nullmsg="不能为空" errormsg="不能为空！" autocomplete="off" class="layui-input" value="${(returnDatas.data.user_or_posts)!''}">
 																		</div>
-																		<div class="layui-inline valid-info"></div>
-																	</div>
-																	<div class="layui-form-item col-lg-6">
-																		<label class="layui-form-label">最后有效期限*</label>
-																		<div class="layui-inline col-lg-5">  
+																    </div>
+																    <div class="layui-inline">
+																      <label class="layui-form-label">最后有效期限*</label>
+																		<div class="layui-input-inline">  
 																			<input type="text" name="final_validity_time" id="final_validity_time" onClick="WdatePicker()" datatype="*" nullmsg="不能为空" errormsg="不能为空！" autocomplete="off" class="layui-input" value="${(returnDatas.data.final_validity_time)!''}">
 																		</div>
-																		<div class="layui-inline valid-info"></div>
 																	</div>
-																	<div class="layui-form-item col-lg-6">
-																		<label class="layui-form-label">备注*</label>
-																		<div class="layui-inline col-lg-5">  
+																  </div>
+																  <div class="layui-form-item">
+																    <div class="layui-inline">
+																      <label class="layui-form-label">备注*</label>
+																		<div class="layui-input-inline " style=" width: 600px">  
 																			<input type="text" name="remarks" id="remarks" datatype="*" nullmsg="不能为空" errormsg="不能为空！" autocomplete="off" class="layui-input" value="${(returnDatas.data.remarks)!''}">
 																		</div>
-																		<div class="layui-inline valid-info"></div>
-																	</div>
-																	<!--<div class="layui-form-item col-lg-6">
-																		<label class="layui-form-label">公司id*</label>
-																		<div class="layui-inline col-lg-5">  
-																			<input type="text" name="company_id" id="company_id" datatype="*" nullmsg="不能为空" errormsg="不能为空！" autocomplete="off" class="layui-input" value="${(returnDatas.data.company_id)!''}">
-																		</div>
-																		<div class="layui-inline valid-info"></div>
-																	</div>
-																	 <div class="layui-form-item col-lg-6">
-																		<label class="layui-form-label">创建人*</label>
-																		<div class="layui-inline col-lg-5">  
-																			<input type="text" name="create_user" id="create_user" datatype="*" nullmsg="不能为空" errormsg="不能为空！" autocomplete="off" class="layui-input" value="${(returnDatas.data.create_user)!''}">
-																		</div>
-																		<div class="layui-inline valid-info"></div>
-																	</div>
-																	<div class="layui-form-item col-lg-6">
-																		<label class="layui-form-label">创建时间*</label>
-																		<div class="layui-inline col-lg-5">  
-																			<input type="text" name="create_time" id="create_time" datatype="*" nullmsg="不能为空" errormsg="不能为空！" autocomplete="off" class="layui-input" value="${(returnDatas.data.create_time)!''}">
-																		</div>
-																		<div class="layui-inline valid-info"></div>
-																	</div>
-																	<div class="layui-form-item col-lg-6">
-																		<label class="layui-form-label">bak1*</label>
-																		<div class="layui-inline col-lg-5">  
-																			<input type="text" name="bak1" id="bak1" datatype="*" nullmsg="不能为空" errormsg="不能为空！" autocomplete="off" class="layui-input" value="${(returnDatas.data.bak1)!''}">
-																		</div>
-																		<div class="layui-inline valid-info"></div>
-																	</div>
-																	<div class="layui-form-item col-lg-6">
-																		<label class="layui-form-label">bak2*</label>
-																		<div class="layui-inline col-lg-5">  
-																			<input type="text" name="bak2" id="bak2" datatype="*" nullmsg="不能为空" errormsg="不能为空！" autocomplete="off" class="layui-input" value="${(returnDatas.data.bak2)!''}">
-																		</div>
-																		<div class="layui-inline valid-info"></div>
-																	</div> -->
+																    </div>
+																  </div>
+															
 													<div class="layui-form-item change-submit">
-													<label class="layui-form-label"></label>
+														<label class="layui-form-label"></label>
 															<div class="layui-inline">
-																<button type="button" class="layui-btn" id="smtbtn">保存</button>
+																<button type="button" class="layui-btn" id="smtbtn" style="margin-left: 200px">保存</button>
 																<button type="button" class="layui-btn layui-btn-primary" id="rstbtn">重置</button>
 															</div>
 														</div>
