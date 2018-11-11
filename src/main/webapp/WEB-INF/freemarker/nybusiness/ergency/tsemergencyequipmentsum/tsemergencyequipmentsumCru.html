@@ -25,16 +25,8 @@ jQuery(function(){
  	 function aa(){
  		alert("I am an alert box!!");
 } 	 
- 	 
- 	var form = layui.form, layer = layui.layer;
- // 监听
- $("#in_Equipment").ready(function() {       
-     // select下拉框选中触发事件
-     form.on("select", function(data){
-             alert("111");
-     });
-  
- });
+
+
 </script>
 
 
@@ -63,7 +55,7 @@ jQuery(function(){
 												<div class="larry-personal-body clearfix changepwd">
 													<form id="validForm" class="layui-form <!--  -->"  method="post" action="${ctx}/tsemergencyequipmentsum/update">
 																<input type="hidden" id="id" name="id" value="${(returnDatas.data.id)!''}"/>	
-																	 <div class="layui-form-item">
+																	<div class="layui-form-item">
 																    <div class="layui-inline">
 																      <label class="layui-form-label">序号*</label>
 																		<div class="layui-input-inline">  
@@ -111,26 +103,25 @@ jQuery(function(){
 																		</div>
 																    </div>
 																    <div class="layui-inline">
-																      <label class="layui-form-label">外部供应单位名称*</label>
-																		<div class="layui-input-inline">  
-																			<input type="text" name="outside_company" id="outside_company" datatype="*" nullmsg="不能为空" errormsg="不能为空！" autocomplete="off" class="layui-input" value="${(returnDatas.data.outside_company)!''}" onclick="aa();">
-																		</div>
-																	</div>
-																  </div>
-																  
-																   <div class="layui-form-item">
-																    <div class="layui-inline">
 																      <label class="layui-form-label">设备来源*</label>
 																		<div class="layui-input-inline ">  
-																			 <select class="form-control" name="in_Equipment" id="in_Equipment" datatype="*"  nullmsg="不能为空" >
+																			 <select class="form-control"  name="in_Equipment" id="in_Equipment" datatype="*"  nullmsg="不能为空"  lay-filter="in_Equipment"    >
 														                             <option value="">==请选择类别==</option>
 														                             <option value="1">厂内自备</option>
 																					 <option value="2">外部供应</option>
 																					 
 																			  </select>
 																			</div>
-																			
 																		</div>
+																  </div>
+																  
+																   <div class="layui-form-item">
+																     <div class="layui-inline">
+																      <label class="layui-form-label">外部供应单位名称*</label>
+																		<div class="layui-input-inline">  
+																			<input type="text" name="outside_company" id="outside_company" datatype="*" nullmsg="不能为空" errormsg="不能为空！" autocomplete="off" class="layui-input" value="${(returnDatas.data.outside_company)!''}" onclick="aa();">
+																		</div>
+																	</div>
 																  </div>
 																  
 																  <!-- <div class="layui-form-item">
