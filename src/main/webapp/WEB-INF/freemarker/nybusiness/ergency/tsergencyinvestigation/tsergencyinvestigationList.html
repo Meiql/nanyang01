@@ -20,6 +20,18 @@
 	function del(_id){
 		springrain.mydelete(_id,"${ctx}/tsergencyinvestigation/delete");
 	}
+	
+	/* layui.use('table', function(){
+		  var table = layui.table;
+		  
+		  table.render({
+		    elem: '#test'
+		    ,cellMinWidth: 200 //全局定义常规单元格的最小宽度，layui 2.2.1 新增
+		  });
+		});
+	 */
+	
+	
 </script>
 
 </head>
@@ -97,7 +109,7 @@
 									  <!-- 查询  结束 -->
 									</form>
 									<!--start_export-->
-									<table class="layui-table" lay-even>
+									<table class="layui-table" lay-even id="test">
 										 <colgroup>
 										    <col width="40">
 										    <col width="120">
