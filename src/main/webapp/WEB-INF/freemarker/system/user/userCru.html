@@ -36,6 +36,15 @@
 				 layer.alert(_json.message,{icon: 5});
 			 }
 		});
+		 
+		 
+		jQuery("#active").append('<option value="1">有效</option><option value="0">无效</option>');
+		 $("#active").select2({width:'320px',height:'26px'});
+		 
+		 $("#active").change(function name() {
+			var userId = $('#active option:selected').val();//选中的值
+			alert(userId)
+		});
 	 });
 </script>
 <script>
@@ -507,7 +516,7 @@ function checkAccount(){
 																  	<div class="layui-form-item  col-lg-6">
 																	    <label class="layui-form-label">角色*</label>
 																		    <div class="layui-inline  col-lg-5" id="roleDiv">
-																		      <select id="roleIds" name="roleIds" class="nolayer" datatype="*" nullmsg="角色不能为空"  multiple data-placeholder="请选择角色">
+																		      <select id="roleIds" name="roleIds"  datatype="*" nullmsg="角色不能为空"  multiple data-placeholder="请选择角色">
 																		      	<option value=""></option>
 																		      </select>
 																		    </div>
@@ -563,9 +572,7 @@ function checkAccount(){
 																	<div class="layui-form-item col-lg-6">
 																		<label class="layui-form-label">是否有效*</label>
 																		<div class="layui-inline col-lg-5">  
-																			<select id="active" name="active" datatype="*" nullmsg="是否有效不能为空" >
-																		        	<option value="1">有效</option>
-																					<option value="0">无效</option>
+																			<select id="active" name="active" datatype="*" nullmsg="是否有效不能为空"  class="nolayer">
 																		      </select>
 																		</div>
 																		<div class="layui-inline valid-info"></div>
