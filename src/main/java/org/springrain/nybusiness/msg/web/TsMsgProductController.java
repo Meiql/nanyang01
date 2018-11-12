@@ -1,7 +1,9 @@
 package  org.springrain.nybusiness.msg.web;
 
 import java.io.File;
+import java.text.SimpleDateFormat;
 import java.util.Arrays;
+import java.util.Date;
 import java.util.List;
 
 import javax.annotation.Resource;
@@ -13,6 +15,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springrain.frame.common.SessionUser;
 import org.springrain.frame.controller.BaseController;
 import org.springrain.frame.util.GlobalStatic;
 import org.springrain.frame.util.MessageUtils;
@@ -34,8 +37,6 @@ import org.springrain.nybusiness.msg.service.ITsMsgTechnologyService;
 @Controller
 @RequestMapping(value="/tsmsgproducttechnology")
 public class TsMsgProductController  extends BaseController {
-	@Resource
-	private ITsMsgTechnologyService tsMsgTechnologyService;
 	
 	@Resource
 	private ITsMsgProductTechnologyService iTsMsgProductTechnologyService;
@@ -54,9 +55,9 @@ public class TsMsgProductController  extends BaseController {
 	 * @throws Exception
 	 */
 	@RequestMapping("/list")
-	public String list(HttpServletRequest request, Model model,TsMsgProductTechnology tsMsgProductTechnology,TsMsgTechnology tsMsgTechnology) 
+	public String list(HttpServletRequest request, Model model,TsMsgProductTechnology tsMsgProductTechnology) 
 			throws Exception {
-		ReturnDatas returnObject = listjson(request, model, tsMsgProductTechnology,tsMsgTechnology);
+		ReturnDatas returnObject = listjson(request, model, tsMsgProductTechnology);
 		model.addAttribute(GlobalStatic.returnDatas, returnObject);
 		return listurl;
 	}
@@ -73,24 +74,12 @@ public class TsMsgProductController  extends BaseController {
 	@SuppressWarnings("null")
 	@RequestMapping("/list/json")
 	@ResponseBody   
-	public  ReturnDatas listjson(HttpServletRequest request, Model model,TsMsgProductTechnology tsMsgProductTechnology,TsMsgTechnology tsMsgTechnology) throws Exception{
+	public  ReturnDatas listjson(HttpServletRequest request, Model model,TsMsgProductTechnology tsMsgProductTechnology) throws Exception{
 		ReturnDatas returnObject = ReturnDatas.getSuccessReturnDatas();
 		// ==构造分页请求
 		Page page = newPage(request);
-		List<TsMsgTechnology> datatype=tsMsgTechnologyService.findListDataByFinder(null,page,TsMsgTechnology.class,tsMsgTechnology);
 		// ==执行分页查询
-		List<TsMsgProductTechnology> datas=iTsMsgProductTechnologyService.findListDataByFinder(null,page,TsMsgProductTechnology.class,tsMsgProductTechnology);
-		if(datas==null) {
-			for(TsMsgTechnology technology : datatype) {
-				String technologyId = technology.getId();
-				String technologyName = technology.getName();
-				tsMsgProductTechnology.setTechnologyName(technologyName);
-				tsMsgProductTechnology.setId(technologyId);
-				datas.add(tsMsgProductTechnology);
-			}
-			
-		}
-		
+		List<TsMsgProductTechnology> datas=iTsMsgProductTechnologyService.findListDataByFinder(null,page,TsMsgProductTechnology.class,tsMsgProductTechnology);	
 		returnObject.setQueryBean(tsMsgProductTechnology);
 		returnObject.setPage(page);
 		returnObject.setData(datas);
@@ -98,12 +87,12 @@ public class TsMsgProductController  extends BaseController {
 	}
 	
 	@RequestMapping("/list/export")
-	public void listexport(HttpServletRequest request,HttpServletResponse response, Model model,TsMsgTechnology tsMsgTechnology) throws Exception{
+	public void listexport(HttpServletRequest request,HttpServletResponse response, Model model,TsMsgProductTechnology tsMsgProductTechnology) throws Exception{
 		// ==构造分页请求
 		Page page = newPage(request);
 	
-		File file = tsMsgTechnologyService.findDataExportExcel(null,listurl, page,TsMsgTechnology.class,tsMsgTechnology);
-		String fileName="tsMsgTechnology"+GlobalStatic.excelext;
+		File file = iTsMsgProductTechnologyService.findDataExportExcel(null,listurl, page,TsMsgProductTechnology.class,tsMsgProductTechnology);
+		String fileName="tsMsgProductTechnology"+GlobalStatic.excelext;
 		downFile(response, file, fileName,true);
 		return;
 	}
@@ -115,7 +104,7 @@ public class TsMsgProductController  extends BaseController {
 	public String look(Model model,HttpServletRequest request,HttpServletResponse response)  throws Exception {
 		ReturnDatas returnObject = lookjson(model, request, response);
 		model.addAttribute(GlobalStatic.returnDatas, returnObject);
-		return "/nybusiness/msg/tsmsgtechnology/tsmsgtechnologyLook";
+		return "/nybusiness/msg/tsmsgproducttechnology/tsmsgproducttechnologyLook";
 	}
 
 	
@@ -128,8 +117,8 @@ public class TsMsgProductController  extends BaseController {
 		ReturnDatas returnObject = ReturnDatas.getSuccessReturnDatas();
 		java.lang.String id=request.getParameter("id");
 		if(StringUtils.isNotBlank(id)){
-		  TsMsgTechnology tsMsgTechnology = tsMsgTechnologyService.findTsMsgTechnologyById(id);
-		   returnObject.setData(tsMsgTechnology);
+			TsMsgProductTechnology tsMsgProductTechnology= iTsMsgProductTechnologyService.findTsMsgProductTechnologyById(id);
+		   returnObject.setData(tsMsgProductTechnology);
 		}else{
 		returnObject.setStatus(ReturnDatas.ERROR);
 		}
@@ -144,19 +133,40 @@ public class TsMsgProductController  extends BaseController {
 	 */
 	@RequestMapping("/update")
 	@ResponseBody      
-	public ReturnDatas saveorupdate(Model model,TsMsgTechnology tsMsgTechnology,HttpServletRequest request,HttpServletResponse response) throws Exception{
+	public ReturnDatas saveorupdate(Model model,TsMsgProductTechnology tsMsgProductTechnology,HttpServletRequest request,HttpServletResponse response) throws Exception{
 		ReturnDatas returnObject = ReturnDatas.getSuccessReturnDatas();
 		returnObject.setMessage(MessageUtils.UPDATE_SUCCESS);
 		try {
 		
-			java.lang.String id =tsMsgTechnology.getId();
+			java.lang.String id =tsMsgProductTechnology.getId();
 			if(StringUtils.isBlank(id)){
-			  tsMsgTechnology.setId(null);
+				tsMsgProductTechnology.setId(null);
 			}
-		
-			tsMsgTechnologyService.saveorupdate(tsMsgTechnology);
+			Date date = new Date();
+			SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+			String formatStr =formatter.format(date);
+			System.out.println(formatStr);
+			//创建时间
+			if(StringUtils.isBlank(tsMsgProductTechnology.getCreateTime())){
+				tsMsgProductTechnology.setCreateTime(formatStr);
+			}
+			//创建用户id
+			if(StringUtils.isBlank(tsMsgProductTechnology.getCreateUser())){
+				tsMsgProductTechnology.setCreateUser(SessionUser.getUserId());
+			}
+			//创建用户name
+			if(StringUtils.isBlank(tsMsgProductTechnology.getRemarks())){
+				tsMsgProductTechnology.setRemarks(SessionUser.getUserName());
+			}
+			//公司代码
+			java.lang.String companyId = SessionUser.getCompanyid(); 
+			if(StringUtils.isBlank(tsMsgProductTechnology.getCompanyId())){
+				tsMsgProductTechnology.setCompanyId(companyId);
+			}
+			iTsMsgProductTechnologyService.saveorupdate(tsMsgProductTechnology);
 			
 		} catch (Exception e) {
+			e.printStackTrace();
 			logger.error(e.getMessage(),e);
 			returnObject.setStatus(ReturnDatas.ERROR);
 			returnObject.setMessage(MessageUtils.UPDATE_ERROR);
@@ -172,7 +182,7 @@ public class TsMsgProductController  extends BaseController {
 	public String updatepre(Model model,HttpServletRequest request,HttpServletResponse response)  throws Exception{
 		ReturnDatas returnObject = lookjson(model, request, response);
 		model.addAttribute(GlobalStatic.returnDatas, returnObject);
-		return "/nybusiness/msg/tsmsgtechnology/tsmsgtechnologyCru";
+		return "/nybusiness/msg/tsmsgproducttechnology/tsmsgproducttechnologyCru";
 	}
 	
 	/**
@@ -186,7 +196,7 @@ public class TsMsgProductController  extends BaseController {
 		try {
 		java.lang.String id=request.getParameter("id");
 		if(StringUtils.isNotBlank(id)){
-				tsMsgTechnologyService.deleteById(id,TsMsgTechnology.class);
+			iTsMsgProductTechnologyService.deleteById(id,TsMsgProductTechnology.class);
 				return new ReturnDatas(ReturnDatas.SUCCESS,MessageUtils.DELETE_SUCCESS);
 			} else {
 				return new ReturnDatas(ReturnDatas.WARNING,MessageUtils.DELETE_WARNING);
@@ -214,7 +224,7 @@ public class TsMsgProductController  extends BaseController {
 		}
 		try {
 			List<String> ids = Arrays.asList(rs);
-			tsMsgTechnologyService.deleteByIds(ids,TsMsgTechnology.class);
+			iTsMsgProductTechnologyService.deleteByIds(ids,TsMsgProductTechnology.class);
 		} catch (Exception e) {
 			logger.error(e.getMessage(), e);
 			return new ReturnDatas(ReturnDatas.ERROR,MessageUtils.DELETE_ALL_FAIL);
