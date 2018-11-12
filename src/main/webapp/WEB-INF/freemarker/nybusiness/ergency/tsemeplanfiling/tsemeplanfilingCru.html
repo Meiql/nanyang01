@@ -158,7 +158,48 @@
 														
 														
 														<div class="layui-form-item"> <label class="layui-form-label">预案备案文件目录   待完善*</label> </div>
-														   <div class="layui-form-item col-lg-6">
+														<div class="layui-form-item">
+															<div class="layui-inline">
+															<!-- <label class="layui-form-label">预案备案文件目录*</label> -->
+																		   <div class="layui-inline col-lg-5">  
+																				 <button type="button" onclick="add()" class="layui-btn">预案备案文件目录管理</button>
+																			</div>
+															</div>
+															<div class="layui-inline">
+															<label class="layui-form-label"></label>
+																		   <div class="layui-inline col-lg-8">  
+																				 <table class="layui-table  <#if (returnDatas.data??) &&(returnDatas.data.managerOrgs??) &&(returnDatas.data.managerOrgs?size gt 0)><#else>off</#if>">
+																					 	<colgroup>
+																				    		<col width="">
+																					    	<col width="160">
+																					    	<col width="160">
+																					    	<col width="80">
+																				  		</colgroup>
+																				  		<thead>
+																							<tr>
+																								<th>备案文件目录</th>
+																							
+																								<th>操作</th>
+																							</tr>
+																						</thead>
+																						<tbody id="addTbody">
+																							<#if (returnDatas.data??) &&(returnDatas.data.managerOrgs??) &&(returnDatas.data.managerOrgs?size gt 0)>
+																								<#list returnDatas.data.managerOrgs as _data>
+																									<tr>
+																										<td><input type='text'  name='managerOrgNames' class='layui-input' value="${(_data.orgName)!''}">
+																											<input type='hidden' name='managerOrgIds' value="${(_data.orgId)!''}">
+																										</td>
+																									
+																										<td><a onclick='del(this)' class='layui-btn layui-btn-danger layui-btn-mini ajax-delete'>删除</a></td>
+																									</tr>
+																								</#list>
+																							</#if>
+																						</tbody>
+																					</table>
+																			</div>
+															</div>
+															</div>
+														  <!--  <div class="layui-form-item col-lg-6">
 															    		<label class="layui-form-label">预案备案文件目录*</label>
 																		   <div class="layui-inline col-lg-5">  
 																				 <button type="button" onclick="add()" class="layui-btn">预案备案文件目录管理</button>
@@ -199,6 +240,7 @@
 																			</div>
 																	     <div class="layui-inline valid-info"></div>
 																  	</div>
+																  	 -->
 														
 														
 														
@@ -355,8 +397,6 @@
 </body>
 <script>
 function add(){
-	//debugger;
-	alert("add");
 	jQuery("#addTbody").parents("table").removeClass("off");
 	var _html=["<tr>",
 					"<td><input type='text'    name='managerOrgNames' class='layui-input'><input type='hidden' name='managerOrgIds'></td>",
@@ -368,6 +408,11 @@ function add(){
 	form.render();
 	jQuery(_html).find("input[name='managerOrgNames']").trigger("click");
 	
+}
+function del(_obj){
+	springrain.confirm("确认删除?",function(){
+		jQuery(_obj).parents("tr").remove();
+	});
 }
 </script>
 </html>
