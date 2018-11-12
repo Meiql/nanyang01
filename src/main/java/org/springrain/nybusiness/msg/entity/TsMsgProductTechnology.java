@@ -1,5 +1,6 @@
 package org.springrain.nybusiness.msg.entity;
 
+import javax.persistence.Id;
 import javax.persistence.Table;
 
 import org.apache.commons.lang3.StringUtils;
@@ -111,6 +112,7 @@ public class TsMsgProductTechnology  extends BaseEntity {
 	/**
 	 * id
 	 */
+	@Id
      @WhereSQL(sql="id=:TsMsgProductTechnology_id")
 	public java.lang.String getId() {
 		return this.id;
