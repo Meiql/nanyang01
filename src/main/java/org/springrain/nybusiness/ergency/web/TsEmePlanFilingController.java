@@ -4,6 +4,7 @@ import java.io.File;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
+import java.util.UUID;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
@@ -17,6 +18,8 @@ import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springrain.nybusiness.company.entity.TsCompanyInfo;
+import org.springrain.nybusiness.ergency.entity.TsEmePlanFilAdjustment;
+import org.springrain.nybusiness.ergency.service.ITsEmePlanFilAdjustmentService;
 import org.springrain.nybusiness.company.service.ITsCompanyInfoService;
 import org.springrain.nybusiness.ergency.entity.TsEmePlanFiling;
 import org.springrain.nybusiness.ergency.entity.TsEmergencyEquipmentSum;
@@ -42,6 +45,9 @@ import org.springrain.frame.util.ReturnDatas;
 public class TsEmePlanFilingController  extends BaseController {
 	@Resource
 	private ITsEmePlanFilingService tsEmePlanFilingService;
+	@Resource
+	private ITsEmePlanFilAdjustmentService tsEmePlanFilAdjustment;
+	
 	@Resource
 	private ITsCompanyInfoService tsCompanyInfoService;
 	private String listurl="/nybusiness/ergency/tsemeplanfiling/tsemeplanfilingList";
@@ -154,10 +160,18 @@ public class TsEmePlanFilingController  extends BaseController {
 		try {
 		
 			java.lang.String id =tsEmePlanFiling.getId();
+			String[]  adjustment_catalog= request.getParameterValues("adjustment_catalog");
+			System.out.println(adjustment_catalog);
 			if(StringUtils.isBlank(id)){
+				
 			  tsEmePlanFiling.setId(null);
+			  
+			/*  String uuid = UUID.randomUUID().toString();
+			  tsEmePlanFiling.setFile_directory(uuid);
+			  TsEmePlanFilAdjustment tsEmePlanFilAdjustment = null ;
+			  tsEmePlanFilAdjustment.setAdjustment_id(uuid);*/
 			}
-		
+			
 			if(StringUtils.isBlank(tsEmePlanFiling.getCreate_user())){
 				tsEmePlanFiling.setCreate_user(SessionUser.getUserId());
 			}
