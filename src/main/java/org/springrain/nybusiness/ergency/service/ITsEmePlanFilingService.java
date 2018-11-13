@@ -6,6 +6,7 @@ import org.springrain.frame.util.Page;
 import org.springrain.nybusiness.company.entity.TsCompanyInfo;
 import org.springrain.nybusiness.ergency.entity.TsEmePlanFiling;
 import org.springrain.nybusiness.ergency.entity.TsEmergencyEquipmentSum;
+import org.springrain.system.entity.User;
 import org.springrain.system.service.IBaseSpringrainService;
 /**
  * TODO 在此加入类描述
@@ -23,6 +24,23 @@ public interface ITsEmePlanFilingService extends IBaseSpringrainService {
 	 * @throws Exception
 	 */
 	TsEmePlanFiling findTsEmePlanFilingById(Object id) throws Exception;
+	
+	/**
+	 * 根据ID查找   关联目录表
+	 * @param id
+	 * @return
+	 * @throws Exception
+	 */
+	List<TsEmePlanFiling> findTsEmePlansFilingById(Object id) throws Exception;
+	
+	/**
+	 * 根据ID查找
+	 * @param id
+	 * @return
+	 * @throws Exception
+	 */
+	TsEmePlanFiling findUserByIfindTsEmePlanFilingById(Object id) throws Exception;
+	
 	/**
 	 *  分页查询
 	 * @param page

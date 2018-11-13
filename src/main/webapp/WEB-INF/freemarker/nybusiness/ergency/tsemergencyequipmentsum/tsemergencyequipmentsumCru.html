@@ -34,26 +34,56 @@ jQuery(function(){
 		 if(_in_Equipment!=""){
 			 $("#in_Equipment").val(_in_Equipment).select2({ minimumResultsForSearch:-1})
 		 }
+		 if(_in_Equipment=="2"){
+			 $("#in_Equipment").val(_in_Equipment).select2({ minimumResultsForSearch:-1})
+			 document.getElementById("outside1").style.display="";
+			 document.getElementById("outside2").style.display="" 
+			 $("outside_company").show();
+			 $("outside_people").show();
+			 $("outside_tel").show();
+		 }if(_in_Equipment=="1"){
+			 $("#in_Equipment").val(_in_Equipment).select2({ minimumResultsForSearch:-1})
+			 document.getElementById("outside1").style.display="none";//隐藏
+				document.getElementById("outside2").style.display="none";//隐藏
+				/* document.getElementById("outside_company").removeAttribute("disabled");
+				document.getElementById("outside_people").removeAttribute("disabled");
+				document.getElementById("outside_tel").removeAttribute("disabled");  */
+			
+
+				$("outside_company").hide();
+				$("outside_people").hide();
+				$("outside_tel").hide();
+		 }
 		 
 		 $("#in_Equipment").change(function name() {
 			var in_EquipmentValue = $('#in_Equipment option:selected').val();//选中的值
-			
-			
 			if(in_EquipmentValue=="1"){
 				document.getElementById("outside1").style.display="none";//隐藏
 				document.getElementById("outside2").style.display="none";//隐藏
+				/* document.getElementById("outside_company").removeAttribute("disabled");
+				document.getElementById("outside_people").removeAttribute("disabled");
+				document.getElementById("outside_tel").removeAttribute("disabled");  */
+			
+
+				$("outside_company").hide();
+				$("outside_people").hide();
+				$("outside_tel").hide();
+				
+				
 			}else if(in_EquipmentValue=="2"){
 				document.getElementById("outside1").style.display="";
-				document.getElementById("outside2").style.display=""
+				document.getElementById("outside2").style.display="" 
+				
+				$("outside_company").show();
+				$("outside_people").show();
+				$("outside_tel").show();
+				
 			};
 			
 		});
 	 });
 	 
 	 
- 	 function aa(){
- 		alert("I am an alert box!!");
-} 	 
 
 
 </script>
@@ -150,7 +180,7 @@ jQuery(function(){
 																     <div class="layui-inline">
 																      <label class="layui-form-label">外部供应单位名称*</label>
 																		<div class="layui-input-inline">  
-																			<input type="text" name="outside_company" id="outside_company" datatype="*" nullmsg="不能为空" errormsg="不能为空！" autocomplete="off" class="layui-input" value="${(returnDatas.data.outside_company)!''}" onclick="aa();">
+																			<input  type="text" name="outside_company" id="outside_company"  class="layui-input" value="${(returnDatas.data.outside_company)!''}" >
 																		</div>
 																	</div>
 																  </div>
@@ -173,13 +203,13 @@ jQuery(function(){
 																    <div class="layui-inline">
 																      <label class="layui-form-label">主要联系人*</label>
 																		<div class="layui-input-inline">  
-																			<input type="text" name="outside_people" id="outside_people" datatype="*" nullmsg="不能为空" errormsg="不能为空！" autocomplete="off" class="layui-input" value="${(returnDatas.data.outside_people)!''}">
+																			<input  type="text" name="outside_people" id="outside_people" class="layui-input" value="${(returnDatas.data.outside_people)!''}" >
 																		</div>
 																    </div>
 																    <div class="layui-inline">
 																      <label class="layui-form-label">联系方式*</label>
 																		<div class="layui-input-inline">  
-																			<input type="text" name="outside_tel" id="outside_tel" datatype="*" nullmsg="不能为空" errormsg="不能为空！" autocomplete="off" class="layui-input" value="${(returnDatas.data.outside_tel)!''}">
+																			<input  type="text" name="outside_tel" id="outside_tel"   class="layui-input" value="${(returnDatas.data.outside_tel)!''}" >
 																		</div>
 																	</div>
 																  </div>

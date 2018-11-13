@@ -124,21 +124,23 @@
 														<th id="th_fax" >传真</th>
 														<th id="th_email" >电子邮件</th>
 														<th id="th_address" >地址</th>
-														<th id="th_center" >经纬度（中心</th>
-														<th id="th_signing_date" >签署日期 配合内容使用</th>
+														<th id="th_center" >经纬度</th>
+														<th id="th_plan_name" >预案名称</th>
+														<th id="th_risk_level" >风险级别</th>
+														<!-- <th id="th_signing_date" >签署日期 配合内容使用</th>
 														<th id="th_signing_desc" >签署内容公章等</th>
 														<th id="th_signing_people" >预案签署人</th>
 														<th id="th_delivery_time" >报送时间</th>
 														<th id="th_file_directory" >预案备案文件目录</th>
-														<th id="th_filing_opinion" >备案意见</th>
+														<th id="th_filing_opinion" >备案意见</th> -->
 														<th id="th_filing_number" >备案编号</th>
 														<th id="th_delivery_company" >报送单位</th>
-														<th id="th_acceptance_responsible_people" >受理部门负责人</th>
+														<th id="th_bak1" >审批状态</th>
+														<!-- <th id="th_acceptance_responsible_people" >受理部门负责人</th>
 														<th id="th_acceptance_Agent" >经办人</th>
 														<th id="th_received_date" >收讫日期配合备案意见使用</th>
-														<th id="th_plan_name" >预案名称</th>
-														<th id="th_risk_level" >风险级别</th>
-														<th id="th_acceptance_date" >受理日期配合备案意见使用</th>
+														
+														<th id="th_acceptance_date" >受理日期配合备案意见使用</th> -->
 														<!-- <th id="th_company_id" >公司id</th>
 														<th id="th_create_user" >创建者</th>
 														<th id="th_create_time" >创建时间</th>
@@ -197,9 +199,15 @@
 															${(_data.center)!''}
 														</td>
 														<td >
-															<!--日期型-->
-														${((_data.signing_date)?string('yyyy-MM-dd'))!''}
+															${(_data.plan_name)!''}
 														</td>
+														<td >
+															${(_data.risk_level)!''}
+														</td>
+														<!-- <td >
+															日期型
+														${((_data.signing_date)?string('yyyy-MM-dd'))!''}
+														</td> 
 														<td >
 															${(_data.signing_desc)!''}
 														</td>
@@ -207,7 +215,7 @@
 															${(_data.signing_people)!''}
 														</td>
 														<td >
-															<!--日期型-->
+														
 														${((_data.delivery_time)?string('yyyy-MM-dd'))!''}
 														</td>
 														<td >
@@ -215,7 +223,7 @@
 														</td>
 														<td >
 															${(_data.filing_opinion)!''}
-														</td>
+														</td>-->
 														<td >
 															${(_data.filing_number)!''}
 														</td>
@@ -223,25 +231,33 @@
 															${(_data.delivery_company)!''}
 														</td>
 														<td >
+															
+															<#if (_data.bak1)?? && (_data.bak1=="1")>
+																	已保存
+															<#elseif (_data.bak1)?? && (_data.bak1=="2")>
+																	审批中
+															<#elseif (_data.bak1)?? && (_data.bak1=="3")>
+																	通过
+															<#elseif (_data.bak1)?? && (_data.bak1=="4")>
+																	不通过
+															</#if>
+														</td>
+
+													<!-- 	<td >
 															${(_data.acceptance_responsible_people)!''}
 														</td>
 														<td >
 															${(_data.acceptance_Agent)!''}
 														</td>
 														<td >
-															<!--日期型-->
+															
 														${((_data.received_date)?string('yyyy-MM-dd'))!''}
 														</td>
+														
 														<td >
-															${(_data.plan_name)!''}
-														</td>
-														<td >
-															${(_data.risk_level)!''}
-														</td>
-														<td >
-															<!--日期型-->
+															
 														${((_data.acceptance_date)?string('yyyy-MM-dd'))!''}
-														</td>
+														</td> -->
 <!-- 														<td >
 															${(_data.company_id)!''}
 														</td>

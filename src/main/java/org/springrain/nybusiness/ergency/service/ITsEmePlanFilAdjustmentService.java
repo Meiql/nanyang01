@@ -1,5 +1,7 @@
 package org.springrain.nybusiness.ergency.service;
 
+import java.util.List;
+
 import org.springrain.nybusiness.ergency.entity.TsEmePlanFilAdjustment;
 import org.springrain.system.service.IBaseSpringrainService;
 /**
@@ -18,7 +20,14 @@ public interface ITsEmePlanFilAdjustmentService extends IBaseSpringrainService {
 	 * @throws Exception
 	 */
 	TsEmePlanFilAdjustment findTsEmePlanFilAdjustmentById(Object id) throws Exception;
+	/**
+	 * 根据备案表中的File_directory 查询 备案目录
+	 * @param id
+	 * @return
+	 * @throws Exception
+	 */
+	List<TsEmePlanFilAdjustment> findAdjustmentByFilId(String id) throws Exception;
 	
-	
+	public void deleteByAdjustmentId(String adjustmentId) throws Exception;
 	
 }

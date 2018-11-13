@@ -126,7 +126,8 @@
 														<th id="th_unit" rowspan="2">单位</th>
 														
 														
-														<th id="" colspan="2"  >设备来源</th>
+														
+														<th id="th_in_Equipment" rowspan="2">设备来源</th>
 														<th id="th_outside_company" rowspan="2">外部供应单位名称</th>
 														<th id="" colspan="2">外部供应单位联系方式</th>
 														
@@ -137,8 +138,7 @@
 												</tr> 
 												
 												<tr>
-												<th id="th_in_Equipment" >厂内自备</th>
-												<th id="th_out_Equipment" >外部供应</th>
+												
 											    <th id="th_outside_people" >主要联系人</th>
 											    <th id="th_outside_tel" >联络方式</th>
 												
@@ -193,11 +193,14 @@
 														</td>
 													
 														<td >
-															${(_data.in_Equipment)!''}
+															
+															<#if (_data.in_Equipment)?? && (_data.in_Equipment=="1")>
+																	厂内设备
+																<#elseif (_data.in_Equipment)?? && (_data.in_Equipment=="2")>
+																	外部供应
+															</#if>
 														</td>
-														<td >
-															${(_data.out_Equipment)!''}
-														</td>
+														
 														
 														<td >
 															${(_data.outside_company)!''}

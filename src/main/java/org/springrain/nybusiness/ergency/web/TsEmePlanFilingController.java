@@ -13,16 +13,13 @@ import javax.servlet.http.HttpServletResponse;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.WebDataBinder;
-import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springrain.nybusiness.company.entity.TsCompanyInfo;
 import org.springrain.nybusiness.ergency.entity.TsEmePlanFilAdjustment;
 import org.springrain.nybusiness.ergency.service.ITsEmePlanFilAdjustmentService;
+import org.springrain.nybusiness.company.entity.TsCompanyInfo;
 import org.springrain.nybusiness.company.service.ITsCompanyInfoService;
 import org.springrain.nybusiness.ergency.entity.TsEmePlanFiling;
-import org.springrain.nybusiness.ergency.entity.TsEmergencyEquipmentSum;
 import org.springrain.nybusiness.ergency.service.ITsEmePlanFilingService;
 import org.springrain.frame.common.SessionUser;
 import org.springrain.frame.controller.BaseController;
@@ -46,7 +43,7 @@ public class TsEmePlanFilingController  extends BaseController {
 	@Resource
 	private ITsEmePlanFilingService tsEmePlanFilingService;
 	@Resource
-	private ITsEmePlanFilAdjustmentService tsEmePlanFilAdjustment;
+	private ITsEmePlanFilAdjustmentService tsEmePlanFilAdjustmentService;
 	
 	@Resource
 	private ITsCompanyInfoService tsCompanyInfoService;
@@ -149,6 +146,23 @@ public class TsEmePlanFilingController  extends BaseController {
 	
 	
 	/**
+	 * 修改时查看数据
+	 */
+	@RequestMapping(value = "/look/jsons")
+	@ResponseBody      
+	public ReturnDatas lookjsons(Model model,HttpServletRequest request,HttpServletResponse response) throws Exception {
+		ReturnDatas returnObject = ReturnDatas.getSuccessReturnDatas();
+		java.lang.String id=request.getParameter("id");
+		if (StringUtils.isNotBlank(id)) {
+			TsEmePlanFiling tsEmePlanFiling = tsEmePlanFilingService.findUserByIfindTsEmePlanFilingById(id);
+			returnObject.setData(tsEmePlanFiling);
+		} else {
+			returnObject.setStatus(ReturnDatas.ERROR);
+		}
+		return returnObject;
+	}
+	
+	/**
 	 * 新增/修改 操作吗,返回json格式数据
 	 * 
 	 */
@@ -161,17 +175,42 @@ public class TsEmePlanFilingController  extends BaseController {
 		
 			java.lang.String id =tsEmePlanFiling.getId();
 			String[]  adjustment_catalog= request.getParameterValues("adjustment_catalog");
-			System.out.println(adjustment_catalog);
-			if(StringUtils.isBlank(id)){
-				
-			  tsEmePlanFiling.setId(null);
-			  
-			/*  String uuid = UUID.randomUUID().toString();
-			  tsEmePlanFiling.setFile_directory(uuid);
-			  TsEmePlanFilAdjustment tsEmePlanFilAdjustment = null ;
-			  tsEmePlanFilAdjustment.setAdjustment_id(uuid);*/
-			}
+			//String[] adjustment_id = request.getParameterValues("adjustment_id");
 			
+			//新增
+			if(StringUtils.isBlank(id)){
+				  tsEmePlanFiling.setId(null);
+				  String uuid = UUID.randomUUID().toString();
+				  tsEmePlanFiling.setFile_directory(uuid);
+					if(adjustment_catalog!=null){
+						TsEmePlanFilAdjustment adjustment=null;
+							for(int i=0;i<adjustment_catalog.length;i++){
+								adjustment=new TsEmePlanFilAdjustment();
+								adjustment.setId(null);
+								adjustment.setAdjustment_id(uuid);
+								adjustment.setAdjustment_catalog(adjustment_catalog[i]);
+								adjustment.setAdjustment_desc(null);
+								tsEmePlanFilAdjustmentService.saveorupdate(adjustment);
+							}
+					}
+				
+				}else {
+					java.lang.String file_directory = tsEmePlanFiling.getFile_directory();
+					tsEmePlanFilAdjustmentService.deleteByAdjustmentId(file_directory);
+					TsEmePlanFilAdjustment adjustment=null;
+					for(int i=0;i<adjustment_catalog.length;i++){
+						adjustment=new TsEmePlanFilAdjustment();
+						adjustment.setId(null);
+						adjustment.setAdjustment_id(file_directory);
+						adjustment.setAdjustment_catalog(adjustment_catalog[i]);
+						adjustment.setAdjustment_desc(null);
+						tsEmePlanFilAdjustmentService.saveorupdate(adjustment);
+					}
+				}
+			/**
+			 * 1:已保存 2：审批中  3：通过 4：不通过
+			 */
+			tsEmePlanFiling.setBak1("1");
 			if(StringUtils.isBlank(tsEmePlanFiling.getCreate_user())){
 				tsEmePlanFiling.setCreate_user(SessionUser.getUserId());
 			}
@@ -208,7 +247,7 @@ public class TsEmePlanFilingController  extends BaseController {
 	 */
 	@RequestMapping(value = "/update/pre")
 	public String updatepre(Model model,HttpServletRequest request,HttpServletResponse response)  throws Exception{
-		ReturnDatas returnObject = lookjson(model, request, response);
+		ReturnDatas returnObject = lookjsons(model, request, response);
 		model.addAttribute(GlobalStatic.returnDatas, returnObject);
 		return "/nybusiness/ergency/tsemeplanfiling/tsemeplanfilingCru2";
 	}

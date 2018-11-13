@@ -64,7 +64,7 @@
 																</div>
 															</div>
 														</div>
-														<!-- <div class="layui-form-item">
+														 <div class="layui-form-item">
 															<div class="layui-inline">
 																 <label class="layui-form-label">法定代表人*</label>
 																<div class="layui-input-inline">  
@@ -133,14 +133,7 @@
 																</div>
 															</div>
 														</div>
-														
-														
-														
-														<div class="layui-form-item"> <label class="layui-form-label">备案内容  待完善*</label> </div> -->
-														
-														
-														
-														
+														<div class="layui-form-item"> <label class="layui-form-label">备案内容  待完善*</label> </div> 
 														<div class="layui-form-item">
 															<div class="layui-inline">
 																 <label class="layui-form-label">预案签署人*</label>
@@ -164,7 +157,7 @@
 															<div class="layui-inline">
 															<label class="layui-form-label"></label>
 																		   <div class="layui-inline col-lg-8">  
-																				 <table class="layui-table  <#if (returnDatas.data??) &&(returnDatas.data.managerOrgs??) &&(returnDatas.data.managerOrgs?size gt 0)><#else>off</#if>">
+																				 <table class="layui-table  <#if (returnDatas.data??) &&(returnDatas.data.filadjustment??) &&(returnDatas.data.filadjustment?size gt 0)><#else>off</#if>">
 																					 	<colgroup>
 																				    		<col width="">
 																					    	<col width="160">
@@ -178,11 +171,11 @@
 																							</tr>
 																						</thead>
 																						<tbody id="addTbody">
-																							<#if (returnDatas.data??) &&(returnDatas.data.managerOrgs??) &&(returnDatas.data.managerOrgs?size gt 0)>
-																								<#list returnDatas.data.managerOrgs as _data>
+																							<#if (returnDatas.data??) &&(returnDatas.data.filadjustment??) &&(returnDatas.data.filadjustment?size gt 0)>
+																								<#list returnDatas.data.filadjustment as _data>
 																									<tr>
 																										<td><input type='text'  name='adjustment_catalog' class='layui-input' value="${(_data.adjustment_catalog)!''}">
-																											<input type='hidden' name='file_directory' value="${(_data.file_directory)!''}">
+																											<input type='hidden' name='adjustment_id' value="${(_data.adjustment_id)!''}">
 																										</td>
 																									
 																										<td><a onclick='del(this)' class='layui-btn layui-btn-danger layui-btn-mini ajax-delete'>删除</a></td>
@@ -193,57 +186,9 @@
 																					</table>
 																			</div>
 															</div>
-															</div> 
+														</div> 
 															
-															
-															
-														  <!--  <div class="layui-form-item col-lg-6">
-															    		<label class="layui-form-label">预案备案文件目录*</label>
-																		   <div class="layui-inline col-lg-5">  
-																				 <button type="button" onclick="add()" class="layui-btn">预案备案文件目录管理</button>
-																			</div>
-																	     <div class="layui-inline valid-info"></div>
-																  	</div>
-																  	<div class="layui-form-item col-lg-8">
-															    		<label class="layui-form-label"></label>
-																		   <div class="layui-inline col-lg-8">  
-																				 <table class="layui-table  <#if (returnDatas.data??) &&(returnDatas.data.managerOrgs??) &&(returnDatas.data.managerOrgs?size gt 0)><#else>off</#if>">
-																					 	<colgroup>
-																				    		<col width="">
-																					    	<col width="160">
-																					    	<col width="160">
-																					    	<col width="80">
-																				  		</colgroup>
-																				  		<thead>
-																							<tr>
-																								<th>备案文件目录</th>
-																							
-																								<th>操作</th>
-																							</tr>
-																						</thead>
-																						<tbody id="addTbody">
-																							<#if (returnDatas.data??) &&(returnDatas.data.managerOrgs??) &&(returnDatas.data.managerOrgs?size gt 0)>
-																								<#list returnDatas.data.managerOrgs as _data>
-																									<tr>
-																										<td><input type='text'  name='managerOrgNames' class='layui-input' value="${(_data.orgName)!''}">
-																											<input type='hidden' name='managerOrgIds' value="${(_data.orgId)!''}">
-																										</td>
-																									
-																										<td><a onclick='del(this)' class='layui-btn layui-btn-danger layui-btn-mini ajax-delete'>删除</a></td>
-																									</tr>
-																								</#list>
-																							</#if>
-																						</tbody>
-																					</table>
-																			</div>
-																	     <div class="layui-inline valid-info"></div>
-																  	</div>
-																  	 -->
-														
-														
-														
-														
-														<!-- <div class="layui-form-item"> <label class="layui-form-label">备案意见   待完善*</label> </div>
+														 <div class="layui-form-item"> <label class="layui-form-label">备案意见   待完善*</label> </div>
 														
 														
 														<div class="layui-form-item">
@@ -275,7 +220,7 @@
 																	<input type="text" name="acceptance_Agent" id="acceptance_Agent" datatype="*" nullmsg="不能为空" errormsg="不能为空！" autocomplete="off" class="layui-input" value="${(returnDatas.data.acceptance_Agent)!''}">
 																</div>
 															</div>
-														</div> -->
+														</div> 
 														
 														
 														<!-- <div class="layui-form-item col-lg-6">
@@ -397,7 +342,7 @@
 function add(){
 	jQuery("#addTbody").parents("table").removeClass("off");
 	var _html=["<tr>",
-					"<td><input type='text'    name='adjustment_catalog' class='layui-input'><input type='hidden' name='file_directory'></td>",
+					"<td><input type='text'    name='adjustment_catalog' class='layui-input'><input type='hidden' name='adjustment_id'></td>",
 					
 					"<td><a onclick='del(this)' class='layui-btn layui-btn-danger layui-btn-mini ajax-delete'>删除</a></td>",
 				"</tr>"].join('');

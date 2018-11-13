@@ -1,8 +1,11 @@
 package org.springrain.nybusiness.ergency.entity;
 
 import java.text.ParseException;
+import java.util.List;
+
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.builder.EqualsBuilder;
@@ -10,6 +13,7 @@ import org.apache.commons.lang3.builder.HashCodeBuilder;
 
 import org.springrain.frame.annotation.WhereSQL;
 import org.springrain.frame.entity.BaseEntity;
+import org.springrain.system.entity.UserOrg;
 /**
  * TODO 在此加入类描述
  * @copyright {@link weicms.net}
@@ -64,6 +68,9 @@ public class TsEmePlanFiling  extends BaseEntity {
 	//public static final String FORMAT_ACCEPTANCE_DATE = DateUtils.DATETIME_FORMAT;
 	
 	//columns START
+	@Transient
+	private List<TsEmePlanFilAdjustment> filadjustment;
+	
 	/**
 	 * id
 	 */
@@ -868,6 +875,14 @@ public class TsEmePlanFiling  extends BaseEntity {
 		return new EqualsBuilder()
 			.append(getId(),other.getId())
 			.isEquals();
+	}
+	@Transient
+	public List<TsEmePlanFilAdjustment> getFiladjustment() {
+		return filadjustment;
+	}
+	@Transient
+	public void setFiladjustment(List<TsEmePlanFilAdjustment> filadjustment) {
+		this.filadjustment = filadjustment;
 	}
 }
 

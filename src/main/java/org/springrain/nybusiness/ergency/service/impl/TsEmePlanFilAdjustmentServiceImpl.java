@@ -2,12 +2,20 @@ package org.springrain.nybusiness.ergency.service.impl;
 
 import java.io.File;
 import java.util.List;
+
+import org.apache.commons.lang3.StringUtils;
+import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.stereotype.Service;
 import org.springrain.nybusiness.ergency.entity.TsEmePlanFilAdjustment;
 import org.springrain.nybusiness.ergency.service.ITsEmePlanFilAdjustmentService;
 import org.springrain.frame.entity.IBaseEntity;
 import org.springrain.frame.util.Finder;
+import org.springrain.frame.util.GlobalStatic;
 import org.springrain.frame.util.Page;
+import org.springrain.system.entity.Menu;
+import org.springrain.system.entity.Org;
+import org.springrain.system.entity.RoleMenu;
+import org.springrain.system.entity.UserOrg;
 import org.springrain.system.service.BaseSpringrainServiceImpl;
 
 
@@ -43,7 +51,23 @@ public class TsEmePlanFilAdjustmentServiceImpl extends BaseSpringrainServiceImpl
 	public TsEmePlanFilAdjustment findTsEmePlanFilAdjustmentById(Object id) throws Exception{
 	 return super.findById(id,TsEmePlanFilAdjustment.class);
 	}
-	
+    @Override
+	public List<TsEmePlanFilAdjustment> findAdjustmentByFilId(String id) throws Exception {
+		if(StringUtils.isBlank(id)){
+			return null;
+		}
+		Finder finder=new Finder("select t.* from ts_eme_plan_fil_adjustment t where t.adjustment_id=:id");
+		finder.setParam("id", id);
+		return super.queryForList(finder, TsEmePlanFilAdjustment.class);
+	}
+    @Override
+
+	public void deleteByAdjustmentId(String adjustmentId) throws Exception {
+    	Finder finder_adjustmentr=Finder.getDeleteFinder(TsEmePlanFilAdjustment.class).append(" WHERE adjustment_id=:adjustmentId ").setParam("adjustmentId", adjustmentId);
+		super.update(finder_adjustmentr);
+	}
+    
+    
 /**
  * 列表查询,每个service都会重载,要把sql语句封装到service中,Finder只是最后的方案
  * @param finder
@@ -75,4 +99,6 @@ public class TsEmePlanFilAdjustmentServiceImpl extends BaseSpringrainServiceImpl
 			 return super.findDataExportExcel(finder,ftlurl,page,clazz,o);
 		}
 
+		
+		
 }

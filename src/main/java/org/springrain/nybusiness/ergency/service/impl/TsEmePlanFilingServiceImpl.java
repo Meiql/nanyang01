@@ -3,15 +3,23 @@ package org.springrain.nybusiness.ergency.service.impl;
 import java.io.File;
 import java.util.List;
 
+import javax.annotation.Resource;
+
 import org.apache.commons.collections.CollectionUtils;
 import org.springframework.stereotype.Service;
 import org.springrain.nybusiness.company.entity.TsCompanyInfo;
+import org.springrain.nybusiness.ergency.entity.TsEmePlanFilAdjustment;
 import org.springrain.nybusiness.ergency.entity.TsEmePlanFiling;
 import org.springrain.nybusiness.ergency.entity.TsEmergencyEquipmentSum;
+import org.springrain.nybusiness.ergency.service.ITsEmePlanFilAdjustmentService;
 import org.springrain.nybusiness.ergency.service.ITsEmePlanFilingService;
+import org.springrain.cms.entity.CmsContent;
 import org.springrain.frame.entity.IBaseEntity;
 import org.springrain.frame.util.Finder;
 import org.springrain.frame.util.Page;
+import org.springrain.system.entity.Role;
+import org.springrain.system.entity.User;
+import org.springrain.system.entity.UserOrg;
 import org.springrain.system.service.BaseSpringrainServiceImpl;
 
 
@@ -24,7 +32,8 @@ import org.springrain.system.service.BaseSpringrainServiceImpl;
  */
 @Service("tsEmePlanFilingService")
 public class TsEmePlanFilingServiceImpl extends BaseSpringrainServiceImpl implements ITsEmePlanFilingService {
-
+	@Resource
+	private ITsEmePlanFilAdjustmentService tsEmePlanFilAdjustmentService;
    
     @Override
 	public String  save(Object entity ) throws Exception{
@@ -106,5 +115,26 @@ public class TsEmePlanFilingServiceImpl extends BaseSpringrainServiceImpl implem
 	   	public TsCompanyInfo findCompanyInfoById(Object id) throws Exception{
 	   	 return super.findById(id,TsCompanyInfo.class);
 	   	}
+
+		@Override
+		public List<TsEmePlanFiling> findTsEmePlansFilingById(Object id) throws Exception {
+			// TODO Auto-generated method stub
+			//return null;
+			Finder finder = new Finder("select t.*,t1.id as adid,t1.adjustment_id,t1.adjustment_catalog,t1.adjustment_desc from ts_eme_plan_filing t left join ts_eme_plan_fil_adjustment t1 on t.File_directory = t1.adjustment_id WHERE t.id=:id");
+			finder.setParam("id", id);
+			return super.queryForList(finder, TsEmePlanFiling.class, null);
+			
+			
+		}
+
+		@Override
+		public TsEmePlanFiling findUserByIfindTsEmePlanFilingById(Object id) throws Exception {
+			TsEmePlanFiling u=super.findById(id, TsEmePlanFiling.class);
+			String File_directory = u.getFile_directory();
+			//获取目录
+			List<TsEmePlanFilAdjustment> adjustments = tsEmePlanFilAdjustmentService.findAdjustmentByFilId(File_directory);
+			u.setFiladjustment(adjustments);
+			return u;
+		}
 
 }
