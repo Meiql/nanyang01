@@ -252,6 +252,29 @@ public class TsEmePlanFilingController  extends BaseController {
 		return "/nybusiness/ergency/tsemeplanfiling/tsemeplanfilingCru2";
 	}
 	
+	
+	/**
+	 * 上报操作
+	 */
+	@RequestMapping(value="/approv")
+	@ResponseBody      
+	public  ReturnDatas approv(HttpServletRequest request) throws Exception {
+
+			// 执行删除
+		try {
+		java.lang.String id=request.getParameter("id");
+		if(StringUtils.isNotBlank(id)){
+				tsEmePlanFilingService.updateTsEmePlanFiling(id);
+				return new ReturnDatas(ReturnDatas.SUCCESS,MessageUtils.UPDATE_SUCCESS);
+			} else {
+				return new ReturnDatas(ReturnDatas.WARNING,MessageUtils.UPDATE_SUCCESS);
+			}
+		} catch (Exception e) {
+			logger.error(e.getMessage(), e);
+		}
+		return new ReturnDatas(ReturnDatas.WARNING, MessageUtils.DELETE_WARNING);
+	}
+	
 	/**
 	 * 删除操作
 	 */

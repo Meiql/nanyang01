@@ -3,6 +3,16 @@
 
 <script src="${ctx}/js/validform/validform.min.js"></script>
 <link rel="stylesheet" href="${ctx}/js/validform/validform.css" media="all">
+<script type="text/javascript" src="${ctx}/js/My97DatePicker/WdatePicker.js"></script>
+<link rel="stylesheet" href="${ctx}/js/My97DatePicker/skin/default/datepicker.css" />
+<script type="text/javascript" src="${ctx}/js/ztree/js/jquery.ztree.all-3.5.js"></script>
+<script type="text/javascript" src="${ctx}/js/ztree/js/ztreeUtils.js"></script>
+<script type="text/javascript" src="${ctx}/js/select2/js/select2.full.min.js"></script>
+<script type="text/javascript" src="${ctx}/js/select2/js/i18n/zh-CN.js"></script>
+<script type="text/javascript" src="${ctx}/js/custom/common/select2remote.js"></script>
+<link rel="stylesheet" href="${ctx}/js/select2/css/select2.min.css" type="text/css">
+<link rel="stylesheet" href="${ctx}/js/ztree/css/zTreeStyle/zTreeStyle.css" type="text/css">
+<link rel="stylesheet" href="${ctx}/css/custom/common/myztree.css" type="text/css">
 <script>
 	 jQuery(function(){
 		 /*
@@ -36,35 +46,90 @@
 												</header>
 												<div class="larry-personal-body clearfix changepwd">
 													<form id="validForm" class="layui-form <!--  -->"  method="post" action="${ctx}/tsemeplanfilingmod/update">
-																<input type="hidden" id="id" name="id" />	
-																	<div class="layui-form-item col-lg-6">
-																		<label class="layui-form-label">单位名称*</label>
-																		<div class="layui-inline col-lg-5">  
-																			<input type="text" name="company_name" id="company_name" datatype="*" nullmsg="不能为空" errormsg="不能为空！" autocomplete="off" class="layui-input" value="${(returnDatas.data.companyName)!''}">
-																		</div>
-																		<div class="layui-inline valid-info"></div>
-																	</div>
-																	<div class="layui-form-item col-lg-6">
-																		<label class="layui-form-label">联系*</label>
-																		<div class="layui-inline col-lg-5">  
-																			<input type="text" name="contact" id="contact" datatype="*" nullmsg="不能为空" errormsg="不能为空！" autocomplete="off" class="layui-input" value="${(returnDatas.data.contact)!''}">
-																		</div>
-																		<div class="layui-inline valid-info"></div>
-																	</div>
-																	<div class="layui-form-item col-lg-6">
-																		<label class="layui-form-label">联系电话*</label>
-																		<div class="layui-inline col-lg-5">  
-																			<input type="text" name="contact_tel" id="contact_tel" datatype="*" nullmsg="不能为空" errormsg="不能为空！" autocomplete="off" class="layui-input" value="${(returnDatas.data.contact_tel)!''}">
-																		</div>
-																		<div class="layui-inline valid-info"></div>
-																	</div>
-																	<div class="layui-form-item col-lg-6">
-																		<label class="layui-form-label">备案编号*</label>
-																		<div class="layui-inline col-lg-5">  
-																			<input type="text" name="beian_number" id="beian_number" datatype="*" nullmsg="不能为空" errormsg="不能为空！" autocomplete="off" class="layui-input" value="${(returnDatas.data.beian_number)!''}">
-																		</div>
-																		<div class="layui-inline valid-info"></div>
-																	</div>
+														<input type="hidden" id="id" name="id" />
+														
+														<div class="layui-form-item">
+															<div class="layui-inline">
+																<label class="layui-form-label">备案编号*</label>
+																<div class="layui-input-inline " style=" width: 600px">  
+																	<input type="text" readonly name="company_name" id="company_name" datatype="*" nullmsg="不能为空" errormsg="不能为空！" autocomplete="off" class="layui-input" value="${(returnDatas.data.companyName)!''}">
+																</div>
+															</div>
+														</div>
+														<div class="layui-form-item">
+															<div class="layui-inline">
+																 <label class="layui-form-label">联系人*</label>
+																<div class="layui-input-inline">
+																	<input type="text" name="contact" id="contact" datatype="*" nullmsg="不能为空" errormsg="不能为空！" autocomplete="off" class="layui-input" value="${(returnDatas.data.contact)!''}">  
+																</div>
+															</div>
+															<div class="layui-inline">
+																 <label class="layui-form-label">联系电话*</label>
+																<div class="layui-input-inline">
+																	<input type="text" name="contact_tel" id="contact_tel" datatype="*" nullmsg="不能为空" errormsg="不能为空！" autocomplete="off" class="layui-input" value="${(returnDatas.data.contact_tel)!''}">  
+																</div>
+															</div>
+														</div>
+														
+														<div class="layui-form-item">
+															<div class="layui-inline">
+																 <label class="layui-form-label">单位地址*</label>
+																<div class="layui-input-inline">
+																	<input type="text" name="bak2" id="bak2" datatype="*" nullmsg="不能为空" errormsg="不能为空！" autocomplete="off" class="layui-input" value="${(returnDatas.data.bak2)!''}">  
+																</div>
+															</div>
+															<div class="layui-inline">
+																 <label class="layui-form-label">备案编号*</label>
+																<div class="layui-input-inline">
+																	<input type="text" name="beian_number" id="beian_number" datatype="*" nullmsg="不能为空" errormsg="不能为空！" autocomplete="off" class="layui-input" value="${(returnDatas.data.beian_number)!''}">  
+																</div>
+															</div>
+														</div>
+															<div class="layui-form-item">
+															<div class="layui-inline">
+															 <label class="layui-form-label">预案备案文件目录*</label> 
+																	<button type="button" onclick="add()" class="layui-btn">目录管理</button>
+															</div>
+															<div class="layui-inline">
+															<label class="layui-form-label"></label>
+																		   <div class="layui-inline col-lg-8">  
+																				 <table class="layui-table  <#if (returnDatas.data??) &&(returnDatas.data.filadjustment??) &&(returnDatas.data.filadjustment?size gt 0)><#else>off</#if>">
+																					 	<colgroup>
+																				    		<col width="">
+																					    	<col width="160">
+																					    	<col width="40">
+																				  		</colgroup>
+																				  		<thead>
+																							<tr>
+																								<th>备案文件目录</th>
+																							
+																								<th>操作</th>
+																							</tr>
+																						</thead>
+																						<tbody id="addTbody">
+																							<#if (returnDatas.data??) &&(returnDatas.data.filadjustment??) &&(returnDatas.data.filadjustment?size gt 0)>
+																								<#list returnDatas.data.filadjustment as _data>
+																									<tr>
+																										<td><input type='text'  name='adjustment_catalog' class='layui-input' value="${(_data.adjustment_catalog)!''}">
+																											<input type='hidden' name='adjustment_id' value="${(_data.adjustment_id)!''}">
+																										</td>
+																									
+																										<td><a onclick='del(this)' class='layui-btn layui-btn-danger layui-btn-mini ajax-delete'>删除</a></td>
+																									</tr>
+																								</#list>
+																							</#if>
+																						</tbody>
+																					</table>
+																			</div>
+															</div>
+														</div> 		
+															
+															
+															
+															
+															
+																	
+
 																	<div class="layui-form-item col-lg-6">
 																		<label class="layui-form-label">补充调整内容 关联到补充调整表*</label>
 																		<div class="layui-inline col-lg-5">  
@@ -154,4 +219,24 @@
 		<@h.footer />
 	</div>
 </body>
+<script>
+function add(){
+	jQuery("#addTbody").parents("table").removeClass("off");
+	var _html=["<tr>",
+					"<td><input type='text'    name='adjustment_catalog' class='layui-input'><input type='hidden' name='adjustment_id'></td>",
+					
+					"<td><a onclick='del(this)' class='layui-btn layui-btn-danger layui-btn-mini ajax-delete'>删除</a></td>",
+				"</tr>"].join('');
+	var _html=jQuery(_html);
+	jQuery("#addTbody").append(_html);
+	form.render();
+	jQuery(_html).find("input[name='adjustment_catalog']").trigger("click");
+	
+}
+function del(_obj){
+	springrain.confirm("确认删除?",function(){
+		jQuery(_obj).parents("tr").remove();
+	});
+}
+</script>
 </html>

@@ -98,6 +98,52 @@
 					  layer.close(index);
 				});
 			},
+			/**
+			 * 上报
+			 * @param _id	要上报ID
+			 * @param _url	要上报URL
+			 * @param _tips	上报提示，默认“是否上报”
+			 * @param _redirect	上报成功，回跳的URL，传NULL默认会刷新当前页面
+			 */
+			myapprov:function(_id,_url,_tips,_redirect){
+				var _that=this;
+				if(!_url)return;
+				var _pars=null;
+				if(_id){
+					_pars={"id":_id};
+				}
+				_tips=_tips?_tips:'是否上报?';
+				layer.confirm(_tips, {icon: 3, title:'提示'}, function(index){
+					  jQuery.ajax({
+						  url:_url,
+						  type:"post",
+						  data:_pars,
+						  dataType:"json",
+						  async:false,
+						  success:function(data){
+							  if(data!=null&&"success"==data.status){
+								  layer.msg(data.message==null?'上报成功':data.message, {
+									  icon: 1,
+									  time: 2000 //2秒关闭（如果不配置，默认是3秒）
+									}, function(){
+										if(_redirect){
+											_that.goTo(_redirect);
+										}else{
+											if( jQuery("#searchForm")!=null &&jQuery("#searchForm").length>0){
+												_that.commonSubmitForPage('searchForm')
+											}else{
+												window.location.reload();
+											}
+										}
+									}); 
+							  }else{
+								  layer.msg(data.message, {icon: 1,time: 1000}); 
+							  }
+						  }
+					  });
+					  layer.close(index);
+				});
+			},
 			mydeletemore:function(formId,_url,_tips,_redirect){
 				var _that=this;
 				var arr="";

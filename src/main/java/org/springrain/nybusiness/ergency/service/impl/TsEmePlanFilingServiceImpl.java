@@ -136,5 +136,11 @@ public class TsEmePlanFilingServiceImpl extends BaseSpringrainServiceImpl implem
 			u.setFiladjustment(adjustments);
 			return u;
 		}
+		@Override
+		public void updateTsEmePlanFiling(String id)throws Exception {
+			TsEmePlanFiling tsEmePlanFiling = super.findById(id, TsEmePlanFiling.class);
+			tsEmePlanFiling.setBak1("2");
+			super.update(tsEmePlanFiling);
+		}
 
 }
