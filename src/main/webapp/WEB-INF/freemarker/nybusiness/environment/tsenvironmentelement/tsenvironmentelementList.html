@@ -40,9 +40,9 @@
 				        	<button type="button"   class="layui-btn layui-btn-small"><i class="layui-icon layui-icon-specil">&#xe609;</i>导出</button>
 				        </@shiro.hasPermission>
 		                <button type="button"  class="layui-btn layui-btn-warm layui-btn-small"><i class="layui-icon layui-icon-specil">&#xe601;</i>导入</button>
-		                <@shiro.hasPermission name="/tsenvironmentelement/delete" >
+		                <!-- <@shiro.hasPermission name="/tsenvironmentelement/delete" >
 		               		 <button type="button"  class="layui-btn layui-btn-danger layui-btn-small"><i class="layui-icon">&#xe640;</i>批量删除</button>
-		                </@shiro.hasPermission>
+		                </@shiro.hasPermission> -->
 		             </li>
 	       		</ul>
 				
@@ -114,9 +114,9 @@
 												  <th>操作</th>
 												  <!--first_end_no_export-->
 														<th id="th_envirElementName" >环境要素名称</th>
-														<th id="th_createUser" >createUser</th>
-														<th id="th_createTime" >createTime</th>
-														<th id="th_remarks" >remarks</th>
+														<th id="th_createUser" >创建人</th>
+														<th id="th_createTime" >创建时间</th>
+														<!-- <th id="th_remarks" >remarks</th> -->
 												</tr> 
 											</thead>
 										  <!--first_end_export-->
@@ -147,10 +147,10 @@
 														<td >
 															${(_data.createTime)!''}
 														</td>
-														<td >
+														<!-- <td >
 															${(_data.remarks)!''}
 														</td>
-													</tr>
+													</tr> -->
 												</#list>
 											 </#if>
 											</tbody>

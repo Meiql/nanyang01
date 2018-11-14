@@ -40,9 +40,9 @@
 				        	<button type="button"   class="layui-btn layui-btn-small"><i class="layui-icon layui-icon-specil">&#xe609;</i>导出</button>
 				        </@shiro.hasPermission>
 		                <button type="button"  class="layui-btn layui-btn-warm layui-btn-small"><i class="layui-icon layui-icon-specil">&#xe601;</i>导入</button>
-		                <@shiro.hasPermission name="/tswasteairmsg/delete" >
-		               		 <button type="button"  class="layui-btn layui-btn-danger layui-btn-small"><i class="layui-icon">&#xe640;</i>批量删除</button>
-		                </@shiro.hasPermission>
+		                <!-- <@shiro.hasPermission name="/tswasteairmsg/delete" >
+		               		 <button type="button"  class="layui-btn layui-btn-danger layui-btn-small" data-action="${ctx}/tswasteairmsg/delete/more"><i class="layui-icon">&#xe640;</i>批量删除</button>
+		                </@shiro.hasPermission> -->
 		             </li>
 	       		</ul>
 				
@@ -69,7 +69,7 @@
 							          				<div class="layui-inline">
 									                    <label class="layui-form-label">名称</label>
 									                    <div class="layui-input-inline">
-									                           <input type="text" name="name" value="${(returnDatas.queryBean.name)!''}" placeholder="请输入名称 " class="layui-input">
+									                           <input type="text" name="wgProcessingMethod" value="${(returnDatas.queryBean.wgProcessingMethod)!''}" placeholder="请输入名称 " class="layui-input">
 									                    </div>
 							                		</div>
 									                 <div class="layui-inline">
@@ -120,11 +120,11 @@
 														<th id="th_emissionHeight" >排放高度</th>
 														<th id="th_createUser" >创建人</th>
 														<th id="th_createTime" >创建时间</th>
-														<th id="th_remarks" >remarks</th>
+														<!-- <th id="th_remarks" >remarks</th>
 														<th id="th_companyId" >companyId</th>
 														<th id="th_bak1" >bak1</th>
 														<th id="th_bak2" >bak2</th>
-														<th id="th_bak3" >bak3</th>
+														<th id="th_bak3" >bak3</th> -->
 												</tr> 
 											</thead>
 										  <!--first_end_export-->
@@ -139,7 +139,7 @@
 														</td>
 														<td>
 															<@shiro.hasPermission name="/tswasteairmsg/update" >
-								                           		 <a href="#" data-action="${ctx}/tswasteairmsg/update/pre?id=" class="layui-btn layui-btn-normal layui-btn-mini">编辑</a>
+								                           		 <a href="#" data-action="${ctx}/tswasteairmsg/update/pre?id=${_data.id}" class="layui-btn layui-btn-normal layui-btn-mini">编辑</a>
 								                            </@shiro.hasPermission>
 								                            <@shiro.hasPermission name="/tswasteairmsg/delete" >
 								                            	<a href="javascript:del('${(_data.id)!''}')" class="layui-btn layui-btn-danger layui-btn-mini ajax-delete">删除</a>
@@ -167,7 +167,7 @@
 														<td >
 															${(_data.createTime)!''}
 														</td>
-														<td >
+														<!-- <td >
 															${(_data.remarks)!''}
 														</td>
 														<td >
@@ -181,7 +181,7 @@
 														</td>
 														<td >
 															${(_data.bak3)!''}
-														</td>
+														</td> -->
 													</tr>
 												</#list>
 											 </#if>

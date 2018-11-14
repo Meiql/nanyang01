@@ -98,7 +98,7 @@ public class TsEnvironmentElementController  extends BaseController {
 	public String look(Model model,HttpServletRequest request,HttpServletResponse response)  throws Exception {
 		ReturnDatas returnObject = lookjson(model, request, response);
 		model.addAttribute(GlobalStatic.returnDatas, returnObject);
-		return "/environment/tsenvironmentelement/tsenvironmentelementLook";
+		return "/nybusiness/environment/tsenvironmentelement/tsenvironmentelementLook";
 	}
 
 	
@@ -155,7 +155,7 @@ public class TsEnvironmentElementController  extends BaseController {
 	public String updatepre(Model model,HttpServletRequest request,HttpServletResponse response)  throws Exception{
 		ReturnDatas returnObject = lookjson(model, request, response);
 		model.addAttribute(GlobalStatic.returnDatas, returnObject);
-		return "/environment/tsenvironmentelement/tsenvironmentelementCru";
+		return "/nybusiness/environment/tsenvironmentelement/tsenvironmentelementCru";
 	}
 	
 	/**

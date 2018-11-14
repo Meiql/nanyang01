@@ -236,7 +236,7 @@ public class TsCompanyInfoController  extends BaseController {
 	public String updatepre(Model model,HttpServletRequest request,HttpServletResponse response)  throws Exception{
 		ReturnDatas returnObject = lookjson(model, request, response);
 		model.addAttribute(GlobalStatic.returnDatas, returnObject);
-		return "/nybusiness/company/tscompanyinfo/tscompanyinfoCru";
+		return "/nybusiness/tscompanyinfo/tscompanyinfoCru";
 	}
 	
 	/**

@@ -1,0 +1,155 @@
+<#ftl output_format="HTML" auto_esc=true>
+<@h.commonHead title="后台管理系统" keywords="开源,永久免费" description="springrain开源系统管理后台"/>
+<script src="${ctx}/js/custom/common/form.js">
+</script>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<meta name="viewport" content="initial-scale=1.0, user-scalable=no" />
+	<style type="text/css">
+		body, html{width: 100%;height: 100%;margin:0;font-family:"微软雅黑";}
+		#allmap{height:500px;width:100%;}
+		#r-result{width:100%; font-size:14px;}
+	</style>
+	<script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=5q6yZCveu2aXOq9oYdoLGIgtvkdBBnBn"></script>
+	<title>城市名定位</title>
+</head>
+<body>
+
+<div class="layui-layout layui-layout-admin">
+		<@h.naviHeader /><@h.leftMenu />
+		<div class="layui-tab layui-tab-brief"> 
+		<ul class="layui-tab-title site-demo-title">
+		             <li class="layui-this">
+
+		             </li>
+	       		</ul>
+		<div class="layui-body layui-tab-content site-demo-body">
+		 <form class="layui-form layui-form-pane" id="searchForm" action="${ctx}/tscompanyinfomap/list" method="post"> 
+		<table class="layui-table search-wrap">
+									  	<colgroup>
+										    <col width="">
+										    <col width="150">
+										</colgroup>
+							          	<tbody>
+							          		<tr>
+							          			<th colspan="2">企业信息搜索</th>
+							          		</tr>
+							          		<tr>
+							          			<td>
+							          				<div class="layui-inline">
+									                    <label class="layui-form-label">企业名称</label>
+									                    <div class="layui-input-inline">
+									                           <input type="text" id="companyName"name="companyName" value="${(returnDatas.queryBean.companyName)!''}" placeholder="请输入名称 " class="layui-input">
+									                    </div>
+							                		</div>
+									                 <div class="layui-inline">
+									                    <label class="layui-form-label">是否可用</label>
+									                    <div class="layui-input-inline">
+									                        <select name="active" id="active" class="layui-input">
+									                          <option value="">==请选择==</option>
+															  <option value="1">是</option>
+															  <option value="0">否</option>
+															</select>   
+									                    </div>
+									                </div>
+							          			</td>
+							          			<td>
+							          			   <div class="layui-inline">
+									                     <button class="layui-btn" type="button" id="sbtButton"><i class="layui-icon" style="top:4px;right:5px;">&#xe615;</i>搜索</button>
+									                </div>
+							          			</td>
+							          		</tr>
+							          	</tbody>
+							          </table>
+							          </form> 
+							          
+	<div id="allmap"></div>
+	</div>
+	 </div> 
+		<@h.footer />
+	</div>
+<script type="text/javascript">
+var map = new BMap.Map("allmap");
+var point = new BMap.Point(112.52 ,33.00); //这里设置刚开始的点所在处
+map.enableScrollWheelZoom(); //滚动放大
+map.enableKeyboard(); //键盘放大
+map.centerAndZoom(point, 9); //绘制地图  
+function addMarker(point){
+	  var marker = new BMap.Marker(point);
+	  map.addOverlay(marker);
+	}
+ var  coordinate=new Array();
+ $(document)
+.ready(
+		function() {
+			jQuery
+					.post(
+							"${ctx}/tscompanyinfomap/list/json",
+							function(_json) {
+								if (_json.status == "success") {
+									if(_json!=null&&_json.data!=null&&_json.data.length>0){
+					            		 for(var i=0;i<_json.data.length;i++){
+					            			 coordinate.push(_json.data[i].longitude+","+_json.data[i].latitude+","+_json.data[i].companyName);
+					            		 }
+					            		 
+					            		  for (var i = 0; i < coordinate.length; i ++) {
+					            			 	var center=coordinate[i].split(",");
+					            			 	var longitude=center[0];
+					            			 	var latitude=center[1];
+					            			 	var name=center[2];
+					            				var point = new BMap.Point(longitude,latitude);
+					            				 var marker = new BMap.Marker(point);
+					            				 map.addOverlay(marker);
+					            				 var label = new BMap.Label(name, { offset: new BMap.Size(30, -10) });
+					            				                         marker.setLabel(label);
+					            				                         label.setStyle({
+					            				                            width: "100px",
+												            				 color: '#fff',
+												            				 background: '#ff8355',
+												            				 border: '1px solid "#ff8355"',
+												            				 borderRadius: "5px",
+												            				 textAlign: "center",
+												            				 height: "26px",
+												            				 lineHeight: "26px"
+					            				  }); 
+					            			} 
+					            	 }
+								} else {
+									myalert(_json.message);
+								}
+							});
+
+		});  
+
+ var company_name="";
+ var address="";
+ var longitude1="";
+ var latitude1="";
+ jQuery(function(){
+      $("#sbtButton").click(function(){
+    	  $("#searchForm").submit();
+     });  
+      <#if returnDatas.data?? && returnDatas.data?size lt 2 && returnDatas.data?size gt 0> 
+		address="${(returnDatas.data[0].address)!''}";
+		longitude1="${(returnDatas.data[0].longitude)!''}";
+		latitude1="${(returnDatas.data[0].latitude)!''}";
+		if(longitude1!="" && latitude1!=""){
+			var marker = new BMap.Marker(point); //地图事件类
+		      var opts = {
+		          width: 25,     // 信息窗口宽度  
+		          height: 120,     // 信息窗口高度  
+		          title: "公司信息:<hr />"  // 信息窗口标题 ，这里声明下，可以在自己输出的信息里面嵌入html标签的
+		      }
+		      	var infoWindow = new BMap.InfoWindow("地址:" + address + ".", opts);
+		      	marker.enableDragging(); //启用拖拽事件
+		              point = new BMap.Point(longitude1, latitude1); 
+		              marker = new BMap.Marker(point);  //事件类
+		              map.openInfoWindow(infoWindow, point);
+		}
+	</#if>
+ }); 
+      
+
+</script>
+</body>
+</html>

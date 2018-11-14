@@ -40,9 +40,9 @@
 				        	<button type="button"   class="layui-btn layui-btn-small"><i class="layui-icon layui-icon-specil">&#xe609;</i>导出</button>
 				        </@shiro.hasPermission>
 		                <button type="button"  class="layui-btn layui-btn-warm layui-btn-small"><i class="layui-icon layui-icon-specil">&#xe601;</i>导入</button>
-		                <@shiro.hasPermission name="/tsenvironmentsensitivepoint/delete" >
+		               <!--  <@shiro.hasPermission name="/tsenvironmentsensitivepoint/delete" >
 		               		 <button type="button"  class="layui-btn layui-btn-danger layui-btn-small"><i class="layui-icon">&#xe640;</i>批量删除</button>
-		                </@shiro.hasPermission>
+		                </@shiro.hasPermission> -->
 		             </li>
 	       		</ul>
 				
@@ -69,7 +69,7 @@
 							          				<div class="layui-inline">
 									                    <label class="layui-form-label">名称</label>
 									                    <div class="layui-input-inline">
-									                           <input type="text" name="name" value="${(returnDatas.queryBean.name)!''}" placeholder="请输入名称 " class="layui-input">
+									                           <input type="text" name="envirElementName" value="${(returnDatas.queryBean.envirElementName)!''}" placeholder="请输入名称 " class="layui-input">
 									                    </div>
 							                		</div>
 									                 <div class="layui-inline">
@@ -113,7 +113,7 @@
 												  </th>
 												  <th>操作</th>
 												  <!--first_end_no_export-->
-														<th id="th_envirElementId" >环境要素id</th>
+														<!-- <th id="th_envirElementId" >环境要素id</th> -->
 														<th id="th_envirElementName" >环境要素名称</th>
 														<th id="th_ring" >环</th>
 														<th id="th_position" >方位</th>
@@ -121,13 +121,13 @@
 														<th id="th_scale" >规模</th>
 														<th id="th_longitude" >经度</th>
 														<th id="th_latitude" >纬度</th>
-														<th id="th_createUser" >createUser</th>
-														<th id="th_createTime" >createTime</th>
-														<th id="th_remarks" >remarks</th>
+														<th id="th_createUser" >创建人</th>
+														<th id="th_createTime" >创建时间</th>
+														<!-- <th id="th_remarks" >remarks</th>
 														<th id="th_companyId" >companyId</th>
 														<th id="th_bak1" >bak1</th>
 														<th id="th_bak2" >bak2</th>
-														<th id="th_bak3" >bak3</th>
+														<th id="th_bak3" >bak3</th> -->
 												</tr> 
 											</thead>
 										  <!--first_end_export-->
@@ -149,9 +149,9 @@
 								                            </@shiro.hasPermission>
 														</td>
 														<!--end_no_export-->
-														<td >
+														<!-- <td >
 															${(_data.envirElementId)!''}
-														</td>
+														</td> -->
 														<td >
 															${(_data.envirElementName)!''}
 														</td>
@@ -179,7 +179,7 @@
 														<td >
 															${(_data.createTime)!''}
 														</td>
-														<td >
+														<!-- <td >
 															${(_data.remarks)!''}
 														</td>
 														<td >
@@ -193,7 +193,7 @@
 														</td>
 														<td >
 															${(_data.bak3)!''}
-														</td>
+														</td> -->
 													</tr>
 												</#list>
 											 </#if>

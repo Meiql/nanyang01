@@ -100,7 +100,7 @@ public class TsEnvironmentSensitivePointController  extends BaseController {
 	public String look(Model model,HttpServletRequest request,HttpServletResponse response)  throws Exception {
 		ReturnDatas returnObject = lookjson(model, request, response);
 		model.addAttribute(GlobalStatic.returnDatas, returnObject);
-		return "/environment/tsenvironmentsensitivepoint/tsenvironmentsensitivepointLook";
+		return "/nybusiness/environment/tsenvironmentsensitivepoint/tsenvironmentsensitivepointLook";
 	}
 
 	
@@ -157,7 +157,7 @@ public class TsEnvironmentSensitivePointController  extends BaseController {
 	public String updatepre(Model model,HttpServletRequest request,HttpServletResponse response)  throws Exception{
 		ReturnDatas returnObject = lookjson(model, request, response);
 		model.addAttribute(GlobalStatic.returnDatas, returnObject);
-		return "/environment/tsenvironmentsensitivepoint/tsenvironmentsensitivepointCru";
+		return "/nybusiness/environment/tsenvironmentsensitivepoint/tsenvironmentsensitivepointCru";
 	}
 	
 	/**
