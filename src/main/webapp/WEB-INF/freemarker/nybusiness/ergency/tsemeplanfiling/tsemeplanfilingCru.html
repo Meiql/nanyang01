@@ -13,6 +13,15 @@
 <link rel="stylesheet" href="${ctx}/js/select2/css/select2.min.css" type="text/css">
 <link rel="stylesheet" href="${ctx}/js/ztree/css/zTreeStyle/zTreeStyle.css" type="text/css">
 <link rel="stylesheet" href="${ctx}/css/custom/common/myztree.css" type="text/css">
+<style type="text/css">
+.tg  {border-collapse:collapse;border-spacing:0;}
+.tg td{font-family:Arial, sans-serif;font-size:14px;padding:10px 5px;border-style:solid;border-width:1px;overflow:hidden;word-break:normal;border-color:black;}
+.tg th{font-family:Arial, sans-serif;font-size:14px;font-weight:normal;padding:10px 5px;border-style:solid;border-width:1px;overflow:hidden;word-break:normal;border-color:black;}
+.tg .tg-baqh{text-align:center;vertical-align:top}
+.tg .tg-c3ow{border-color:inherit;text-align:center;vertical-align:top}
+.tg .tg-0pky{border-color:inherit;text-align:left;vertical-align:top}
+.tg .tg-0lax{text-align:left;vertical-align:top}
+</style>
 <script>
 	 jQuery(function(){
 		 /*
@@ -37,134 +46,82 @@
 		             </li>
 	       		</ul>
 				
-				<div class="layui-body layui-tab-content site-demo-body">
+				<div class="layui-body layui-tab-content site-demo-body" align="center">
 					<div class="layui-tab-item layui-show">
 							<div class="layui-main">
 						          <div id="LAY_preview" class="layui-my-form">
-						          				<header class="larry-personal-tit">
-													<span>企业事业单位环境应急预案备案表</span>
-												</header>
+<!-- 						          				<header class="larry-personal-tit"> -->
+<!-- 													<span>企业事业单位环境应急预案备案表</span> -->
+<!-- 												</header> -->
 												<div class="larry-personal-body clearfix changepwd">
 													<form id="validForm" class="layui-form <!--  -->"  method="post" action="${ctx}/tsemeplanfiling/update">
 														<input type="hidden" id="id" name="id" />
-														<div class="layui-form-item">
-															<div class="layui-inline">
-																 <label class="layui-form-label">单位名称*</label>
-																<div class="layui-input-inline">  
-																	<input type="text" readonly name="company_name" id="company_name" datatype="*" nullmsg="不能为空" errormsg="不能为空！" autocomplete="off" class="layui-input" value="${(returnDatas.data.companyName)!''}">
-																</div>
-															</div>
-															<div class="layui-inline">
-																 <label class="layui-form-label">机构代码*</label>
-																<div class="layui-input-inline">
-																	<input type="text" name="company_code" id="company_code" datatype="*" nullmsg="不能为空" errormsg="不能为空！" autocomplete="off" class="layui-input" value="${(returnDatas.data.companyCode)!''}">  
-																</div>
-															</div>
-														</div>
-														 <div class="layui-form-item">
-															<div class="layui-inline">
-																 <label class="layui-form-label">法定代表人*</label>
-																<div class="layui-input-inline">  
-																	 <input type="text" name="legal_person" id="legal_person" datatype="*" nullmsg="不能为空" errormsg="不能为空！" autocomplete="off" class="layui-input" value="${(returnDatas.data.corporationName)!''}">
-																</div>
-															</div>
-															<div class="layui-inline">
-																 <label class="layui-form-label">法定代表人电话*</label>
-																<div class="layui-input-inline">
-																	<input type="text" name="legal_person_tel" id="legal_person_tel" datatype="*" nullmsg="不能为空" errormsg="不能为空！" autocomplete="off" class="layui-input" value="${(returnDatas.data.legal_person_tel)!''}">  
-																</div>
-															</div>
-														</div>
-														<div class="layui-form-item">
-															<div class="layui-inline">
-																 <label class="layui-form-label">联系人*</label>
-																<div class="layui-input-inline">  
-																	<input type="text" name="contacts_people" id="contacts_people" datatype="*" nullmsg="不能为空" errormsg="不能为空！" autocomplete="off" class="layui-input" value="${(returnDatas.data.contactsName)!''}">																</div>
-															</div>
-															<div class="layui-inline">
-																 <label class="layui-form-label">联系人电话*</label>
-																<div class="layui-input-inline">  
-																		<input type="text" name="contacts_people_tel" id="contacts_people_tel" datatype="*" nullmsg="不能为空" errormsg="不能为空！" autocomplete="off" class="layui-input" value="${(returnDatas.data.contacts_people_tel)!''}">
-																</div>
-															</div>
-														</div>
-														<div class="layui-form-item">
-															<div class="layui-inline">
-																 <label class="layui-form-label">传真*</label>
-																<div class="layui-input-inline">  
-																	 <input type="text" name="fax" id="fax" datatype="*" nullmsg="不能为空" errormsg="不能为空！" autocomplete="off" class="layui-input" value="${(returnDatas.data.fax)!''}">
-																</div>
-															</div>
-															<div class="layui-inline">
-																 <label class="layui-form-label">电子邮箱*</label>
-																<div class="layui-input-inline">  
-																	<input type="text" name="email" id="email" datatype="*" nullmsg="不能为空" errormsg="不能为空！" autocomplete="off" class="layui-input" value="${(returnDatas.data.email)!''}">
-																</div>
-															</div>
-														</div>
-														<div class="layui-form-item">
-															<div class="layui-inline">
-																 <label class="layui-form-label">地址*</label>
-																<div class="layui-input-inline">  
-																	 <input type="text" name="address" id="address" datatype="*" nullmsg="不能为空" errormsg="不能为空！" autocomplete="off" class="layui-input" value="${(returnDatas.data.address)!''}">
-																</div>
-															</div>
-															<div class="layui-inline">
-																 <label class="layui-form-label">经纬度*</label>
-																<div class="layui-input-inline">  
-																	<input type="text" name="center" id="center" datatype="*" nullmsg="不能为空" errormsg="不能为空！" autocomplete="off" class="layui-input" value="${(returnDatas.data.center)!''}">
-																</div>
-															</div>
-														</div>
-														<div class="layui-form-item">
-															<div class="layui-inline">
-																 <label class="layui-form-label">预案名称*</label>
-																<div class="layui-input-inline">  
-																	 <input type="text" name="plan_name" id="plan_name" datatype="*" nullmsg="不能为空" errormsg="不能为空！" autocomplete="off" class="layui-input" value="${(returnDatas.data.plan_name)!''}">
-																</div>
-															</div>
-															<div class="layui-inline">
-																 <label class="layui-form-label">风险级别*</label>
-																<div class="layui-input-inline">  
-																	<input type="text" name="risk_level" id="risk_level" datatype="*" nullmsg="不能为空" errormsg="不能为空！" autocomplete="off" class="layui-input" value="${(returnDatas.data.risk_level)!''}">
-																</div>
-															</div>
-														</div>
-														<div class="layui-form-item">
-														<label class="layui-form-label"></label> 
-																<div class="layui-input-inline " style=" width: 600px"> 
-																<h4  style="margin-left: 20px">本单位于 </h4></br>
-																<input  type="text" style=" width: 100px" name="signing_date" id="signing_date" onClick="WdatePicker()" datatype="*" nullmsg="不能为空" errormsg="不能为空！" autocomplete="off" class="layui-input" value="${(returnDatas.data.signing_date)!''}">
-																<h4>签署发布了突发环境事件应急预案，备案条件具备，备案文件齐全，现报送备案。</h4>
-																 <h4 style="margin-left: 20px"> 本单位承诺，本单位在办理备案中所提供的相关文件及其信息均经本单位</p>
-																 <h4>确认真实，无虚假，且未隐瞒事实。</h4> 
-																 <h4 style="margin-left: 300px"> 备案单位（公章）：    </h4>
-																</div>
-														</div> 
-														<div class="layui-form-item">
-															<div class="layui-inline">
-																 <label class="layui-form-label">预案签署人*</label>
-																<div class="layui-input-inline">  
-																	 <input type="text" name="signing_people" id="signing_people" datatype="*" nullmsg="不能为空" errormsg="不能为空！" autocomplete="off" class="layui-input" value="${(returnDatas.data.signing_people)!''}">
-																</div>
-															</div>
-															<div class="layui-inline">
-																 <label class="layui-form-label">报送时间*</label>
-																<div class="layui-input-inline">  
-																	<input type="text" name="delivery_time" id="delivery_time" onClick="WdatePicker()" datatype="*" nullmsg="不能为空" errormsg="不能为空！" autocomplete="off" class="layui-input" value="${(returnDatas.data.delivery_time)!''}">
-																</div>
-															</div>
-														</div>
-
-										 				<div class="layui-form-item">
-															<div class="layui-inline">
+									<table class="tg" style="undefined;table-layout: fixed; width: 693px">
+<colgroup>
+<col style="width: 143px">
+<col style="width: 188px">
+<col style="width: 146px">
+<col style="width: 216px">
+</colgroup>
+  <tr>
+    <th class="tg-c3ow" colspan="4"><span style="font-weight:bold">企业事业单位环境应急预案备案表</span></th>
+  </tr>
+  <tr>
+    <td class="tg-c3ow">单位名称</td>
+    <td class="tg-0pky"><input type="text"  style="border-style:none" placeholder="单位名称" class="layui-input" name="company_name" id="company_name" datatype="*" nullmsg="不能为空" errormsg="不能为空！" autocomplete="off" value="${(returnDatas.data.companyName)!''}"></td>
+    <td class="tg-c3ow">机构代码</td>
+    <td class="tg-0pky"><input type="text"  style="border-style:none" placeholder="填写结构名称" class="layui-input" name="company_code" id="company_code" datatype="*" nullmsg="不能为空" errormsg="不能为空！" autocomplete="off" value="${(returnDatas.data.companyCode)!''}"></td>
+  </tr>
+  <tr>
+    <td class="tg-c3ow">法定代表人</td>
+    <td class="tg-0pky"><input type="text"  style="border-style:none" placeholder="填写法定代表人" class="layui-input" name="legal_person" id="legal_person" datatype="*" nullmsg="不能为空" errormsg="不能为空！" autocomplete="off" value="${(returnDatas.data.corporationName)!''}"></td>
+    <td class="tg-c3ow">联系电话</td>
+    <td class="tg-0pky"><input type="text"  style="border-style:none" placeholder="填写法定联系电话" class="layui-input" name="legal_person_tel" id="legal_person_tel" datatype="*" nullmsg="不能为空" errormsg="不能为空！" autocomplete="off" value="${(returnDatas.data.legal_person_tel)!''}"></td>
+  </tr>
+  <tr>
+    <td class="tg-c3ow">联系人</td>
+    <td class="tg-0pky"><input type="text"  style="border-style:none" placeholder="填写法定联系人" class="layui-input" name="contacts_people" id="contacts_people" datatype="*" nullmsg="不能为空" errormsg="不能为空！" autocomplete="off" value="${(returnDatas.data.contactsName)!''}"></td>
+    <td class="tg-c3ow">联系电话</td>
+    <td class="tg-0pky"><input type="text"  style="border-style:none" placeholder="填写联系电话" class="layui-input" name="contacts_people_tel" id="contacts_people_tel" datatype="*" nullmsg="不能为空" errormsg="不能为空！" autocomplete="off" value="${(returnDatas.data.contacts_people_tel)!''}"></td>
+  </tr>
+  <tr>
+    <td class="tg-c3ow">传真</td>
+    <td class="tg-0pky"><input type="text"  style="border-style:none" placeholder="填写传真" class="layui-input" name="fax" id="fax" datatype="*" nullmsg="不能为空" errormsg="不能为空！" autocomplete="off" value="${(returnDatas.data.fax)!''}"></td>
+    <td class="tg-c3ow">电子邮件</td>
+    <td class="tg-0pky"><input type="text"  style="border-style:none" placeholder="填写电子邮件" class="layui-input" name="email" id="email" datatype="*" nullmsg="不能为空" errormsg="不能为空！" autocomplete="off" value="${(returnDatas.data.email)!''}"></td>
+  </tr>
+  <tr>
+    <td class="tg-c3ow">地址</td>
+    <td class="tg-0pky"><input type="text"  style="border-style:none" placeholder="填写地址" class="layui-input" name="address" id="address" datatype="*" nullmsg="不能为空" errormsg="不能为空！" autocomplete="off" value="${(returnDatas.data.address)!''}"></td>
+    <td class="tg-c3ow">经纬度（中心）</td>
+    <td class="tg-0pky"><input type="text"  style="border-style:none" placeholder="填写经纬度（中心）" class="layui-input" name="center" id="center" datatype="*" nullmsg="不能为空" errormsg="不能为空！" autocomplete="off" value="${(returnDatas.data.center)!''}"></td>
+  </tr>
+  <tr>
+    <td class="tg-c3ow">预案名称</td>
+    <td class="tg-0pky"><input type="text"  style="border-style:none" placeholder="填写预案名称" class="layui-input" name="plan_name" id="plan_name" datatype="*" nullmsg="不能为空" errormsg="不能为空！" autocomplete="off" value="${(returnDatas.data.plan_name)!''}"></td>
+    <td class="tg-c3ow">风险级别</td>
+    <td class="tg-0pky"><input type="text"  style="border-style:none" placeholder="填写风险级别" class="layui-input" name="risk_level" id="risk_level" datatype="*" nullmsg="不能为空" errormsg="不能为空！" autocomplete="off" value="${(returnDatas.data.risk_level)!''}"></td>
+  </tr>
+  <tr>
+    <td class="tg-0pky" colspan="4">本单位于 <input  type="text" style=" width: 100px" class="layui-input" name="signing_date" id="signing_date" onClick="WdatePicker()" datatype="*" nullmsg="不能为空" errormsg="不能为空！" autocomplete="off" value="${(returnDatas.data.signing_date)!''}">签署发布了突发环境事件应急预案，备案条件具备，备案文件齐全，现报送备案。<br><br>本单位承诺，本单位在办理备案中所提供的相关文件及其信息均经本单位确认真实，无虚假，且未隐瞒事实。<br><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;备案单位（公章）：</td>
+  </tr>
+  <tr>
+    <td class="tg-c3ow">预案签署人</td>
+    <td class="tg-0pky"><input type="text"  style="border-style:none" placeholder="填写风险级别" class="layui-input" name="signing_people" id="signing_people" datatype="*" nullmsg="不能为空" errormsg="不能为空！" autocomplete="off" value="${(returnDatas.data.signing_people)!''}"></td>
+    <td class="tg-c3ow">报送时间</td>
+    <td class="tg-0pky"><input type="text"  style="border-style:none" placeholder="填写报送时间" class="layui-input" name="delivery_time" id="delivery_time" onClick="WdatePicker()" datatype="*" nullmsg="不能为空" errormsg="不能为空！" autocomplete="off" value="${(returnDatas.data.delivery_time)!''}"></td>
+  </tr>
+  <tr>
+    <td class="tg-c3ow">预案备案文件目录</td>
+    <td class="tg-0pky" colspan="3">
+		<div class="layui-inline">
 															 <label class="layui-form-label">预案备案文件目录*</label> 
 																	<button type="button" onclick="add()" class="layui-btn">目录管理</button>
 															</div>
 															<div class="layui-inline">
 															<label class="layui-form-label"></label>
 																		   <div class="layui-inline col-lg-8">  
-																				 <table class="layui-table  <#if (returnDatas.data??) &&(returnDatas.data.filadjustment??) &&(returnDatas.data.filadjustment?size gt 0)><#else>off</#if>">
+																				 <table id = "test" class="layui-table  <#if (returnDatas.data??) &&(returnDatas.data.filadjustment??) &&(returnDatas.data.filadjustment?size gt 0)><#else>off</#if>">
 																					 	<colgroup>
 																				    		<col width="">
 																					    	<col width="160">
@@ -193,50 +150,29 @@
 																					</table>
 																			</div>
 															</div>
-														</div> 
-															
-														<div class="layui-form-item">
-														<label class="layui-form-label">备案意见*</label> 
-																<div class="layui-input-inline " style=" width: 600px"> 
-																<h4  style="margin-left: 20px">该单位的突发环境事件应急预案备案文件已于 </h4></br>
-																<input  type="text" style="margin-left: 20px; width: 100px" name="received_date" id="received_date" onClick="WdatePicker()" datatype="*" nullmsg="不能为空" errormsg="不能为空！" autocomplete="off" class="layui-input" value="${(returnDatas.data.received_date)!''}"></br>
-																<h4>收讫，文件齐全，予以备案。</h4>
-																 
-																 <h4 style="margin-left: 300px"> 备案受理部门（公章）：    </h4>
-																<input style="margin-left: 300px;width: 100px" type="text"  name="acceptance_date" id="acceptance_date" onClick="WdatePicker()" datatype="*" nullmsg="不能为空" errormsg="不能为空！" autocomplete="off" class="layui-input" value="${(returnDatas.data.acceptance_date)!''}">
-																</div>
-														</div> 
-														
-														<div class="layui-form-item">
-															<div class="layui-inline">
-																<label class="layui-form-label">备案编号*</label>
-																<div class="layui-input-inline " style=" width: 600px">  
-																	<input type="text" name="filing_number" id="filing_number" datatype="*" nullmsg="不能为空" errormsg="不能为空！" autocomplete="off" class="layui-input" value="${(returnDatas.data.filing_number)!''}">
-																</div>
-															</div>
-														</div>
-														<div class="layui-form-item">
-															<div class="layui-inline">
-																<label class="layui-form-label">报送单位*</label>
-																<div class="layui-input-inline " style=" width: 600px">  
-																	<input type="text" name="delivery_company" id="delivery_company" datatype="*" nullmsg="不能为空" errormsg="不能为空！" autocomplete="off" class="layui-input" value="${(returnDatas.data.delivery_company)!''}">
-																</div>
-															</div>
-														</div>
-														<div class="layui-form-item">
-															<div class="layui-inline">
-																 <label class="layui-form-label">受理部门负责人*</label>
-																<div class="layui-input-inline">  
-																	 <input type="text" name="acceptance_responsible_people" id="acceptance_responsible_people" datatype="*" nullmsg="不能为空" errormsg="不能为空！" autocomplete="off" class="layui-input" value="${(returnDatas.data.acceptance_responsible_people)!''}">
-																</div>
-															</div>
-															<div class="layui-inline">
-																 <label class="layui-form-label">经办人*</label>
-																<div class="layui-input-inline">  
-																	<input type="text" name="acceptance_Agent" id="acceptance_Agent" datatype="*" nullmsg="不能为空" errormsg="不能为空！" autocomplete="off" class="layui-input" value="${(returnDatas.data.acceptance_Agent)!''}">
-																</div>
-															</div>
-														</div> 
+	
+	</td>
+  </tr>
+  <tr>
+    <td class="tg-0pky">备案意见</td>
+    <td class="tg-0pky" colspan="3">该单位的突发环境事件应急预案备案文件已于 <input  type="text" name="received_date" id="received_date" onClick="WdatePicker()" datatype="*" nullmsg="不能为空" errormsg="不能为空！" autocomplete="off" value="${(returnDatas.data.received_date)!''}"> 收讫，文件齐全，予以备案。<br><br><br><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;备案受理部门（公章）&nbsp;&nbsp;&nbsp;<input style="margin-left: 300px;width: 100px" type="text"  name="acceptance_date" id="acceptance_date" onClick="WdatePicker()" datatype="*" nullmsg="不能为空" errormsg="不能为空！" autocomplete="off" value="${(returnDatas.data.acceptance_date)!''}"></td>
+  </tr>
+  <tr>
+    <td class="tg-c3ow">备案编号</td>
+    <td class="tg-0pky" colspan="3"><input type="text"  style="border-style:none" placeholder="填写备案编号" class="layui-input"  name="filing_number" id="filing_number" datatype="*" nullmsg="不能为空" errormsg="不能为空！" autocomplete="off" value="${(returnDatas.data.filing_number)!''}"></td>
+  </tr>
+  <tr>
+    <td class="tg-baqh">报送单位</td>
+    <td class="tg-0lax" colspan="3"><input type="text"  style="border-style:none" placeholder="填写报送单位" class="layui-input" name="delivery_company" id="delivery_company" datatype="*" nullmsg="不能为空" errormsg="不能为空！" autocomplete="off" value="${(returnDatas.data.delivery_company)!''}"></td>
+  </tr>
+  <tr>
+    <td class="tg-c3ow">受理部门负责人</td>
+    <td class="tg-0pky"><input type="text"  style="border-style:none" class="layui-input" placeholder="填写受理部门负责人" name="acceptance_responsible_people" id="acceptance_responsible_people" datatype="*" nullmsg="不能为空" errormsg="不能为空！" autocomplete="off" value="${(returnDatas.data.acceptance_responsible_people)!''}"></td>
+    <td class="tg-c3ow">经办人</td>
+    <td class="tg-0pky"><input type="text"  style="border-style:none" class="layui-input" placeholder="填写经办人" name="acceptance_Agent" id="acceptance_Agent" datatype="*" nullmsg="不能为空" errormsg="不能为空！" autocomplete="off" value="${(returnDatas.data.acceptance_Agent)!''}"></td>
+  </tr>
+</table> 
+<br>
 													<div class="layui-form-item change-submit">
 													<label class="layui-form-label"></label>
 															<div class="layui-inline">
@@ -271,7 +207,9 @@ function add(){
 }
 function del(_obj){
 	springrain.confirm("确认删除?",function(){
-		jQuery(_obj).parents("tr").remove();
+		var index=_obj.parentNode.rowIndex;
+	    var table = document.getElementById("test");
+	    table.deleteRow(index)
 	});
 }
 </script>
