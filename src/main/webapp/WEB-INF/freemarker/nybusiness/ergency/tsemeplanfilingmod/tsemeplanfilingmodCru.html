@@ -42,7 +42,7 @@
 							<div class="layui-main">
 						          <div id="LAY_preview" class="layui-my-form">
 						          				<header class="larry-personal-tit">
-													<span>添加环境应急预案变更备案表</span>
+													<span>环境应急预案变更备案表</span>
 												</header>
 												<div class="larry-personal-body clearfix changepwd">
 													<form id="validForm" class="layui-form <!--  -->"  method="post" action="${ctx}/tsemeplanfilingmod/update">
@@ -87,7 +87,7 @@
 														</div>
 															<div class="layui-form-item">
 															<div class="layui-inline">
-															 <label class="layui-form-label">预案备案文件目录*</label> 
+															 <label class="layui-form-label">补充调整内容*</label> 
 																	<button type="button" onclick="add()" class="layui-btn">目录管理</button>
 															</div>
 															<div class="layui-inline">
@@ -123,88 +123,20 @@
 																			</div>
 															</div>
 														</div> 		
+														<div class="layui-form-item">
+														<label class="layui-form-label">申请调整或补充理由*</label> 
+																<div class="layui-input-inline " style=" width: 600px"> 
+																<input  type="text" name="adjustment_reason" id="adjustment_reason"  datatype="*" nullmsg="不能为空" errormsg="不能为空！" autocomplete="off" class="layui-input" value="${(returnDatas.data.adjustment_reason)!''}"></br>
+																 <h4 style="margin-left: 300px">（单位公章）：    </h4>
+																<input style="margin-left: 400px;width: 100px" type="text"  name="apply_date" id="apply_date" onClick="WdatePicker()" datatype="*" nullmsg="不能为空" errormsg="不能为空！" autocomplete="off" class="layui-input" value="${(returnDatas.data.apply_date)!''}">
+																</div>
+														</div> 	
 															
 															
-															
-															
-															
-																	
-
-																	<div class="layui-form-item col-lg-6">
-																		<label class="layui-form-label">补充调整内容 关联到补充调整表*</label>
-																		<div class="layui-inline col-lg-5">  
-																			<input type="text" name="adjustment_id" id="adjustment_id" datatype="*" nullmsg="不能为空" errormsg="不能为空！" autocomplete="off" class="layui-input" value="${(returnDatas.data.adjustment_id)!''}">
-																		</div>
-																		<div class="layui-inline valid-info"></div>
-																	</div>
-																	<div class="layui-form-item col-lg-6">
-																		<label class="layui-form-label">申请调整或补充理由*</label>
-																		<div class="layui-inline col-lg-5">  
-																			<input type="text" name="adjustment_reason" id="adjustment_reason" datatype="*" nullmsg="不能为空" errormsg="不能为空！" autocomplete="off" class="layui-input" value="${(returnDatas.data.adjustment_reason)!''}">
-																		</div>
-																		<div class="layui-inline valid-info"></div>
-																	</div>
-																	<!--日期型-->
-															<!-- 		<div class="layui-form-item col-lg-6">
-																		<label class="layui-form-label">申请日期*</label>
-																		<div class="layui-inline col-lg-5">  
-																			<input type="datetime" name="apply_date" id="apply_date" datatype="*" nullmsg="不能为空" errormsg="不能为空！" autocomplete="off" class="layui-input" value="${(returnDatas.data.apply_date)!''}">
-																		</div>
-																		<div class="layui-inline valid-info"></div>
-																	</div>
-																	<div class="layui-form-item col-lg-6">
-																		<label class="layui-form-label">单位公章*</label>
-																		<div class="layui-inline col-lg-5">  
-																			<input type="text" name="company_seal" id="company_seal" datatype="*" nullmsg="不能为空" errormsg="不能为空！" autocomplete="off" class="layui-input" value="${(returnDatas.data.company_seal)!''}">
-																		</div>
-																		<div class="layui-inline valid-info"></div>
-																	</div>
-																	<div class="layui-form-item col-lg-6">
-																		<label class="layui-form-label">公司id*</label>
-																		<div class="layui-inline col-lg-5">  
-																			<input type="text" name="company_id" id="company_id" datatype="*" nullmsg="不能为空" errormsg="不能为空！" autocomplete="off" class="layui-input" value="${(returnDatas.data.company_id)!''}">
-																		</div>
-																		<div class="layui-inline valid-info"></div>
-																	</div>
-																	<div class="layui-form-item col-lg-6">
-																		<label class="layui-form-label">创建人*</label>
-																		<div class="layui-inline col-lg-5">  
-																			<input type="text" name="create_user" id="create_user" datatype="*" nullmsg="不能为空" errormsg="不能为空！" autocomplete="off" class="layui-input" value="${(returnDatas.data.create_user)!''}">
-																		</div>
-																		<div class="layui-inline valid-info"></div>
-																	</div>
-																	<div class="layui-form-item col-lg-6">
-																		<label class="layui-form-label">创建时间*</label>
-																		<div class="layui-inline col-lg-5">  
-																			<input type="text" name="create_time" id="create_time" datatype="*" nullmsg="不能为空" errormsg="不能为空！" autocomplete="off" class="layui-input" value="${(returnDatas.data.create_time)!''}">
-																		</div>
-																		<div class="layui-inline valid-info"></div>
-																	</div>
-																	<div class="layui-form-item col-lg-6">
-																		<label class="layui-form-label">bak1*</label>
-																		<div class="layui-inline col-lg-5">  
-																			<input type="text" name="bak1" id="bak1" datatype="*" nullmsg="不能为空" errormsg="不能为空！" autocomplete="off" class="layui-input" value="${(returnDatas.data.bak1)!''}">
-																		</div>
-																		<div class="layui-inline valid-info"></div>
-																	</div>
-																	<div class="layui-form-item col-lg-6">
-																		<label class="layui-form-label">bak2*</label>
-																		<div class="layui-inline col-lg-5">  
-																			<input type="text" name="bak2" id="bak2" datatype="*" nullmsg="不能为空" errormsg="不能为空！" autocomplete="off" class="layui-input" value="${(returnDatas.data.bak2)!''}">
-																		</div>
-																		<div class="layui-inline valid-info"></div>
-																	</div>
-																	<div class="layui-form-item col-lg-6">
-																		<label class="layui-form-label">bak3*</label>
-																		<div class="layui-inline col-lg-5">  
-																			<input type="text" name="bak3" id="bak3" datatype="*" nullmsg="不能为空" errormsg="不能为空！" autocomplete="off" class="layui-input" value="${(returnDatas.data.bak3)!''}">
-																		</div>
-																		<div class="layui-inline valid-info"></div>
-																	</div> -->
 													<div class="layui-form-item change-submit">
 													<label class="layui-form-label"></label>
 															<div class="layui-inline">
-																<button type="button" class="layui-btn" id="smtbtn">保存</button>
+																<button type="button" class="layui-btn" id="smtbtn" style="margin-left: 200px">保存</button>
 																<button type="button" class="layui-btn layui-btn-primary" id="rstbtn">重置</button>
 															</div>
 														</div>

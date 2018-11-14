@@ -40,28 +40,28 @@
 																	<div class="layui-form-item col-lg-6">
 																		<label class="layui-form-label">公司名称*</label>
 																		<div class="layui-inline col-lg-5">  
-																			<input type="text" name="company_name" id="company_name" datatype="*" nullmsg="不能为空" errormsg="不能为空！" autocomplete="off" class="layui-input" value="${(returnDatas.data.company_name)!''}">
+																			<input type="text" readonly name="company_name" id="company_name" datatype="*" nullmsg="不能为空" errormsg="不能为空！" autocomplete="off" class="layui-input" value="${(returnDatas.data.company_name)!''}">
 																		</div>
 																		<div class="layui-inline valid-info"></div>
 																	</div>
 																	<div class="layui-form-item col-lg-6">
 																		<label class="layui-form-label">联系*</label>
 																		<div class="layui-inline col-lg-5">  
-																			<input type="text" name="contact" id="contact" datatype="*" nullmsg="不能为空" errormsg="不能为空！" autocomplete="off" class="layui-input" value="${(returnDatas.data.contact)!''}">
+																			<input type="text" readonly name="contact" id="contact" datatype="*" nullmsg="不能为空" errormsg="不能为空！" autocomplete="off" class="layui-input" value="${(returnDatas.data.contact)!''}">
 																		</div>
 																		<div class="layui-inline valid-info"></div>
 																	</div>
 																	<div class="layui-form-item col-lg-6">
 																		<label class="layui-form-label">联系电话*</label>
 																		<div class="layui-inline col-lg-5">  
-																			<input type="text" name="contact_tel" id="contact_tel" datatype="*" nullmsg="不能为空" errormsg="不能为空！" autocomplete="off" class="layui-input" value="${(returnDatas.data.contact_tel)!''}">
+																			<input type="text" readonly name="contact_tel" id="contact_tel" datatype="*" nullmsg="不能为空" errormsg="不能为空！" autocomplete="off" class="layui-input" value="${(returnDatas.data.contact_tel)!''}">
 																		</div>
 																		<div class="layui-inline valid-info"></div>
 																	</div>
 																	<div class="layui-form-item col-lg-6">
 																		<label class="layui-form-label">备案编号*</label>
 																		<div class="layui-inline col-lg-5">  
-																			<input type="text" name="beian_number" id="beian_number" datatype="*" nullmsg="不能为空" errormsg="不能为空！" autocomplete="off" class="layui-input" value="${(returnDatas.data.beian_number)!''}">
+																			<input type="text" readonly name="beian_number" id="beian_number" datatype="*" nullmsg="不能为空" errormsg="不能为空！" autocomplete="off" class="layui-input" value="${(returnDatas.data.beian_number)!''}">
 																		</div>
 																		<div class="layui-inline valid-info"></div>
 																	</div>
@@ -103,20 +103,19 @@
 																					</table>
 																			</div>
 															</div>
-														</div> 		
+														</div>
 														<div class="layui-form-item">
 														<label class="layui-form-label">申请调整或补充理由*</label> 
 																<div class="layui-input-inline " style=" width: 600px"> 
-																<input  type="text" name="adjustment_reason" id="adjustment_reason"  datatype="*" nullmsg="不能为空" errormsg="不能为空！" autocomplete="off" class="layui-input" value="${(returnDatas.data.adjustment_reason)!''}"></br>
+																<input  type="text" readonly name="adjustment_reason" id="adjustment_reason"  datatype="*" nullmsg="不能为空" errormsg="不能为空！" autocomplete="off" class="layui-input" value="${(returnDatas.data.adjustment_reason)!''}"></br>
 																 <h4 style="margin-left: 300px">（单位公章）：    </h4>
-																<input style="margin-left: 400px;width: 100px" type="text"  name="apply_date" id="apply_date" onClick="WdatePicker()" datatype="*" nullmsg="不能为空" errormsg="不能为空！" autocomplete="off" class="layui-input" value="${(returnDatas.data.apply_date)!''}">
+																<input style="margin-left: 400px;width: 100px" type="text"  readonly name="apply_date" id="apply_date" onClick="WdatePicker()" datatype="*" nullmsg="不能为空" errormsg="不能为空！" autocomplete="off" class="layui-input" value="${(returnDatas.data.apply_date)!''}">
 																</div>
-														</div>
-														
+														</div> 		
 													<div class="layui-form-item change-submit">
 													<label class="layui-form-label"></label>
 															<div class="layui-inline">
-																<button type="button" class="layui-btn" id="smtbtn" style="margin-left: 200px">保存</button>
+																<button type="button" class="layui-btn" id="smtbtn">保存</button>
 																<button type="button" class="layui-btn layui-btn-primary" id="rstbtn">重置</button>
 															</div>
 														</div>

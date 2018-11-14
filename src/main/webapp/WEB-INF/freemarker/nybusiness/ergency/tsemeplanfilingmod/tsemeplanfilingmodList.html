@@ -1,6 +1,20 @@
 <#ftl output_format="HTML" auto_esc=true>
 <@h.commonHead title="后台管理系统" keywords="开源,永久免费" description="springrain开源系统管理后台"/>
 <script src="${ctx}/js/custom/common/form.js"></script>
+<script src="${ctx}/js/validform/validform.min.js"></script>
+<link rel="stylesheet" href="${ctx}/js/validform/validform.css" media="all">
+<script type="text/javascript" src="${ctx}/js/My97DatePicker/WdatePicker.js"></script>
+<link rel="stylesheet" href="${ctx}/js/My97DatePicker/skin/default/datepicker.css" />
+<script type="text/javascript" src="${ctx}/js/ztree/js/jquery.ztree.all-3.5.js"></script>
+<script type="text/javascript" src="${ctx}/js/ztree/js/ztreeUtils.js"></script>
+<script type="text/javascript" src="${ctx}/js/select2/js/select2.full.min.js"></script>
+<script type="text/javascript" src="${ctx}/js/select2/js/i18n/zh-CN.js"></script>
+<script type="text/javascript" src="${ctx}/js/custom/common/select2remote.js"></script>
+<link rel="stylesheet" href="${ctx}/js/select2/css/select2.min.css" type="text/css">
+<link rel="stylesheet" href="${ctx}/js/ztree/css/zTreeStyle/zTreeStyle.css" type="text/css">
+<link rel="stylesheet" href="${ctx}/css/custom/common/myztree.css" type="text/css">
+<script type="text/javascript" src="${ctx}/js/jquery/jquery.min.js"></script>
+<script type="text/javascript" src="${ctx}/js/jquery/jquery-1.12.4.js"></script>
 
 <script>
 	var _state;
@@ -20,6 +34,7 @@
 	function del(_id){
 		springrain.mydelete(_id,"${ctx}/tsemeplanfilingmod/delete");
 	}
+	
 </script>
 
 </head>

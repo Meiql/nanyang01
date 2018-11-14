@@ -110,7 +110,7 @@
 														<th id="th_meaterial_name" rowspan="2">物资名称</th>
 														<th id="th_quantity" rowspan="2">数量</th>
 														<th id="th_unit" rowspan="2">单位</th>
-														<th id="" colspan="2">设备来源</th>
+														<th id="th_in_Equipment" rowspan="2">设备来源</th>
 														<th id="th_outside_company" rowspan="2">外部供应单位名称</th>
 														<th id="" colspan="2">外部供应单位联系方式</th>
 														
@@ -122,8 +122,7 @@
 														<th id="th_bak3" >bak3</th> -->
 												</tr> 
 												<tr>
-														<th id="th_in_Equipment" >厂内自备</th>
-														<th id="th_out_equipment" >外部供应</th>
+														
 														<th id="th_outside_people" >主要联系人</th>
 														<th id="th_outside_tel" >联系方式</th>
 												</tr>
@@ -160,11 +159,14 @@
 															${(_data.unit)!''}
 														</td>
 														<td >
-															${(_data.in_Equipment)!''}
+															
+															<#if (_data.in_Equipment)?? && (_data.in_Equipment=="1")>
+																	厂内设备
+																<#elseif (_data.in_Equipment)?? && (_data.in_Equipment=="2")>
+																	外部供应
+															</#if>
 														</td>
-														<td >
-															${(_data.out_equipment)!''}
-														</td>
+													
 														<td >
 															${(_data.outside_company)!''}
 														</td>
