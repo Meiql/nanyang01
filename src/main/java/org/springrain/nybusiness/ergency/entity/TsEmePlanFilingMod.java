@@ -1,8 +1,11 @@
 package org.springrain.nybusiness.ergency.entity;
 
 import java.text.ParseException;
+import java.util.List;
+
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.builder.EqualsBuilder;
@@ -45,6 +48,9 @@ public class TsEmePlanFilingMod  extends BaseEntity {
 	//public static final String FORMAT_APPLY_DATE = DateUtils.DATETIME_FORMAT;
 	
 	//columns START
+	@Transient
+	private List<TsEmePlanFilAdjustment> filadjustment;
+	
 	/**
 	 * 主键id
 	 */
@@ -108,7 +114,14 @@ public class TsEmePlanFilingMod  extends BaseEntity {
 	//columns END 数据库字段结束
 	
 	//concstructor
-
+	@Transient
+	public List<TsEmePlanFilAdjustment> getFiladjustment() {
+		return filadjustment;
+	}
+	@Transient
+	public void setFiladjustment(List<TsEmePlanFilAdjustment> filadjustment) {
+		this.filadjustment = filadjustment;
+	}
 	public TsEmePlanFilingMod(){
 	}
 

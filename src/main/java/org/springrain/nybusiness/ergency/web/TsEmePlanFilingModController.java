@@ -4,6 +4,7 @@ import java.io.File;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
+import java.util.UUID;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
@@ -18,8 +19,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springrain.nybusiness.company.entity.TsCompanyInfo;
 import org.springrain.nybusiness.company.service.ITsCompanyInfoService;
+import org.springrain.nybusiness.ergency.entity.TsEmePlanFilAdjustment;
 import org.springrain.nybusiness.ergency.entity.TsEmePlanFiling;
 import org.springrain.nybusiness.ergency.entity.TsEmePlanFilingMod;
+import org.springrain.nybusiness.ergency.service.ITsEmePlanFilAdjustmentService;
 import org.springrain.nybusiness.ergency.service.ITsEmePlanFilingModService;
 import org.springrain.frame.common.SessionUser;
 import org.springrain.frame.controller.BaseController;
@@ -42,6 +45,8 @@ import org.springrain.frame.util.ReturnDatas;
 public class TsEmePlanFilingModController  extends BaseController {
 	@Resource
 	private ITsEmePlanFilingModService tsEmePlanFilingModService;
+	@Resource
+	private ITsEmePlanFilAdjustmentService tsEmePlanFilAdjustmentService;
 	@Resource
 	private ITsCompanyInfoService tsCompanyInfoService;
 	private String listurl="/nybusiness/ergency/tsemeplanfilingmod/tsemeplanfilingmodList";
@@ -134,7 +139,22 @@ public class TsEmePlanFilingModController  extends BaseController {
 		return returnObject;
 		
 	}
-	
+	/**
+	 * 修改时查看数据
+	 */
+	@RequestMapping(value = "/look/jsons")
+	@ResponseBody      
+	public ReturnDatas lookjsons(Model model,HttpServletRequest request,HttpServletResponse response) throws Exception {
+		ReturnDatas returnObject = ReturnDatas.getSuccessReturnDatas();
+		java.lang.String id=request.getParameter("id");
+		if (StringUtils.isNotBlank(id)) {
+			TsEmePlanFilingMod tsEmePlanFilingMod = tsEmePlanFilingModService.findUserByIfindTsEmePlanFilingById(id);
+			returnObject.setData(tsEmePlanFilingMod);
+		} else {
+			returnObject.setStatus(ReturnDatas.ERROR);
+		}
+		return returnObject;
+	}
 	
 	/**
 	 * 新增/修改 操作吗,返回json格式数据
@@ -148,9 +168,49 @@ public class TsEmePlanFilingModController  extends BaseController {
 		try {
 		
 			java.lang.String id =tsEmePlanFilingMod.getId();
+			String[]  adjustment_catalog= request.getParameterValues("adjustment_catalog");
+			String[]  adjustment_desc= request.getParameterValues("adjustment_desc");
+			//String[] adjustment_id = request.getParameterValues("adjustment_id");
+			
 			if(StringUtils.isBlank(id)){
-			  tsEmePlanFilingMod.setId(null);
-			}
+				  tsEmePlanFilingMod.setId(null);
+				}
+			//adjustment_id
+			//新增
+			if(StringUtils.isBlank(id)){
+				tsEmePlanFilingMod.setId(null);
+				  String uuid = UUID.randomUUID().toString();
+				  tsEmePlanFilingMod.setAdjustment_id(uuid);
+					if(adjustment_catalog!=null){
+						TsEmePlanFilAdjustment adjustment=null;
+							for(int i=0;i<adjustment_catalog.length;i++){
+								adjustment=new TsEmePlanFilAdjustment();
+								adjustment.setId(null);
+								adjustment.setAdjustment_id(uuid);
+								adjustment.setAdjustment_catalog(adjustment_catalog[i]);
+								adjustment.setAdjustment_desc(adjustment_desc[i]);
+								tsEmePlanFilAdjustmentService.saveorupdate(adjustment);
+							}
+					}
+				
+				}else {
+					java.lang.String adjustment_id = tsEmePlanFilingMod.getAdjustment_id();
+					tsEmePlanFilAdjustmentService.deleteByAdjustmentId(adjustment_id);
+					TsEmePlanFilAdjustment adjustment=null;
+					for(int i=0;i<adjustment_catalog.length;i++){
+						adjustment=new TsEmePlanFilAdjustment();
+						adjustment.setId(null);
+						adjustment.setAdjustment_id(adjustment_id);
+						adjustment.setAdjustment_catalog(adjustment_catalog[i]);
+						adjustment.setAdjustment_desc(adjustment_desc[i]);
+						tsEmePlanFilAdjustmentService.saveorupdate(adjustment);
+					}
+				}
+			/**
+			 * 1:已保存 2：审批中  3：已通过 4：未通过
+			 */
+			tsEmePlanFilingMod.setBak1("1");
+			
 			if(StringUtils.isBlank(tsEmePlanFilingMod.getCreate_user())){
 				tsEmePlanFilingMod.setCreate_user(SessionUser.getUserId());
 			}
@@ -186,9 +246,38 @@ public class TsEmePlanFilingModController  extends BaseController {
 	 */
 	@RequestMapping(value = "/update/pre")
 	public String updatepre(Model model,HttpServletRequest request,HttpServletResponse response)  throws Exception{
-		ReturnDatas returnObject = lookjson(model, request, response);
+		ReturnDatas returnObject = lookjsons(model, request, response);
 		model.addAttribute(GlobalStatic.returnDatas, returnObject);
 		return "/nybusiness/ergency/tsemeplanfilingmod/tsemeplanfilingmodCru2";
+	}
+	
+	/**
+	 * 上报操作
+	 */
+	@RequestMapping(value="/ajax/approv/json")
+	@ResponseBody      
+	public  ReturnDatas approv(HttpServletRequest request) throws Exception {
+		ReturnDatas returnDatas = ReturnDatas.getSuccessReturnDatas();
+			// 执行删除
+		try {
+		java.lang.String id=request.getParameter("id");
+		if(StringUtils.isNotBlank(id)){
+			tsEmePlanFilAdjustmentService.updateTsEmePlanFilingMod(id);
+			} 
+		returnDatas.setMessage("已上报");
+		} catch (Exception e) {
+			logger.error(e.getMessage(), e);
+		}
+		return returnDatas;
+	}
+	/**
+	 * 进入详情页面
+	 */
+	@RequestMapping(value = "/detail")
+	public String updatepredetail(Model model,HttpServletRequest request,HttpServletResponse response)  throws Exception{
+		ReturnDatas returnObject = lookjsons(model, request, response);
+		model.addAttribute(GlobalStatic.returnDatas, returnObject);
+		return "/nybusiness/ergency/tsemeplanfilingmod/tsemeplanfilingmodCru3";
 	}
 	
 	/**

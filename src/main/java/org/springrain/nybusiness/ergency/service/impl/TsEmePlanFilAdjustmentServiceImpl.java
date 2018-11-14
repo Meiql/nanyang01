@@ -3,11 +3,16 @@ package org.springrain.nybusiness.ergency.service.impl;
 import java.io.File;
 import java.util.List;
 
+import javax.annotation.Resource;
+
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.stereotype.Service;
 import org.springrain.nybusiness.ergency.entity.TsEmePlanFilAdjustment;
+import org.springrain.nybusiness.ergency.entity.TsEmePlanFiling;
+import org.springrain.nybusiness.ergency.entity.TsEmePlanFilingMod;
 import org.springrain.nybusiness.ergency.service.ITsEmePlanFilAdjustmentService;
+import org.springrain.nybusiness.ergency.service.ITsEmePlanFilingModService;
 import org.springrain.frame.entity.IBaseEntity;
 import org.springrain.frame.util.Finder;
 import org.springrain.frame.util.GlobalStatic;
@@ -28,7 +33,8 @@ import org.springrain.system.service.BaseSpringrainServiceImpl;
  */
 @Service("tsEmePlanFilAdjustmentService")
 public class TsEmePlanFilAdjustmentServiceImpl extends BaseSpringrainServiceImpl implements ITsEmePlanFilAdjustmentService {
-
+	@Resource
+	private ITsEmePlanFilingModService tsEmePlanFilingModService;
    
     @Override
 	public String  save(Object entity ) throws Exception{
@@ -99,6 +105,11 @@ public class TsEmePlanFilAdjustmentServiceImpl extends BaseSpringrainServiceImpl
 			 return super.findDataExportExcel(finder,ftlurl,page,clazz,o);
 		}
 
-		
+	@Override
+	public void updateTsEmePlanFilingMod(String id)throws Exception {
+		TsEmePlanFilingMod tsEmePlanFilingMod = super.findById(id, TsEmePlanFilingMod.class);
+		tsEmePlanFilingMod.setBak1("2");
+			super.update(tsEmePlanFilingMod);
+		}
 		
 }

@@ -3,10 +3,15 @@ package org.springrain.nybusiness.ergency.service.impl;
 import java.io.File;
 import java.util.List;
 
+import javax.annotation.Resource;
+
 import org.apache.commons.collections.CollectionUtils;
 import org.springframework.stereotype.Service;
 import org.springrain.nybusiness.company.entity.TsCompanyInfo;
+import org.springrain.nybusiness.ergency.entity.TsEmePlanFilAdjustment;
+import org.springrain.nybusiness.ergency.entity.TsEmePlanFiling;
 import org.springrain.nybusiness.ergency.entity.TsEmePlanFilingMod;
+import org.springrain.nybusiness.ergency.service.ITsEmePlanFilAdjustmentService;
 import org.springrain.nybusiness.ergency.service.ITsEmePlanFilingModService;
 import org.springrain.frame.entity.IBaseEntity;
 import org.springrain.frame.util.Finder;
@@ -24,7 +29,8 @@ import org.springrain.system.service.BaseSpringrainServiceImpl;
 @Service("tsEmePlanFilingModService")
 public class TsEmePlanFilingModServiceImpl extends BaseSpringrainServiceImpl implements ITsEmePlanFilingModService {
 
-   
+	@Resource
+	private ITsEmePlanFilAdjustmentService tsEmePlanFilAdjustmentService;
     @Override
 	public String  save(Object entity ) throws Exception{
 	      TsEmePlanFilingMod tsEmePlanFilingMod=(TsEmePlanFilingMod) entity;
@@ -94,4 +100,14 @@ public class TsEmePlanFilingModServiceImpl extends BaseSpringrainServiceImpl imp
    	public TsCompanyInfo findCompanyInfoById(Object id) throws Exception{
    	 return super.findById(id,TsCompanyInfo.class);
    	}
+    @Override
+	public TsEmePlanFilingMod findUserByIfindTsEmePlanFilingById(Object id) throws Exception {
+    	TsEmePlanFilingMod u=super.findById(id, TsEmePlanFilingMod.class);
+		String adjustment_id = u.getAdjustment_id();
+		//获取目录
+		List<TsEmePlanFilAdjustment> adjustments = tsEmePlanFilAdjustmentService.findAdjustmentByFilId(adjustment_id);
+		u.setFiladjustment(adjustments);
+		return u;
+	}
+    
 }

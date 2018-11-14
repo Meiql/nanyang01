@@ -246,7 +246,7 @@ public class TsEmePlanFilingController  extends BaseController {
 	 * 进入详情页面
 	 */
 	@RequestMapping(value = "/detail")
-	public String updatepre(Model model,HttpServletRequest request,HttpServletResponse response)  throws Exception{
+	public String updatepredetail(Model model,HttpServletRequest request,HttpServletResponse response)  throws Exception{
 		ReturnDatas returnObject = lookjsons(model, request, response);
 		model.addAttribute(GlobalStatic.returnDatas, returnObject);
 		return "/nybusiness/ergency/tsemeplanfiling/tsemeplanfilingCru3";
@@ -255,7 +255,7 @@ public class TsEmePlanFilingController  extends BaseController {
 	 * 进入修改页面  
 	 */
 	@RequestMapping(value = "/update/pre")
-	public String updatepredetail(Model model,HttpServletRequest request,HttpServletResponse response)  throws Exception{
+	public String updatepre(Model model,HttpServletRequest request,HttpServletResponse response)  throws Exception{
 		ReturnDatas returnObject = lookjsons(model, request, response);
 		model.addAttribute(GlobalStatic.returnDatas, returnObject);
 		return "/nybusiness/ergency/tsemeplanfiling/tsemeplanfilingCru2";

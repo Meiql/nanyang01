@@ -33,4 +33,5 @@ public interface ITsEmePlanFilingModService extends IBaseSpringrainService {
 	List<TsEmePlanFilingMod> finderTsMaillistForList(Page page,TsEmePlanFilingMod tsEmePlanFilingMod,List<String> listCompany)throws Exception;
 	
 	public TsCompanyInfo findCompanyInfoById(Object id) throws Exception;
+	TsEmePlanFilingMod findUserByIfindTsEmePlanFilingById(Object id) throws Exception;
 }
