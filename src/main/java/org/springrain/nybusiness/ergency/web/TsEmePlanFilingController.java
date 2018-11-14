@@ -208,7 +208,7 @@ public class TsEmePlanFilingController  extends BaseController {
 					}
 				}
 			/**
-			 * 1:已保存 2：审批中  3：通过 4：不通过
+			 * 1:已保存 2：审批中  3：已通过 4：未通过
 			 */
 			tsEmePlanFiling.setBak1("1");
 			if(StringUtils.isBlank(tsEmePlanFiling.getCreate_user())){
@@ -243,10 +243,19 @@ public class TsEmePlanFilingController  extends BaseController {
 	}
 	
 	/**
+	 * 进入详情页面
+	 */
+	@RequestMapping(value = "/detail")
+	public String updatepre(Model model,HttpServletRequest request,HttpServletResponse response)  throws Exception{
+		ReturnDatas returnObject = lookjsons(model, request, response);
+		model.addAttribute(GlobalStatic.returnDatas, returnObject);
+		return "/nybusiness/ergency/tsemeplanfiling/tsemeplanfilingCru3";
+	}
+	/**
 	 * 进入修改页面  
 	 */
 	@RequestMapping(value = "/update/pre")
-	public String updatepre(Model model,HttpServletRequest request,HttpServletResponse response)  throws Exception{
+	public String updatepredetail(Model model,HttpServletRequest request,HttpServletResponse response)  throws Exception{
 		ReturnDatas returnObject = lookjsons(model, request, response);
 		model.addAttribute(GlobalStatic.returnDatas, returnObject);
 		return "/nybusiness/ergency/tsemeplanfiling/tsemeplanfilingCru2";
@@ -256,23 +265,21 @@ public class TsEmePlanFilingController  extends BaseController {
 	/**
 	 * 上报操作
 	 */
-	@RequestMapping(value="/approv")
+	@RequestMapping(value="/ajax/approv/json")
 	@ResponseBody      
 	public  ReturnDatas approv(HttpServletRequest request) throws Exception {
-
+		ReturnDatas returnDatas = ReturnDatas.getSuccessReturnDatas();
 			// 执行删除
 		try {
 		java.lang.String id=request.getParameter("id");
 		if(StringUtils.isNotBlank(id)){
 				tsEmePlanFilingService.updateTsEmePlanFiling(id);
-				return new ReturnDatas(ReturnDatas.SUCCESS,MessageUtils.UPDATE_SUCCESS);
-			} else {
-				return new ReturnDatas(ReturnDatas.WARNING,MessageUtils.UPDATE_SUCCESS);
-			}
+			} 
+		returnDatas.setMessage("已上报");
 		} catch (Exception e) {
 			logger.error(e.getMessage(), e);
 		}
-		return new ReturnDatas(ReturnDatas.WARNING, MessageUtils.DELETE_WARNING);
+		return returnDatas;
 	}
 	
 	/**

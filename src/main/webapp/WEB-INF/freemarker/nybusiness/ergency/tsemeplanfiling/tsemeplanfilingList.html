@@ -33,35 +33,34 @@
 	function del(_id){
 		springrain.mydelete(_id,"${ctx}/tsemeplanfiling/delete");
 	};
-	function approv(_id){
-		alert(_id);
-		/*  springrain.mydelete(_id,"${ctx}/tsemeplanfiling/approv");
-		alert("2");  */
-		/* 	  jQuery.ajax({
-				  url:"${ctx}/tsemeplanfiling/approv",
-				  type:"post",
-				  data:{"id":_id},
-				  dataType:"json",
-				  async:false,
-				  success:function(data){
-					  if(data!=null&&"success"==data.status){
-						 alert("000");
-					  }else{
-						  alert("111"); 
-					  }
-				  }
-			  });
-			  */
-			  
-		$.ajax({
-			   type: "POST",
-			   url: "${ctx}/tsemeplanfiling/approv",
-			   data:{ id:_id },
-			   dataType: "json",
-			   async:false
-			  });
 	
-	}
+	function approv(_id) {
+		 $.ajax({
+			url :"${ctx}/tsemeplanfiling/ajax/approv/json", 
+		    type :"post",
+		    data:{"id":_id},
+			dataType : "json",
+			success:function(ret){
+				debugger
+				if(ret.status=="success"){
+					
+					layer.alert(ret.message, {icon: 1},function(){
+							layer.closeAll();
+// 							window.location.href="${ctx}/tsemeplanfiling/list?springraintoken="+springraintoken
+		});
+					
+				}else{
+					layer.alert(ret.message,{icon: 5});
+				}
+				window.location.reload();
+			},
+			error:function(){
+				layer.closeAll('loading')
+				layer.alert('sorry,遇到问题添加失败了 ...',{icon: 5});
+			}
+		});  
+} 
+
 </script>
 
 </head>
@@ -159,36 +158,20 @@
 												  <!--first_end_no_export-->
 														<th id="th_company_name" >单位名称</th>
 														<th id="th_company_code" >机构代码</th>
-														<th id="th_legal_person" >法定代表人</th>
-														<th id="th_legal_person_tel" >法定代表人联系电话</th>
+														<th id="th_legal_person" >法人</th>
+														<th id="th_legal_person_tel" >法人电话</th>
 														<th id="th_contacts_people" >联系人</th>
-														<th id="th_contacts_people_tel" >联系人联系电话</th>
-														<th id="th_fax" >传真</th>
-														<th id="th_email" >电子邮件</th>
+														<th id="th_contacts_people_tel" >联系人电话</th>
+														<!-- <th id="th_fax" >传真</th>
+														<th id="th_email" >电子邮件</th> -->
 														<th id="th_address" >地址</th>
-														<th id="th_center" >经纬度</th>
+														<!-- <th id="th_center" >经纬度</th> -->
 														<th id="th_plan_name" >预案名称</th>
 														<th id="th_risk_level" >风险级别</th>
-														<!-- <th id="th_signing_date" >签署日期 配合内容使用</th>
-														<th id="th_signing_desc" >签署内容公章等</th>
-														<th id="th_signing_people" >预案签署人</th>
-														<th id="th_delivery_time" >报送时间</th>
-														<th id="th_file_directory" >预案备案文件目录</th>
-														<th id="th_filing_opinion" >备案意见</th> -->
 														<th id="th_filing_number" >备案编号</th>
 														<th id="th_delivery_company" >报送单位</th>
 														<th id="th_bak1" >审批状态</th>
-														<!-- <th id="th_acceptance_responsible_people" >受理部门负责人</th>
-														<th id="th_acceptance_Agent" >经办人</th>
-														<th id="th_received_date" >收讫日期配合备案意见使用</th>
 														
-														<th id="th_acceptance_date" >受理日期配合备案意见使用</th> -->
-														<!-- <th id="th_company_id" >公司id</th>
-														<th id="th_create_user" >创建者</th>
-														<th id="th_create_time" >创建时间</th>
-														<th id="th_bak1" >bak1</th>
-														<th id="th_bak2" >bak2</th>
-														<th id="th_bak3" >bak3</th> -->
 												</tr> 
 											</thead>
 										  <!--first_end_export-->
@@ -203,16 +186,19 @@
 														</td>
 														<td>
 															<@shiro.hasPermission name="/tsemeplanfiling/update" >
+															<#if (_data.bak1)?? && (_data.bak1=='1')>
 								                           		 <a href="#" data-action="${ctx}/tsemeplanfiling/update/pre?id=${(_data.id)!''}" class="layui-btn layui-btn-normal layui-btn-mini">编辑</a>
+								                            </#if>
 								                            </@shiro.hasPermission>
 								                            <@shiro.hasPermission name="/tsemeplanfiling/delete" >
+								                            <#if (_data.bak1)?? && (_data.bak1=='1')>
 								                            	<a href="javascript:del('${(_data.id)!''}')" class="layui-btn layui-btn-danger layui-btn-mini ajax-delete">删除</a>
+								                            </#if>
 								                            </@shiro.hasPermission>
-								                          
-								                            	<a href="javascript:approv('${(_data.id)!''}')" class="layui-btn layui-btn-normal layui-btn-mini">上报</a>
-								                            	<a href="javascript:approv('${(_data.id)!''}')" class="layui-btn layui-btn-normal layui-btn-mini">详情</a>
-								                            	
-								                           
+								                          	<#if (_data.bak1)?? && (_data.bak1=='1')>
+								                            	<a href="#"  class="layui-btn layui-btn-normal layui-btn-mini"  onclick="approv('${(_data.id)!''}')" >上报</a>
+								                           	</#if>
+								                           	<a href="#"  data-action="${ctx}/tsemeplanfiling/detail?id=${(_data.id)!''}" class="layui-btn layui-btn-normal layui-btn-mini" >详情</a>
 														</td>
 														<!--end_no_export-->
 														<td >
@@ -233,44 +219,25 @@
 														<td >
 															${(_data.contacts_people_tel)!''}
 														</td>
-														<td >
+														<!-- <td >
 															${(_data.fax)!''}
 														</td>
 														<td >
 															${(_data.email)!''}
-														</td>
+														</td> -->
 														<td >
 															${(_data.address)!''}
 														</td>
-														<td >
+														<!-- <td >
 															${(_data.center)!''}
-														</td>
+														</td> -->
 														<td >
 															${(_data.plan_name)!''}
 														</td>
 														<td >
 															${(_data.risk_level)!''}
 														</td>
-														<!-- <td >
-															日期型
-														${((_data.signing_date)?string('yyyy-MM-dd'))!''}
-														</td> 
-														<td >
-															${(_data.signing_desc)!''}
-														</td>
-														<td >
-															${(_data.signing_people)!''}
-														</td>
-														<td >
-														
-														${((_data.delivery_time)?string('yyyy-MM-dd'))!''}
-														</td>
-														<td >
-															${(_data.file_directory)!''}
-														</td>
-														<td >
-															${(_data.filing_opinion)!''}
-														</td>-->
+													
 														<td >
 															${(_data.filing_number)!''}
 														</td>
@@ -284,45 +251,12 @@
 															<#elseif (_data.bak1)?? && (_data.bak1=="2")>
 																	审批中
 															<#elseif (_data.bak1)?? && (_data.bak1=="3")>
-																	通过
+																	已通过
 															<#elseif (_data.bak1)?? && (_data.bak1=="4")>
-																	不通过
+																	未通过
 															</#if>
 														</td>
 
-													<!-- 	<td >
-															${(_data.acceptance_responsible_people)!''}
-														</td>
-														<td >
-															${(_data.acceptance_Agent)!''}
-														</td>
-														<td >
-															
-														${((_data.received_date)?string('yyyy-MM-dd'))!''}
-														</td>
-														
-														<td >
-															
-														${((_data.acceptance_date)?string('yyyy-MM-dd'))!''}
-														</td> -->
-<!-- 														<td >
-															${(_data.company_id)!''}
-														</td>
-														<td >
-															${(_data.create_user)!''}
-														</td>
-														<td >
-															${(_data.create_time)!''}
-														</td>
-														<td >
-															${(_data.bak1)!''}
-														</td>
-														<td >
-															${(_data.bak2)!''}
-														</td>
-														<td >
-															${(_data.bak3)!''}
-														</td> -->
 													</tr>
 												</#list>
 											 </#if>
