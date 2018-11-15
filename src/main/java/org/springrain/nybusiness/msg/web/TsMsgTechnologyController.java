@@ -74,6 +74,7 @@ public class TsMsgTechnologyController  extends BaseController {
 		ReturnDatas returnObject = ReturnDatas.getSuccessReturnDatas();
 		// ==构造分页请求
 		Page page = newPage(request);
+		page.setPageSize(25);
 		// ==执行分页查询
 		List<TsMsgTechnology> datas=tsMsgTechnologyService.findListDataByFinder(null,page,TsMsgTechnology.class,tsMsgTechnology);
 			returnObject.setQueryBean(tsMsgTechnology);
