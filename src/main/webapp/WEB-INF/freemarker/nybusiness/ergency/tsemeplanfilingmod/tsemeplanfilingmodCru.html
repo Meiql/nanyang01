@@ -13,6 +13,15 @@
 <link rel="stylesheet" href="${ctx}/js/select2/css/select2.min.css" type="text/css">
 <link rel="stylesheet" href="${ctx}/js/ztree/css/zTreeStyle/zTreeStyle.css" type="text/css">
 <link rel="stylesheet" href="${ctx}/css/custom/common/myztree.css" type="text/css">
+<style type="text/css">
+.tg  {border-collapse:collapse;border-spacing:0;}
+.tg td{font-family:Arial, sans-serif;font-size:14px;padding:10px 5px;border-style:solid;border-width:1px;overflow:hidden;word-break:normal;border-color:black;}
+.tg th{font-family:Arial, sans-serif;font-size:14px;font-weight:normal;padding:10px 5px;border-style:solid;border-width:1px;overflow:hidden;word-break:normal;border-color:black;}
+.tg .tg-baqh{text-align:center;vertical-align:top}
+.tg .tg-c3ow{border-color:inherit;text-align:center;vertical-align:top}
+.tg .tg-0pky{border-color:inherit;text-align:left;vertical-align:top}
+.tg .tg-0lax{text-align:left;vertical-align:top}
+</style>
 <script>
 	 jQuery(function(){
 		 /*
@@ -26,7 +35,7 @@
 </head>
 <body>
 	<div class="layui-layout layui-layout-admin">
-		<@h.naviHeader /><@h.leftMenu />
+				<@h.naviHeader /><@h.leftMenu />
 		<!-- 主体内容开始 -->
 			<div class="layui-tab layui-tab-brief">
 				<ul class="layui-tab-title site-demo-title">
@@ -36,70 +45,56 @@
 				        <button type="button" onclick="history.go(-1)" class="layui-btn layui-btn-small" style="margin-top:8px;"><i class="layui-icon layui-icon-specil">&#xe603;</i>返回</button>
 		             </li>
 	       		</ul>
-				
-				<div class="layui-body layui-tab-content site-demo-body">
+	       		
+	       		
+				<div class="layui-body layui-tab-content site-demo-body" align="center">
 					<div class="layui-tab-item layui-show">
 							<div class="layui-main">
 						          <div id="LAY_preview" class="layui-my-form">
-						          				<header class="larry-personal-tit">
-													<span>环境应急预案变更备案表</span>
-												</header>
+<!-- 						          				<header class="larry-personal-tit"> -->
+<!-- 													<span>企业事业单位环境应急预案备案表</span> -->
+<!-- 												</header> -->
 												<div class="larry-personal-body clearfix changepwd">
 													<form id="validForm" class="layui-form <!--  -->"  method="post" action="${ctx}/tsemeplanfilingmod/update">
 														<input type="hidden" id="id" name="id" />
-														
-														<div class="layui-form-item">
-															<div class="layui-inline">
-																<label class="layui-form-label">单位名称*</label>
-																<div class="layui-input-inline " style=" width: 600px">  
-																	<input type="text" readonly name="company_name" id="company_name" datatype="*" nullmsg="不能为空" errormsg="不能为空！" autocomplete="off" class="layui-input" value="${(returnDatas.data.companyName)!''}">
-																</div>
-															</div>
-														</div>
-														<div class="layui-form-item">
-															<div class="layui-inline">
-																 <label class="layui-form-label">联系人*</label>
-																<div class="layui-input-inline">
-																	<input type="text" name="contact" id="contact" datatype="*" nullmsg="不能为空" errormsg="不能为空！" autocomplete="off" class="layui-input" value="${(returnDatas.data.contact)!''}">  
-																</div>
-															</div>
-															<div class="layui-inline">
-																 <label class="layui-form-label">联系电话*</label>
-																<div class="layui-input-inline">
-																	<input type="text" name="contact_tel" id="contact_tel" datatype="*" nullmsg="不能为空" errormsg="不能为空！" autocomplete="off" class="layui-input" value="${(returnDatas.data.contact_tel)!''}">  
-																</div>
-															</div>
-														</div>
-														
-														<div class="layui-form-item">
-															<div class="layui-inline">
-																 <label class="layui-form-label">单位地址*</label>
-																<div class="layui-input-inline">
-																	<input type="text" name="bak2" id="bak2" datatype="*" nullmsg="不能为空" errormsg="不能为空！" autocomplete="off" class="layui-input" value="${(returnDatas.data.bak2)!''}">  
-																</div>
-															</div>
-															<div class="layui-inline">
-																 <label class="layui-form-label">备案编号*</label>
-																<div class="layui-input-inline">
-																	<input type="text" name="beian_number" id="beian_number" datatype="*" nullmsg="不能为空" errormsg="不能为空！" autocomplete="off" class="layui-input" value="${(returnDatas.data.beian_number)!''}">  
-																</div>
-															</div>
-														</div>
-															<div class="layui-form-item">
-															<div class="layui-inline">
+									<table class="tg" style="undefined;table-layout: fixed; width: 693px">
+<colgroup>
+<col style="width: 143px">
+<col style="width: 188px">
+<col style="width: 146px">
+<col style="width: 216px">
+</colgroup>
+  <tr>
+    <th class="tg-c3ow" colspan="4"><span style="font-weight:bold">企业事业单位环境应急预案变更备案表</span></th>
+  </tr>
+  <tr>
+    <td class="tg-c3ow">单位名称</td>
+    <td class="tg-0pky" colspan="3"><input type="text"  style="border-style:none" placeholder="单位名称" class="layui-input" name="company_name" id="company_name" datatype="*" nullmsg="不能为空" errormsg="不能为空！" autocomplete="off" value="${(returnDatas.data.companyName)!''}"></td>
+  </tr>
+  <tr>
+    <td class="tg-c3ow">联系人</td>
+    <td class="tg-0pky"><input type="text"  style="border-style:none" placeholder="联系人" class="layui-input" name="contact" id="contact" datatype="*" nullmsg="不能为空" errormsg="不能为空！" autocomplete="off" value="${(returnDatas.data.contact)!''}"></td>
+    <td class="tg-c3ow">联系电话</td>
+    <td class="tg-0pky"><input type="text"  style="border-style:none" placeholder="联系电话" class="layui-input" name="contact_tel" id="contact_tel" datatype="*" nullmsg="不能为空" errormsg="不能为空！" autocomplete="off" value="${(returnDatas.data.contact_tel)!''}"></td>
+  </tr>
+  <tr>
+    <td class="tg-c3ow">单位地址</td>
+    <td class="tg-0pky"><input type="text"  style="border-style:none" placeholder="填写单位地址" class="layui-input" name="bak2" id="bak2" datatype="*" nullmsg="不能为空" errormsg="不能为空！" autocomplete="off" value="${(returnDatas.data.bak2)!''}"></td>
+    <td class="tg-c3ow">备案编号</td>
+    <td class="tg-0pky"><input type="text"  style="border-style:none" placeholder="填写备案编号" class="layui-input" name="beian_number" id="beian_number" datatype="*" nullmsg="不能为空" errormsg="不能为空！" autocomplete="off" value="${(returnDatas.data.beian_number)!''}"></td>
+  </tr>
+  <tr>
+    <td class="tg-c3ow">补充调整内容</td>
+    <td class="tg-0pky" colspan="3">
+		<div class="layui-inline">
 															 <label class="layui-form-label">补充调整内容*</label> 
 																	<button type="button" onclick="add()" class="layui-btn">目录管理</button>
 															</div>
 															<div class="layui-inline">
 															<label class="layui-form-label"></label>
-																		   <div style="margin-left: 30px" class="layui-inline col-lg-9">  
-																				 <table  class="layui-table  <#if (returnDatas.data??) &&(returnDatas.data.filadjustment??) &&(returnDatas.data.filadjustment?size gt 0)><#else>off</#if>">
-																					 	<colgroup>
-																				    		<col width="">
-																					    	<col width="200">
-																					    	<col width="200">
-																					    	<col width="40">
-																				  		</colgroup>
+																		   <div class="layui-inline col-lg-8">  
+																				 <table id = "test" class="layui-table  <#if (returnDatas.data??) &&(returnDatas.data.filadjustment??) &&(returnDatas.data.filadjustment?size gt 0)><#else>off</#if>">
+																					 
 																				  		<thead>
 																							<tr>
 																								<th>补充调整目录</th>
@@ -124,21 +119,19 @@
 																					</table>
 																			</div>
 															</div>
-														</div> 		
-														<div class="layui-form-item">
-														<label class="layui-form-label">申请调整或补充理由*</label> 
-																<div class="layui-input-inline " style=" width: 600px"> 
-																<input  type="text" name="adjustment_reason" id="adjustment_reason"  datatype="*" nullmsg="不能为空" errormsg="不能为空！" autocomplete="off" class="layui-input" value="${(returnDatas.data.adjustment_reason)!''}"></br>
-																 <h4 style="margin-left: 300px">（单位公章）：    </h4>
-																<input style="margin-left: 400px;width: 100px" type="text"  name="apply_date" id="apply_date" onClick="WdatePicker()" datatype="*" nullmsg="不能为空" errormsg="不能为空！" autocomplete="off" class="layui-input" value="${(returnDatas.data.apply_date)!''}">
-																</div>
-														</div> 	
-															
-															
+	
+	</td>
+  </tr>
+ <tr >
+    <td class="tg-0pky">申请调整或补充理由</td>
+    <td class="tg-0pky" colspan="3" style="width: 100px;height: 100px"> <input placeholder="填写调整补充理由"  style="width: 100%;height: 50%;border-style:none" type="text"  name="adjustment_reason" id="adjustment_reason"  datatype="*" nullmsg="不能为空" errormsg="不能为空！" autocomplete="off" value="${(returnDatas.data.adjustment_reason)!''}"> <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;备案受理部门（公章）&nbsp;&nbsp;&nbsp;<input style="margin-left: 300px;width: 76px" type="text"  name="apply_date" id="apply_date" onClick="WdatePicker()" datatype="*" nullmsg="不能为空" errormsg="不能为空！" autocomplete="off" value="${(returnDatas.data.apply_date)!''}"></td>
+  </tr>
+</table> 
+<br>
 													<div class="layui-form-item change-submit">
 													<label class="layui-form-label"></label>
 															<div class="layui-inline">
-																<button type="button" class="layui-btn" id="smtbtn" style="margin-left: 200px">保存</button>
+																<button type="button" class="layui-btn" id="smtbtn" >保存</button>
 																<button type="button" class="layui-btn layui-btn-primary" id="rstbtn">重置</button>
 															</div>
 														</div>
@@ -153,6 +146,9 @@
 		<@h.footer />
 	</div>
 </body>
+
+
+
 <script>
 function add(){
 	jQuery("#addTbody").parents("table").removeClass("off");
@@ -167,10 +163,17 @@ function add(){
 	jQuery(_html).find("input[name='adjustment_catalog']").trigger("click");
 	
 }
+
+
 function del(_obj){
 	springrain.confirm("确认删除?",function(){
-		jQuery(_obj).parents("tr").remove();
+		var index=_obj.parentNode.rowIndex;
+	    var table = document.getElementById("test");
+	    table.deleteRow(index)
 	});
 }
+
+
+
 </script>
 </html>
