@@ -187,13 +187,19 @@
 														</td>
 														<td>
 															<@shiro.hasPermission name="/tsemeplanfilingmod/update" >
+															<#if (_data.bak1)?? && (_data.bak1=='1'||_data.bak1=='4')>
 								                           		 <a href="#" data-action="${ctx}/tsemeplanfilingmod/update/pre?id=${(_data.id)!''}" class="layui-btn layui-btn-normal layui-btn-mini">编辑</a>
+								                            </#if>
 								                            </@shiro.hasPermission>
 								                            <@shiro.hasPermission name="/tsemeplanfilingmod/delete" >
+								                            <#if (_data.bak1)?? && (_data.bak1=='1'||_data.bak1=='4')>
 								                            	<a href="javascript:del('${(_data.id)!''}')" class="layui-btn layui-btn-danger layui-btn-mini ajax-delete">删除</a>
+								                            </#if>
 								                            </@shiro.hasPermission>
 								                            <a href="javascript:approv('${(_data.id)!''}')" class="layui-btn layui-btn-normal layui-btn-mini">上报</a>
+								                            <#if (_data.bak1)?? && (_data.bak1=='1'||_data.bak1=='4')>
 								                            <a href="#"  data-action="${ctx}/tsemeplanfilingmod/detail?id=${(_data.id)!''}" class="layui-btn layui-btn-normal layui-btn-mini" >详情</a>
+								                            </#if>
 														</td>
 														<!--end_no_export-->
 														<td >
