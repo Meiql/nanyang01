@@ -154,7 +154,7 @@ public class TsMsgProductController  extends BaseController {
 			if(StringUtils.isBlank(tsMsgProductTechnology.getCreateUser())){
 				tsMsgProductTechnology.setCreateUser(SessionUser.getUserId());
 			}
-			//创建用户name
+			//获取创建用户name
 			if(StringUtils.isBlank(tsMsgProductTechnology.getRemarks())){
 				tsMsgProductTechnology.setRemarks(SessionUser.getUserName());
 			}
