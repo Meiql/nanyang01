@@ -6,6 +6,7 @@ import java.util.List;
 import javax.annotation.Resource;
 
 import org.apache.commons.collections.CollectionUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;
 import org.springrain.nybusiness.company.entity.TsCompanyInfo;
 import org.springrain.nybusiness.ergency.entity.TsEmePlanFilAdjustment;
@@ -98,6 +99,12 @@ public class TsEmePlanFilingServiceImpl extends BaseSpringrainServiceImpl implem
 			Finder finder = new Finder();
 			finder.append("SELECT * FROM `ts_eme_plan_filing` t where t.company_id in (:companyId)")
 			.setParam("companyId", listCompany);
+			if(StringUtils.isNoneBlank(tsEmePlanFiling.getCompany_name())) {
+				finder.append(" and t.company_name like:name").setParam("name", "%"+tsEmePlanFiling.getCompany_name()+"%");
+			}
+			if(tsEmePlanFiling.getBak1()!=null&&!"0".equals(tsEmePlanFiling.getBak1())) {
+				finder.append(" and t.bak1 =:bak1").setParam("bak1", tsEmePlanFiling.getBak1());
+			}
 			return super.queryForList(finder, TsEmePlanFiling.class, page);
 		}
 		@Override

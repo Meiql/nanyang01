@@ -4,6 +4,7 @@ import java.io.File;
 import java.util.List;
 
 import org.apache.commons.collections.CollectionUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;
 import org.springrain.nybusiness.ergency.entity.TsEmergencyEquipmentSum;
 import org.springrain.nybusiness.ergency.entity.TsErgencyInvestigation;
@@ -87,6 +88,12 @@ public class TsEmergencyEquipmentSumServiceImpl extends BaseSpringrainServiceImp
 		Finder finder = new Finder();
 		finder.append("SELECT * FROM `ts_emergency_equipment_sum` t where t.company_id in (:companyId)")
 		.setParam("companyId", listCompany);
+		if(StringUtils.isNoneBlank(tsEmergencyEquipmentSum.getName())) {
+			finder.append(" and t.name like:name").setParam("name", "%"+tsEmergencyEquipmentSum.getName()+"%");
+		}
+		if(tsEmergencyEquipmentSum.getCategory()!=null&&tsEmergencyEquipmentSum.getCategory()!=0) {
+			finder.append(" and t.category =:category").setParam("category", tsEmergencyEquipmentSum.getCategory());
+		}
 		return super.queryForList(finder, TsEmergencyEquipmentSum.class, page);
 	}
 

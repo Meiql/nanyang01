@@ -18,14 +18,14 @@
 <script>
 	var _state;
 	jQuery(function(){ 
-		_state="${(returnDatas.queryBean.active)!''}";
-		jQuery("#active").val(_state);
+		_state="${(returnDatas.queryBean.bak1)!''}";
+		jQuery("#bak1").val(_state);
 		/*
 		全选、反选
 		*/
 		jQuery("#checkAll").bind('click',function(){
 			var _is_check=jQuery(this).get(0).checked;
-			jQuery("input[name='check_li']").each(function(_i,_o){
+			jQuery("input[company_name='check_li']").each(function(_i,_o){
 				jQuery(_o).get(0).checked=_is_check;
 			});
 		});
@@ -46,7 +46,6 @@
 					
 					layer.alert(ret.message, {icon: 1},function(){
 							layer.closeAll();
-// 							window.location.href="${ctx}/tsemeplanfiling/list?springraintoken="+springraintoken
 		});
 					
 				}else{
@@ -110,18 +109,20 @@
 							          		<tr>
 							          			<td>
 							          				<div class="layui-inline">
-									                    <label class="layui-form-label">名称</label>
+									                    <label class="layui-form-label">单位名称</label>
 									                    <div class="layui-input-inline">
-									                           <input type="text" name="name" value="${(returnDatas.queryBean.name)!''}" placeholder="请输入名称 " class="layui-input">
+									                           <input type="text" name="company_name" value="${(returnDatas.queryBean.company_name)!''}" placeholder="请输入名称 " class="layui-input">
 									                    </div>
 							                		</div>
 									                 <div class="layui-inline">
-									                    <label class="layui-form-label">是否可用</label>
+									                    <label class="layui-form-label">审批状态</label>
 									                    <div class="layui-input-inline">
-									                        <select name="active" id="active" class="layui-input">
-									                          <option value="">==请选择==</option>
-															  <option value="1">是</option>
-															  <option value="0">否</option>
+									                        <select name="bak1" id="bak1" class="layui-input">
+									                          <option value="0">==请选择状态==</option>
+															  <option value="1">已保存</option>
+															  <option value="2">审批中</option>
+															  <option value="3">已通过</option>
+															  <option value="4">未通过</option>
 															</select>   
 									                    </div>
 									                </div>
@@ -156,21 +157,21 @@
 												  </th>
 												  <th style="width : 120px">操作</th>
 												  <!--first_end_no_export-->
-														<th id="th_company_name" >单位名称</th>
-														<th id="th_company_code" >机构代码</th>
-														<th id="th_legal_person" >法人</th>
-														<th id="th_legal_person_tel" >法人电话</th>
-														<th id="th_contacts_people" >联系人</th>
-														<th id="th_contacts_people_tel" >联系人电话</th>
+														<th id="" >单位名称</th>
+														<th id="" >机构代码</th>
+														<th id="" >法人</th>
+														<th id="" >法人电话</th>
+														<th id="" >联系人</th>
+														<th id="" >联系人电话</th>
 														<!-- <th id="th_fax" >传真</th>
-														<th id="th_email" >电子邮件</th> -->
-														<th id="th_address" >地址</th>
+														<th id="" >电子邮件</th> -->
+														<th id="" >地址</th>
 														<!-- <th id="th_center" >经纬度</th> -->
-														<th id="th_plan_name" >预案名称</th>
-														<th id="th_risk_level" >风险级别</th>
-														<th id="th_filing_number" >备案编号</th>
-														<th id="th_delivery_company" >报送单位</th>
-														<th id="th_bak1" >审批状态</th>
+														<th id="" >预案名称</th>
+														<th id="" >风险级别</th>
+														<th id="" >备案编号</th>
+														<th id="" >报送单位</th>
+														<th id="bak1" >审批状态</th>
 														
 												</tr> 
 											</thead>
