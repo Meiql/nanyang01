@@ -31,5 +31,5 @@ public interface ITsErgencyInvestigationService extends IBaseSpringrainService {
 	 * @throws Exception
 	 */
 	List<TsErgencyInvestigation> finderTsMaillistForList(Page page,TsErgencyInvestigation tsErgencyInvestigation,List<String> listCompany)throws Exception;
-	
+	void updateTsErgencyInvestigation(String id)throws Exception;
 }

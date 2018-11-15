@@ -6,6 +6,7 @@ import java.util.List;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;
+import org.springrain.nybusiness.ergency.entity.TsEmePlanFiling;
 import org.springrain.nybusiness.ergency.entity.TsErgencyInvestigation;
 import org.springrain.nybusiness.ergency.service.ITsErgencyInvestigationService;
 import org.springrain.nybusiness.mail.entity.TsMailListOutside;
@@ -96,5 +97,10 @@ public class TsErgencyInvestigationServiceImpl extends BaseSpringrainServiceImpl
 		}
 		return super.queryForList(finder, TsErgencyInvestigation.class, page);
 	}
-
+	@Override
+	public void updateTsErgencyInvestigation(String id)throws Exception {
+		TsErgencyInvestigation tsErgencyInvestigation = super.findById(id, TsErgencyInvestigation.class);
+		tsErgencyInvestigation.setBak1("2");
+		super.update(tsErgencyInvestigation);
+	}
 }

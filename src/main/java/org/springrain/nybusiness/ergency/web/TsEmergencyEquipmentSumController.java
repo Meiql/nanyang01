@@ -156,7 +156,7 @@ public class TsEmergencyEquipmentSumController  extends BaseController {
 				tsEmergencyEquipmentSum.setOutside_people(null);
 				tsEmergencyEquipmentSum.setOutside_tel(null);
 			}
-			
+			tsEmergencyEquipmentSum.setBak1("1");
 			if(StringUtils.isBlank(tsEmergencyEquipmentSum.getCreate_user())){
 				tsEmergencyEquipmentSum.setCreate_user(SessionUser.getUserId());
 			}
@@ -185,7 +185,25 @@ public class TsEmergencyEquipmentSumController  extends BaseController {
 		model.addAttribute(GlobalStatic.returnDatas, returnObject);
 		return "/nybusiness/ergency/tsemergencyequipmentsum/tsemergencyequipmentsumCru";
 	}
-	
+	/**
+	 * 上报操作
+	 */
+	@RequestMapping(value="/ajax/approv/json")
+	@ResponseBody      
+	public  ReturnDatas approv(HttpServletRequest request) throws Exception {
+		ReturnDatas returnDatas = ReturnDatas.getSuccessReturnDatas();
+			// 执行上报
+		try {
+		java.lang.String id=request.getParameter("id");
+		if(StringUtils.isNotBlank(id)){
+			tsEmergencyEquipmentSumService.updateTsEmergencyEquipmentSum(id);
+			} 
+		returnDatas.setMessage("已上报");
+		} catch (Exception e) {
+			logger.error(e.getMessage(), e);
+		}
+		return returnDatas;
+	}
 	/**
 	 * 删除操作
 	 */

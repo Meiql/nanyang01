@@ -96,5 +96,10 @@ public class TsEmergencyEquipmentSumServiceImpl extends BaseSpringrainServiceImp
 		}
 		return super.queryForList(finder, TsEmergencyEquipmentSum.class, page);
 	}
-
+	@Override
+	public void updateTsEmergencyEquipmentSum(String id)throws Exception {
+		TsEmergencyEquipmentSum tsEmergencyEquipmentSum = super.findById(id, TsEmergencyEquipmentSum.class);
+		tsEmergencyEquipmentSum.setBak1("2");
+		super.update(tsEmergencyEquipmentSum);
+	}
 }

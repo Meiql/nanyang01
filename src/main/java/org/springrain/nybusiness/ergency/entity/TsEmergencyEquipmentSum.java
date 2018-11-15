@@ -99,7 +99,32 @@ public class TsEmergencyEquipmentSum  extends BaseEntity {
 	 */
 	private java.lang.String company_id;
 	//columns END 数据库字段结束
-	
+	private java.lang.String bak1;
+	public java.lang.String getBak1() {
+		return bak1;
+	}
+
+	public void setBak1(java.lang.String bak1) {
+		this.bak1 = bak1;
+	}
+
+	public java.lang.String getBak2() {
+		return bak2;
+	}
+
+	public void setBak2(java.lang.String bak2) {
+		this.bak2 = bak2;
+	}
+
+	public java.lang.String getBak3() {
+		return bak3;
+	}
+
+	public void setBak3(java.lang.String bak3) {
+		this.bak3 = bak3;
+	}
+	private java.lang.String bak2;
+	private java.lang.String bak3;
 	//concstructor
 
 	public TsEmergencyEquipmentSum(){

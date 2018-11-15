@@ -32,6 +32,10 @@ public interface ITsEmergencyEquipmentSumService extends IBaseSpringrainService 
 	 * @throws Exception
 	 */
 	List<TsEmergencyEquipmentSum> finderTsMaillistForList(Page page,TsEmergencyEquipmentSum tsEmergencyEquipmentSum,List<String> listCompany)throws Exception;
-	
-	
+	/**
+	 * 上报更改审批状态（bak1）
+	 * @param id
+	 * @throws Exception
+	 */
+	void updateTsEmergencyEquipmentSum(String id)throws Exception;
 }

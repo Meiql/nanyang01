@@ -148,7 +148,10 @@ public class TsErgencyInvestigationController  extends BaseController {
 			if(StringUtils.isBlank(id)){
 				tsErgencyInvestigation.setId(null);
 			}
-			
+			/**
+			 * 1:已保存 2：审批中  3：已通过 4：未通过
+			 */
+			tsErgencyInvestigation.setBak1("1");
 			if(StringUtils.isBlank(tsErgencyInvestigation.getCreate_user())){
 				tsErgencyInvestigation.setCreate_user(SessionUser.getUserId());
 			}
@@ -178,6 +181,25 @@ public class TsErgencyInvestigationController  extends BaseController {
 		ReturnDatas returnObject = lookjson(model, request, response);
 		model.addAttribute(GlobalStatic.returnDatas, returnObject);
 		return "/nybusiness/ergency/tsergencyinvestigation/tsergencyinvestigationCru";
+	}
+	/**
+	 * 上报操作
+	 */
+	@RequestMapping(value="/ajax/approv/json")
+	@ResponseBody      
+	public  ReturnDatas approv(HttpServletRequest request) throws Exception {
+		ReturnDatas returnDatas = ReturnDatas.getSuccessReturnDatas();
+			// 执行上报
+		try {
+		java.lang.String id=request.getParameter("id");
+		if(StringUtils.isNotBlank(id)){
+			tsErgencyInvestigationService.updateTsErgencyInvestigation(id);
+			} 
+		returnDatas.setMessage("已上报");
+		} catch (Exception e) {
+			logger.error(e.getMessage(), e);
+		}
+		return returnDatas;
 	}
 	
 	/**

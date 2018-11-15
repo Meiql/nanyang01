@@ -1,6 +1,20 @@
 <#ftl output_format="HTML" auto_esc=true>
 <@h.commonHead title="后台管理系统" keywords="开源,永久免费" description="springrain开源系统管理后台"/>
 <script src="${ctx}/js/custom/common/form.js"></script>
+<script src="${ctx}/js/validform/validform.min.js"></script>
+<link rel="stylesheet" href="${ctx}/js/validform/validform.css" media="all">
+<script type="text/javascript" src="${ctx}/js/My97DatePicker/WdatePicker.js"></script>
+<link rel="stylesheet" href="${ctx}/js/My97DatePicker/skin/default/datepicker.css" />
+<script type="text/javascript" src="${ctx}/js/ztree/js/jquery.ztree.all-3.5.js"></script>
+<script type="text/javascript" src="${ctx}/js/ztree/js/ztreeUtils.js"></script>
+<script type="text/javascript" src="${ctx}/js/select2/js/select2.full.min.js"></script>
+<script type="text/javascript" src="${ctx}/js/select2/js/i18n/zh-CN.js"></script>
+<script type="text/javascript" src="${ctx}/js/custom/common/select2remote.js"></script>
+<link rel="stylesheet" href="${ctx}/js/select2/css/select2.min.css" type="text/css">
+<link rel="stylesheet" href="${ctx}/js/ztree/css/zTreeStyle/zTreeStyle.css" type="text/css">
+<link rel="stylesheet" href="${ctx}/css/custom/common/myztree.css" type="text/css">
+<script type="text/javascript" src="${ctx}/js/jquery/jquery.min.js"></script>
+<script type="text/javascript" src="${ctx}/js/jquery/jquery-1.12.4.js"></script>
 
 <script>
 	var _state;
@@ -20,6 +34,31 @@
 	function del(_id){
 		springrain.mydelete(_id,"${ctx}/tsemergencyequipmentsum/delete");
 	}
+	function approv(_id) {
+		 $.ajax({
+			url :"${ctx}/tsemergencyequipmentsum/ajax/approv/json", 
+		    type :"post",
+		    data:{"id":_id},
+			dataType : "json",
+			success:function(ret){
+				debugger
+				if(ret.status=="success"){
+					
+					layer.alert(ret.message, {icon: 1},function(){
+							layer.closeAll();
+		});
+					
+				}else{
+					layer.alert(ret.message,{icon: 5});
+				}
+				window.location.reload();
+			},
+			error:function(){
+				layer.closeAll('loading')
+				layer.alert('sorry,遇到问题添加失败了 ...',{icon: 5});
+			}
+		});  
+}
 </script>
 
 </head>
@@ -130,7 +169,7 @@
 														<th  rowspan="2">设备来源</th>
 														<th  rowspan="2">外部供应单位名称</th>
 														<th id="" colspan="2">外部供应单位联系方式</th>
-														
+														<th id="bak1" rowspan="2">审批状态</th>
 														
 														<!-- <th id="th_create_user" >创建用户</th>
 														<th id="th_create_time" >创建时间</th> 
@@ -156,11 +195,18 @@
 														</td>
 														<td>
 															<@shiro.hasPermission name="/tsemergencyequipmentsum/update" >
+															<#if (_data.bak1)?? && (_data.bak1=='1')>
 								                           		 <a href="#" data-action="${ctx}/tsemergencyequipmentsum/update/pre?id=${(_data.id)!''}" class="layui-btn layui-btn-normal layui-btn-mini">编辑</a>
+								                            </#if>
 								                            </@shiro.hasPermission>
 								                            <@shiro.hasPermission name="/tsemergencyequipmentsum/delete" >
+								                            <#if (_data.bak1)?? && (_data.bak1=='1')>
 								                            	<a href="javascript:del('${(_data.id)!''}')" class="layui-btn layui-btn-danger layui-btn-mini ajax-delete">删除</a>
+								                            </#if>
 								                            </@shiro.hasPermission>
+								                            <#if (_data.bak1)?? && (_data.bak1=='1')>
+								                            	<a href="#"  class="layui-btn layui-btn-normal layui-btn-mini"  onclick="approv('${(_data.id)!''}')" >上报</a>
+								                           	</#if>
 														</td>
 														<!--end_no_export-->
 														<td >
@@ -211,7 +257,18 @@
 														<td >
 															${(_data.outside_tel)!''}
 														</td>
-														
+														<td >
+															
+															<#if (_data.bak1)?? && (_data.bak1=="1")>
+																	已保存
+															<#elseif (_data.bak1)?? && (_data.bak1=="2")>
+																	审批中
+															<#elseif (_data.bak1)?? && (_data.bak1=="3")>
+																	已通过
+															<#elseif (_data.bak1)?? && (_data.bak1=="4")>
+																	未通过
+															</#if>
+														</td>
 													
 														<!-- <td >
 															${(_data.create_user)!''}
