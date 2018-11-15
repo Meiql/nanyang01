@@ -207,9 +207,7 @@ function add(){
 }
 function del(_obj){
 	springrain.confirm("确认删除?",function(){
-		var index=_obj.parentNode.rowIndex;
-	    var table = document.getElementById("test");
-	    table.deleteRow(index)
+		jQuery(_obj).parent().parent().remove();
 	});
 }
 </script>

@@ -269,7 +269,7 @@ public class TsEmePlanFilingController  extends BaseController {
 	@ResponseBody      
 	public  ReturnDatas approv(HttpServletRequest request) throws Exception {
 		ReturnDatas returnDatas = ReturnDatas.getSuccessReturnDatas();
-			// 执行删除
+			// 执行上报
 		try {
 		java.lang.String id=request.getParameter("id");
 		if(StringUtils.isNotBlank(id)){
@@ -293,6 +293,9 @@ public class TsEmePlanFilingController  extends BaseController {
 		try {
 		java.lang.String id=request.getParameter("id");
 		if(StringUtils.isNotBlank(id)){
+			    TsEmePlanFiling tsEmePlanFiling = tsEmePlanFilingService.findTsEmePlanFilingById(id);
+			    java.lang.String file_directory = tsEmePlanFiling.getFile_directory();
+			    tsEmePlanFilAdjustmentService.deleteByAdjustmentId(file_directory);
 				tsEmePlanFilingService.deleteById(id,TsEmePlanFiling.class);
 				return new ReturnDatas(ReturnDatas.SUCCESS,MessageUtils.DELETE_SUCCESS);
 			} else {

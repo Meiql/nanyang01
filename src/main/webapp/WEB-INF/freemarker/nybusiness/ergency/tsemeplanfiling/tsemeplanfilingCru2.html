@@ -55,8 +55,8 @@
 <!-- 												</header> -->
 												<div class="larry-personal-body clearfix changepwd">
 													<form id="validForm" class="layui-form <!--  -->"  method="post" action="${ctx}/tsemeplanfiling/update">
-														<input type="hidden" id="id" name="id" />
-														<input type="hidden" id="file_directory" name="file_directory" />
+														<input type="hidden" id="id" name="id" value="${(returnDatas.data.id)!''}"/>
+														<input type="hidden" id="file_directory" name="file_directory" value="${(returnDatas.data.file_directory)!''}"/>
 									<table class="tg" style="undefined;table-layout: fixed; width: 693px">
 <colgroup>
 <col style="width: 143px">
@@ -208,9 +208,7 @@ function add(){
 }
 function del(_obj){
 	springrain.confirm("确认删除?",function(){
-		var index=_obj.parentNode.rowIndex;
-	    var table = document.getElementById("test");
-	    table.deleteRow(index)
+		jQuery(_obj).parent().parent().remove();
 	});
 }
 </script>

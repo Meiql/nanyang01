@@ -150,6 +150,13 @@ public class TsEmergencyEquipmentSumController  extends BaseController {
 			  tsEmergencyEquipmentSum.setId(null);
 			}
 			
+			if("1".equals(tsEmergencyEquipmentSum.getIn_Equipment())) {
+				tsEmergencyEquipmentSum.setOut_Equipment(null);
+				tsEmergencyEquipmentSum.setOutside_company(null);
+				tsEmergencyEquipmentSum.setOutside_people(null);
+				tsEmergencyEquipmentSum.setOutside_tel(null);
+			}
+			
 			if(StringUtils.isBlank(tsEmergencyEquipmentSum.getCreate_user())){
 				tsEmergencyEquipmentSum.setCreate_user(SessionUser.getUserId());
 			}
