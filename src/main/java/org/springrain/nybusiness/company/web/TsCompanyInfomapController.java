@@ -49,7 +49,6 @@ public class TsCompanyInfomapController  extends BaseController {
 		model.addAttribute(GlobalStatic.returnDatas, returnObject);
 		return listurl;
 	}
-	
 	/**
 	 * json数据,为APP提供数据
 	 * 

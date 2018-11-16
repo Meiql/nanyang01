@@ -125,11 +125,11 @@ function addMarker(point){
  var address="";
  var longitude1="";
  var latitude1="";
- jQuery(function(){
-      $("#sbtButton").click(function(){
-    	  $("#searchForm").submit();
-     });  
-      <#if returnDatas.data?? && returnDatas.data?size lt 2 && returnDatas.data?size gt 0> 
+jQuery(function(){
+       $("#sbtButton").click(function(){
+    	   $("#searchForm").submit();
+     }); 
+       <#if returnDatas.data?? && returnDatas.data?size lt 2 && returnDatas.data?size gt 0> 
 		address="${(returnDatas.data[0].address)!''}";
 		longitude1="${(returnDatas.data[0].longitude)!''}";
 		latitude1="${(returnDatas.data[0].latitude)!''}";
@@ -146,7 +146,7 @@ function addMarker(point){
 		              marker = new BMap.Marker(point);  //事件类
 		              map.openInfoWindow(infoWindow, point);
 		}
-	</#if>
+	</#if>         
  }); 
       
 

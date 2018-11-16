@@ -52,6 +52,8 @@ public class TsCompanyInfo  extends BaseEntity {
 	public static final String ALIAS_BAK2 = "bak2";
 	public static final String ALIAS_BAK3 = "bak3";
     */
+	
+	
 	//date formats
 	
 	//columns START
@@ -176,6 +178,36 @@ public class TsCompanyInfo  extends BaseEntity {
 	@Transient
 	private String password;
 	
+	//2018年11月16日
+	//郑清文
+	/**
+	 * 注册资本
+	 */
+	private java.lang.String registeredCapital;
+	/**
+	 * 改扩建年月
+	 */
+	private java.lang.String extensionYear;
+	/**
+	 * 职工人数
+	 */
+	private java.lang.String numberOfEmployees;
+	/**
+	 * 法人电话
+	 */
+	private java.lang.String corporationPhone;
+	/**
+	 * 环保联系人
+	 */
+	private java.lang.String environmentalContacts;
+	/**
+	 * 环保联系人电话
+	 */
+	private java.lang.String environmentalPhone;
+	/**
+	 * 环评审批年月
+	 */
+	private java.lang.String eiaApproval;
 	//concstructor
 
 	public TsCompanyInfo(){
@@ -604,9 +636,121 @@ public class TsCompanyInfo  extends BaseEntity {
 	
 	
 	/**
+	 * 注册资本
+	 */
+     @WhereSQL(sql="registeredCapital=:TsCompanyInfo_registeredCapital")
+	public java.lang.String getRegisteredCapital() {
+		return this.registeredCapital;
+	}
+     /**
+		 * 注册资本
+		 */
+	public void setRegisteredCapital(java.lang.String value) {
+		    if(StringUtils.isNotBlank(value)){
+			 value=value.trim();
+			}
+		this.registeredCapital = value;
+	}
+	/**
+	 * 改扩建年月
+	 */
+     @WhereSQL(sql="extensionYear=:TsCompanyInfo_extensionYear")
+	public java.lang.String getExtensionYear() {
+		return this.extensionYear;
+	}
+     /**
+		 * 改扩建年月
+		 */
+	public void setExtensionYear(java.lang.String value) {
+		    if(StringUtils.isNotBlank(value)){
+			 value=value.trim();
+			}
+		this.extensionYear = value;
+	}
+	/**
+	 * 职工人数
+	 */
+     @WhereSQL(sql="numberOfEmployees=:TsCompanyInfo_numberOfEmployees")
+	public java.lang.String getNumberOfEmployees() {
+		return this.numberOfEmployees;
+	}
+     /**
+		 * 职工人数
+		 */
+	public void setNumberOfEmployees(java.lang.String value) {
+		    if(StringUtils.isNotBlank(value)){
+			 value=value.trim();
+			}
+		this.numberOfEmployees = value;
+	}
+	/**
+	 * 紧急联系人电话
+	 */
+     @WhereSQL(sql="corporationPhone=:TsCompanyInfo_corporationPhone")
+	public java.lang.String getCorporationPhone() {
+		return this.corporationPhone;
+	}
+     /**
+		 * 紧急联系人电话
+		 */
+	public void setCorporationPhone(java.lang.String value) {
+		    if(StringUtils.isNotBlank(value)){
+			 value=value.trim();
+			}
+		this.corporationPhone = value;
+	}
+	/**
+	 * 环保联系人
+	 */
+     @WhereSQL(sql="environmentalContacts=:TsCompanyInfo_environmentalContacts")
+	public java.lang.String getEnvironmentalContacts() {
+		return this.environmentalContacts;
+	}
+     /**
+		 * 环保联系人
+		 */
+	public void setEnvironmentalContacts(java.lang.String value) {
+		    if(StringUtils.isNotBlank(value)){
+			 value=value.trim();
+			}
+		this.environmentalContacts = value;
+	}
+	/**
+	 * 环保联系人电话
+	 */
+     @WhereSQL(sql="environmentalPhone=:TsCompanyInfo_environmentalPhone")
+	public java.lang.String getEnvironmentalPhone() {
+		return this.environmentalPhone;
+	}
+     /**
+		 * 环保联系人电话
+		 */
+	public void setEnvironmentalPhone(java.lang.String value) {
+		    if(StringUtils.isNotBlank(value)){
+			 value=value.trim();
+			}
+		this.environmentalPhone = value;
+	}
+	/**
+	 * 环评审批年月
+	 */
+     @WhereSQL(sql="eiaApproval=:TsCompanyInfo_eiaApproval")
+	public java.lang.String getEiaApproval() {
+		return this.eiaApproval;
+	}
+     /**
+		 * 环评审批年月
+		 */
+	public void setEiaApproval(java.lang.String value) {
+		    if(StringUtils.isNotBlank(value)){
+			 value=value.trim();
+			}
+		this.eiaApproval = value;
+	}
+	/**
 	 * 废水排放去向
 	 */
-     @WhereSQL(sql="wasterWhereabouts=:TsCompanyInfo_wasterWhereabouts")
+  @WhereSQL(sql="wasterWhereabouts=:TsCompanyInfo_wasterWhereabouts")
 	public java.lang.String getWasterWhereabouts() {
 		return this.wasterWhereabouts;
 	}
@@ -754,6 +898,13 @@ public class TsCompanyInfo  extends BaseEntity {
 			.append("bak1[").append(getBak1()).append("],")
 			.append("bak2[").append(getBak2()).append("],")
 			.append("bak3[").append(getBak3()).append("],")
+			.append("注册资本[").append(getRegisteredCapital()).append("],")
+			.append("改扩建年月[").append(getExtensionYear()).append("],")
+			.append("职工人数[").append(getNumberOfEmployees()).append("],")
+			.append("法人电话[").append(getCorporationPhone()).append("],")
+			.append("环保联系人[").append(getEnvironmentalContacts()).append("],")
+			.append("环保联系人电话[").append(getEnvironmentalPhone()).append("],")
+			.append("环评审批年月[").append(getEiaApproval()).append("],")
 			.toString();
 	}
 	@Override

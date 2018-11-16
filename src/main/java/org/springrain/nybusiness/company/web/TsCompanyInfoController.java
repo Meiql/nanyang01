@@ -217,7 +217,6 @@ public class TsCompanyInfoController  extends BaseController {
 			if(StringUtils.isBlank(id)){
 			  tsCompanyInfo.setId(null);
 			}
-		
 			tsCompanyInfoService.saveorupdate(tsCompanyInfo);
 			
 		} catch (Exception e) {
