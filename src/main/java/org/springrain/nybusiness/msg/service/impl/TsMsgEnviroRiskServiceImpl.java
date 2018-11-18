@@ -2,7 +2,11 @@ package org.springrain.nybusiness.msg.service.impl;
 
 import java.io.File;
 import java.util.List;
+
+import org.apache.commons.collections.CollectionUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;
+import org.springrain.nybusiness.mail.entity.TsMailListInside;
 import org.springrain.nybusiness.msg.entity.TsMsgEnviroRisk;
 import org.springrain.nybusiness.msg.service.ITsMsgEnviroRiskService;
 import org.springrain.frame.entity.IBaseEntity;
@@ -79,6 +83,44 @@ public class TsMsgEnviroRiskServiceImpl extends BaseSpringrainServiceImpl implem
 	public TsMsgEnviroRisk saveTsMsgEnviroRisk(TsMsgEnviroRisk tsMsgEnviroRisk) throws Exception {
 		// TODO Auto-generated method stub
 		return null;
+	}
+
+	/**
+	 * 根据权限查询
+	 */
+	@Override
+	public List<TsMsgEnviroRisk> finderTsEnvirolistForList(Page page, TsMsgEnviroRisk tsMsgEnviroRisk,
+			List<String> listCompany) throws Exception {
+		if(CollectionUtils.isEmpty(listCompany)){
+			return null;
+		}
+		Finder finder = new Finder();
+		//1.查询条件：公司id
+		finder.append("SELECT * FROM `ts_msg_enviro_risk` t where t.companyId in (:companyId)")
+		.setParam("companyId", listCompany);
+		
+		String riskUnitName = tsMsgEnviroRisk.getRiskUnitName();
+		String riskUnitTypeName = tsMsgEnviroRisk.getRiskUnitTypeName();
+		//2.查询条件：风险单元名称
+		if(riskUnitName != null && !riskUnitName.equals("")) {
+			finder.append(" and t.riskUnitName=:riskUnitName").setParam("riskUnitName", riskUnitName);
+		}
+		//3.查询条件：风险单元类别
+		if(riskUnitTypeName != null && !riskUnitTypeName.equals("")) {
+			finder.append(" and t.riskUnitTypeName=:riskUnitTypeName").setParam("riskUnitTypeName", riskUnitTypeName);
+		}
+		System.out.println("1111111111 "+finder.getSql());
+		return super.queryForList(finder, TsMsgEnviroRisk.class, page);
+	}
+
+	@Override
+	public void updateBak1(String id, Class<TsMsgEnviroRisk> class1)  throws Exception {
+		Finder finder = new Finder();
+		String bak1 = "2";
+		finder.append("UPDATE `ts_msg_enviro_risk` t SET t.bak1=:bak1")
+		.setParam("bak1", bak1).append(" where t.id=:id").setParam("id", id);
+		super.update(finder);
+	System.out.println("2222 "+finder.getSql());			
 	}
 
 }

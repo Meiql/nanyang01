@@ -1,5 +1,8 @@
 package org.springrain.nybusiness.msg.service;
 
+import java.util.List;
+
+import org.springrain.frame.util.Page;
 import org.springrain.nybusiness.msg.entity.TsMsgEnviroRisk;
 import org.springrain.system.service.IBaseSpringrainService;
 /**
@@ -27,6 +30,22 @@ public interface ITsMsgEnviroRiskService extends IBaseSpringrainService {
 	 */
 	TsMsgEnviroRisk saveTsMsgEnviroRisk(TsMsgEnviroRisk tsMsgEnviroRisk) throws Exception;
 	
+	/**
+	 * 根据权限查询
+	 * @param page
+	 * @param tsMsgEnviroRisk
+	 * @param listCompany
+	 * @return
+	 * @throws Exception
+	 */
+	List<TsMsgEnviroRisk> finderTsEnvirolistForList(Page page, TsMsgEnviroRisk tsMsgEnviroRisk,List<String> listCompany)throws Exception;
 	
+	/**
+	 * 更新提交
+	 * @param id
+	 * @return
+	 * @throws Exception
+	 */
+	void updateBak1(String id, Class<TsMsgEnviroRisk> class1) throws Exception;
 	
 }

@@ -21,6 +21,7 @@ import org.springrain.frame.util.GlobalStatic;
 import org.springrain.frame.util.MessageUtils;
 import org.springrain.frame.util.Page;
 import org.springrain.frame.util.ReturnDatas;
+import org.springrain.nybusiness.company.service.ITsCompanyInfoService;
 import org.springrain.nybusiness.msg.entity.TsMsgEnviroRisk;
 import org.springrain.nybusiness.msg.service.ITsMsgEnviroRiskService;
 
@@ -37,6 +38,9 @@ import org.springrain.nybusiness.msg.service.ITsMsgEnviroRiskService;
 public class TsMsgEnviroRiskController  extends BaseController {
 	@Resource
 	private ITsMsgEnviroRiskService tsMsgEnviroRiskService;
+	
+	@Resource
+	private ITsCompanyInfoService tsCompanyInfoService;
 	
 	private String listurl="/nybusiness/msg/tsmsgenvirorisk/tsmsgenviroriskList";
 	
@@ -74,8 +78,13 @@ public class TsMsgEnviroRiskController  extends BaseController {
 		ReturnDatas returnObject = ReturnDatas.getSuccessReturnDatas();
 		// ==构造分页请求
 		Page page = newPage(request);
+		//首先查询companyId
+		List<String> listCompany = tsCompanyInfoService.finderCompanyIdByUserId(SessionUser.getUserId());
 		// ==执行分页查询
-		List<TsMsgEnviroRisk> datas=tsMsgEnviroRiskService.findListDataByFinder(null,page,TsMsgEnviroRisk.class,TsMsgEnviroRisk);
+//		List<TsMsgEnviroRisk> datas=tsMsgEnviroRiskService.findListDataByFinder(null,page,TsMsgEnviroRisk.class,TsMsgEnviroRisk);
+//			returnObject.setQueryBean(TsMsgEnviroRisk);
+			
+		List<TsMsgEnviroRisk> datas=tsMsgEnviroRiskService.finderTsEnvirolistForList(page,TsMsgEnviroRisk,listCompany);
 			returnObject.setQueryBean(TsMsgEnviroRisk);
 		returnObject.setPage(page);
 		returnObject.setData(datas);
@@ -132,35 +141,43 @@ public class TsMsgEnviroRiskController  extends BaseController {
 	public ReturnDatas saveorupdate(Model model,TsMsgEnviroRisk tsMsgEnviroRisk,HttpServletRequest request,HttpServletResponse response) throws Exception{
 		ReturnDatas returnObject = ReturnDatas.getSuccessReturnDatas();
 		returnObject.setMessage(MessageUtils.UPDATE_SUCCESS);
+		java.lang.String id =tsMsgEnviroRisk.getId();
 		try {
-		
-			java.lang.String id =tsMsgEnviroRisk.getId();
-			if(StringUtils.isBlank(id)){
-				tsMsgEnviroRisk.setId(null);
-			}
-			Date date = new Date();
-			SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-			String formatStr =formatter.format(date);
-			System.out.println(formatStr);
-			//创建时间
-			if(StringUtils.isBlank(tsMsgEnviroRisk.getCreateTime())){
-				tsMsgEnviroRisk.setCreateTime(formatStr);
-			}
-			//创建用户id
-			if(StringUtils.isBlank(tsMsgEnviroRisk.getCreateUser())){
-				tsMsgEnviroRisk.setCreateUser(SessionUser.getUserId());
-			}
-			//创建用户name
-			if(StringUtils.isBlank(tsMsgEnviroRisk.getCreateUserName())){
-				tsMsgEnviroRisk.setCreateUserName(SessionUser.getUserName());
-			}
-			//公司代码
-			java.lang.String companyId = SessionUser.getCompanyid(); 
-			if(StringUtils.isBlank(tsMsgEnviroRisk.getCompanyId())){
-				tsMsgEnviroRisk.setCompanyId(companyId);
+			if(StringUtils.isBlank(tsMsgEnviroRisk.getRiskUnitName())){
+				updateBak1(id);
+			} else {				
+				if(StringUtils.isBlank(id)){
+					tsMsgEnviroRisk.setId(null);
+				}
+				Date date = new Date();
+				SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+				String formatStr =formatter.format(date);
+				System.out.println(formatStr);
+				//1.创建时间
+				if(StringUtils.isBlank(tsMsgEnviroRisk.getCreateTime())){
+					tsMsgEnviroRisk.setCreateTime(formatStr);
+				}
+				//2.创建用户id
+				if(StringUtils.isBlank(tsMsgEnviroRisk.getCreateUser())){
+					tsMsgEnviroRisk.setCreateUser(SessionUser.getUserId());
+				}
+				//3.创建用户name
+				if(StringUtils.isBlank(tsMsgEnviroRisk.getCreateUserName())){
+					tsMsgEnviroRisk.setCreateUserName(SessionUser.getUserName());
+				}
+				//4.公司代码
+				java.lang.String companyId = SessionUser.getCompanyid(); 
+				if(StringUtils.isBlank(tsMsgEnviroRisk.getCompanyId())){
+					
+					tsMsgEnviroRisk.setCompanyId("142a63b3a2ba4f6984f61f7c18edb76f");
+				}
+				//5.数据状态
+				if(StringUtils.isBlank(tsMsgEnviroRisk.getBak1())){				
+					tsMsgEnviroRisk.setBak1("1");
+				}						
+				tsMsgEnviroRiskService.saveorupdate(tsMsgEnviroRisk);
 			}
 			
-			tsMsgEnviroRiskService.saveorupdate(tsMsgEnviroRisk);
 			
 		} catch (Exception e) {
 			logger.error(e.getMessage(),e);
@@ -171,7 +188,25 @@ public class TsMsgEnviroRiskController  extends BaseController {
 		return returnObject;
 	
 	}
-	
+	/**
+	 * 提交操作
+	 * @return 
+	 */ 
+	public ReturnDatas updateBak1(String id) throws Exception {
+
+			// 执行提交
+		try {
+		if(StringUtils.isNotBlank(id)){
+			tsMsgEnviroRiskService.updateBak1(id,TsMsgEnviroRisk.class);
+				return new ReturnDatas(ReturnDatas.SUCCESS,MessageUtils.UPDATE_SUCCESS);
+			} else {
+				return new ReturnDatas(ReturnDatas.WARNING,MessageUtils.UPDATE_ERROR);
+			}
+		} catch (Exception e) {
+			logger.error(e.getMessage(), e);
+		}
+		return new ReturnDatas(ReturnDatas.WARNING, MessageUtils.DELETE_WARNING);
+	}
 	/**
 	 * 进入修改页面,APP端可以调用 lookjson 获取json格式数据
 	 */

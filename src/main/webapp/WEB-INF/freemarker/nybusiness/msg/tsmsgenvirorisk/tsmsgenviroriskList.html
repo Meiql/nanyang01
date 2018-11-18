@@ -1,6 +1,8 @@
 <#ftl output_format="HTML" auto_esc=true>
 <@h.commonHead title="后台管理系统" keywords="开源,永久免费" description="springrain开源系统管理后台"/>
 <script src="${ctx}/js/custom/common/form.js"></script>
+<link rel="stylesheet" href="${ctx}/js/select2/css/select2.min.css" type="text/css">
+<link rel="stylesheet" href="${ctx}/js/ztree/css/zTreeStyle/zTreeStyle.css" type="text/css">
 
 <script>
 	var _state;
@@ -19,6 +21,17 @@
 	});
 	function del(_id){
 		springrain.mydelete(_id,"${ctx}/tsmsgenvirorisk/delete");
+	}
+	function updateBak1(_id,_bak1){
+		if(_bak1 == 2){
+			alert("审批中，不能重复提交");
+			return;
+		}
+		if(_bak1 == 3){
+			alert("已审批完成的单元不能提交");
+			return;
+		}
+		springrain.mydelete(_id,"${ctx}/tsmsgenvirorisk/update","是否提交","");
 	}
 </script>
 
@@ -110,6 +123,7 @@
 														<th id="th_createTime" >创建时间</th>
 														<th id="th_companyId" >企业id</th>
 														<th id="th_describes" >描述（用途、特征、危险性、曾发生事故等）</th>
+														<th id="th_bak1" >单元状态</th>
 												</tr> 
 											</thead>
 										  <!--first_end_export-->
@@ -128,7 +142,8 @@
 								                            </@shiro.hasPermission>
 								                            <@shiro.hasPermission name="/tsmsgenvirorisk/delete" >
 								                            	<a href="javascript:del('${(_data.id)!''}')" class="layui-btn layui-btn-danger layui-btn-mini ajax-delete">删除</a>
-								                            </@shiro.hasPermission>
+								                            </@shiro.hasPermission>	
+		             											<a href="javascript:updateBak1('${(_data.id)!''}','${(_data.bak1)!''}')" class="layui-btn layui-btn-danger layui-btn-mini ajax-delete">提交</a>							                            	
 														</td>
 														<!--end_no_export-->
 														<td >
@@ -154,6 +169,9 @@
 														</td>
 														<td >
 															${(_data.describes)!''}
+														</td>
+														<td >
+															${(_data.bak1)!''}
 														</td>												
 													</tr>
 												</#list>
@@ -165,8 +183,8 @@
 										<@h.layPage page=returnDatas.page /> 
 									</#if>
 								</div>
-							</div>
-						</div>
+							</div>							
+						</div>			
 				</div>
 			</div>
 		<!-- 主体内容结束 -->
