@@ -182,6 +182,17 @@ public class TsErgencyInvestigationController  extends BaseController {
 		model.addAttribute(GlobalStatic.returnDatas, returnObject);
 		return "/nybusiness/ergency/tsergencyinvestigation/tsergencyinvestigationCru";
 	}
+	
+	/**
+	 * 进入修改页面,APP端可以调用 lookjson 获取json格式数据
+	 */
+	@RequestMapping(value = "/detail")
+	public String detail(Model model,HttpServletRequest request,HttpServletResponse response)  throws Exception{
+		ReturnDatas returnObject = lookjson(model, request, response);
+		model.addAttribute(GlobalStatic.returnDatas, returnObject);
+		return "/nybusiness/ergency/tsergencyinvestigation/tsergencyinvestigationCru2";
+	}
+	
 	/**
 	 * 上报操作
 	 */

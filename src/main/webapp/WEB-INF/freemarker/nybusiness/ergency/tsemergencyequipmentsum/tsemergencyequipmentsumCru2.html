@@ -1,0 +1,207 @@
+<#ftl output_format="HTML" auto_esc=true>
+<@h.commonHead title="后台管理系统" keywords="开源,永久免费" description="springrain开源系统管理后台"/>
+
+<script src="${ctx}/js/validform/validform.min.js"></script>
+<script type="text/javascript" src="${ctx}/js/jquery/jquery.min.js"></script>
+<script type="text/javascript" src="${ctx}/js/jquery/jquery-1.12.4.js"></script>
+<script type="text/javascript" src="${ctx}/js/custom/common/select2remote.js"></script>
+<script type="text/javascript" src="${ctx}/js/select2/js/select2.full.min.js"></script>
+<script type="text/javascript" src="${ctx}/js/select2/js/i18n/zh-CN.js"></script>
+<script type="text/javascript" src="${ctx}/js/validform/validform.min.js"></script>
+<link rel="stylesheet" href="${ctx}/js/select2/css/select2.min.css" type="text/css">
+<link rel="stylesheet" href="${ctx}/js/validform/validform.css" media="all">
+<script>
+var _state;
+jQuery(function(){
+ 	 _state="${(returnDatas.data.category)!''}";
+ 	 jQuery("#category").val(_state);
+ 	
+	var  _in_Equipment="${(returnDatas.data.in_Equipment)!''}";
+		 /*
+		 init_valid(_before,_after)
+		 @_before:提交表单前，调用 的函数   可以为空，一般有validform处理不了，独自进行处理时使用
+		 @_after:保存成功后，调用的函数  可以为空，一般为对应的列表页面
+		 */
+		 springrain.initValid(null,function(){window.location.href="${ctx}/tsemergencyequipmentsum/list?springraintoken="+springraintoken});
+		 
+	 
+		 jQuery("#in_Equipment").append('<option value="1">厂内自备</option><option value="2">外部供应</option>');
+		 $("#in_Equipment").select2({
+			 minimumResultsForSearch:-1,
+			 width:'190px',
+			 height:'38px'
+			});
+		 if(_in_Equipment!=""){
+			 $("#in_Equipment").val(_in_Equipment).select2({ minimumResultsForSearch:-1})
+		 }
+		 if(_in_Equipment=="2"){
+			 $("#in_Equipment").val(_in_Equipment).select2({ minimumResultsForSearch:-1})
+			 document.getElementById("outside1").style.display="";
+			 document.getElementById("outside2").style.display="" 
+			 $("outside_company").show();
+			 $("outside_people").show();
+			 $("outside_tel").show();
+		 }if(_in_Equipment=="1"){
+			 $("#in_Equipment").val(_in_Equipment).select2({ minimumResultsForSearch:-1})
+			 document.getElementById("outside1").style.display="none";//隐藏
+				document.getElementById("outside2").style.display="none";//隐藏
+				/* document.getElementById("outside_company").removeAttribute("disabled");
+				document.getElementById("outside_people").removeAttribute("disabled");
+				document.getElementById("outside_tel").removeAttribute("disabled");  */
+			
+
+				$("outside_company").hide();
+				$("outside_people").hide();
+				$("outside_tel").hide();
+		 }
+		 
+		 $("#in_Equipment").change(function name() {
+			var in_EquipmentValue = $('#in_Equipment option:selected').val();//选中的值
+			if(in_EquipmentValue=="1"){
+				document.getElementById("outside1").style.display="none";//隐藏
+				document.getElementById("outside2").style.display="none";//隐藏
+				/* document.getElementById("outside_company").removeAttribute("disabled");
+				document.getElementById("outside_people").removeAttribute("disabled");
+				document.getElementById("outside_tel").removeAttribute("disabled");  */
+			
+
+				$("outside_company").hide();
+				$("outside_people").hide();
+				$("outside_tel").hide();
+				
+				
+			}else if(in_EquipmentValue=="2"){
+				document.getElementById("outside1").style.display="";
+				document.getElementById("outside2").style.display="" 
+				
+				$("outside_company").show();
+				$("outside_people").show();
+				$("outside_tel").show();
+				
+			};
+			
+		});
+		 
+	 });
+	 
+
+
+</script>
+
+
+
+</head>
+<body>
+	<div class="layui-layout layui-layout-admin">
+		<@h.naviHeader /><@h.leftMenu />
+		<!-- 主体内容开始 -->
+			<div class="layui-tab layui-tab-brief">
+				<ul class="layui-tab-title site-demo-title">
+		            <li class="layui-this">
+		            </li>
+		             <li style="float:right;">
+				        <button type="button" onclick="history.go(-1)" class="layui-btn layui-btn-small" style="margin-top:8px;"><i class="layui-icon layui-icon-specil">&#xe603;</i>返回</button>
+		             </li>
+	       		</ul>
+				
+				<div class="layui-body layui-tab-content site-demo-body">
+					<div class="layui-tab-item layui-show">
+							<div class="layui-main">
+						          <div id="LAY_preview" class="layui-my-form">
+						          				<header class="larry-personal-tit">
+													<span>应急救援设施设备汇总表</span>
+												</header>
+												<div class="larry-personal-body clearfix changepwd">
+													<form id="validForm" class="layui-form <!--  -->"  method="post" action="${ctx}/tsemergencyequipmentsum/update">
+																<input type="hidden" id="id" name="id" value="${(returnDatas.data.id)!''}"/>	
+																	<div class="layui-form-item">
+																    <div class="layui-inline">
+																      <label class="layui-form-label">序号*</label>
+																		<div class="layui-input-inline">  
+																			<input type="text" readonly name="serial_number" id="serial_number" datatype="*" nullmsg="不能为空" errormsg="不能为空！" autocomplete="off" class="layui-input" value="${(returnDatas.data.serial_number)!''}">
+																		</div>
+																		
+																    </div>
+																    <div class="layui-inline">
+																      <label class="layui-form-label">类别*</label>
+																		<div class="layui-input-inline ">  
+																			 <select class="form-control" name="category" id="category" datatype="*"  nullmsg="不能为空">
+														                             <option value="">==请选择类别==</option>
+														                             <option value="1">医疗救护仪器</option>
+																					 <option value="2">个人防护装备器材</option>
+																					 <option value="3">消防设施</option>
+																					 <option value="4">应急交通工具</option>
+																					 <option value="5">应急监测设备</option>
+																					 <option value="6">其他设施设备</option>
+																			  </select>
+																			</div>
+																			
+																		</div>
+																  </div>
+																  
+																 <div class="layui-form-item">
+																    <div class="layui-inline">
+																      <label class="layui-form-label">名称*</label>
+																		<div class="layui-input-inline">  
+																			<input type="text" readonly name="name" id="name" datatype="*" nullmsg="不能为空" errormsg="不能为空！" autocomplete="off" class="layui-input" value="${(returnDatas.data.name)!''}">
+																		</div>
+																    </div>
+																    <div class="layui-inline">
+																      <label class="layui-form-label">数量*</label>
+																		<div class="layui-input-inline">  
+																			<input type="text" readonly name="quantity" id="quantity" datatype="*" nullmsg="不能为空" errormsg="不能为空！" autocomplete="off" class="layui-input" value="${(returnDatas.data.quantity)!''}">
+																		</div>
+																	</div>
+																  </div>
+																
+																  <div class="layui-form-item">
+																    <div class="layui-inline">
+																      <label class="layui-form-label">单位*</label>
+																		<div class="layui-input-inline">  
+																			<input type="text" readonly name="unit" id="unit" datatype="*" nullmsg="不能为空" errormsg="不能为空！" autocomplete="off" class="layui-input" value="${(returnDatas.data.unit)!''}">
+																		</div>
+																    </div>
+																    <div class="layui-inline">
+																      <label class="layui-form-label">设备来源*</label>
+																		<div class="layui-input-inline ">  
+																			   <select id="in_Equipment" readonly name="in_Equipment" datatype="*" nullmsg="是否有效不能为空"  class="nolayer">
+																		      </select>
+																			</div>
+																		</div>
+																  </div>
+																  
+																   <div class="layui-form-item" style="display:none;" id="outside1">
+																     <div class="layui-inline">
+																      <label class="layui-form-label">外部供应单位名称*</label>
+																		<div class="layui-input-inline">  
+																			<input  type="text" readonly name="outside_company" id="outside_company"  class="layui-input" value="${(returnDatas.data.outside_company)!''}" >
+																		</div>
+																	</div>
+																  </div>
+																  <div class="layui-form-item" style="display:none;" id="outside2">
+																    <div class="layui-inline">
+																      <label class="layui-form-label">主要联系人*</label>
+																		<div class="layui-input-inline">  
+																			<input  type="text" readonly name="outside_people" id="outside_people" class="layui-input" value="${(returnDatas.data.outside_people)!''}" >
+																		</div>
+																    </div>
+																    <div class="layui-inline">
+																      <label class="layui-form-label">联系方式*</label>
+																		<div class="layui-input-inline">  
+																			<input  type="text" readonly name="outside_tel" id="outside_tel"   class="layui-input" value="${(returnDatas.data.outside_tel)!''}" >
+																		</div>
+																	</div>
+																  </div>
+												
+													</form>
+												</div>
+								  </div>
+							</div>
+					</div>
+			</div>
+		</div>
+		<!-- 主体内容结束 -->
+		<@h.footer />
+	</div>
+</body>
+</html>

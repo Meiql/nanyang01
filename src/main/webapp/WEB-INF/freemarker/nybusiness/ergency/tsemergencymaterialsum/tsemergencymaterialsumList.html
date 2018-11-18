@@ -153,6 +153,9 @@
 								                            <@shiro.hasPermission name="/tsemergencymaterialsum/delete" >
 								                            	<a href="javascript:del('${(_data.id)!''}')" class="layui-btn layui-btn-danger layui-btn-mini ajax-delete">删除</a>
 								                            </@shiro.hasPermission>
+								                           	<@shiro.hasPermission name="/tsemergencymaterialsum/detail" >
+								                            <a href="#"  data-action="${ctx}/tsemergencymaterialsum/detail?id=${(_data.id)!''}" class="layui-btn layui-btn-normal layui-btn-mini" >详情</a>
+								                            </@shiro.hasPermission>
 														</td>
 														<!--end_no_export-->
 														<td >

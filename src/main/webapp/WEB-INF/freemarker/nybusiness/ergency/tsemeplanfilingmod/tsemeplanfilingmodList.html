@@ -197,12 +197,12 @@
 								                            </#if>
 								                            </@shiro.hasPermission>
 								                            <@shiro.hasPermission name="/tsemeplanfilingmod/ajax/approv" >
+								                            <#if (_data.bak1)?? && (_data.bak1=='1'||_data.bak1=='4')>
 								                            <a href="javascript:approv('${(_data.id)!''}')" class="layui-btn layui-btn-normal layui-btn-mini">上报</a>
+								                             </#if>
 								                            </@shiro.hasPermission>
 								                            <@shiro.hasPermission name="/tsemeplanfilingmod/detail" >
-								                            <#if (_data.bak1)?? && (_data.bak1=='1'||_data.bak1=='4')>
 								                            <a href="#"  data-action="${ctx}/tsemeplanfilingmod/detail?id=${(_data.id)!''}" class="layui-btn layui-btn-normal layui-btn-mini" >详情</a>
-								                            </#if>
 								                            </@shiro.hasPermission>
 														</td>
 														<!--end_no_export-->

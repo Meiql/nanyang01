@@ -209,6 +209,9 @@
 								                            	<a href="#"  class="layui-btn layui-btn-normal layui-btn-mini"  onclick="approv('${(_data.id)!''}')" >上报</a>
 								                           	</#if>
 								                           	</@shiro.hasPermission>
+								                           	<@shiro.hasPermission name="/tsergencyinvestigation/detail" >
+								                            <a href="#"  data-action="${ctx}/tsergencyinvestigation/detail?id=${(_data.id)!''}" class="layui-btn layui-btn-normal layui-btn-mini" >详情</a>
+								                            </@shiro.hasPermission>
 														</td>
 														
 														<!--end_no_export-->
