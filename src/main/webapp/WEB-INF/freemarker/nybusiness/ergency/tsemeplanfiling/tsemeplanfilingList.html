@@ -196,10 +196,14 @@
 								                            	<a href="javascript:del('${(_data.id)!''}')" class="layui-btn layui-btn-danger layui-btn-mini ajax-delete">删除</a>
 								                            </#if>
 								                            </@shiro.hasPermission>
+								                            <@shiro.hasPermission name="/tsemeplanfiling/ajax/approv" >
 								                          	<#if (_data.bak1)?? && (_data.bak1=='1'||_data.bak1=='4')>
 								                            	<a href="#"  class="layui-btn layui-btn-normal layui-btn-mini"  onclick="approv('${(_data.id)!''}')" >上报</a>
 								                           	</#if>
+								                           	</@shiro.hasPermission>
+								                           	<@shiro.hasPermission name="/tsemeplanfiling/detail" >
 								                           	<a href="#"  data-action="${ctx}/tsemeplanfiling/detail?id=${(_data.id)!''}" class="layui-btn layui-btn-normal layui-btn-mini" >详情</a>
+															</@shiro.hasPermission>
 														</td>
 														<!--end_no_export-->
 														<td >
