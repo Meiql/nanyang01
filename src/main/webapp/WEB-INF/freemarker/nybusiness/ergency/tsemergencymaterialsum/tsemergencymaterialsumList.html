@@ -21,7 +21,16 @@
 		springrain.mydelete(_id,"${ctx}/tsemergencymaterialsum/delete");
 	}
 </script>
-
+<style>
+	@media screen and (max-width: 1880px) {
+	    .layui-btn,
+	    .layui-btn+.layui-btn{
+	        display: block;
+	        width: 70px;
+	        margin: 3px 0 0;
+	    }
+	}
+</style>
 </head>
 <body>
 	<div class="layui-layout layui-layout-admin">
@@ -113,15 +122,15 @@
 												  <th class="center" rowspan="2">
 															<input id="checkAll"  type="checkbox">
 												  </th>
-												  <th rowspan="2">操作</th>
+												  <th rowspan="2"style="width : 80px; text-align: center">操作</th>
 												  <!--first_end_no_export-->
-														<th id="" rowspan="2">序号</th>
-														<th id="" rowspan="2">物资名称</th>
-														<th id="th_quantity" rowspan="2">数量</th>
-														<th id="th_unit" rowspan="2">单位</th>
-														<th id="" rowspan="2">设备来源</th>
-														<th id="" rowspan="2">外部供应单位名称</th>
-														<th id="" colspan="2">外部供应单位联系方式</th>
+														<th id="" rowspan="2"style="width : 80px; text-align: center">序号</th>
+														<th id="" rowspan="2"style="width : 80px; text-align: center">物资名称</th>
+														<th id="th_quantity" rowspan="2"style="width : 80px; text-align: center">数量</th>
+														<th id="th_unit" rowspan="2"style="width : 80px; text-align: center">单位</th>
+														<th id="" rowspan="2"style="width : 80px; text-align: center">设备来源</th>
+														<th id="" rowspan="2"style="width : 160px; text-align: center">外部供应单位名称</th>
+														<th id="" colspan="2" style="width : 200px; text-align: center">外部供应单位联系方式</th>
 														
 														<!-- <th id="th_create_user" >创建用户</th>
 														<th id="th_create_time" >创建时间</th>
@@ -132,8 +141,8 @@
 												</tr> 
 												<tr>
 														
-														<th id="" >主要联系人</th>
-														<th id="" >联系方式</th>
+														<th id="" style="width : 100px; text-align: center">主要联系人</th>
+														<th id="" style="width : 100px; text-align: center">联系方式</th>
 												</tr>
 											</thead>
 										  <!--first_end_export-->
@@ -146,7 +155,7 @@
 														<td class="center">
 																<input name="check_li" value="${_data.id}"  type="checkbox">
 														</td>
-														<td>
+														<td class="center">
 															<@shiro.hasPermission name="/tsemergencymaterialsum/update" >
 								                           		 <a href="#" data-action="${ctx}/tsemergencymaterialsum/update/pre?id=${(_data.id)!''}" class="layui-btn layui-btn-normal layui-btn-mini">编辑</a>
 								                            </@shiro.hasPermission>
@@ -158,19 +167,19 @@
 								                            </@shiro.hasPermission>
 														</td>
 														<!--end_no_export-->
-														<td >
+														<td class="center">
 															${(_data.serial_number)!0}
 														</td>
-														<td >
+														<td class="center">
 															${(_data.meaterial_name)!''}
 														</td>
-														<td >
+														<td class="center">
 															${(_data.quantity)!0}
 														</td>
-														<td >
+														<td class="center">
 															${(_data.unit)!''}
 														</td>
-														<td >
+														<td class="center">
 															
 															<#if (_data.in_Equipment)?? && (_data.in_Equipment=="1")>
 																	厂内设备
@@ -179,36 +188,17 @@
 															</#if>
 														</td>
 													
-														<td >
+														<td class="center">
 															${(_data.outside_company)!''}
 														</td>
-														<td >
+														<td class="center">
 															${(_data.outside_people)!''}
 														</td>
-														<td >
+														<td class="center">
 															${(_data.outside_tel)!''}
 														</td>
 														
-														
-														
-														<!-- <td >
-															${(_data.create_user)!''}
-														</td>
-														<td >
-															${(_data.create_time)!''}
-														</td> 
-														<td >
-															${(_data.company_id)!''}
-														</td>
-														 <td >
-															${(_data.bak1)!''}
-														</td>
-														<td >
-															${(_data.bak2)!''}
-														</td>
-														<td >
-															${(_data.bak3)!''}
-														</td> -->
+												
 													</tr>
 												</#list>
 											 </#if>

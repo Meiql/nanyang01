@@ -61,7 +61,16 @@
 } 
 
 </script>
-
+<style>
+	@media screen and (max-width: 1880px) {
+	    .layui-btn,
+	    .layui-btn+.layui-btn{
+	        display: block;
+	        width: 70px;
+	        margin: 3px 0 0;
+	    }
+	}
+</style>
 </head>
 <body>
 	<div class="layui-layout layui-layout-admin">
@@ -155,23 +164,23 @@
 												  <th class="center">
 															<input id="checkAll"  type="checkbox">
 												  </th>
-												  <th style="width : 120px">操作</th>
+												  <th style="width : 80px; text-align: center">操作</th>
 												  <!--first_end_no_export-->
-														<th id="" >单位名称</th>
-														<th id="" >机构代码</th>
-														<th id="" >法人</th>
-														<th id="" >法人电话</th>
-														<th id="" >联系人</th>
-														<th id="" >联系人电话</th>
+														<th id="" style="width : 100px;text-align: center">单位名称</th>
+														<th id="" style="width : 100px;text-align: center">机构代码</th>
+														<th id="" style="width : 100px;text-align: center">法人</th>
+														<th id="" style="width : 100px;text-align: center">法人电话</th>
+														<th id="" style="width : 100px;text-align: center">联系人</th>
+														<th id="" style="width : 120px;text-align: center">联系人电话</th>
 														<!-- <th id="th_fax" >传真</th>
 														<th id="" >电子邮件</th> -->
-														<th id="" >地址</th>
+														<th id="" style="width : 100px;text-align: center">地址</th>
 														<!-- <th id="th_center" >经纬度</th> -->
-														<th id="" >预案名称</th>
-														<th id="" >风险级别</th>
-														<th id="" >备案编号</th>
-														<th id="" >报送单位</th>
-														<th id="bak1" >审批状态</th>
+														<th id="" style="width : 100px;text-align: center">预案名称</th>
+														<th id="" style="width : 100px;text-align: center">风险级别</th>
+														<th id="" style="width : 100px;text-align: center">备案编号</th>
+														<th id="" style="width : 100px;text-align: center">报送单位</th>
+														<th id="bak1" style="width : 100px;text-align: center">审批状态</th>
 														
 												</tr> 
 											</thead>
@@ -206,22 +215,22 @@
 															</@shiro.hasPermission>
 														</td>
 														<!--end_no_export-->
-														<td >
+														<td class="center">
 															${(_data.company_name)!''}
 														</td>
-														<td >
+														<td class="center">
 															${(_data.company_code)!''}
 														</td>
-														<td >
+														<td class="center">
 															${(_data.legal_person)!''}
 														</td>
-														<td >
+														<td class="center">
 															${(_data.legal_person_tel)!''}
 														</td>
-														<td >
+														<td class="center">
 															${(_data.contacts_people)!''}
 														</td>
-														<td >
+														<td class="center">
 															${(_data.contacts_people_tel)!''}
 														</td>
 														<!-- <td >
@@ -230,26 +239,26 @@
 														<td >
 															${(_data.email)!''}
 														</td> -->
-														<td >
+														<td class="center">
 															${(_data.address)!''}
 														</td>
 														<!-- <td >
 															${(_data.center)!''}
 														</td> -->
-														<td >
+														<td class="center">
 															${(_data.plan_name)!''}
 														</td>
-														<td >
+														<td class="center">
 															${(_data.risk_level)!''}
 														</td>
 													
-														<td >
+														<td class="center">
 															${(_data.filing_number)!''}
 														</td>
-														<td >
+														<td class="center">
 															${(_data.delivery_company)!''}
 														</td>
-														<td >
+														<td class="center">
 															
 															<#if (_data.bak1)?? && (_data.bak1=="1")>
 																	已保存
