@@ -85,7 +85,7 @@ public class TsMsgEnviroRiskController  extends BaseController {
 //			returnObject.setQueryBean(TsMsgEnviroRisk);
 			
 		List<TsMsgEnviroRisk> datas=tsMsgEnviroRiskService.finderTsEnvirolistForList(page,TsMsgEnviroRisk,listCompany);
-			returnObject.setQueryBean(TsMsgEnviroRisk);
+		returnObject.setQueryBean(TsMsgEnviroRisk);
 		returnObject.setPage(page);
 		returnObject.setData(datas);
 		return returnObject;
@@ -217,6 +217,15 @@ public class TsMsgEnviroRiskController  extends BaseController {
 		return "/nybusiness/msg/TsMsgEnviroRisk/TsMsgEnviroRiskCru";
 	}
 	
+	/**
+	 * 进入详情页面
+	 */
+	@RequestMapping(value = "/details")
+	public String details(Model model,HttpServletRequest request,HttpServletResponse response)  throws Exception{
+		ReturnDatas returnObject = lookjson(model, request, response);
+		model.addAttribute(GlobalStatic.returnDatas, returnObject);
+		return "/nybusiness/msg/TsMsgEnviroRisk/TsMsgEnviroRiskCru1";
+	}
 	/**
 	 * 删除操作
 	 */

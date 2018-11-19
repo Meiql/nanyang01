@@ -21,6 +21,8 @@ import org.springrain.frame.util.GlobalStatic;
 import org.springrain.frame.util.MessageUtils;
 import org.springrain.frame.util.Page;
 import org.springrain.frame.util.ReturnDatas;
+import org.springrain.nybusiness.company.service.ITsCompanyInfoService;
+import org.springrain.nybusiness.msg.entity.TsMsgEnviroRisk;
 import org.springrain.nybusiness.msg.entity.TsMsgProductTechnology;
 import org.springrain.nybusiness.msg.entity.TsMsgTechnology;
 import org.springrain.nybusiness.msg.service.ITsMsgProductTechnologyService;
@@ -28,7 +30,7 @@ import org.springrain.nybusiness.msg.service.ITsMsgTechnologyService;
 
 
 /**
- * TODO 在此加入类描述
+ * TODO 生产工艺综合过程
  * @copyright {@link weicms.net}
  * @author springrain<Auto generate>
  * @version  2018-10-27 09:44:38
@@ -40,6 +42,9 @@ public class TsMsgProductController  extends BaseController {
 	
 	@Resource
 	private ITsMsgProductTechnologyService iTsMsgProductTechnologyService;
+	
+	@Resource
+	private ITsCompanyInfoService tsCompanyInfoService;
 	
 	private String listurl="/nybusiness/msg/tsmsgproducttechnology/tsmsgproducttechnologyList";
 	
@@ -76,10 +81,16 @@ public class TsMsgProductController  extends BaseController {
 	@ResponseBody   
 	public  ReturnDatas listjson(HttpServletRequest request, Model model,TsMsgProductTechnology tsMsgProductTechnology) throws Exception{
 		ReturnDatas returnObject = ReturnDatas.getSuccessReturnDatas();
-		// ==构造分页请求
+		// 构造分页请求
 		Page page = newPage(request);
-		// ==执行分页查询
-		List<TsMsgProductTechnology> datas=iTsMsgProductTechnologyService.findListDataByFinder(null,page,TsMsgProductTechnology.class,tsMsgProductTechnology);	
+		System.out.println(tsMsgProductTechnology.getTechnologyName());
+		//首先查询companyId
+		List<String> listCompany = tsCompanyInfoService.finderCompanyIdByUserId(SessionUser.getUserId());
+				
+//		// ==执行分页查询
+//		List<TsMsgProductTechnology> datas=iTsMsgProductTechnologyService.findListDataByFinder(null,page,TsMsgProductTechnology.class,tsMsgProductTechnology);
+		
+		List<TsMsgProductTechnology> datas=iTsMsgProductTechnologyService.finderTsMsgProductTechnology(page,tsMsgProductTechnology,listCompany);
 		returnObject.setQueryBean(tsMsgProductTechnology);
 		returnObject.setPage(page);
 		returnObject.setData(datas);

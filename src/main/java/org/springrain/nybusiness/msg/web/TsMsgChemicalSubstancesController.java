@@ -21,7 +21,9 @@ import org.springrain.frame.util.GlobalStatic;
 import org.springrain.frame.util.MessageUtils;
 import org.springrain.frame.util.Page;
 import org.springrain.frame.util.ReturnDatas;
+import org.springrain.nybusiness.company.service.ITsCompanyInfoService;
 import org.springrain.nybusiness.msg.entity.TsMsgChemicalSubstances;
+import org.springrain.nybusiness.msg.entity.TsMsgEnviroRisk;
 import org.springrain.nybusiness.msg.service.ITsMsgChemicalSubstancesService;
 
 
@@ -37,6 +39,8 @@ import org.springrain.nybusiness.msg.service.ITsMsgChemicalSubstancesService;
 public class TsMsgChemicalSubstancesController  extends BaseController {
 	@Resource
 	private ITsMsgChemicalSubstancesService tsMsgChemicalSubstancesService;
+	@Resource
+	private ITsCompanyInfoService tsCompanyInfoService;
 	
 	private String listurl="/nybusiness/msg/tsmsgchemicalsubstances/tsmsgchemicalsubstancesList";
 	
@@ -72,11 +76,14 @@ public class TsMsgChemicalSubstancesController  extends BaseController {
 	@ResponseBody   
 	public  ReturnDatas listjson(HttpServletRequest request, Model model,TsMsgChemicalSubstances tsMsgChemicalSubstances) throws Exception{
 		ReturnDatas returnObject = ReturnDatas.getSuccessReturnDatas();
-		// ==构造分页请求
+		// 构造分页请求
 		Page page = newPage(request);
+		//首先查询companyId
+		List<String> listCompany = tsCompanyInfoService.finderCompanyIdByUserId(SessionUser.getUserId());
 		// ==执行分页查询
-		List<TsMsgChemicalSubstances> datas=tsMsgChemicalSubstancesService.findListDataByFinder(null,page,TsMsgChemicalSubstances.class,tsMsgChemicalSubstances);
-			returnObject.setQueryBean(tsMsgChemicalSubstances);
+		List<TsMsgChemicalSubstances> datas=tsMsgChemicalSubstancesService.finderTsMsgChemicalSubstances(page,tsMsgChemicalSubstances,listCompany);
+//		List<TsMsgChemicalSubstances> datas=tsMsgChemicalSubstancesService.findListDataByFinder(null,page,TsMsgChemicalSubstances.class,tsMsgChemicalSubstances);
+		returnObject.setQueryBean(tsMsgChemicalSubstances);
 		returnObject.setPage(page);
 		returnObject.setData(datas);
 		return returnObject;
@@ -136,25 +143,24 @@ public class TsMsgChemicalSubstancesController  extends BaseController {
 		SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 		String formatStr =formatter.format(date);
 		System.out.println(formatStr);
-		//创建时间
+		//1.创建时间
 		if(StringUtils.isBlank(tsMsgChemicalSubstances.getCreateTime())){
 			tsMsgChemicalSubstances.setCreateTime(formatStr);
 		}
-		//创建用户
+		//2.创建用户id
 		if(StringUtils.isBlank(tsMsgChemicalSubstances.getCreateUser())){
 			tsMsgChemicalSubstances.setCreateUser(SessionUser.getUserId());
 		}
-		//创建用户
+		//3.创建用户name
 		if(StringUtils.isBlank(tsMsgChemicalSubstances.getCreateUserName())){
 			tsMsgChemicalSubstances.setCreateUserName(SessionUser.getUserName());
 		}
-		//公司代码
+		//4.公司代码
 		java.lang.String companyId = SessionUser.getCompanyid(); 
 		if(StringUtils.isBlank(tsMsgChemicalSubstances.getCompanyId())){
 			tsMsgChemicalSubstances.setCompanyId(companyId);
 		}
-		try {
-		
+		try {		
 			java.lang.String id =tsMsgChemicalSubstances.getId();
 			if(StringUtils.isBlank(id)){
 			  tsMsgChemicalSubstances.setId(null);

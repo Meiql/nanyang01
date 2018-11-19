@@ -1,5 +1,8 @@
 package org.springrain.nybusiness.msg.service;
 
+import java.util.List;
+
+import org.springrain.frame.util.Page;
 import org.springrain.nybusiness.msg.entity.TsMsgChemicalSubstances;
 import org.springrain.system.service.IBaseSpringrainService;
 /**
@@ -19,6 +22,14 @@ public interface ITsMsgChemicalSubstancesService extends IBaseSpringrainService 
 	 */
 	TsMsgChemicalSubstances findTsMsgChemicalSubstancesById(Object id) throws Exception;
 	
-	
+	/**
+	 * 根据权限查询
+	 * @param page
+	 * @param tsMsgEnviroRisk
+	 * @param listCompany
+	 * @return
+	 * @throws Exception
+	 */
+	List<TsMsgChemicalSubstances> finderTsMsgChemicalSubstances(Page page, TsMsgChemicalSubstances tsMsgChemicalSubstances,List<String> listCompany)throws Exception;
 	
 }
