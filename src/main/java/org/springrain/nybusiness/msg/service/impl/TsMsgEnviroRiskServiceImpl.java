@@ -103,16 +103,18 @@ public class TsMsgEnviroRiskServiceImpl extends BaseSpringrainServiceImpl implem
 		String riskUnitTypeName = tsMsgEnviroRisk.getRiskUnitTypeName();
 		//2.查询条件：风险单元名称
 		if(riskUnitName != null && !riskUnitName.equals("")) {
-			finder.append(" and t.riskUnitName=:riskUnitName").setParam("riskUnitName", riskUnitName);
+			finder.append(" and t.riskUnitName like:riskUnitName").setParam("riskUnitName", "%"+riskUnitName+"%");
 		}
 		//3.查询条件：风险单元类别
 		if(riskUnitTypeName != null && !riskUnitTypeName.equals("")) {
-			finder.append(" and t.riskUnitTypeName=:riskUnitTypeName").setParam("riskUnitTypeName", riskUnitTypeName);
+			finder.append(" and t.riskUnitTypeName like:riskUnitTypeName").setParam("riskUnitTypeName", "%"+riskUnitTypeName+"%");
 		}
-		System.out.println("1111111111 "+finder.getSql());
+		System.out.println("环境风险单元查询sql   "+finder.getSql());
 		return super.queryForList(finder, TsMsgEnviroRisk.class, page);
 	}
-
+	/**
+	 * 更新提交状态bak1
+	 */
 	@Override
 	public void updateBak1(String id, Class<TsMsgEnviroRisk> class1)  throws Exception {
 		Finder finder = new Finder();
@@ -120,7 +122,7 @@ public class TsMsgEnviroRiskServiceImpl extends BaseSpringrainServiceImpl implem
 		finder.append("UPDATE `ts_msg_enviro_risk` t SET t.bak1=:bak1")
 		.setParam("bak1", bak1).append(" where t.id=:id").setParam("id", id);
 		super.update(finder);
-	System.out.println("2222 "+finder.getSql());			
+	System.out.println("环境风险提交状态更新 sql  "+finder.getSql());			
 	}
 
 }

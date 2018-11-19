@@ -2,8 +2,11 @@ package org.springrain.nybusiness.msg.service.impl;
 
 import java.io.File;
 import java.util.List;
+
+import org.apache.commons.collections.CollectionUtils;
 import org.springframework.stereotype.Service;
 import org.springrain.nybusiness.msg.entity.TsMsgChemicalSubstances;
+import org.springrain.nybusiness.msg.entity.TsMsgEnviroRisk;
 import org.springrain.nybusiness.msg.service.ITsMsgChemicalSubstancesService;
 import org.springrain.frame.entity.IBaseEntity;
 import org.springrain.frame.util.Finder;
@@ -74,5 +77,27 @@ public class TsMsgChemicalSubstancesServiceImpl extends BaseSpringrainServiceImp
 			throws Exception {
 			 return super.findDataExportExcel(finder,ftlurl,page,clazz,o);
 		}
+	/**
+	 * 根据权限查询
+	*/
+	@Override
+	public List<TsMsgChemicalSubstances> finderTsMsgChemicalSubstances(Page page,
+			TsMsgChemicalSubstances tsMsgChemicalSubstances, List<String> listCompany) throws Exception {
+		if(CollectionUtils.isEmpty(listCompany)){
+			return null;
+		}
+		Finder finder = new Finder();
+		//1.查询条件：公司id
+		finder.append("SELECT * FROM `ts_msg_chemical_substances` t where t.companyId in (:companyId)")
+		.setParam("companyId", listCompany);
+		
+		//2.查询条件：化学名称
+		String chemistryName = tsMsgChemicalSubstances.getChemistryName();
+		if(chemistryName != null && !chemistryName.equals("")) {
+			finder.append(" and t.chemistryName like:chemistryName").setParam("chemistryName", "%"+chemistryName+"%");
+		}
+		System.out.println("化学物质条件查询 sql：   "+finder.getSql());
+		return super.queryForList(finder, TsMsgChemicalSubstances.class, page);
+	}
 
 }

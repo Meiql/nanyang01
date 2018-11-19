@@ -2,7 +2,10 @@ package org.springrain.nybusiness.msg.service.impl;
 
 import java.io.File;
 import java.util.List;
+
+import org.apache.commons.collections.CollectionUtils;
 import org.springframework.stereotype.Service;
+import org.springrain.nybusiness.msg.entity.TsMsgEnviroRisk;
 import org.springrain.nybusiness.msg.entity.TsMsgProductTechnology;
 import org.springrain.nybusiness.msg.service.ITsMsgProductTechnologyService;
 import org.springrain.frame.entity.IBaseEntity;
@@ -74,5 +77,28 @@ public class TsMsgProductTechnologyServiceImpl extends BaseSpringrainServiceImpl
 			throws Exception {
 			 return super.findDataExportExcel(finder,ftlurl,page,clazz,o);
 		}
+	/**
+	 * 根据权限查询
+	*/
+	@Override
+	public List<TsMsgProductTechnology> finderTsMsgProductTechnology(Page page,
+			TsMsgProductTechnology tsMsgProductTechnology, List<String> listCompany) throws Exception {
+		if(CollectionUtils.isEmpty(listCompany)){
+			return null;
+		}
+		Finder finder = new Finder();
+		//1.查询条件：公司id
+		finder.append("SELECT * FROM `ts_msg_product_technology` t where t.companyId in (:companyId)")
+		.setParam("companyId", listCompany);
+		
+		//2.查询条件：工艺类型名称
+		String technologyName = tsMsgProductTechnology.getTechnologyName();
+		System.out.println("technologyName===="+technologyName);
+		if(technologyName != null && !technologyName.equals("")) {
+			finder.append(" and t.technologyName like:technologyName").setParam("technologyName", "%"+technologyName+"%");
+		}
+		System.out.println("工艺类型综合信息查询sql   "+finder.getSql());
+		return super.queryForList(finder, TsMsgProductTechnology.class, page);
+	}
 
 }
