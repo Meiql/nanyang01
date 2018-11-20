@@ -18,7 +18,7 @@
 		});
 	});
 	function del(_id){
-		springrain.mydelete(_id,"${ctx}/tswasteemptyingmsg/delete");
+		springrain.mydelete(_id,"${ctx}/tsdeclare/delete");
 	}
 </script>
 
@@ -33,16 +33,16 @@
 
 		             </li>
 					 <li style="float:right;">
-		             	<@shiro.hasPermission name="/tswasteemptyingmsg/update" >
-		             		<button type="button"   class="layui-btn layui-btn-small" data-action="${ctx}/tswasteemptyingmsg/update/pre"><i class="layui-icon layui-icon-specil">&#xe61f;</i>新增</button>
+		             	<@shiro.hasPermission name="/tsdeclare/update" >
+		             		<button type="button"   class="layui-btn layui-btn-small" data-action="${ctx}/tsdeclare/update/pre"><i class="layui-icon layui-icon-specil">&#xe61f;</i>新增</button>
 		             	</@shiro.hasPermission>
-		             	<!-- <@shiro.hasPermission name="/tswasteemptyingmsg/list/export" >
+		             	<@shiro.hasPermission name="/tsdeclare/list/export" >
 				        	<button type="button"   class="layui-btn layui-btn-small"><i class="layui-icon layui-icon-specil">&#xe609;</i>导出</button>
-				        </@shiro.hasPermission> -->
-		                <button type="button"  class="layui-btn layui-btn-warm layui-btn-small"><i class="layui-icon layui-icon-specil">&#xe601;</i>导入</button>
-		                <!-- <@shiro.hasPermission name="/tswasteemptyingmsg/delete" >
+				        </@shiro.hasPermission>
+		                <!-- <button type="button"  class="layui-btn layui-btn-warm layui-btn-small"><i class="layui-icon layui-icon-specil">&#xe601;</i>导入</button> -->
+		                <@shiro.hasPermission name="/tsdeclare/delete" >
 		               		 <button type="button"  class="layui-btn layui-btn-danger layui-btn-small"><i class="layui-icon">&#xe640;</i>批量删除</button>
-		                </@shiro.hasPermission> -->
+		                </@shiro.hasPermission>
 		             </li>
 	       		</ul>
 				
@@ -51,7 +51,7 @@
 							<div class="layui-main">
 						          <div id="LAY_preview">
 						          <!-- 查询  开始 -->
-							          <form class="layui-form layui-form-pane" id="searchForm" action="${ctx}/tswasteemptyingmsg/list" method="post">
+							          <form class="layui-form layui-form-pane" id="searchForm" action="${ctx}/tsdeclare/list" method="post">
 							          <input type="hidden" name="pageIndex" id="pageIndex" value="${(returnDatas.page.pageIndex)!'1'}" /> 
 							          <input type="hidden" name="sort" id="page_sort" value="${(returnDatas.page.sort)!'desc'}" />
 							          <input type="hidden" name="order" id="page_order" value="${(returnDatas.page.order)!'id'}" />
@@ -62,14 +62,14 @@
 										</colgroup>
 							          	<tbody>
 							          		<tr>
-							          			<th colspan="2">放空情况搜索</th>
+							          			<th colspan="2">年（月）度申报表搜索</th>
 							          		</tr>
 							          		<tr>
 							          			<td>
 							          				<div class="layui-inline">
 									                    <label class="layui-form-label">名称</label>
 									                    <div class="layui-input-inline">
-									                           <input type="text" name="processName" value="${(returnDatas.queryBean.processName)!''}" placeholder="请输入名称 " class="layui-input">
+									                           <input type="text" name="name" value="${(returnDatas.queryBean.name)!''}" placeholder="请输入名称 " class="layui-input">
 									                    </div>
 							                		</div>
 									                 <div class="layui-inline">
@@ -104,7 +104,7 @@
 										  <!--first_start_export-->
 											<thead>
 												<tr>
-													<th colspan="9">放空情况列表<font id='recordsView' class='recorsView'>共<span></span>页,共 <span></span>条记录</font></th>
+													<th colspan="9">年（月）度申报表列表<font id='recordsView' class='recorsView'>共<span></span>页,共 <span></span>条记录</font></th>
 												</tr>
 												<tr>
 												  <!--first_start_no_export-->
@@ -113,21 +113,17 @@
 												  </th>
 												  <th>操作</th>
 												  <!--first_end_no_export-->
-														<!-- <th id="th_waterId" >waterId</th>
-														<th id="th_airId" >废弃处理表id</th>
-														<th id="th_materialId" >危险物质处理表id</th> -->
-														<th id="th_processName" >存在放空的工艺名称</th>
-														<th id="th_mainChemicalMaterials" >涉及的化学物质</th>
-														<th id="th_emptyingCondition" >放空条件</th>
-														<th id="th_emptyingNum" >放空次数</th>
-														<th id="th_time" >平均单次执行时间</th>
+														<th id="th_materialName" >物资名称</th>
+														<th id="th_lastYearBalance" >上年结余</th>
+														<th id="th_unit" >单位</th>
+														<th id="th_newlyIncrease" >本年新增</th>
+														<th id="th_origin" >来源</th>
+														<th id="th_reducedYear" >本年减少</th>
+														<th id="th_whereabouts" >去向</th>
+														<th id="th_surplus" >剩余</th>
 														<th id="th_createUser" >创建人</th>
 														<th id="th_createTime" >创建时间</th>
-														<!-- <th id="th_remarks" >remarks</th>
-														<th id="th_companyId" >companyId</th>
-														<th id="th_bak1" >bak1</th>
-														<th id="th_bak2" >bak2</th>
-														<th id="th_bak3" >bak3</th> -->
+														<th id="th_remarks" >备注</th>
 												</tr> 
 											</thead>
 										  <!--first_end_export-->
@@ -141,37 +137,37 @@
 																<input name="check_li" value="${_data.id}"  type="checkbox">
 														</td>
 														<td>
-															<@shiro.hasPermission name="/tswasteemptyingmsg/update" >
-								                           		 <a href="#" data-action="${ctx}/tswasteemptyingmsg/update/pre?id=${_data.id}" class="layui-btn layui-btn-normal layui-btn-mini">编辑</a>
+															<@shiro.hasPermission name="/tsdeclare/update" >
+								                           		 <a href="#" data-action="${ctx}/tsdeclare/update/pre?id=" class="layui-btn layui-btn-normal layui-btn-mini">编辑</a>
 								                            </@shiro.hasPermission>
-								                            <@shiro.hasPermission name="/tswasteemptyingmsg/delete" >
+								                            <@shiro.hasPermission name="/tsdeclare/delete" >
 								                            	<a href="javascript:del('${(_data.id)!''}')" class="layui-btn layui-btn-danger layui-btn-mini ajax-delete">删除</a>
 								                            </@shiro.hasPermission>
 														</td>
 														<!--end_no_export-->
-														<!-- <td >
-															${(_data.waterId)!''}
+														<td >
+															${(_data.materialName)!''}
 														</td>
 														<td >
-															${(_data.airId)!''}
+															${(_data.lastYearBalance)!''}
 														</td>
 														<td >
-															${(_data.materialId)!''}
-														</td> -->
-														<td >
-															${(_data.processName)!''}
+															${(_data.unit)!''}
 														</td>
 														<td >
-															${(_data.mainChemicalMaterials)!''}
+															${(_data.newlyIncrease)!''}
 														</td>
 														<td >
-															${(_data.emptyingCondition)!''}
+															${(_data.origin)!''}
 														</td>
 														<td >
-															${(_data.emptyingNum)!''}
+															${(_data.reducedYear)!''}
 														</td>
 														<td >
-															${(_data.time)!''}
+															${(_data.whereabouts)!''}
+														</td>
+														<td >
+															${(_data.surplus)!''}
 														</td>
 														<td >
 															${(_data.createUser)!''}
@@ -179,21 +175,9 @@
 														<td >
 															${(_data.createTime)!''}
 														</td>
-														<!-- <td >
+														<td >
 															${(_data.remarks)!''}
 														</td>
-														<td >
-															${(_data.companyId)!''}
-														</td>
-														<td >
-															${(_data.bak1)!''}
-														</td>
-														<td >
-															${(_data.bak2)!''}
-														</td>
-														<td >
-															${(_data.bak3)!''}
-														</td> -->
 													</tr>
 												</#list>
 											 </#if>
