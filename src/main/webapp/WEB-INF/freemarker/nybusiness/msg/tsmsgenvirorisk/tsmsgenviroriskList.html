@@ -97,13 +97,19 @@
 									                    <div class="layui-input-inline">
 									                           <input type="text" name="riskUnitName" value="${(returnDatas.queryBean.riskUnitName)!''}" placeholder="请输入名称 " class="layui-input">
 									                    </div>
-							                		</div>		
+							                		</div>									                
 							                		<div class="layui-inline">
-									                    <label class="layui-form-label">风险单元类别</label>
+									                    <label class="layui-form-label">审批状态</label>
 									                    <div class="layui-input-inline">
-									                           <input type="text" name="riskUnitTypeName" value="${(returnDatas.queryBean.riskUnitTypeName)!''}" placeholder="请输入名称 " class="layui-input">
+									                        <select name="bak1" id="bak1" class="layui-input">
+									                          <option value="0">==请选择状态==</option>
+															  <option value="1">已保存</option>
+															  <option value="2">审批中</option>
+															  <option value="3">已通过</option>
+															  <option value="4">未通过</option>
+															</select>   
 									                    </div>
-							                		</div>							               
+									                </div>							               
 							          			</td>
 							          			<td>
 							          			   <div class="layui-inline">
@@ -194,8 +200,17 @@
 														<td >
 															${(_data.createTime)!''}
 														</td>
-														<td >
-															${(_data.bak1)!''}
+															<td class="center">
+															
+															<#if (_data.bak1)?? && (_data.bak1=="1")>
+																	已保存
+															<#elseif (_data.bak1)?? && (_data.bak1=="2")>
+																	审批中
+															<#elseif (_data.bak1)?? && (_data.bak1=="3")>
+																	已通过
+															<#elseif (_data.bak1)?? && (_data.bak1=="4")>
+																	未通过
+															</#if>
 														</td>															
 														<td >
 															${(_data.describes)!''}

@@ -100,14 +100,14 @@ public class TsMsgEnviroRiskServiceImpl extends BaseSpringrainServiceImpl implem
 		.setParam("companyId", listCompany);
 		
 		String riskUnitName = tsMsgEnviroRisk.getRiskUnitName();
-		String riskUnitTypeName = tsMsgEnviroRisk.getRiskUnitTypeName();
+		String bak1 = tsMsgEnviroRisk.getBak1();
 		//2.查询条件：风险单元名称
 		if(riskUnitName != null && !riskUnitName.equals("")) {
 			finder.append(" and t.riskUnitName like:riskUnitName").setParam("riskUnitName", "%"+riskUnitName+"%");
 		}
 		//3.查询条件：风险单元类别
-		if(riskUnitTypeName != null && !riskUnitTypeName.equals("")) {
-			finder.append(" and t.riskUnitTypeName like:riskUnitTypeName").setParam("riskUnitTypeName", "%"+riskUnitTypeName+"%");
+		if(bak1 != null && !bak1.equals("")) {
+			finder.append(" and t.bak1 like:bak1").setParam("bak1", "%"+bak1+"%");
 		}
 		System.out.println("环境风险单元查询sql   "+finder.getSql());
 		return super.queryForList(finder, TsMsgEnviroRisk.class, page);
