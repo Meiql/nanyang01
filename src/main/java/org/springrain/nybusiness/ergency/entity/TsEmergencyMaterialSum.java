@@ -2,6 +2,7 @@ package org.springrain.nybusiness.ergency.entity;
 
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.builder.EqualsBuilder;
@@ -44,6 +45,26 @@ public class TsEmergencyMaterialSum  extends BaseEntity {
 	//date formats
 	
 	//columns START
+	@Transient
+	private java.lang.String table_from;
+	@Transient
+	public java.lang.String getTable_from() {
+		return table_from;
+	}
+	@Transient
+	public void setTable_from(java.lang.String table_from) {
+		this.table_from = table_from;
+	}
+	@Transient
+	private java.lang.String name;
+	@Transient
+	public java.lang.String getName() {
+		return name;
+	}
+	@Transient
+	public void setName(java.lang.String name) {
+		this.name = name;
+	}
 	/**
 	 * id
 	 */
