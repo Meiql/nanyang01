@@ -31,6 +31,7 @@ public interface ITsEmergencyUserService extends IBaseSpringrainService {
 	 */
 	List<TsEmergencyUser> finderListForPage(Page page,TsEmergencyUser tsEmergencyUser)throws Exception;
 	
+	
 	TsEmergencyUser finderObject()throws Exception;
 	
 	
