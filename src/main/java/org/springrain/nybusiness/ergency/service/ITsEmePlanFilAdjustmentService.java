@@ -29,5 +29,6 @@ public interface ITsEmePlanFilAdjustmentService extends IBaseSpringrainService {
 	List<TsEmePlanFilAdjustment> findAdjustmentByFilId(String id) throws Exception;
 	
 	public void deleteByAdjustmentId(String adjustmentId) throws Exception;
+	
 	public void updateTsEmePlanFilingMod(String id)throws Exception;
 }
