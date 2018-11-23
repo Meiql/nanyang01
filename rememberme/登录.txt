@@ -1,0 +1,3 @@
+http://127.0.0.1/nanyang/system/login 企业用 企业用户登录url
+
+http://127.0.0.1/nanyang/system/governmentlogin  政府  政府用户
