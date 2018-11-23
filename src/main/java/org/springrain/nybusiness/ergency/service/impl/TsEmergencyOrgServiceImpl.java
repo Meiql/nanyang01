@@ -187,7 +187,9 @@ public class TsEmergencyOrgServiceImpl extends BaseSpringrainServiceImpl
 	public List<TsEmergencyOrg> finderTsEmergencyOrgForList() throws Exception {
 
 		List<String> listCompanyId = tsCompanyInfoService.finderCompanyIdByUserId(SessionUser.getUserId());
-		
+		if(CollectionUtils.isEmpty(listCompanyId)){
+			return null;
+		}
 		Finder finder = new Finder("SELECT o.* FROM ").append(Finder.getTableName(TsEmergencyOrg.class)).append(" o ");
 		finder.append(" WHERE o.active=:active and  o.companyId in (:companyId)");
 		finder.setParam("active", 1).setParam("companyId", listCompanyId);

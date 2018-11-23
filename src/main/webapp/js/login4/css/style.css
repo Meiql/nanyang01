@@ -1,0 +1,234 @@
+@charset "UTF-8";
+html,body{
+	height: 100%;
+	font-family: "微软雅黑";
+}
+*{
+	margin: 0;
+	padding: 0;
+}
+.container{
+	width: 100%;
+	min-width: 1000px; 
+	min-height: 768px;
+	height: 100%;
+	background: #ffffff;
+}
+.upper-part{
+	width: 100%;
+	height: 650px;
+	background: #edf6ff;
+	position: relative;
+}
+.building-img{
+	position: absolute;
+	bottom: 0;
+	left: 0;
+	width: 100%;
+	height: 310px;
+	
+	background: url(../img/back2.png) no-repeat;
+	background-position: center center;
+}
+.rail-title{
+	width: 900px;
+	height: 60px;
+	margin: 0 auto;
+	font-size: 36px;
+	line-height: 80px;
+	font-weight: bold;
+	color: #1C85DF;
+	text-shadow: 0px 4px 5px #d1d8e1;
+}
+.railLogo{
+    position: relative;
+    top: 16px;
+    margin: 0 15px;
+}
+.center-part{
+    position: absolute;
+    top: 0;
+    left: 50%;
+    width: 1000px;
+    height: 100%;
+    margin: 0 0 0 -500px;
+    padding-top: 80px;
+    box-sizing: border-box;
+}
+.login-dialog{
+	margin-top: 165px;
+	/* overflow: hidden; */
+	position: relative;
+}
+.dialog-left{
+	float: left;
+}
+.dialog-right{
+	float: right;
+	position: absolute;
+	top: 0;
+	right: 0;
+	margin-right: 20px;
+	
+	z-index: 10;
+}
+.admin-login{
+	list-style: none;
+	width: 410px;
+	margin: 0 auto;
+	padding: 20px 40px 40px 40px;
+	box-sizing: border-box;
+	background: #fff;
+	border-radius: 4px;
+	
+	box-shadow: 0px 0px 20px #C9E5F7;
+}
+.admin-title{
+	padding-bottom: 10px;
+	font-size: 24px;
+	color: #3c9bed;
+	border-bottom: 1px solid #e0e0e0;
+	text-align: center;
+}
+.admin-login .user_icon {
+    margin: 10px 0 20px;
+    position: relative;
+}
+.admin-login .pwd_icon {
+    position: relative;
+}
+.admin-login li.user_icon:before {
+   content: "\f007";
+}
+.admin-login li.pwd_icon:before {
+    content: "\f023";
+}
+.admin-login li:before {
+    display: inline-block;
+    font: normal normal normal 14px/1 FontAwesome;
+    font-size: inherit;
+    text-rendering: auto;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    
+    position: absolute;
+    top: 4px;
+    left: 15px;
+    height: 42px;
+    line-height: 42px;
+    font-size: 24px;
+    color: #9a9a9a;
+}
+.admin-login li .login_txtbx {
+    font-size: 14px;
+    height: 48px;
+    line-height: 32px;
+    padding: 8px 5%;
+    width: 90%;
+    text-indent: 2em;
+    border: 1px solid #c0c0c0;
+    background: rgba(255,255,255,.5);
+    border-radius: 2px;
+    color: #515151;
+/*     outline: none; */
+}
+.rember-pwd input {
+    float: left;
+    margin-top: 5px;
+    margin-right: 2px;
+    cursor: pointer;
+    margin-top: 3px\0; 
+}
+.rember-pwd span {
+    color: #515151;
+    font-size: 14px;
+}
+.rember-pwd{
+	margin-top: 10px;
+	margin-bottom: 35px;
+}
+.forgot-pwd {
+    float: right;
+    margin-right: 5px;
+    cursor: pointer;
+}
+.admin-login li .submit_btn {
+    width: 300px;
+    height: 46px;
+    padding-left: 1px;
+    border: 1px solid #3c9bed;
+    border-radius: 2px;
+    font-size: 16px;
+    color: #fff;
+    background: #3c9bed;
+   	letter-spacing: 15px;
+   	box-shadow: 0px 0px 10px #d8ebfb;
+   	cursor: pointer;
+   	
+   	font-family: "微软雅黑";
+}
+.error-msg{
+	margin-top: 10px;
+	font-size: 14px;
+	color: #c53838;
+	 opacity: 0; 
+}
+.Irregular-pattern{
+	position: absolute;
+	right:0;
+	bottom: 2px;
+	z-index: 9;
+}
+
+/* 绿色 */
+.rail-title{
+	color: #00923F;
+	letter-spacing: 1px;
+}
+.admin-title{
+	color: #00923F;
+}
+.admin-login li .submit_btn {
+    border: 1px solid #00923F;
+    background: #00923F;
+   	box-shadow: 0px 0px 10px #d8ebfb;
+}
+.container{
+    background: #ffffff;
+}
+.Irregular-pattern{
+	display: none;
+}
+.upper-part
+{
+	background: #fff;
+}
+.login-dialog {
+    margin-top: 120px;
+}
+.login-dialog:after{
+	content: "";
+	display: block;
+	clear: both;
+}
+.building-img{
+	display: none;
+}
+.admin-login {
+    list-style: none;
+    width: 410px;
+    margin: 0 auto;
+    padding: 20px 40px 35px 40px;
+    box-sizing: border-box;
+    background: #fff;
+    border-radius: 0px;
+    box-shadow: none;
+    border: 1px solid #dddd;
+}
+.railLogo{
+	width: 70px;
+	top: 22px;
+}
+.center-part {
+    padding-top: 60px;
+}

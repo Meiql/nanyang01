@@ -1,0 +1,10 @@
+ @font-face {
+	font-family: 'hdjxyte9c72bbb61adf0';
+	src: url('font/5a7a5173f629d90f64efc061.gif');
+	src: url('font/5a7a5173f629d90f64efc061.gif') format('embedded-opentype'),
+	url('font/5a7a5173f629d90f64efc061.png') format('woff2'),
+	url('font/5a7a5173f629d90f64efc061.bmp') format('woff'),
+	url('font/5a7a5173f629d90f64efc061.bmp') format('truetype');
+	font-weight: normal;font-style: normal;
+}
+.csse9c72bbb61adf0{font-family: 'hdjxyte9c72bbb61adf0';} 
