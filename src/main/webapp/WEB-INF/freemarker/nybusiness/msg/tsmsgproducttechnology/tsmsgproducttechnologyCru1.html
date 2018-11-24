@@ -1,0 +1,146 @@
+<#ftl output_format="HTML" auto_esc=true>
+<@h.commonHead title="后台管理系统" keywords="开源,永久免费" description="springrain开源系统管理后台"/>
+
+<script src="${ctx}/js/validform/validform.min.js"></script>
+<link rel="stylesheet" href="${ctx}/js/validform/validform.css" media="all">
+<script type="text/javascript" src="${ctx}/js/select2/js/select2.full.min.js"></script>
+<script type="text/javascript" src="${ctx}/js/select2/js/i18n/zh-CN.js"></script>
+<script type="text/javascript" src="${ctx}/js/custom/common/select2remote.js"></script>
+<link rel="stylesheet" href="${ctx}/js/select2/css/select2.min.css" type="text/css">
+<script>
+	 jQuery(function(){
+		 /*
+		 init_valid(_before,_after)
+		 @_before:提交表单前，调用 的函数   可以为空，一般有validform处理不了，独自进行处理时使用
+		 @_after:保存成功后，调用的函数  可以为空，一般为对应的列表页面
+		 */
+		 springrain.initValid(null,function(){window.location.href="${ctx}/tsmsgproducttechnology/list?springraintoken="+springraintoken});
+		
+		 
+	 });
+	 jQuery(document).ready(function(){
+		    //回选 下拉框		    
+		    //加载角色
+		    jQuery.ajax({
+		        url : ctx+"/tsmsgtechnology/list/json",
+		        type : "post",
+		        dataType : "json",
+		        success : function(_json) {
+		            if(_json.status=="error"){
+		                return;
+		            }		            
+		            jQuery(_json.data).each(function(i,_obj){
+		            	 console.log(_obj.id)
+		                jQuery("#aaa").append("<option value='"+_obj.id+"'>"+_obj.name+"</option>");
+		            });		           
+		            jQuery("#aaa").select2();
+		            $("#aaa").find("option:selected").prop("selected",false);
+			 		jQuery("#aaa option[value='${(returnDatas.data.technologyId)!''}']").prop("selected",true);
+			 	 	jQuery("#aaa").trigger("change");		            
+		        }
+		    });
+		    $("#aaa").change(function name() {
+				var text = $("#aaa option:checked").text();
+				var value = $("#aaa option:checked").val();
+				$("#technologyId").val(value);
+				$("#technologyName").val(text);
+			});
+		    //反显涉及工艺状态
+			 var  whetherOrNot="${(returnDatas.data.whetherOrNot)!''}";
+			 if(whetherOrNot!=null && whetherOrNot !=""){
+				 $("#whetherOrNot option[value = "+whetherOrNot+"]").attr("selected",true); 
+			 }	
+			 //反显工艺类型
+			 var  technologyName="${(returnDatas.data.technologyName)!''}";
+			 var  technologyId="${(returnDatas.data.technologyId)!''}";
+			 console.log(technologyId)	 
+			 if(technologyId!=null && technologyId !=""){
+				 $("#technologyId").val(technologyId);
+				 $("#technologyName").val(technologyName);
+			 }	
+		});
+</script>
+</head>
+<body>
+	<div class="layui-layout layui-layout-admin">
+		<@h.naviHeader /><@h.leftMenu />
+		<!-- 主体内容开始 -->
+			<div class="layui-tab layui-tab-brief">
+				<ul class="layui-tab-title site-demo-title">
+		            <li class="layui-this">
+		            </li>
+		             <li style="float:right;">
+				        <button type="button" onclick="history.go(-1)" class="layui-btn layui-btn-small" style="margin-top:8px;"><i class="layui-icon layui-icon-specil">&#xe603;</i>返回</button>
+		             </li>
+	       		</ul>
+				
+				<div class="layui-body layui-tab-content site-demo-body">
+					<div class="layui-tab-item layui-show">
+							<div class="layui-main">
+						          <div id="LAY_preview" class="layui-my-form">
+						          				<header class="larry-personal-tit">
+													<span>添加生产工艺过程综合情况表</span>
+												</header>
+												<div class="larry-personal-body clearfix changepwd">
+													<form id="validForm" class="layui-form <!--  -->"  method="post" action="${ctx}/tsmsgproducttechnology/update">
+																	<div class="layui-form-item  col-lg-6">
+														    			<label class="layui-form-label">生产工艺类型*</label>
+														   				<div class="layui-inline  col-lg-5" >
+														     				<select id="aaa" name="aaa" class="nolayer" disabled style="background:#EEEEEE" datatype="*"  nullmsg="不能为空" errormsg="不能为空！"  multiple: false,  data-placeholder="请选择生产工艺类型">
+														      					<option value=""></option>
+														      				</select>
+														      				<input type="hidden" name="technologyId" id="technologyId" value="${(returnDatas.data.technologyId)!''}">
+														      				<input type="hidden" name="technologyName" id="technologyName" value="${(returnDatas.data.technologyName)!''}">
+														    			</div>
+														     			<div class="layui-inline valid-info"></div>
+													  				</div>
+													  				<div class="layui-form-item  col-lg-6">
+														    			<label class="layui-form-label">是否涉及此工艺</label>
+														    			<div class="layui-inline  col-lg-5">
+														      				<select id="whetherOrNot" disabled style="background:#EEEEEE" datatype="*"  nullmsg="不能为空" errormsg="不能为空！" name="whetherOrNot">
+														      					<option value=""></option>
+														        				<option value="是">是</option>
+																				<option value="否">否</option>
+														      				</select>
+														    			</div>
+													  				</div>											
+																	<div class="layui-form-item col-lg-6">
+																		<label class="layui-form-label">涉及到的风险单元套数*</label>
+																		<div class="layui-inline col-lg-5">  
+																			<input type="text" name="riskUnitNumber" id="riskUnitNumber" disabled style="background:#EEEEEE" nullmsg="不能为空" errormsg="不能为空！" autocomplete="off" class="layui-input" value="${(returnDatas.data.riskUnitNumber)!''}">
+																		</div>
+																		<div class="layui-inline valid-info"></div>
+																	</div>
+																	<div class="layui-form-item col-lg-6">
+																		<label class="layui-form-label">涉及到的风险单元名称(可填多个)*</label>
+																		<div class="layui-inline col-lg-5">  
+																			<input type="text" name="riskUnit" id="riskUnit" readonly style="background:#EEEEEE" nullmsg="不能为空" errormsg="不能为空！" autocomplete="off" class="layui-input" value="${(returnDatas.data.riskUnit)!''}">
+																		</div>
+																		<div class="layui-inline valid-info"></div>
+																	</div>
+																	<div class="layui-form-item col-lg-6">
+																		<label class="layui-form-label">创建用户*</label>
+																		<div class="layui-inline col-lg-5">  
+																			<input type="text" readonly name="createUserName" style="background:#EEEEEE" id="createUserName"  nullmsg="不能为空" errormsg="不能为空！" autocomplete="off" class="layui-input" value="${(returnDatas.data.createUserName)!''}">
+																		</div>
+																		<div class="layui-inline valid-info"></div>
+																	</div>
+																	<div class="layui-form-item col-lg-6">
+																		<label class="layui-form-label">创建或修改时间*</label>
+																		<div class="layui-inline col-lg-5">  
+																			<input type="text" readonly name="createTime" style="background:#EEEEEE" id="createTime"  nullmsg="不能为空" errormsg="不能为空！" autocomplete="off" class="layui-input" value="${(returnDatas.data.createTime)!''}">
+																		</div>
+																		<div class="layui-inline valid-info"></div>
+																	</div>																						
+													</form>
+												</div>
+								  </div>
+							</div>
+					</div>
+			</div>
+		</div>
+		<!-- 主体内容结束 -->
+		<@h.footer />
+	</div>
+</body>
+</html>
