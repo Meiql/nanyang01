@@ -22,11 +22,8 @@ import org.springrain.frame.util.MessageUtils;
 import org.springrain.frame.util.Page;
 import org.springrain.frame.util.ReturnDatas;
 import org.springrain.nybusiness.company.service.ITsCompanyInfoService;
-import org.springrain.nybusiness.msg.entity.TsMsgEnviroRisk;
 import org.springrain.nybusiness.msg.entity.TsMsgProductTechnology;
-import org.springrain.nybusiness.msg.entity.TsMsgTechnology;
 import org.springrain.nybusiness.msg.service.ITsMsgProductTechnologyService;
-import org.springrain.nybusiness.msg.service.ITsMsgTechnologyService;
 
 
 /**
@@ -83,7 +80,6 @@ public class TsMsgProductController  extends BaseController {
 		ReturnDatas returnObject = ReturnDatas.getSuccessReturnDatas();
 		// 构造分页请求
 		Page page = newPage(request);
-		System.out.println(tsMsgProductTechnology.getTechnologyName());
 		//首先查询companyId
 		List<String> listCompany = tsCompanyInfoService.finderCompanyIdByUserId(SessionUser.getUserId());
 				
@@ -195,7 +191,15 @@ public class TsMsgProductController  extends BaseController {
 		model.addAttribute(GlobalStatic.returnDatas, returnObject);
 		return "/nybusiness/msg/tsmsgproducttechnology/tsmsgproducttechnologyCru";
 	}
-	
+	/**
+	 * 进入详情页面
+	 */
+	@RequestMapping(value = "/details")
+	public String details(Model model,HttpServletRequest request,HttpServletResponse response)  throws Exception{
+		ReturnDatas returnObject = lookjson(model, request, response);
+		model.addAttribute(GlobalStatic.returnDatas, returnObject);
+		return "/nybusiness/msg/tsmsgproducttechnology/tsmsgproducttechnologyCru1";
+	}
 	/**
 	 * 删除操作
 	 */

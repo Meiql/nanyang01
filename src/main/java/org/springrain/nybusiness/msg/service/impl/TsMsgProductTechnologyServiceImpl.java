@@ -93,7 +93,6 @@ public class TsMsgProductTechnologyServiceImpl extends BaseSpringrainServiceImpl
 		
 		//2.查询条件：工艺类型名称
 		String technologyName = tsMsgProductTechnology.getTechnologyName();
-		System.out.println("technologyName===="+technologyName);
 		if(technologyName != null && !technologyName.equals("")) {
 			finder.append(" and t.technologyName like:technologyName").setParam("technologyName", "%"+technologyName+"%");
 		}
