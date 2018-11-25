@@ -18,7 +18,7 @@
 		});
 	});
 	function del(_id){
-		springrain.mydelete(_id,"${ctx}/tsgoodsexpirylist/delete");
+		springrain.mydelete(_id,"${ctx}/tsexplorergatherinfo/delete");
 	}
 </script>
 
@@ -33,14 +33,14 @@
 
 		             </li>
 					 <li style="float:right;">
-		             	<@shiro.hasPermission name="/tsgoodsexpirylist/update" >
-		             		<button type="button"   class="layui-btn layui-btn-small" data-action="${ctx}/tsgoodsexpirylist/update/pre"><i class="layui-icon layui-icon-specil">&#xe61f;</i>新增</button>
+		             	<@shiro.hasPermission name="/tsexplorergatherinfo/update" >
+		             		<button type="button"   class="layui-btn layui-btn-small" data-action="${ctx}/tsexplorergatherinfo/update/pre"><i class="layui-icon layui-icon-specil">&#xe61f;</i>新增</button>
 		             	</@shiro.hasPermission>
-		             	<@shiro.hasPermission name="/tsgoodsexpirylist/list/export" >
+		             	<@shiro.hasPermission name="/tsexplorergatherinfo/list/export" >
 				        	<button type="button"   class="layui-btn layui-btn-small"><i class="layui-icon layui-icon-specil">&#xe609;</i>导出</button>
 				        </@shiro.hasPermission>
 		                <button type="button"  class="layui-btn layui-btn-warm layui-btn-small"><i class="layui-icon layui-icon-specil">&#xe601;</i>导入</button>
-		                <@shiro.hasPermission name="/tsgoodsexpirylist/delete" >
+		                <@shiro.hasPermission name="/tsexplorergatherinfo/delete" >
 		               		 <button type="button"  class="layui-btn layui-btn-danger layui-btn-small"><i class="layui-icon">&#xe640;</i>批量删除</button>
 		                </@shiro.hasPermission>
 		             </li>
@@ -51,10 +51,10 @@
 							<div class="layui-main">
 						          <div id="LAY_preview">
 						          <!-- 查询  开始 -->
-							          <form class="layui-form layui-form-pane" id="searchForm" action="${ctx}/tsgoodsexpirylist/list" method="post">
+							          <form class="layui-form layui-form-pane" id="searchForm" action="${ctx}/tsexplorergatherinfo/list" method="post">
 							          <input type="hidden" name="pageIndex" id="pageIndex" value="${(returnDatas.page.pageIndex)!'1'}" /> 
 							          <input type="hidden" name="sort" id="page_sort" value="${(returnDatas.page.sort)!'desc'}" />
-							          <input type="hidden" name="order" id="page_order" value="${(returnDatas.page.order)!'id'}" />
+							          <input type="hidden" name="order" id="page_order" value="${(returnDatas.page.order)!'companyId'}" />
 									  <table class="layui-table search-wrap">
 									  	<colgroup>
 										    <col width="">
@@ -62,23 +62,24 @@
 										</colgroup>
 							          	<tbody>
 							          		<tr>
-							          			<th colspan="2">已过期资源清单搜索</th>
+							          			<th colspan="2">资源统计搜索</th>
 							          		</tr>
 							          		<tr>
 							          			<td>
 							          				<div class="layui-inline">
-									                    <label class="layui-form-label">名称</label>
+									                    <label class="layui-form-label">主管单位</label>
 									                    <div class="layui-input-inline">
 									                           <input type="text" name="name" value="${(returnDatas.queryBean.name)!''}" placeholder="请输入名称 " class="layui-input">
 									                    </div>
 							                		</div>
 									                 <div class="layui-inline">
-									                    <label class="layui-form-label">是否可用</label>
+									                    <label class="layui-form-label">资源类型</label>
 									                    <div class="layui-input-inline">
-									                        <select name="active" id="active" class="layui-input">
+									                        <select name="goodsType" id="goodsType" class="layui-input">
 									                          <option value="">==请选择==</option>
-															  <option value="1">是</option>
-															  <option value="0">否</option>
+															  <option value="废气">废气</option>
+															  <option value="废水">废水</option>
+															   <option value="危险废物">危险废物</option>
 															</select>   
 									                    </div>
 									                </div>
@@ -104,20 +105,21 @@
 										  <!--first_start_export-->
 											<thead>
 												<tr>
-													<th colspan="9">已过期资源清单列表<font id='recordsView' class='recorsView'>共<span></span>页,共 <span></span>条记录</font></th>
+													<th colspan="9">资源统计列表<font id='recordsView' class='recorsView'>共<span></span>页,共 <span></span>条记录</font></th>
 												</tr>
 												<tr>
 												  <!--first_start_no_export-->
 												  <th class="center">
 															<input id="checkAll"  type="checkbox">
-												  </th>
-												 
-												  <!--first_end_no_export-->
-														<th id="" >物质名称</th>
-														<th id="" >型号规格</th>
-														<th id="" >所属公司</th>
-														<th id="" >总量</th>
-														<th id="" >备注</th>
+												  </th>											 										
+														<th id="th_goodsType" >资源类型</th>
+														<th id="th_aera" >行政区划</th>
+														<th id="th_competentOrganization" >主管单位</th>
+														<th id="th_companyname" >公司名称</th>
+														<th id="th_flueGasDealTon" >废气处理能力（吨）</th>
+														<th id="th_wasteWaterDealTon" >废水处理能力（吨）</th>
+														<th id="th_hazardousWastesProduceTon" >危险废物产生量（吨）</th>
+														<th id="th_hazardousWastesDealTon" >危险废物处理量</th>
 												</tr> 
 											</thead>
 										  <!--first_end_export-->
@@ -129,25 +131,32 @@
 													<tr class="">
 														<td class="center">
 																<input name="check_li" value="${_data.id}"  type="checkbox">
-														</td>
-													
-														<!--end_no_export-->
+														</td>		
 														<td >
-															${(_data.goods_name)!''}
+															${(_data.goodsType)!''}
 														</td>
 														<td >
-															${(_data.goods_type)!''}
+															${(_data.aera)!''}
 														</td>
 														<td >
-															${(_data.company)!''}
+															${(_data.competentOrganization)!''}
 														</td>
 														<td >
-															${(_data.goods_num)!0}
+															${(_data.companyname)!''}
 														</td>
 														<td >
-															${(_data.comments)!''}
+															${(_data.flueGasDealTon)!''}
 														</td>
-
+														<td >
+															${(_data.wasteWaterDealTon)!''}
+														</td>
+														<td >
+															${(_data.hazardousWastesProduceTon)!''}
+														</td>
+														<td >
+															${(_data.hazardousWastesDealTon)!''}
+														</td>
+			
 													</tr>
 												</#list>
 											 </#if>

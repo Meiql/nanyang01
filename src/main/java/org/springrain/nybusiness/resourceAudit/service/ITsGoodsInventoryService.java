@@ -1,5 +1,10 @@
 package org.springrain.nybusiness.resourceAudit.service;
 
+import java.util.List;
+
+import org.springrain.frame.util.Page;
+import org.springrain.nybusiness.company.entity.TsCompanyInfo;
+import org.springrain.nybusiness.resourceAudit.entity.TsExplorerGatherInfo;
 import org.springrain.nybusiness.resourceAudit.entity.TsGoodsInventory;
 import org.springrain.system.service.IBaseSpringrainService;
 /**
@@ -18,6 +23,7 @@ public interface ITsGoodsInventoryService extends IBaseSpringrainService {
 	 * @throws Exception
 	 */
 	TsGoodsInventory findTsGoodsInventoryById(Object id) throws Exception;
+	List<TsGoodsInventory> finderTsGoodsInventoryForList(Page page, TsGoodsInventory tsGoodsInventory,List<String> listCompany) throws Exception;
 	
 	
 	

@@ -2,7 +2,12 @@ package org.springrain.nybusiness.resourceAudit.service.impl;
 
 import java.io.File;
 import java.util.List;
+
+import org.apache.commons.collections.CollectionUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;
+import org.springrain.nybusiness.company.entity.TsCompanyInfo;
+import org.springrain.nybusiness.ergency.entity.TsEmergencyMaterialSum;
 import org.springrain.nybusiness.resourceAudit.entity.TsGoodsInventory;
 import org.springrain.nybusiness.resourceAudit.service.ITsGoodsInventoryService;
 import org.springrain.frame.entity.IBaseEntity;
@@ -74,5 +79,25 @@ public class TsGoodsInventoryServiceImpl extends BaseSpringrainServiceImpl imple
 			throws Exception {
 			 return super.findDataExportExcel(finder,ftlurl,page,clazz,o);
 		}
+
+	@Override
+	public List<TsGoodsInventory> finderTsGoodsInventoryForList(Page page, TsGoodsInventory tsGoodsInventory,
+			List<String> listCompany) throws Exception {
+		if(CollectionUtils.isEmpty(listCompany)){
+			return null;
+		}
+		Finder finder = new Finder();
+		finder.append("select t.id,t.category as goods_type,t.`name` as goods_name,t.Unit as useful_life_num ,t.quantity as goods_num,t.type_Specifications as expiry_date_num,info.companyName as comments from (SELECT t.id ,t.category,t.serial_number,t.`name`,t.quantity,t.Unit,:nullvalue as in_Equipment,t.company_id,t.type_Specifications,t.bak1 FROM `ts_ergency_investigation` t union all SELECT t.id ,t.category,t.Serial_number,t.`name`,t.quantity,t.unit,t.in_Equipment,t.company_id, :nullvalue as type_Specifications,t.bak1 FROM `ts_emergency_equipment_sum` t )t left join ts_company_info info on t.company_id=info.id where t.bak1=:eme   and  t.company_id in (:companyId)")
+			.setParam("companyId", listCompany).setParam("nullvalue", "").setParam("eme", "3");
+
+		if(StringUtils.isNoneBlank(tsGoodsInventory.getGoods_type())) {
+			finder.append(" and t.`name` like:goodsname").setParam("goodsname", "%"+tsGoodsInventory.getGoods_type()+"%");
+		}
+		if(StringUtils.isNoneBlank(tsGoodsInventory.getComments())) {
+			finder.append(" and info.companyName like:companyName").setParam("companyName", "%"+tsGoodsInventory.getComments()+"%");
+		}
+		System.out.println(finder.toString());
+		return super.queryForList(finder, TsGoodsInventory.class, page);
+	}
 
 }

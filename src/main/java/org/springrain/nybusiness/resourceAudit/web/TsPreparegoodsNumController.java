@@ -19,9 +19,11 @@ import org.springrain.nybusiness.company.entity.TsCompanyInfo;
 import org.springrain.nybusiness.company.service.ITsCompanyInfoService;
 import org.springrain.nybusiness.ergency.entity.TsEmePlanFiling;
 import org.springrain.nybusiness.ergency.entity.TsEmergencyEquipmentSum;
+import org.springrain.nybusiness.ergency.entity.TsEmergencyMaterialSum;
 import org.springrain.nybusiness.ergency.service.ITsEmePlanFilAdjustmentService;
 import org.springrain.nybusiness.ergency.service.ITsEmePlanFilingService;
 import org.springrain.nybusiness.ergency.service.ITsEmergencyEquipmentSumService;
+import org.springrain.nybusiness.ergency.service.ITsEmergencyMaterialSumService;
 import org.springrain.nybusiness.msg.entity.TsMsgEnviroRisk;
 import org.springrain.nybusiness.msg.service.ITsMsgEnviroRiskService;
 import org.springrain.nybusiness.resourceAudit.entity.TsPreparegoodsNum;
@@ -59,6 +61,8 @@ public class TsPreparegoodsNumController  extends BaseController {
 	@Resource
 	private ITsMsgEnviroRiskService tsMsgEnviroRiskService;
 	
+	@Resource
+	private ITsEmergencyMaterialSumService tsEmergencyMaterialSumService;
 	private String listurl="/nybusiness/resourceAudit/tspreparegoodsnum/tspreparegoodsnumList";
 	//private String listurl="/nybusiness/ergency/tsemergencyequipmentsum/tsemergencyequipmentsumList";
 	
@@ -236,7 +240,7 @@ public class TsPreparegoodsNumController  extends BaseController {
 	 * 进入应急物资申报界面
 	 */
 	@RequestMapping(value = "/emergency/look")
-	public String emergencyapp(HttpServletRequest request, Model model,TsEmergencyEquipmentSum tsEmergencyEquipmentSum)  throws Exception{
+	public String emergencyapp(HttpServletRequest request, Model model,TsEmergencyMaterialSum tsEmergencyMaterialSum)  throws Exception{
 //		ReturnDatas returnObject = listjsonEmergency(request, model, tsEmergencyEquipmentSum);
 		ReturnDatas returnObject = ReturnDatas.getSuccessReturnDatas();
 		// ==构造分页请求
@@ -247,14 +251,15 @@ public class TsPreparegoodsNumController  extends BaseController {
 		
 		
 		List<String> listCompany = tsCompanyInfoService.finderCompanyIdByUserId(SessionUser.getUserId());
-		List<TsEmergencyEquipmentSum> datas=tsEmergencyEquipmentSumService.finderTsMaillistForList(page, tsEmergencyEquipmentSum, listCompany);
-			returnObject.setQueryBean(tsEmergencyEquipmentSum);
+		//List<TsEmergencyEquipmentSum> datas=tsEmergencyEquipmentSumService.finderTsMaillistForList(page, tsEmergencyEquipmentSum, listCompany);
+		List<TsEmergencyMaterialSum> datas=tsEmergencyMaterialSumService.finderTsMaillistForList(page, tsEmergencyMaterialSum, listCompany);
+			returnObject.setQueryBean(tsEmergencyMaterialSum);
 		
 		returnObject.setPage(page);
 		returnObject.setData(datas);
 		model.addAttribute(GlobalStatic.returnDatas, returnObject);
 		//return listurl;
-		return "/nybusiness/ergency/tsemergencyequipmentsum/tsemergencyequipmentsumList";
+		return "/nybusiness/ergency/tsemergencymaterialsum/tsemergencymaterialsumList";
 		//return "/nybusiness/resourceAudit/tsprepareapprovl/emergencyappr";
 	}
 	

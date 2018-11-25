@@ -50,15 +50,15 @@ public class TsGoodsInventory  extends BaseEntity {
 	/**
 	 * 物质总量
 	 */
-	private java.lang.Integer goods_num;
+	private java.lang.String goods_num;
 	/**
 	 * 有效数量
 	 */
-	private java.lang.Integer useful_life_num;
+	private java.lang.String useful_life_num;
 	/**
 	 * 失效数量
 	 */
-	private java.lang.Integer expiry_date_num;
+	private java.lang.String expiry_date_num;
 	/**
 	 * 备注
 	 */
@@ -138,7 +138,10 @@ public class TsGoodsInventory  extends BaseEntity {
 		/**
 		 * 物质总量
 		 */
-	public void setGoods_num(java.lang.Integer value) {
+	public void setGoods_num(java.lang.String value) {
+		 if(StringUtils.isNotBlank(value)){
+			 value=value.trim();
+			}
 		this.goods_num = value;
 	}
 	
@@ -148,13 +151,16 @@ public class TsGoodsInventory  extends BaseEntity {
 	 * 物质总量
 	 */
      @WhereSQL(sql="goods_num=:TsGoodsInventory_goods_num")
-	public java.lang.Integer getGoods_num() {
+	public java.lang.String getGoods_num() {
 		return this.goods_num;
 	}
 		/**
 		 * 有效数量
 		 */
-	public void setUseful_life_num(java.lang.Integer value) {
+	public void setUseful_life_num(java.lang.String value) {
+		 if(StringUtils.isNotBlank(value)){
+			 value=value.trim();
+			}
 		this.useful_life_num = value;
 	}
 	
@@ -164,13 +170,16 @@ public class TsGoodsInventory  extends BaseEntity {
 	 * 有效数量
 	 */
      @WhereSQL(sql="useful_life_num=:TsGoodsInventory_useful_life_num")
-	public java.lang.Integer getUseful_life_num() {
+	public java.lang.String getUseful_life_num() {
 		return this.useful_life_num;
 	}
 		/**
 		 * 失效数量
 		 */
-	public void setExpiry_date_num(java.lang.Integer value) {
+	public void setExpiry_date_num(java.lang.String value) {
+		 if(StringUtils.isNotBlank(value)){
+			 value=value.trim();
+			}
 		this.expiry_date_num = value;
 	}
 	
@@ -180,7 +189,7 @@ public class TsGoodsInventory  extends BaseEntity {
 	 * 失效数量
 	 */
      @WhereSQL(sql="expiry_date_num=:TsGoodsInventory_expiry_date_num")
-	public java.lang.Integer getExpiry_date_num() {
+	public java.lang.String getExpiry_date_num() {
 		return this.expiry_date_num;
 	}
 		/**

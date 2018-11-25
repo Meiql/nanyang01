@@ -16,8 +16,8 @@ import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springrain.nybusiness.company.service.ITsCompanyInfoService;
-import org.springrain.nybusiness.resourceAudit.entity.TsGoodsInventory;
-import org.springrain.nybusiness.resourceAudit.service.ITsGoodsInventoryService;
+import org.springrain.nybusiness.resourceAudit.entity.TsExplorerGatherInfo;
+import org.springrain.nybusiness.resourceAudit.service.ITsExplorerGatherInfoService;
 import org.springrain.frame.common.SessionUser;
 import org.springrain.frame.controller.BaseController;
 import org.springrain.frame.util.GlobalStatic;
@@ -30,18 +30,18 @@ import org.springrain.frame.util.ReturnDatas;
  * TODO 在此加入类描述
  * @copyright {@link weicms.net}
  * @author springrain<Auto generate>
- * @version  2018-11-08 23:33:54
- * @see org.springrain.nybusiness.resourceAudit.web.TsGoodsInventory
+ * @version  2018-11-24 13:28:27
+ * @see org.springrain.nybusiness.resourceAudit.web.TsExplorerGatherInfo
  */
 @Controller
-@RequestMapping(value="/tsgoodsinventory")
-public class TsGoodsInventoryController  extends BaseController {
+@RequestMapping(value="/tsexplorergatherinfo")
+public class TsExplorerGatherInfoController  extends BaseController {
 	@Resource
-	private ITsGoodsInventoryService tsGoodsInventoryService;
+	private ITsExplorerGatherInfoService tsExplorerGatherInfoService;
 	
 	@Resource
 	private ITsCompanyInfoService tsCompanyInfoService;
-	private String listurl="/nybusiness/resourceAudit/tsgoodsinventory/tsgoodsinventoryList";
+	private String listurl="/nybusiness/resourceAudit/tsexplorergatherinfo/tsexplorergatherinfoList";
 	
 	
 	   
@@ -50,14 +50,14 @@ public class TsGoodsInventoryController  extends BaseController {
 	 * 
 	 * @param request
 	 * @param model
-	 * @param tsGoodsInventory
+	 * @param tsExplorerGatherInfo
 	 * @return
 	 * @throws Exception
 	 */
 	@RequestMapping("/list")
-	public String list(HttpServletRequest request, Model model,TsGoodsInventory tsGoodsInventory) 
+	public String list(HttpServletRequest request, Model model,TsExplorerGatherInfo tsExplorerGatherInfo) 
 			throws Exception {
-		ReturnDatas returnObject = listjson(request, model, tsGoodsInventory);
+		ReturnDatas returnObject = listjson(request, model, tsExplorerGatherInfo);
 		model.addAttribute(GlobalStatic.returnDatas, returnObject);
 		return listurl;
 	}
@@ -67,33 +67,32 @@ public class TsGoodsInventoryController  extends BaseController {
 	 * 
 	 * @param request
 	 * @param model
-	 * @param tsGoodsInventory
+	 * @param tsExplorerGatherInfo
 	 * @return
 	 * @throws Exception
 	 */
 	@RequestMapping("/list/json")
 	@ResponseBody   
-	public  ReturnDatas listjson(HttpServletRequest request, Model model,TsGoodsInventory tsGoodsInventory) throws Exception{
+	public  ReturnDatas listjson(HttpServletRequest request, Model model,TsExplorerGatherInfo tsExplorerGatherInfo) throws Exception{
 		ReturnDatas returnObject = ReturnDatas.getSuccessReturnDatas();
 		// ==构造分页请求
 		Page page = newPage(request);
 		// ==执行分页查询
-	//	List<TsGoodsInventory> datas=tsGoodsInventoryService.findListDataByFinder(null,page,TsGoodsInventory.class,tsGoodsInventory);
 		List<String> listCompany = tsCompanyInfoService.finderCompanyIdByUserId(SessionUser.getUserId());
-		List<TsGoodsInventory> datas=tsGoodsInventoryService.finderTsGoodsInventoryForList(page,tsGoodsInventory,listCompany);
-			returnObject.setQueryBean(tsGoodsInventory);
+		List<TsExplorerGatherInfo> datas=tsExplorerGatherInfoService.findListData(page, tsExplorerGatherInfo, listCompany);
+			returnObject.setQueryBean(tsExplorerGatherInfo);
 		returnObject.setPage(page);
 		returnObject.setData(datas);
 		return returnObject;
 	}
 	
 	@RequestMapping("/list/export")
-	public void listexport(HttpServletRequest request,HttpServletResponse response, Model model,TsGoodsInventory tsGoodsInventory) throws Exception{
+	public void listexport(HttpServletRequest request,HttpServletResponse response, Model model,TsExplorerGatherInfo tsExplorerGatherInfo) throws Exception{
 		// ==构造分页请求
 		Page page = newPage(request);
 	
-		File file = tsGoodsInventoryService.findDataExportExcel(null,listurl, page,TsGoodsInventory.class,tsGoodsInventory);
-		String fileName="tsGoodsInventory"+GlobalStatic.excelext;
+		File file = tsExplorerGatherInfoService.findDataExportExcel(null,listurl, page,TsExplorerGatherInfo.class,tsExplorerGatherInfo);
+		String fileName="tsExplorerGatherInfo"+GlobalStatic.excelext;
 		downFile(response, file, fileName,true);
 		return;
 	}
@@ -105,7 +104,7 @@ public class TsGoodsInventoryController  extends BaseController {
 	public String look(Model model,HttpServletRequest request,HttpServletResponse response)  throws Exception {
 		ReturnDatas returnObject = lookjson(model, request, response);
 		model.addAttribute(GlobalStatic.returnDatas, returnObject);
-		return "/nybusiness/resourceAudit/tsgoodsinventory/tsgoodsinventoryLook";
+		return "/nybusiness/resourceAudit/tsexplorergatherinfo/tsexplorergatherinfoLook";
 	}
 
 	
@@ -118,8 +117,8 @@ public class TsGoodsInventoryController  extends BaseController {
 		ReturnDatas returnObject = ReturnDatas.getSuccessReturnDatas();
 		java.lang.String id=request.getParameter("id");
 		if(StringUtils.isNotBlank(id)){
-		  TsGoodsInventory tsGoodsInventory = tsGoodsInventoryService.findTsGoodsInventoryById(id);
-		   returnObject.setData(tsGoodsInventory);
+		  TsExplorerGatherInfo tsExplorerGatherInfo = tsExplorerGatherInfoService.findTsExplorerGatherInfoById(id);
+		   returnObject.setData(tsExplorerGatherInfo);
 		}else{
 		returnObject.setStatus(ReturnDatas.ERROR);
 		}
@@ -134,17 +133,17 @@ public class TsGoodsInventoryController  extends BaseController {
 	 */
 	@RequestMapping("/update")
 	@ResponseBody      
-	public ReturnDatas saveorupdate(Model model,TsGoodsInventory tsGoodsInventory,HttpServletRequest request,HttpServletResponse response) throws Exception{
+	public ReturnDatas saveorupdate(Model model,TsExplorerGatherInfo tsExplorerGatherInfo,HttpServletRequest request,HttpServletResponse response) throws Exception{
 		ReturnDatas returnObject = ReturnDatas.getSuccessReturnDatas();
 		returnObject.setMessage(MessageUtils.UPDATE_SUCCESS);
 		try {
 		
-			java.lang.String id =tsGoodsInventory.getId();
+			java.lang.String id =tsExplorerGatherInfo.getId();
 			if(StringUtils.isBlank(id)){
-			  tsGoodsInventory.setId(null);
+			  tsExplorerGatherInfo.setId(null);
 			}
 		
-			tsGoodsInventoryService.saveorupdate(tsGoodsInventory);
+			tsExplorerGatherInfoService.saveorupdate(tsExplorerGatherInfo);
 			
 		} catch (Exception e) {
 			logger.error(e.getMessage(),e);
@@ -162,7 +161,7 @@ public class TsGoodsInventoryController  extends BaseController {
 	public String updatepre(Model model,HttpServletRequest request,HttpServletResponse response)  throws Exception{
 		ReturnDatas returnObject = lookjson(model, request, response);
 		model.addAttribute(GlobalStatic.returnDatas, returnObject);
-		return "/nybusiness/resourceAudit/tsgoodsinventory/tsgoodsinventoryCru";
+		return "/nybusiness/resourceAudit/tsexplorergatherinfo/tsexplorergatherinfoCru";
 	}
 	
 	/**
@@ -176,7 +175,7 @@ public class TsGoodsInventoryController  extends BaseController {
 		try {
 		java.lang.String id=request.getParameter("id");
 		if(StringUtils.isNotBlank(id)){
-				tsGoodsInventoryService.deleteById(id,TsGoodsInventory.class);
+				tsExplorerGatherInfoService.deleteById(id,TsExplorerGatherInfo.class);
 				return new ReturnDatas(ReturnDatas.SUCCESS,MessageUtils.DELETE_SUCCESS);
 			} else {
 				return new ReturnDatas(ReturnDatas.WARNING,MessageUtils.DELETE_WARNING);
@@ -204,7 +203,7 @@ public class TsGoodsInventoryController  extends BaseController {
 		}
 		try {
 			List<String> ids = Arrays.asList(rs);
-			tsGoodsInventoryService.deleteByIds(ids,TsGoodsInventory.class);
+			tsExplorerGatherInfoService.deleteByIds(ids,TsExplorerGatherInfo.class);
 		} catch (Exception e) {
 			logger.error(e.getMessage(), e);
 			return new ReturnDatas(ReturnDatas.ERROR,MessageUtils.DELETE_ALL_FAIL);
