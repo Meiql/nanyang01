@@ -1,0 +1,67 @@
+*{
+	margin:0;
+	padding:0;
+}
+@charset "utf-8";
+*{margin:0;padding:0;list-style-type:none;}
+h1{font-size:16px;}h2,h3,h4{font-size:14px;}h5,h6{font-size:12px;}
+*html .clearfix{height:1%;}
+.clearfix{display:block;}/* End hide from IE-mac */
+*+html .clearfix{min-height:1%;}
+.shortcut{position:fixed;top:0;left:0;z-index:9999;width:100%;}
+*html,*html body /* 修正IE6振动bug */{background-image:url(about:blank);background-attachment:fixed;}
+body{
+	background: #ECF0F1;
+	color:#eee;
+    font-family: "Open Sans", "Helvetica Neue", Helvetica, Arial, "Microsoft Yahei", sans-serif;
+	font-size:13px;
+}
+
+#rocket{
+	width:275px;
+	height:375px;
+	background:url('../img/rocket2.png') no-repeat;
+	margin: 70px auto 50px;
+	position:relative;
+}
+
+.steam1,
+.steam2{
+	position:absolute;
+	bottom:78px;
+	left:50px;
+	width:80px;
+	height:80px;
+	background:url('../img/steam.png') no-repeat;
+	opacity:0.8;
+}
+
+.steam2{
+
+	background-position:left bottom;
+}
+
+hgroup{
+
+	display:block;
+	margin:0 auto;
+	width:850px;
+	font-family:'Century Gothic',Calibri,'Myriad Pro',Arial,Helvetica,sans-serif;
+	text-align:center;
+}
+
+.error-message{
+	color:#3ca2e0;
+	font-size:38px;
+	white-space:nowrap;
+	text-align:center;
+	margin-top: 60px;
+}
+.detail-message{
+	color: #3ca2e0;
+	font-size: 18px;
+	font-weight: normal;
+	padding: 25px 0;
+	text-align: center;
+	word-break: break-all;
+}

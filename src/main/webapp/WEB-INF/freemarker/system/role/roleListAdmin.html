@@ -90,12 +90,7 @@
 									  <!-- 查询  结束 -->
 									</form>
 									<!--start_export-->
-										<table class="layui-table" lay-even>
-											  <colgroup>
-											    <col width="40">
-											    <col width="120">
-											    <col>
-											  </colgroup>
+										<table class="layui-table" >
 											  <!--end_no_export-->
 											  <!--first_start_export-->
 												<thead>
@@ -107,10 +102,16 @@
 													  <th class="center">
 															<input id="checkAll" class="ace" type="checkbox"  title="全选">
 													  </th>
-													  <th>操作</th>
+													  <th lay-data="{width:300}">操作</th>
 													  <!--first_end_no_export-->
-															<th id="th_name" >角色名称</th>
+															<th id="th_name" lay-data="{width:200}">角色名称</th>
 															<th id="th_roleType">角色类型</th>
+															<th id="th_code" >归属部门</th>
+															<th id="th_active" >是否有效</th>
+															<th id="th_code" >归属部门</th>
+															<th id="th_active" >是否有效</th>
+															<th id="th_code" >归属部门</th>
+															<th id="th_active" >是否有效</th>
 															<th id="th_code" >归属部门</th>
 															<th id="th_active" >是否有效</th>
 													</tr> 
@@ -149,6 +150,25 @@
 															<td >
 															     ${(_data.orgname)!''}
 															</td>
+															<td >
+															     ${(_data.orgname)!''}
+															</td>
+															<td >
+															     ${(_data.orgname)!''}
+															</td>
+															<td >
+															     ${(_data.orgname)!''}
+															</td>
+															<td >
+															     ${(_data.orgname)!''}
+															</td>
+															<td >
+															     ${(_data.orgname)!''}
+															</td>
+															<td >
+															     ${(_data.orgname)!''}
+															</td>
+															
 															<td >
 																<#if (_data.active)?? && (_data.active==1)>
 																	是

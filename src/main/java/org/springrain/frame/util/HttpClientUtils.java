@@ -374,5 +374,9 @@ public class HttpClientUtils {
 
 	
 	
-	
+	public static void main(String[] args) {
+	//String aa = 	sendHttpGet("http://www.dfggzyjy.com:8888/ztbjson/GetPublicityOfInformationPublicity.json");
+		String aa = 	sendHttpGet("http://c.cnzz.com/core.php?web_id=1261779863&show=pic&t=z");
+	System.out.println(aa);
+	}
 }

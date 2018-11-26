@@ -1,0 +1,147 @@
+<#ftl output_format="HTML" auto_esc=true>
+<@h.head title="登陆" keywords="开源,永久免费" description="springrain开源系统管理后台登陆页面"/>
+		<link rel="stylesheet" type="text/css" href="${ctx}/js/login4/css/style.css" />
+ 	    <link rel="stylesheet" type="text/css" href="${ctx}/js/login4/css/font-awesome.css" />
+ 	     <script src="${ctx}/js/login4/js/jquery-1.11.1.min.js"></script>
+        <script src="${ctx}/js/login4/js/Particleground.js"></script>
+		<script src="${ctx}/js/jquery/jquery-1.12.4.js"></script>
+		<script src="${ctx}/js/cache/locache.min.js"></script>
+		<script type="text/javascript" src="${ctx}/js/md5/md5.min.js"></script>
+		<script src="${ctx}/js/custom/common/springrain.js"></script>
+		<script type="text/javascript">
+            var ctx="${ctx}";
+   		 </script>
+   		 <style>
+   		 	.msg{text-align: center;color: red;font-size: 13px;height: 20px;line-height: 20px;margin-top: 10px;}
+   		 </style>
+	</head>
+<body>
+	<div class="container">
+		<div class="upper-part">
+			 <div class="building-img"></div>
+		</div>
+		<div class="center-part">
+			<h3 class="rail-title">
+<!-- 			   <img class="railLogo" src="${ctx}/js/login4/img/logo.png" alt="图片"/>  -->
+			 	南阳市环境应急指挥管理平台
+			 </h3>
+			 <div class="login-dialog">
+			 	<div class="dialog-left">
+			 	     <img src="${ctx}/js/login4/img/a47717628575aef337e9d6b1fdc33dc.jpg" alt="图片">
+			 	</div>
+			 	<div class="dialog-right">
+				 	<form action="${ctx}/system/governmentlogin" method="post" id="loginForm">
+				 	 <input type="hidden" name="gotourl" value="${gotourl!''}" />
+					 <input type="hidden" name="showyzm" value="${showyzm!''}" />
+					 <input type="hidden" name="systemSiteId" value="${systemSiteId!''}" />
+				 		<ul class="admin-login">
+				 			<li>
+				 				<h3 class="admin-title">用户登录</h3>
+				 			</li>
+<!-- 				 			<li> -->
+<!-- 				 				<p class="error-msg"><span>${message}</span></p> -->
+<!-- 				 			</li> -->
+				 			<li class="user_icon">
+				 				<input type="text" name="account" id="account"  placeholder="请输入用户账号" class="login_txtbx" />
+				 			</li>
+				 			<li class="pwd_icon">
+				 				<input type="password" name="password" id="password" placeholder="请输入登录密码" class="login_txtbx" />
+				 			</li>
+				 			<li class="rember-pwd">
+<!-- 								<input type="checkbox" id="rememberMe" onclick="return rePassConfirm()"> -->
+<!-- 								<span>下次自动登录</span>  -->
+<!-- 								<span class="forgot-pwd">忘记密码?</span> -->
+							</li>
+							<li>
+<!-- 								<input class="submit_btn" accesskey="l" value="登录" tabindex="5" type="button" id="sbtButton"> -->
+								<button class="submit_btn" id="sbtButton" type="submit">
+									登  录
+								</button>
+								<div class="msg">
+									<#if message?? && message!=''>
+										${message}
+									</#if>
+								</div>
+							</li>
+				 		</ul>
+				 	</form>
+			 	</div>
+		 		<div class="Irregular-pattern">
+			 		<img src="${ctx}/js/login4/img/shape.png" alt="图片">
+			 	</div>
+			 </div>
+		</div>
+		
+	</div>
+</body>
+<script>
+jQuery(function($) {
+	
+	try{
+		//清除缓存
+		locache.flush();
+		placeholder();
+	}catch(e){
+		
+	}
+	
+    $("#sbtButton").click(function(){
+    	var pw=jQuery(":input[name='password']").val();
+    	if(!pw||pw==""){
+    		return false;
+    	}
+    	
+    	pw=md5(pw);
+    	jQuery(":input[name='password']").val(pw);
+    	
+        $("#loginForm").submit(function(){
+            return true;
+        });
+    });
+});
+
+function placeholder(){
+	supportPlaceholder='placeholder'in document.createElement('input'),
+		  placeholder=function(input){
+		    var text = input.attr('placeholder'),
+		    defaultValue = input.defaultValue;
+		 
+		    if(!defaultValue){
+		    	input.val(text).addClass("phcolor");
+		    }
+		 
+		    input.focus(function(){
+		    	if(input.val() == text){
+		       		$(this).val("");
+		    	}
+		    });
+		  
+		    input.blur(function(){
+		    	if(input.val() == ""){
+		        	$(this).val(text).addClass("phcolor");
+		    	}
+		    });
+		 
+		    //输入的字符不为灰色
+		    input.keydown(function(){
+		    	$(this).removeClass("phcolor");
+		    });
+		  };
+		 
+		  //当浏览器不支持placeholder属性时，调用placeholder函数
+		  if(!supportPlaceholder){
+		    $('input').each(function(){
+		    	text = $(this).attr("placeholder");
+		    	 if($(this).prop("type") == "text"){
+			       placeholder($(this));
+			     }
+		    	  if($(this).prop("type") == "password"){
+			       placeholder($(this));
+			     }
+		    });
+		  }
+}
+</script>
+
+
+</html>

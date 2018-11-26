@@ -1,0 +1,139 @@
+<#ftl output_format="HTML" auto_esc=true>
+<@h.commonHead title="后台管理系统" keywords="开源,永久免费" description="springrain开源系统管理后台"/>
+<script src="${ctx}/js/custom/common/form.js"></script>
+
+<script>
+	var _state;
+	jQuery(function(){ 
+		_state="${(returnDatas.queryBean.active)!''}";
+		jQuery("#active").val(_state);
+		/*
+		全选、反选
+		*/
+		jQuery("#checkAll").bind('click',function(){
+			var _is_check=jQuery(this).get(0).checked;
+			jQuery("input[name='check_li']").each(function(_i,_o){
+				jQuery(_o).get(0).checked=_is_check;
+			});
+		});
+	});
+	function del(_id){
+		springrain.mydelete(_id,"${ctx}/tspreparegoodsnum/delete");
+	}
+</script>
+
+</head>
+<body>
+	<div class="layui-layout layui-layout-admin">
+		<@h.naviHeader /><@h.leftMenu />
+			<!-- 主体内容开始 -->
+			<div class="layui-tab layui-tab-brief">
+				<ul class="layui-tab-title site-demo-title">
+		             <li class="layui-this">
+
+		             </li>
+					 <li style="float:right;">
+		             	
+		             </li>
+	       		</ul>
+				
+				<div class="layui-body layui-tab-content site-demo-body">
+					<div class="layui-tab-item layui-show">
+							<div class="layui-main">
+						          <div id="LAY_preview">
+						          <!-- 查询  开始 -->
+							          <form class="layui-form layui-form-pane" id="searchForm" action="${ctx}/tspreparegoodsnum/list" method="post">
+							          <input type="hidden" name="pageIndex" id="pageIndex" value="${(returnDatas.page.pageIndex)!'1'}" /> 
+							          <input type="hidden" name="sort" id="page_sort" value="${(returnDatas.page.sort)!'desc'}" />
+							          <input type="hidden" name="order" id="page_order" value="${(returnDatas.page.order)!'id'}" />
+									  <table class="layui-table search-wrap">
+									  	<colgroup>
+										    <col width="">
+										    <col width="150">
+										</colgroup>
+							          	<tbody>
+							          		
+							          	</tbody>
+							          </table>
+									  <!-- 查询  结束 -->
+									</form>
+									<!--start_export-->
+									<table class="layui-table" lay-even>
+										  <colgroup>
+										    <col width="10">
+										    <col width="140">
+										    <col>
+										  </colgroup>
+										  <!--end_no_export-->
+										  <!--first_start_export-->
+											<thead>
+												<tr>
+													<th colspan="9">待送审资源表列表<font id='recordsView' class='recorsView'></font></th> 
+												</tr>
+														<th id="th_company" >企业信息注册</th>
+														<th id="th_emergency" >应急物资申报</th>
+														<th id="th_enviro" >环境风险信息调查</th>
+														<th id="th_filing" >应急预案备案</th>
+												</tr> 
+											</thead>
+										  <!--first_end_export-->
+										  <!--start_export-->
+										   <tbody>
+										    <#if (returnDatas.data??)&&(returnDatas.data?size>0)> 
+										    	<#list	returnDatas.data as _data>
+										    		<!--start_no_export-->
+													<tr class="">
+
+														<!--end_no_export-->
+														<td >
+															${(_data.company)!''}
+															<@shiro.hasPermission name="/tspreparegoodsnum/update" >
+															<#if (_data.company)?? && (_data.company!='0') >
+								                           		 <a href="#" data-action="${ctx}/tspreparegoodsnum/company/look" class="layui-btn layui-btn-normal layui-btn-mini">查看</a> 
+								                           	</#if>						                     
+								                            </@shiro.hasPermission>        
+														</td>
+														<td >
+															${(_data.emergency)!''}
+															<@shiro.hasPermission name="/tspreparegoodsnum/update" >
+															<#if (_data.emergency)?? && (_data.emergency!='0') >
+															 <a href="#" data-action="${ctx}/tspreparegoodsnum/emergency/look" class="layui-btn layui-btn-normal layui-btn-mini">查看</a>								                           		
+								                           	</#if>
+								                            </@shiro.hasPermission>
+														</td>
+														<td >
+															${(_data.enviro)!''}
+															<@shiro.hasPermission name="/tspreparegoodsnum/update" >
+															<#if (_data.enviro)?? && (_data.enviro!='0') >
+								                           		  <a href="#" data-action="${ctx}/tspreparegoodsnum/enviroment/look" class="layui-btn layui-btn-normal layui-btn-mini">查看</a>
+								                           	</#if>
+								                            </@shiro.hasPermission>
+														</td>
+														<td >
+															${(_data.filing)!''}
+															<@shiro.hasPermission name="/tspreparegoodsnum/update" >
+															<#if (_data.filing)?? && (_data.filing!='0') >
+								                           		 <a href="#" data-action="${ctx}/tspreparegoodsnum/planfiling/look" class="layui-btn layui-btn-normal layui-btn-mini">查看</a>
+								                           	</#if>
+								                            </@shiro.hasPermission>
+														</td>
+													</tr>
+												</#list>
+											 </#if>
+											</tbody>
+										</table>
+									<#if returnDatas.page??> 
+										<div id='laypageDiv'></div>
+										<@h.layPage page=returnDatas.page /> 
+									</#if>
+								</div>
+							</div>
+						</div>
+				</div>
+			</div>
+		<!-- 主体内容结束 -->
+		<@h.footer />
+	</div>
+</body>
+</html>
+

@@ -98,7 +98,9 @@ public class TsEmergencyUserServiceImpl extends BaseSpringrainServiceImpl
 	public List<TsEmergencyUser> finderListForPage(Page page,
 			TsEmergencyUser tsEmergencyUser) throws Exception {
 		List<String> listCompanyId = tsCompanyInfoService.finderCompanyIdByUserId(SessionUser.getUserId());
-		
+		if(CollectionUtils.isEmpty(listCompanyId)){
+			return null;
+		}
 		if (StringUtils.isEmpty(tsEmergencyUser.getEmergencyOrgId())) {
 			Finder finder = new Finder();
 			finder.append("select * from ts_emergency_user where 1=1 and  companyId in(:companyId) ").setParam("companyId", listCompanyId);
@@ -133,6 +135,9 @@ public class TsEmergencyUserServiceImpl extends BaseSpringrainServiceImpl
 	public TsEmergencyUser finderObject() throws Exception {
 		Finder finder = new Finder();
 		List<String> listCompanyId = tsCompanyInfoService.finderCompanyIdByUserId(SessionUser.getUserId());
+		if(CollectionUtils.isEmpty(listCompanyId)){
+			return null;
+		}
 		finder.append("select min(t.emergencyOrgId) as emergencyOrgId  from ts_emergency_user t  where t.companyId in(:companyId) order by t.emergencyOrgId desc ");
 		finder.setParam("companyId", listCompanyId);
 		return super.queryForObject(finder, TsEmergencyUser.class);

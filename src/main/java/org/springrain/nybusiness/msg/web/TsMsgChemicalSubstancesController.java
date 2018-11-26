@@ -23,7 +23,6 @@ import org.springrain.frame.util.Page;
 import org.springrain.frame.util.ReturnDatas;
 import org.springrain.nybusiness.company.service.ITsCompanyInfoService;
 import org.springrain.nybusiness.msg.entity.TsMsgChemicalSubstances;
-import org.springrain.nybusiness.msg.entity.TsMsgEnviroRisk;
 import org.springrain.nybusiness.msg.service.ITsMsgChemicalSubstancesService;
 
 
@@ -185,6 +184,15 @@ public class TsMsgChemicalSubstancesController  extends BaseController {
 		ReturnDatas returnObject = lookjson(model, request, response);
 		model.addAttribute(GlobalStatic.returnDatas, returnObject);
 		return "/nybusiness/msg/tsmsgchemicalsubstances/tsmsgchemicalsubstancesCru";
+	}
+	/**
+	 * 进入详情页面
+	 */
+	@RequestMapping(value = "/details")
+	public String details(Model model,HttpServletRequest request,HttpServletResponse response)  throws Exception{
+		ReturnDatas returnObject = lookjson(model, request, response);
+		model.addAttribute(GlobalStatic.returnDatas, returnObject);
+		return "/nybusiness/msg/tsmsgchemicalsubstances/tsmsgchemicalsubstancesCru1";
 	}
 	
 	/**

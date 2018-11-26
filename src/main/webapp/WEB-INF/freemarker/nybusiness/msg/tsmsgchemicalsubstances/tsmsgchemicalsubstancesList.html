@@ -21,7 +21,16 @@
 		springrain.mydelete(_id,"${ctx}/tsmsgchemicalsubstances/delete");
 	}
 </script>
-
+<style>
+	@media screen and (max-width: 1880px) {
+	    .layui-btn,
+	    .layui-btn+.layui-btn{
+	        display: block;
+	        width: 70px;
+	        margin: 3px 0 0;
+	    }
+	}
+</style>
 </head>
 <body>
 	<div class="layui-layout layui-layout-admin">
@@ -94,7 +103,7 @@
 												  <th class="center">
 															<input id="checkAll"  type="checkbox">
 												  </th>
-												  <th>操作</th>
+												  <th rowspan="2"style="width : 80px; text-align: center">操作</th>
 												  <!--first_end_no_export-->
 														<th id="th_chemistryName" >化学品名称</th>
 														<th id="th_casTypeName" >CAS 号或危 险废物类别 2</th>
@@ -109,7 +118,6 @@
 														<th id="th_riskunit" >设计环境风险单位</th>
 														<th id="th_createUser" >创建用户</th>
 														<th id="th_createTime" >创建或修改时间</th>
-														<th id="th_companyId" >公司代码</th>
 												</tr> 
 											</thead>
 										  <!--first_end_export-->
@@ -129,6 +137,9 @@
 								                            <@shiro.hasPermission name="/tsmsgchemicalsubstances/delete" >
 								                            	<a href="javascript:del('${(_data.id)!''}')" class="layui-btn layui-btn-danger layui-btn-mini ajax-delete">删除</a>
 								                            </@shiro.hasPermission>
+								                            <@shiro.hasPermission name="/tsmsgchemicalsubstances/update" >
+								                            	<a href="#"  data-action="${ctx}/tsmsgchemicalsubstances/details?id=${(_data.id)!''}" class="layui-btn layui-btn-normal layui-btn-mini" >详情</a>
+								                            </@shiro.hasPermission>	
 														</td>
 														<!--end_no_export-->
 														<td >
@@ -169,9 +180,6 @@
 														</td>
 														<td >
 															${(_data.createTime)!''}
-														</td>
-														<td >
-															${(_data.companyId)!''}
 														</td>
 													</tr>
 												</#list>

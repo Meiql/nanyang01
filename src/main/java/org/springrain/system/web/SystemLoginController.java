@@ -117,7 +117,6 @@ public class SystemLoginController extends BaseController {
 		}
 		return "/system/login";
 	}
-
 	/**
 	 * 处理登录提交的方法
 	 * 
@@ -134,28 +133,12 @@ public class SystemLoginController extends BaseController {
 	public String loginPost(User currUser, HttpSession session, Model model,
 			HttpServletRequest request) throws Exception {
 		Subject user = SecurityUtils.getSubject();
-		User userInfo = userService.findUserByAccount(currUser.getAccount());
-		if(userInfo!=null && userInfo.getUserType().equals(SysStateEnum.userTypeEnum.企业账户信息.getValue())){
-			if(StringUtils.isBlank(userInfo.getConpanyid())){
-				model.addAttribute("message", "未找到注册企业");
-				return "/system/login";
-			}
-			String companyId =  userInfo.getConpanyid();
-			TsCompanyInfo tsCompanyInfo = tsCompanyInfoService.findById(companyId, TsCompanyInfo.class);
-			if(tsCompanyInfo == null){
-				model.addAttribute("message", "未找到注册企业");
-				return "/system/login";
-			}
-			if(!"1".equals(tsCompanyInfo.getState())){
-				model.addAttribute("message", "账号正在审核中，请等待！");
-				return "/system/login";
-			}
-		}
 		// 系统产生的验证码
 		String code = (String) session
 				.getAttribute(GlobalStatic.DEFAULT_CAPTCHA_PARAM);
 
 		session.removeAttribute(GlobalStatic.DEFAULT_CAPTCHA_PARAM);
+
 		String systemSiteId = request.getParameter("systemSiteId");
 		if (StringUtils.isNotBlank(systemSiteId)) {
 			model.addAttribute("systemSiteId", systemSiteId);
@@ -176,19 +159,13 @@ public class SystemLoginController extends BaseController {
 		if(StringUtils.isNotBlank(yzm)){
 			model.addAttribute("showyzm",yzm);
 		}
-		 /**验证失败次数大于等于2次就显示验证码 然后进行验证码校验**/
-		 Cache cache = cacheManager.getCache(GlobalStatic.springrainloginCacheKey);
-		 Integer errorLogincount=cache.get(currUser.getAccount(), Integer.class);
-		 if(errorLogincount!=null&&errorLogincount>=ERROR_TIME_SHOWYZM){ 
-			 // 如果验证码不匹配,跳转到登录
-			 if (StringUtils.isBlank(submitCode) || StringUtils.isBlank(code)
-					 || !code.equals(submitCode)) {
-				 model.addAttribute("message", "验证码错误!");
-				 model.addAttribute("showyzm", "yes"); 
-				 return "/system/login";
-			 }
-		 }
 		
+		 User user2 = userService.findUserByAccount(currUser.getAccount());
+		 if(user2!=null&&user2.getUserType()!=null&&user2.getUserType()==0){
+			 model.addAttribute("message", "您不属于政府用户");
+			 model.addAttribute("showyzm", "yes"); 
+			 return "/system/login";
+		 }
 		// 通过账号和密码获取 UsernamePasswordToken token
 		FrameAuthenticationToken token = new FrameAuthenticationToken(
 				currUser.getAccount(), currUser.getPassword());
@@ -215,10 +192,6 @@ public class SystemLoginController extends BaseController {
 		} catch (IncorrectCredentialsException e) { 
 			logger.error(e.getMessage(), e);
 			model.addAttribute("message", "密码错误!");
-			 /*********密码错误次数大于等于2次显示验证码********/
-			 if(errorLogincount!=null&&errorLogincount>=ERROR_TIME_SHOWYZM-1){
-				 model.addAttribute("showyzm", "yes");
-			 }
 			 /******************/
 			if (StringUtils.isNotBlank(gotourl)) {
 				model.addAttribute("gotourl", gotourl);
@@ -248,9 +221,110 @@ public class SystemLoginController extends BaseController {
 		String springraintoken = "system_" + SecUtils.getUUID();
 		session.setAttribute(GlobalStatic.tokenKey, springraintoken);
 		model.addAttribute(GlobalStatic.tokenKey, springraintoken);
-
+		session.setAttribute("usertype", "1");
 		return redirect + gotourl;
 	}
+	
+	
+	@RequestMapping(value = "/governmentlogin", method = RequestMethod.GET)
+	public String governmentlogin(Model model, HttpServletRequest request)
+			throws Exception {
+		return getGovernmentloginUrl(model, request, null);
+	}
+	
+	
+
+	private String getGovernmentloginUrl(Model model, HttpServletRequest request,
+			String siteId) {
+
+		// 判断用户是否登录
+		if (SecurityUtils.getSubject().isAuthenticated()) {
+			model.addAttribute(GlobalStatic.tokenKey, request.getSession()
+					.getAttribute(GlobalStatic.tokenKey));
+			return redirect + "/system/index";
+		}
+		// 默认赋值message,避免freemarker尝试从session取值,造成异常
+		model.addAttribute("message", "");
+		String url = request.getParameter("gotourl");
+		if (StringUtils.isNotBlank(url)) {
+			model.addAttribute("gotourl", url);
+		}
+		return "/system/login2";
+	}
+	
+	/**
+	 * 处理登录提交的方法
+	 * 
+	 * @param currUser
+	 *            自动封装当前登录人的 账号,密码,验证码
+	 * @param session
+	 * @param model
+	 * @param request
+	 * @return
+	 * @throws Exception
+	 */
+
+	@RequestMapping(value = "/governmentlogin", method = RequestMethod.POST)
+	public String governmentloginPost(User currUser, HttpSession session, Model model,
+			HttpServletRequest request) throws Exception {
+		Subject user = SecurityUtils.getSubject();
+
+		String systemSiteId = request.getParameter("systemSiteId");
+		if (StringUtils.isNotBlank(systemSiteId)) {
+			model.addAttribute("systemSiteId", systemSiteId);
+		}
+
+		String gotourl = request.getParameter("gotourl");
+		// 通过账号和密码获取 UsernamePasswordToken token
+		FrameAuthenticationToken token = new FrameAuthenticationToken(currUser.getAccount(), currUser.getPassword());
+
+		String rememberme = request.getParameter("rememberme");
+		if (StringUtils.isNotBlank(rememberme)) {
+			token.setRememberMe(true);
+		} else {
+			token.setRememberMe(false);
+		}
+
+		try {
+			// 会调用 shiroDbRealm 的认证方法
+			// org.springrain.frame.shiro.ShiroDbRealm.doGetAuthenticationInfo(AuthenticationToken)
+
+			user.login(token);
+		} catch (UnknownAccountException e) {
+			logger.error(e.getMessage(), e);
+			model.addAttribute("message", "账号不存在!"); 
+			if (StringUtils.isNotBlank(gotourl)) {
+				model.addAttribute("gotourl", gotourl);
+			}
+			return "/system/login2";
+		} catch (LockedAccountException e) {
+			logger.error(e.getMessage(), e);
+			model.addAttribute("message", e.getMessage());
+			if (StringUtils.isNotBlank(gotourl)) {
+				model.addAttribute("gotourl", gotourl);
+			}
+			return "/system/login2";
+		} catch (Exception e) {
+			e.printStackTrace();
+			logger.error(e.getMessage(), e);
+			model.addAttribute("message", "未知错误,请联系管理员.");
+			if (StringUtils.isNotBlank(gotourl)) {
+				model.addAttribute("gotourl", gotourl);
+			}
+			return "/system/login2";
+		}
+
+		if (StringUtils.isBlank(gotourl)) {
+			gotourl = "/system/index";
+		}
+		// 设置tokenkey
+		String springraintoken = "system_" + SecUtils.getUUID();
+		session.setAttribute(GlobalStatic.tokenKey, springraintoken);
+		model.addAttribute(GlobalStatic.tokenKey, springraintoken);
+		session.setAttribute("usertype", "0");
+		return redirect + gotourl;
+	}
+
 
 	/**
 	 * 退出
@@ -258,12 +332,19 @@ public class SystemLoginController extends BaseController {
 	 * @param request
 	 */
 	@RequestMapping(value = "/logout")
-	public String logout(HttpServletRequest request) {
+	public String logout(HttpServletRequest request,HttpSession session) {
 		Subject subject = SecurityUtils.getSubject();
+		
+		String userType = session.getAttribute("usertype").toString();
 		if (subject != null) {
 			subject.logout();
 		}
-		return redirect + "/system/login";
+		if("0".equals(userType)){
+			return redirect + "/system/governmentlogin";
+		}else{
+			return redirect + "/system/login";
+		}
+		
 	}
 
 	/**

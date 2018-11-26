@@ -122,12 +122,14 @@
 				/s/**=firewall,siteuser,frameperms
 				
 				/system/login = firewall
+				/system/login2 = firewall
 				/system/backpwd = firewall
+					/system/governmentlogin = firewall
 				/system/backpwdchange = firewall
 				/system/registeredUser = firewall
 				/system/listOrg = firewall
 				/system/index =firewall,systemuser,framefwlog
-				/system/logout = firewall,systemuser
+				/system/logout = firewall
 				/system/menu/leftMenu=firewall,systemuser
 				/system/** = firewall,systemuser,frameperms
 				/taskjob/** = taskjob

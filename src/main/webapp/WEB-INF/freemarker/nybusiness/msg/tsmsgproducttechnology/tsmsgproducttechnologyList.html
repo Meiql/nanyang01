@@ -21,6 +21,16 @@
 		springrain.mydelete(_id,"${ctx}/tsmsgproducttechnology/delete");
 	}	 	
 </script>
+<style>
+	@media screen and (max-width: 1880px) {
+	    .layui-btn,
+	    .layui-btn+.layui-btn{
+	        display: block;
+	        width: 70px;
+	        margin: 3px 0 0;
+	    }
+	}
+</style>
 </head>
 <body>
 	<div class="layui-layout layui-layout-admin">
@@ -93,7 +103,7 @@
 												  <th class="center">
 															<input id="checkAll"  type="checkbox">
 												  </th>
-												  <th>操作</th>
+												  <th rowspan="2"style="width : 80px; text-align: center">操作</th>
 												  <!--first_end_no_export-->
 														<th id="th_technologyName" >工艺类型名称</th>
 														<th id="th_whetherOrNot" >是否涉及此工艺类型</th>
@@ -101,7 +111,6 @@
 														<th id="th_riskUnit" >涉及到的风险单元</th>
 														<th id="th_createTime" >创建或修改时间</th>
 														<th id="th_remarks" >创建用户</th>
-														<th id="th_companyId" >公司代码</th>
 												</tr> 
 											</thead>
 										  <!--first_end_export-->
@@ -121,6 +130,9 @@
 								                            <@shiro.hasPermission name="/tsmsgproducttechnology/delete" >
 								                            	<a href="javascript:del('${(_data.id)!''}')" class="layui-btn layui-btn-danger layui-btn-mini ajax-delete">删除</a>
 								                            </@shiro.hasPermission>
+								                            <@shiro.hasPermission name="/tsmsgproducttechnology/details" >
+								                            	<a href="#"  data-action="${ctx}/tsmsgproducttechnology/details?id=${(_data.id)!''}" class="layui-btn layui-btn-normal layui-btn-mini" >详情</a>
+								                            </@shiro.hasPermission>	
 														</td>
 														<!--end_no_export-->
 														<td >
@@ -140,9 +152,6 @@
 														</td>
 														<td >
 															${(_data.remarks)!''}
-														</td>
-														<td >
-															${(_data.companyId)!''}
 														</td>
 													</tr>
 												</#list>

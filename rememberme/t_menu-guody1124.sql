@@ -1,0 +1,3 @@
+﻿INSERT INTO `t_menu` VALUES ('82e6f3a4e2a0433a95a5e7ff228ac036', '生产工艺过程详情', '13ecac692aca449a9db1663f53caba66', '', '/tsmsgproducttechnology/details', 0, 1, NULL, '', NULL, NULL, NULL, NULL, NULL);
+INSERT INTO `t_menu` VALUES ('9be51a3939fe43378efe2ad46ff06a3a', '化学物质信息详情', '48c5c32c2c424b54b4102488c9df45a4', '', '/tsmsgchemicalsubstances/details', 0, 1, NULL, '', NULL, NULL, NULL, NULL, NULL);
+update t_menu set name='环境风险详情页面' where id='8c5040446f3a43caa7722c273a97c216';

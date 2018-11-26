@@ -169,7 +169,7 @@ public class TsMsgEnviroRiskController  extends BaseController {
 				java.lang.String companyId = SessionUser.getCompanyid(); 
 				if(StringUtils.isBlank(tsMsgEnviroRisk.getCompanyId())){
 					
-					tsMsgEnviroRisk.setCompanyId("142a63b3a2ba4f6984f61f7c18edb76f");
+					tsMsgEnviroRisk.setCompanyId(companyId);
 				}
 				//5.数据状态
 				if(StringUtils.isBlank(tsMsgEnviroRisk.getBak1())){				
