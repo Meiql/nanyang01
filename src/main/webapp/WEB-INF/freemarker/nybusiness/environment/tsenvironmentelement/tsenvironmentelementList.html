@@ -36,10 +36,10 @@
 		             	<@shiro.hasPermission name="/tsenvironmentelement/update" >
 		             		<button type="button"   class="layui-btn layui-btn-small" data-action="${ctx}/tsenvironmentelement/update/pre"><i class="layui-icon layui-icon-specil">&#xe61f;</i>新增</button>
 		             	</@shiro.hasPermission>
-		             	<@shiro.hasPermission name="/tsenvironmentelement/list/export" >
+		             	<!-- <@shiro.hasPermission name="/tsenvironmentelement/list/export" >
 				        	<button type="button"   class="layui-btn layui-btn-small"><i class="layui-icon layui-icon-specil">&#xe609;</i>导出</button>
 				        </@shiro.hasPermission>
-		                <button type="button"  class="layui-btn layui-btn-warm layui-btn-small"><i class="layui-icon layui-icon-specil">&#xe601;</i>导入</button>
+		                <button type="button"  class="layui-btn layui-btn-warm layui-btn-small"><i class="layui-icon layui-icon-specil">&#xe601;</i>导入</button> -->
 		                <!-- <@shiro.hasPermission name="/tsenvironmentelement/delete" >
 		               		 <button type="button"  class="layui-btn layui-btn-danger layui-btn-small"><i class="layui-icon">&#xe640;</i>批量删除</button>
 		                </@shiro.hasPermission> -->
@@ -67,9 +67,9 @@
 							          		<tr>
 							          			<td>
 							          				<div class="layui-inline">
-									                    <label class="layui-form-label">名称</label>
+									                    <label class="layui-form-label">环境要素名称</label>
 									                    <div class="layui-input-inline">
-									                           <input type="text" name="name" value="${(returnDatas.queryBean.name)!''}" placeholder="请输入名称 " class="layui-input">
+									                           <input type="text" name="envirElementName" value="${(returnDatas.queryBean.envirElementName)!''}" placeholder="请输入名称 " class="layui-input">
 									                    </div>
 							                		</div>
 									                 <div class="layui-inline">
@@ -131,7 +131,7 @@
 														</td>
 														<td>
 															<@shiro.hasPermission name="/tsenvironmentelement/update" >
-								                           		 <a href="#" data-action="${ctx}/tsenvironmentelement/update/pre?id=" class="layui-btn layui-btn-normal layui-btn-mini">编辑</a>
+								                           		 <a href="#" data-action="${ctx}/tsenvironmentelement/update/pre?id=${_data.id}" class="layui-btn layui-btn-normal layui-btn-mini">编辑</a>
 								                            </@shiro.hasPermission>
 								                            <@shiro.hasPermission name="/tsenvironmentelement/delete" >
 								                            	<a href="javascript:del('${(_data.id)!''}')" class="layui-btn layui-btn-danger layui-btn-mini ajax-delete">删除</a>

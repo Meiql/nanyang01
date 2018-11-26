@@ -67,9 +67,9 @@
 							          		<tr>
 							          			<td>
 							          				<div class="layui-inline">
-									                    <label class="layui-form-label">名称</label>
+									                    <label class="layui-form-label">物资名称</label>
 									                    <div class="layui-input-inline">
-									                           <input type="text" name="name" value="${(returnDatas.queryBean.name)!''}" placeholder="请输入名称 " class="layui-input">
+									                           <input type="text" name="materialName" value="${(returnDatas.queryBean.materialName)!''}" placeholder="请输入名称 " class="layui-input">
 									                    </div>
 							                		</div>
 									                 <div class="layui-inline">
@@ -121,8 +121,8 @@
 														<th id="th_reducedYear" >本年减少</th>
 														<th id="th_whereabouts" >去向</th>
 														<th id="th_surplus" >剩余</th>
-														<th id="th_createUser" >创建人</th>
-														<th id="th_createTime" >创建时间</th>
+														<!-- <th id="th_createUser" >创建人</th>
+														<th id="th_createTime" >创建时间</th> -->
 														<th id="th_remarks" >备注</th>
 												</tr> 
 											</thead>
@@ -138,7 +138,7 @@
 														</td>
 														<td>
 															<@shiro.hasPermission name="/tsdeclare/update" >
-								                           		 <a href="#" data-action="${ctx}/tsdeclare/update/pre?id=" class="layui-btn layui-btn-normal layui-btn-mini">编辑</a>
+								                           		 <a href="#" data-action="${ctx}/tsdeclare/update/pre?id=${_data.id}" class="layui-btn layui-btn-normal layui-btn-mini">编辑</a>
 								                            </@shiro.hasPermission>
 								                            <@shiro.hasPermission name="/tsdeclare/delete" >
 								                            	<a href="javascript:del('${(_data.id)!''}')" class="layui-btn layui-btn-danger layui-btn-mini ajax-delete">删除</a>
@@ -169,12 +169,12 @@
 														<td >
 															${(_data.surplus)!''}
 														</td>
-														<td >
+														<!-- <td >
 															${(_data.createUser)!''}
 														</td>
 														<td >
 															${(_data.createTime)!''}
-														</td>
+														</td> -->
 														<td >
 															${(_data.remarks)!''}
 														</td>

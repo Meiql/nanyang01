@@ -2,6 +2,7 @@ package  org.springrain.nybusiness.waste.web;
 
 import java.io.File;
 import java.util.Arrays;
+import java.util.Date;
 import java.util.List;
 
 import javax.annotation.Resource;
@@ -13,7 +14,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springrain.frame.common.SessionUser;
 import org.springrain.frame.controller.BaseController;
+import org.springrain.frame.util.DateUtils;
 import org.springrain.frame.util.GlobalStatic;
 import org.springrain.frame.util.MessageUtils;
 import org.springrain.frame.util.Page;
@@ -135,7 +138,14 @@ public class TsWasteMaterialMsgController  extends BaseController {
 			if(StringUtils.isBlank(id)){
 			  tsWasteMaterialMsg.setId(null);
 			}
-		
+			if(StringUtils.isBlank(tsWasteMaterialMsg.getCreateUser())){
+				tsWasteMaterialMsg.setCreateUser(SessionUser.getUserId());
+			}
+			if(StringUtils.isBlank(tsWasteMaterialMsg.getCreateTime())){
+				tsWasteMaterialMsg.setCreateTime(DateUtils.convertDate2String("yyyy-MM-dd HH:mm:ss", new Date()));
+			}
+			java.lang.String companyId = SessionUser.getCompanyid(); 
+			tsWasteMaterialMsg.setCompanyId(companyId);
 			tsWasteMaterialMsgService.saveorupdate(tsWasteMaterialMsg);
 			
 		} catch (Exception e) {

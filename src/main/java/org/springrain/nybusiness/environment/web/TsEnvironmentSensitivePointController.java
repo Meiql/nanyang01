@@ -2,6 +2,7 @@ package  org.springrain.nybusiness.environment.web;
 
 import java.io.File;
 import java.util.Arrays;
+import java.util.Date;
 import java.util.List;
 
 import javax.annotation.Resource;
@@ -18,7 +19,9 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import org.springrain.nybusiness.environment.entity.TsEnvironmentSensitivePoint;
 import org.springrain.nybusiness.environment.service.ITsEnvironmentSensitivePointService;
+import org.springrain.frame.common.SessionUser;
 import org.springrain.frame.controller.BaseController;
+import org.springrain.frame.util.DateUtils;
 import org.springrain.frame.util.GlobalStatic;
 import org.springrain.frame.util.MessageUtils;
 import org.springrain.frame.util.Page;
@@ -29,8 +32,8 @@ import org.springrain.frame.util.ReturnDatas;
  * TODO 在此加入类描述
  * @copyright {@link weicms.net}
  * @author springrain<Auto generate>
- * @version  2018-10-27 10:25:22
- * @see org.springrain.nybusiness.environment.web.TsEnvironmentSensitivePoint
+ * @version  2018-11-26 17:39:21
+ * @see org.springrain.nybusiness.company.web.TsEnvironmentSensitivePoint
  */
 @Controller
 @RequestMapping(value="/tsenvironmentsensitivepoint")
@@ -138,7 +141,14 @@ public class TsEnvironmentSensitivePointController  extends BaseController {
 			if(StringUtils.isBlank(id)){
 			  tsEnvironmentSensitivePoint.setId(null);
 			}
-		
+			if(StringUtils.isBlank(tsEnvironmentSensitivePoint.getCreateUser())){
+				tsEnvironmentSensitivePoint.setCreateUser(SessionUser.getUserId());
+			}
+			if(StringUtils.isBlank(tsEnvironmentSensitivePoint.getCreateTime())){
+				tsEnvironmentSensitivePoint.setCreateTime(DateUtils.convertDate2String("yyyy-MM-dd HH:mm:ss", new Date()));
+			}
+			java.lang.String companyId = SessionUser.getCompanyid(); 
+			tsEnvironmentSensitivePoint.setCompanyId(companyId);
 			tsEnvironmentSensitivePointService.saveorupdate(tsEnvironmentSensitivePoint);
 			
 		} catch (Exception e) {

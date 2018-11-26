@@ -67,9 +67,9 @@
 							          		<tr>
 							          			<td>
 							          				<div class="layui-inline">
-									                    <label class="layui-form-label">名称</label>
+									                    <label class="layui-form-label">排污口方位</label>
 									                    <div class="layui-input-inline">
-									                           <input type="text" name="processingMethod" value="${(returnDatas.queryBean.processingMethod)!''}" placeholder="请输入名称 " class="layui-input">
+									                           <input type="text" name="outletLocation" value="${(returnDatas.queryBean.outletLocation)!''}" placeholder="请输入名称 " class="layui-input">
 									                    </div>
 							                		</div>
 									                 <div class="layui-inline">
@@ -123,8 +123,8 @@
 														<th id="th_actionBehavior" >措施行为 1 加盖 2 加药 3其他</th>
 														<th id="th_processDesc" >流程说明</th>
 														<th id="th_treatmentEffect" >废水处理效果</th>
-														<th id="th_createUser" >创建人</th>
-														<th id="th_createTime" >创建时间</th>
+														<!-- <th id="th_createUser" >创建人</th>
+														<th id="th_createTime" >创建时间</th> -->
 														<!-- <th id="th_remarks" >remarks</th>
 														<th id="th_companyId" >企业id</th>
 														<th id="th_bak1" >bak1</th>
@@ -181,12 +181,12 @@
 														<td >
 															${(_data.treatmentEffect)!''}
 														</td>
-														<td >
+														<!-- <td >
 															${(_data.createUser)!''}
 														</td>
 														<td >
 															${(_data.createTime)!''}
-														</td>
+														</td> -->
 														<!-- <td >
 															${(_data.remarks)!''}
 														</td>

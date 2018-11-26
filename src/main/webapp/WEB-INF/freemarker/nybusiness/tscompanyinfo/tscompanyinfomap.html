@@ -2,6 +2,11 @@
 <@h.commonHead title="后台管理系统" keywords="开源,永久免费" description="springrain开源系统管理后台"/>
 <script src="${ctx}/js/custom/common/form.js">
 </script>
+<style type="text/css">
+.div4{margin:20px;float: left;width: 250px;height: 400px;border: 1px solid #e2e2e2;position:relative;background: white;}
+.div1{width: 195px;height: 25px;border:none;position:absolute;top: 30%;left:30%;margin-top: -50px;margin-left: -50px;}
+.div5{width: 250px;height: 30px;border-bottom: 1px solid #e2e2e2;text-align:center;line-height:30px;}
+</style>
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 	<meta name="viewport" content="initial-scale=1.0, user-scalable=no" />
@@ -62,18 +67,41 @@
 							          	</tbody>
 							          </table>
 							          </form> 
-							          
-	<div id="allmap"></div>
+	<div style="width: 100%;height: 450px;border: 1px solid #e2e2e2;background: white;" >								
+	<div class="div4">
+	<div class="div5">
+	统计分析
+	</div>
+	<div class="div1">1</div>
+	</div>	
+						          
+	<div class="div4" style="width: 510px;">
+	<div class="div5" style="width: 510px;">
+	地图
+	</div>
+	<div style="height: 367px;"id="allmap"></div>
+	</div>
+	
+	<div class="div4">
+	<div class="div5">实时监控</div>
+	<div class="div1">浓度：
+     </div>
+	<div class="div1" style="top:50%">库存位置
+	</div>
+	<div class="div1" style="top:70%">库存数量
+     </div>
+	</div>
 	</div>
 	 </div> 
+	 </div>
 		<@h.footer />
 	</div>
 <script type="text/javascript">
 var map = new BMap.Map("allmap");
-var point = new BMap.Point(112.52 ,33.00); //这里设置刚开始的点所在处
+var point = new BMap.Point(); //这里设置刚开始的点所在处
 map.enableScrollWheelZoom(); //滚动放大
 map.enableKeyboard(); //键盘放大
-map.centerAndZoom(point, 9); //绘制地图  
+map.centerAndZoom("南阳",12);
 function addMarker(point){
 	  var marker = new BMap.Marker(point);
 	  map.addOverlay(marker);
@@ -112,6 +140,9 @@ function addMarker(point){
 												            				 height: "26px",
 												            				 lineHeight: "26px"
 					            				  }); 
+					            				 marker.addEventListener("click", function () { 
+					            					 alert("11111"); //接口
+					            				 });
 					            			} 
 					            	 }
 								} else {
