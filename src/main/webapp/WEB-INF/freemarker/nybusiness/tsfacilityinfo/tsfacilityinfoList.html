@@ -18,7 +18,7 @@
 		});
 	});
 	function del(_id){
-		springrain.mydelete(_id,"${ctx}/tscompanyinfo/delete");
+		springrain.mydelete(_id,"${ctx}/tsfacilityinfo/delete");
 	}
 </script>
 
@@ -33,14 +33,14 @@
 
 		             </li>
 					 <li style="float:right;">
-		             	<@shiro.hasPermission name="/tscompanyinfo/update" >
-		             		<button type="button"   class="layui-btn layui-btn-small" data-action="${ctx}/tscompanyinfo/update/pre"><i class="layui-icon layui-icon-specil">&#xe61f;</i>新增</button>
+		             	<@shiro.hasPermission name="/tsfacilityinfo/update" >
+		             		<button type="button"   class="layui-btn layui-btn-small" data-action="${ctx}/tsfacilityinfo/update/pre"><i class="layui-icon layui-icon-specil">&#xe61f;</i>新增</button>
 		             	</@shiro.hasPermission>
-		             	<!-- <@shiro.hasPermission name="/tscompanyinfo/list/export" >
+		             	<!-- <@shiro.hasPermission name="/tsfacilityinfo/list/export" >
 				        	<button type="button"   class="layui-btn layui-btn-small"><i class="layui-icon layui-icon-specil">&#xe609;</i>导出</button>
 				        </@shiro.hasPermission>
 		                <button type="button"  class="layui-btn layui-btn-warm layui-btn-small"><i class="layui-icon layui-icon-specil">&#xe601;</i>导入</button>
-		                <@shiro.hasPermission name="/tscompanyinfo/delete" >
+		                <@shiro.hasPermission name="/tsfacilityinfo/delete" >
 		               		 <button type="button"  class="layui-btn layui-btn-danger layui-btn-small"><i class="layui-icon">&#xe640;</i>批量删除</button>
 		                </@shiro.hasPermission> -->
 		             </li>
@@ -51,7 +51,7 @@
 							<div class="layui-main">
 						          <div id="LAY_preview">
 						          <!-- 查询  开始 -->
-							          <form class="layui-form layui-form-pane" id="searchForm" action="${ctx}/tscompanyinfo/list" method="post">
+							          <form class="layui-form layui-form-pane" id="searchForm" action="${ctx}/tsfacilityinfo/list" method="post">
 							          <input type="hidden" name="pageIndex" id="pageIndex" value="${(returnDatas.page.pageIndex)!'1'}" /> 
 							          <input type="hidden" name="sort" id="page_sort" value="${(returnDatas.page.sort)!'desc'}" />
 							          <input type="hidden" name="order" id="page_order" value="${(returnDatas.page.order)!'id'}" />
@@ -62,14 +62,14 @@
 										</colgroup>
 							          	<tbody>
 							          		<tr>
-							          			<th colspan="2">TsCompanyInfo搜索</th>
+							          			<th colspan="2">设备信息搜索</th>
 							          		</tr>
 							          		<tr>
 							          			<td>
 							          				<div class="layui-inline">
-									                    <label class="layui-form-label">公司名称</label>
+									                    <label class="layui-form-label">名称</label>
 									                    <div class="layui-input-inline">
-									                           <input type="text" name="companyName" value="${(returnDatas.queryBean.companyName)!''}" placeholder="请输入名称 " class="layui-input">
+									                           <input type="text" name="name" value="${(returnDatas.queryBean.name)!''}" placeholder="请输入名称 " class="layui-input">
 									                    </div>
 							                		</div>
 									                 <div class="layui-inline">
@@ -104,7 +104,7 @@
 										  <!--first_start_export-->
 											<thead>
 												<tr>
-													<th colspan="9">企业列表<font id='recordsView' class='recorsView'>共<span></span>页,共 <span></span>条记录</font></th>
+													<th colspan="9">设备信息列表<font id='recordsView' class='recorsView'>共<span></span>页,共 <span></span>条记录</font></th>
 												</tr>
 												<tr>
 												  <!--first_start_no_export-->
@@ -113,20 +113,8 @@
 												  </th>
 												  <th>操作</th>
 												  <!--first_end_no_export-->
-														<th id="th_companyName" >公司名称</th>
-														<th id="th_corporationName" >法人名称</th>
-														<th id="th_postalCode" >邮政编码</th>
-														<th id="th_contactsName" >联系人</th>
-														<th id="th_phone" >联系电话</th>
-														<th id="th_address" >厂区地址</th>
-														<th id="th_industrialyuanchu" >所在工业园区</th>
-														<th id="th_longitude" >经度</th>
-														<th id="th_latitude" >纬度</th>
-														<th id="th_industryCategary" >行业类别</th>
-														<th id="th_industryCode" >行业编码</th>
-														<th id="th_registerType" >注册类型</th>
-														<th id="th_factoryTime" >建厂时间</th>
-														<th id="th_createTime" >创建时间</th>
+														<th id="th_deviceNumber" >浓度检测设备编号</th>
+														<th id="th_adress" >位置</th>
 												</tr> 
 											</thead>
 										  <!--first_end_export-->
@@ -140,55 +128,19 @@
 																<input name="check_li" value="${_data.id}"  type="checkbox">
 														</td>
 														<td>
-															<@shiro.hasPermission name="/tscompanyinfo/update" >
-								                           		 <a href="#" data-action="${ctx}/tscompanyinfo/update/pre?id=${_data.id}" class="layui-btn layui-btn-normal layui-btn-mini">编辑</a>
+															<@shiro.hasPermission name="/tsfacilityinfo/update" >
+								                           		 <a href="#" data-action="${ctx}/tsfacilityinfo/update/pre?id=${_data.id}" class="layui-btn layui-btn-normal layui-btn-mini">编辑</a>
 								                            </@shiro.hasPermission>
-								                            <@shiro.hasPermission name="/tscompanyinfo/delete" >
+								                            <@shiro.hasPermission name="/tsfacilityinfo/delete" >
 								                            	<a href="javascript:del('${(_data.id)!''}')" class="layui-btn layui-btn-danger layui-btn-mini ajax-delete">删除</a>
 								                            </@shiro.hasPermission>
 														</td>
 														<!--end_no_export-->
 														<td >
-															${(_data.companyName)!''}
+															${(_data.deviceNumber)!''}
 														</td>
 														<td >
-															${(_data.corporationName)!''}
-														</td>
-														<td >
-															${(_data.postalCode)!''}
-														</td>
-														<td >
-															${(_data.contactsName)!''}
-														</td>
-														<td >
-															${(_data.phone)!''}
-														</td>
-														<td >
-															${(_data.address)!''}
-														</td>
-														<td >
-															${(_data.industrialyuanchu)!''}
-														</td>
-														<td >
-															${(_data.longitude)!''}
-														</td>
-														<td >
-															${(_data.latitude)!''}
-														</td>
-														<td >
-															${(_data.industryCategary)!''}
-														</td>
-														<td >
-															${(_data.industryCode)!''}
-														</td>
-														<td >
-															${(_data.registerType)!''}
-														</td>
-														<td >
-															${(_data.factoryTime)!''}
-														</td>
-														<td >
-															${(_data.createTime)!''}
+															${(_data.adress)!''}
 														</td>
 													</tr>
 												</#list>
