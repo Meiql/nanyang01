@@ -23,6 +23,6 @@ public interface ITsPreparegoodsNumService extends IBaseSpringrainService {
 	TsPreparegoodsNum findTsPreparegoodsNumById(Object id) throws Exception;
 	
 	public List<TsPreparegoodsNum> findListData(
-			TsPreparegoodsNum tsPreparegoodsNum) throws Exception ;
+			TsPreparegoodsNum tsPreparegoodsNum,List<String> listCompany) throws Exception ;
 	
 }

@@ -88,26 +88,34 @@
 														<!--end_no_export-->
 														<td >
 															${(_data.goods_name)!''}
-															<@shiro.hasPermission name="/tsgoodsinventory/update" >
+															<@shiro.hasPermission name="/tsgoodsinventory/list" >
+																<#if (_data.goods_name)?? && (_data.goods_name!='0') >
 								                           		 <a href="#" data-action="${ctx}/tsprepareapprovl/company/app" class="layui-btn layui-btn-normal layui-btn-mini">审批</a>
+								                            	</#if>	
 								                            </@shiro.hasPermission>
 														</td>
 														<td >
 															${(_data.company)!''}
-															<@shiro.hasPermission name="/tsgoodsinventory/update" >
+															<@shiro.hasPermission name="/tsgoodsinventory/list" >
+															<#if (_data.company)?? && (_data.company!='0') >
 								                           		 <a href="#" data-action="${ctx}/tsprepareapprovl/emergency/app" class="layui-btn layui-btn-normal layui-btn-mini">审批</a>
+								                            </#if>	
 								                            </@shiro.hasPermission>
 														</td>
 														<td >
 															${(_data.numbers)!''}
-																<@shiro.hasPermission name="/tsgoodsinventory/update" >
+																<@shiro.hasPermission name="/tsgoodsinventory/list" >
+																<#if (_data.numbers)?? && (_data.numbers!='0') >
 								                           		 <a href="#" data-action="${ctx}/tsprepareapprovl/enviroment/app" class="layui-btn layui-btn-normal layui-btn-mini">审批</a>
+								                           </#if>	
 								                            </@shiro.hasPermission>
 														</td>
 														<td >
 															${(_data.bak1)!''}
-															<@shiro.hasPermission name="/tsgoodsinventory/update" >
+															<@shiro.hasPermission name="/tsgoodsinventory/list" >
+															<#if (_data.bak1)?? && (_data.bak1!='0') >
 								                           		 <a href="#" data-action="${ctx}/tsprepareapprovl/planfiling/app" class="layui-btn layui-btn-normal layui-btn-mini">审批</a>
+								                           </#if>	
 								                            </@shiro.hasPermission>
 														</td>
 														</td>

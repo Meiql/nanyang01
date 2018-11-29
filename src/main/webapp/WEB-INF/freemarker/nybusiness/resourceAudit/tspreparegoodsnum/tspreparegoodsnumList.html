@@ -87,7 +87,7 @@
 														<!--end_no_export-->
 														<td >
 															${(_data.company)!''}
-															<@shiro.hasPermission name="/tspreparegoodsnum/update" >
+															<@shiro.hasPermission name="/tspreparegoodsnum/list" >
 															<#if (_data.company)?? && (_data.company!='0') >
 								                           		 <a href="#" data-action="${ctx}/tspreparegoodsnum/company/look" class="layui-btn layui-btn-normal layui-btn-mini">查看</a> 
 								                           	</#if>						                     
@@ -95,7 +95,7 @@
 														</td>
 														<td >
 															${(_data.emergency)!''}
-															<@shiro.hasPermission name="/tspreparegoodsnum/update" >
+															<@shiro.hasPermission name="/tspreparegoodsnum/list" >
 															<#if (_data.emergency)?? && (_data.emergency!='0') >
 															 <a href="#" data-action="${ctx}/tspreparegoodsnum/emergency/look" class="layui-btn layui-btn-normal layui-btn-mini">查看</a>								                           		
 								                           	</#if>
@@ -103,7 +103,7 @@
 														</td>
 														<td >
 															${(_data.enviro)!''}
-															<@shiro.hasPermission name="/tspreparegoodsnum/update" >
+															<@shiro.hasPermission name="/tspreparegoodsnum/list" >
 															<#if (_data.enviro)?? && (_data.enviro!='0') >
 								                           		  <a href="#" data-action="${ctx}/tspreparegoodsnum/enviroment/look" class="layui-btn layui-btn-normal layui-btn-mini">查看</a>
 								                           	</#if>
@@ -111,7 +111,7 @@
 														</td>
 														<td >
 															${(_data.filing)!''}
-															<@shiro.hasPermission name="/tspreparegoodsnum/update" >
+															<@shiro.hasPermission name="/tspreparegoodsnum/list" >
 															<#if (_data.filing)?? && (_data.filing!='0') >
 								                           		 <a href="#" data-action="${ctx}/tspreparegoodsnum/planfiling/look" class="layui-btn layui-btn-normal layui-btn-mini">查看</a>
 								                           	</#if>

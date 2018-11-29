@@ -102,7 +102,8 @@ public class TsPreparegoodsNumController  extends BaseController {
 		// ==执行分页查询
 		//List<TsPreparegoodsNum> datas=tsPreparegoodsNumService.findListDataByFinder(null,page,TsPreparegoodsNum.class,tsPreparegoodsNum);
 		//	returnObject.setQueryBean(tsPreparegoodsNum);
-		List<TsPreparegoodsNum> datas=tsPreparegoodsNumService.findListData(tsPreparegoodsNum);
+		List<String> listCompany = tsCompanyInfoService.finderCompanyIdByUserId(SessionUser.getUserId());
+		List<TsPreparegoodsNum> datas=tsPreparegoodsNumService.findListData(tsPreparegoodsNum, listCompany);
 		returnObject.setQueryBean(tsPreparegoodsNum);
 		//returnObject.setPage(page);
 		returnObject.setData(datas);

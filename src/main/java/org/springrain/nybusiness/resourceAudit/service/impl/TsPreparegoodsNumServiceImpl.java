@@ -81,13 +81,16 @@ public class TsPreparegoodsNumServiceImpl extends BaseSpringrainServiceImpl impl
 		
 		@Override
 		public List<TsPreparegoodsNum> findListData(
-				TsPreparegoodsNum tsPreparegoodsNum) throws Exception {
-
+				TsPreparegoodsNum tsPreparegoodsNum,List<String> listCompany) throws Exception {
+			if(CollectionUtils.isEmpty(listCompany)){
+				return null;
+			}
 			Finder finder = new Finder();
 			finder.append("select :id").setParam("id", "1");
-			finder.append(",a.company,b.emergency ,c.enviro ,d.filing from (select count(id) company from ts_company_info  where bak1=:company ").setParam("company", "1");
-			finder.append(" ORDER BY id) a,(select count(id) emergency from ts_emergency_equipment_sum where bak1=:eme").setParam("eme", "1"); finder.append(" ORDER BY id) b,"
-					+ "(select count(id) enviro from ts_msg_enviro_risk where bak1=:enviro").setParam("enviro", "1"); finder.append(" ORDER BY id) c,(select count(id) filing from ts_eme_plan_filing where bak1=:fil").setParam("fil", "1"); 
+			finder.append(",a.company,b.emergency ,c.enviro ,d.filing from (select count(id) company from ts_company_info  where bak1=:company and id in (:companyid) ").setParam("company", "1").setParam("companyid", listCompany);
+			finder.append(" ORDER BY id) a,(select count(id) emergency from (select t.id from ts_emergency_equipment_sum t where t.bak1=:eme and t.company_id in (:companyid) union all select t.id from ts_ergency_investigation t where t.bak1=:eme and t.company_id in (:companyid))t ").setParam("eme", "1").setParam("companyid", listCompany); 
+			finder.append(" ORDER BY id) b,"
+					+ "(select count(id) enviro from ts_msg_enviro_risk where bak1=:enviro and companyId in (:companyid)").setParam("enviro", "1").setParam("companyid", listCompany); finder.append(" ORDER BY id) c,(select count(id) filing from ts_eme_plan_filing where bak1=:fil and company_id in (:companyid)").setParam("fil", "1").setParam("companyid", listCompany); 
 					finder.append(" ORDER BY id) d");
 			
 			return super.queryForList(finder, TsPreparegoodsNum.class);
