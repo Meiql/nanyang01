@@ -76,13 +76,13 @@
     <td class="tg-c3ow">法定代表人</td>
     <td class="tg-0pky"><input type="text"  style="border-style:none" placeholder="填写法定代表人" class="layui-input" name="legal_person" id="legal_person" datatype="*" nullmsg="不能为空" errormsg="不能为空！" autocomplete="off" value="${(returnDatas.data.corporationName)!''}"></td>
     <td class="tg-c3ow">联系电话</td>
-    <td class="tg-0pky"><input type="text"  style="border-style:none" placeholder="填写法定联系电话" class="layui-input" name="legal_person_tel" id="legal_person_tel" datatype="*" nullmsg="不能为空" errormsg="不能为空！" autocomplete="off" value="${(returnDatas.data.legal_person_tel)!''}"></td>
+    <td class="tg-0pky"><input type="text"  style="border-style:none" placeholder="填写法定联系电话" class="layui-input" name="legal_person_tel" id="legal_person_tel" datatype="*" nullmsg="不能为空" errormsg="不能为空！" autocomplete="off" value="${(returnDatas.data.corporationPhone)!''}"></td>
   </tr>
   <tr>
     <td class="tg-c3ow">联系人</td>
-    <td class="tg-0pky"><input type="text"  style="border-style:none" placeholder="填写法定联系人" class="layui-input" name="contacts_people" id="contacts_people" datatype="*" nullmsg="不能为空" errormsg="不能为空！" autocomplete="off" value="${(returnDatas.data.contactsName)!''}"></td>
+    <td class="tg-0pky"><input type="text"  style="border-style:none" placeholder="填写联系人" class="layui-input" name="contacts_people" id="contacts_people" datatype="*" nullmsg="不能为空" errormsg="不能为空！" autocomplete="off" value="${(returnDatas.data.contactsName)!''}"></td>
     <td class="tg-c3ow">联系电话</td>
-    <td class="tg-0pky"><input type="text"  style="border-style:none" placeholder="填写联系电话" class="layui-input" name="contacts_people_tel" id="contacts_people_tel" datatype="*" nullmsg="不能为空" errormsg="不能为空！" autocomplete="off" value="${(returnDatas.data.contacts_people_tel)!''}"></td>
+    <td class="tg-0pky"><input type="text"  style="border-style:none" placeholder="填写联系电话" class="layui-input" name="contacts_people_tel" id="contacts_people_tel" datatype="*" nullmsg="不能为空" errormsg="不能为空！" autocomplete="off" value="${(returnDatas.data.phone)!''}"></td>
   </tr>
   <tr>
     <td class="tg-c3ow">传真</td>
@@ -94,7 +94,7 @@
     <td class="tg-c3ow">地址</td>
     <td class="tg-0pky"><input type="text"  style="border-style:none" placeholder="填写地址" class="layui-input" name="address" id="address" datatype="*" nullmsg="不能为空" errormsg="不能为空！" autocomplete="off" value="${(returnDatas.data.address)!''}"></td>
     <td class="tg-c3ow">经纬度（中心）</td>
-    <td class="tg-0pky"><input type="text"  style="border-style:none" placeholder="填写经纬度（中心）" class="layui-input" name="center" id="center" datatype="*" nullmsg="不能为空" errormsg="不能为空！" autocomplete="off" value="${(returnDatas.data.center)!''}"></td>
+    <td class="tg-0pky"><input type="text"  style="border-style:none" placeholder="填写经纬度（中心）" class="layui-input" readonly name="center" id="center" datatype="*" nullmsg="不能为空" errormsg="不能为空！" autocomplete="off" value="${(returnDatas.data.longitude)!''}/${(returnDatas.data.latitude)!''}"></td>
   </tr>
   <tr>
     <td class="tg-c3ow">预案名称</td>
