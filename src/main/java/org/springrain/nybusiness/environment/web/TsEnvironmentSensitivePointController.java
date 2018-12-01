@@ -16,12 +16,14 @@ import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
-
+import org.springrain.nybusiness.company.entity.TsCompanyInfo;
+import org.springrain.nybusiness.environment.entity.TsEnvironmentElement;
 import org.springrain.nybusiness.environment.entity.TsEnvironmentSensitivePoint;
 import org.springrain.nybusiness.environment.service.ITsEnvironmentSensitivePointService;
 import org.springrain.frame.common.SessionUser;
 import org.springrain.frame.controller.BaseController;
 import org.springrain.frame.util.DateUtils;
+import org.springrain.frame.util.Finder;
 import org.springrain.frame.util.GlobalStatic;
 import org.springrain.frame.util.MessageUtils;
 import org.springrain.frame.util.Page;
@@ -75,10 +77,18 @@ public class TsEnvironmentSensitivePointController  extends BaseController {
 	@ResponseBody   
 	public  ReturnDatas listjson(HttpServletRequest request, Model model,TsEnvironmentSensitivePoint tsEnvironmentSensitivePoint) throws Exception{
 		ReturnDatas returnObject = ReturnDatas.getSuccessReturnDatas();
+		String companyid=SessionUser.getCompanyid();
+		Finder finder;
+		finder = Finder.getSelectFinder(TsEnvironmentSensitivePoint.class);
+		if (StringUtils.isBlank(companyid)) {
+			finder=null;
+		}else{
+			finder.append("where companyId =:companyId").setParam("companyId", companyid);
+		}
 		// ==构造分页请求
 		Page page = newPage(request);
 		// ==执行分页查询
-		List<TsEnvironmentSensitivePoint> datas=tsEnvironmentSensitivePointService.findListDataByFinder(null,page,TsEnvironmentSensitivePoint.class,tsEnvironmentSensitivePoint);
+		List<TsEnvironmentSensitivePoint> datas=tsEnvironmentSensitivePointService.findListDataByFinder(finder,page,TsEnvironmentSensitivePoint.class,tsEnvironmentSensitivePoint);
 			returnObject.setQueryBean(tsEnvironmentSensitivePoint);
 		returnObject.setPage(page);
 		returnObject.setData(datas);

@@ -48,7 +48,7 @@ public class TsFacilityInfo  extends BaseEntity {
 	/**
 	 * 位置
 	 */
-	private java.lang.String adress;
+	private java.lang.String address;
 	/**
 	 * 创建人
 	 */
@@ -134,18 +134,18 @@ public class TsFacilityInfo  extends BaseEntity {
      /**
 		 * 位置
 		 */
-	public void setAdress(java.lang.String value) {
+	public void setAddress(java.lang.String value) {
 		    if(StringUtils.isNotBlank(value)){
 			 value=value.trim();
 			}
-		this.adress = value;
+		this.address = value;
 	}
 	/**
 	 * 位置
 	 */
-     @WhereSQL(sql="adress=:TsFacilityInfo_adress")
-	public java.lang.String getAdress() {
-		return this.adress;
+     @WhereSQL(sql="adress=:TsFacilityInfo_address")
+	public java.lang.String getAddress() {
+		return this.address;
 	}
      
 		/**
@@ -286,7 +286,7 @@ public class TsFacilityInfo  extends BaseEntity {
 		return new StringBuilder()
 			.append("主键[").append(getId()).append("],")
 			.append("浓度检测设备编号[").append(getDeviceNumber()).append("],")
-			.append("位置[").append(getAdress()).append("],")
+			.append("位置[").append(getAddress()).append("],")
 			.append("创建人[").append(getCreateUser()).append("],")
 			.append("创建时间[").append(getCreateTime()).append("],")
 			.append("remarks[").append(getRemarks()).append("],")

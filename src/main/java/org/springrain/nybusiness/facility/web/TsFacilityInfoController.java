@@ -1,27 +1,44 @@
 package  org.springrain.nybusiness.facility.web;
 
 import java.io.File;
+import java.io.IOException;
 import java.util.Arrays;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.lang3.StringUtils;
+import org.apache.http.HttpResponse;
+import org.apache.http.client.ClientProtocolException;
+import org.apache.http.client.HttpClient;
+import org.apache.http.client.methods.HttpPost;
+import org.apache.http.entity.StringEntity;
+import org.apache.http.impl.client.DefaultHttpClient;
+import org.apache.http.util.EntityUtils;
+import org.json.JSONArray;
+import org.json.JSONObject;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.WebDataBinder;
-import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
-
+import org.springrain.nybusiness.company.entity.TsCompanyInfo;
 import org.springrain.nybusiness.facility.entity.TsFacilityInfo;
 import org.springrain.nybusiness.facility.service.ITsFacilityInfoService;
+import org.springrain.nybusiness.waste.entity.TsWasteAirMsg;
+import org.springrain.system.entity.Role;
+import org.springrain.system.entity.User;
+import org.springrain.system.entity.UserRole;
+import org.springrain.system.service.IUserRoleMenuService;
+import org.springrain.system.service.IUserService;
 import org.springrain.frame.common.SessionUser;
 import org.springrain.frame.controller.BaseController;
 import org.springrain.frame.util.DateUtils;
+import org.springrain.frame.util.Finder;
 import org.springrain.frame.util.GlobalStatic;
 import org.springrain.frame.util.MessageUtils;
 import org.springrain.frame.util.Page;
@@ -40,7 +57,6 @@ import org.springrain.frame.util.ReturnDatas;
 public class TsFacilityInfoController  extends BaseController {
 	@Resource
 	private ITsFacilityInfoService tsFacilityInfoService;
-	
 	private String listurl="/nybusiness/tsfacilityinfo/tsfacilityinfoList";
 	
 	
@@ -75,6 +91,14 @@ public class TsFacilityInfoController  extends BaseController {
 	@ResponseBody   
 	public  ReturnDatas listjson(HttpServletRequest request, Model model,TsFacilityInfo tsFacilityInfo) throws Exception{
 		ReturnDatas returnObject = ReturnDatas.getSuccessReturnDatas();
+		String companyid=SessionUser.getUserId();
+		Finder finder;
+		finder = Finder.getSelectFinder(TsWasteAirMsg.class);
+		if (StringUtils.isBlank(companyid)) {
+			finder=null;
+		}else{
+			finder.append("where companyId =:companyId").setParam("companyId", companyid);
+		}
 		// ==构造分页请求
 		Page page = newPage(request);
 		// ==执行分页查询
@@ -148,11 +172,11 @@ public class TsFacilityInfoController  extends BaseController {
 				tsFacilityInfo.setCreateTime(DateUtils.convertDate2String("yyyy-MM-dd HH:mm:ss", new Date()));
 			}
 			java.lang.String companyId = SessionUser.getCompanyid(); 
-			System.out.println(companyId);
 			tsFacilityInfo.setCompanyId(companyId);
 			tsFacilityInfoService.saveorupdate(tsFacilityInfo);
 			
 		} catch (Exception e) {
+			e.printStackTrace();
 			logger.error(e.getMessage(),e);
 			returnObject.setStatus(ReturnDatas.ERROR);
 			returnObject.setMessage(MessageUtils.UPDATE_ERROR);
@@ -219,5 +243,67 @@ public class TsFacilityInfoController  extends BaseController {
 		
 		
 	}
-
-}
+	
+	@RequestMapping("/getinfo")
+	@ResponseBody
+	public ReturnDatas gethttp(HttpServletRequest request,HttpServletResponse response,Model model) throws Exception {
+		ReturnDatas returnObject = ReturnDatas.getSuccessReturnDatas();
+		String companyid=request.getParameter("companyid");
+				Finder finder;
+				finder = Finder.getSelectFinder(TsFacilityInfo.class);
+				finder.append("where companyId =:companyId").setParam("companyId", companyid);
+				List<TsFacilityInfo> list=tsFacilityInfoService.queryForList(finder,TsFacilityInfo.class);
+				if(list.size()==0){
+					returnObject.setStatus(ReturnDatas.ERROR);
+				}else{
+				String str=httpTest(list);
+				str=StringUtils.remove(str,"\"{data=");
+				str=str.substring(0,str.lastIndexOf(','));
+				str=StringUtils.remove(str,"[{");
+				str=StringUtils.remove(str,"}]");
+				/*
+				str=str.replace("=", "\":\"");
+				str=str.replace("{", "{\"");
+				str=str.replace(",", "\",\"");
+				str=str.replace("}\",\" {", "\"},{");
+				str=str.replace("}]","\"}]");
+				str=str.replaceAll(" ", "");
+				JSONArray json=new JSONArray(str);
+				System.out.println(json);*/
+				returnObject.setStatus(ReturnDatas.SUCCESS);
+				returnObject.setData(str);
+				}
+		return returnObject;
+	}
+	
+	
+	
+	public String httpTest(List<TsFacilityInfo> list) throws ClientProtocolException, IOException {
+		//"{\"dev_id_list\":\"503790188\",\"36272217\"}";
+		String json = "{\"dev_id_list\":";
+		if(list.size()==1){
+			json+="\"";
+			json+=list.get(0).getDeviceNumber();
+			json+="\"}";
+		}
+		else if(list.size()>1){
+			json+="\"";
+			for(int i=0;i<list.size();i++){
+				json+=list.get(i).getDeviceNumber();
+				if(i!=list.size()-1){
+					json+=",";
+				}
+			}
+			json+="\"}";
+		}
+		HttpClient httpClient = new DefaultHttpClient();
+		HttpPost post = new HttpPost("http://116.255.158.88:8082/bsa-admin-api/oneNet/queryData");
+		StringEntity postingString = new StringEntity(json);// json传递
+		post.setEntity(postingString);
+		post.setHeader("Content-type", "application/json");
+		HttpResponse response = httpClient.execute(post);
+		String content = EntityUtils.toString(response.getEntity());
+		System.out.println(content);
+		return content;
+	}
+	}
