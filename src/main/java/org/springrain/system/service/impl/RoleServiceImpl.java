@@ -15,6 +15,7 @@ import org.springrain.frame.common.SessionUser;
 import org.springrain.frame.util.Finder;
 import org.springrain.frame.util.GlobalStatic;
 import org.springrain.frame.util.Page;
+import org.springrain.nybusiness.constants.SysStateEnum.chuShiRoleEnum;
 import org.springrain.system.entity.Menu;
 import org.springrain.system.entity.Role;
 import org.springrain.system.entity.RoleMenu;
@@ -163,4 +164,10 @@ public class RoleServiceImpl extends BaseSpringrainServiceImpl implements IRoleS
 		return null;
 	}
 
+	@Override
+	public List<Role> listFinderSysRole() throws Exception {	
+		Finder f=Finder.getSelectFinder(Role.class);
+	f.append(" where 1=1 and id != :id").setParam("id", chuShiRoleEnum.企业角色.getValue());
+	return super.queryForList(f, Role.class);
+}
 }

@@ -36,6 +36,7 @@
 </style>
 </head>
 <body>
+<div class="layui-layout layui-layout-admin">
 	<div class="layui-layout layui-layout-admin">
 		<!-- 主体内容开始 -->
 					<div class="layui-tab-item layui-show">
@@ -56,19 +57,7 @@
 												</div>
 												<div class="layui-form-item col-lg-6" >
 													<div class="layui-inline col-lg-6">  
-													  <label class="layui-form-label">联系人*</label>	<input type="text" id="contactsName" name="contactsName"  style="width:250px;" datatype="*" nullmsg="请输入联系人"  autocomplete="off" class="layui-input" >
-													</div>
-													<div class="layui-inline valid-info"></div>
-												</div>
-												<div class="layui-form-item col-lg-6" >
-													<div class="layui-inline col-lg-6">  
-													  <label class="layui-form-label">电话*</label>	<input type="text" id="phone" name="phone"  style="width:250px;" datatype="*" nullmsg="请输入电话"  autocomplete="off" class="layui-input" >
-													</div>
-													<div class="layui-inline valid-info"></div>
-												</div>
-												<div class="layui-form-item col-lg-6" >
-													<div class="layui-inline col-lg-6">  
-													  <label class="layui-form-label">邮政编码*</label>	<input type="text" id="postalCode" name="postalCode"  style="width:250px;" datatype="*" nullmsg="请输入邮政编码"  autocomplete="off" class="layui-input" >
+													  <label class="layui-form-label">公司代码*</label>	<input type="text" id="companyCode" name="companyCode"  style="width:250px;" datatype="*" nullmsg="请输入公司代码"  autocomplete="off" class="layui-input" >
 													</div>
 													<div class="layui-inline valid-info"></div>
 												</div>
@@ -78,6 +67,31 @@
 													</div>
 													<div class="layui-inline valid-info"></div>
 												</div>
+												<div class="layui-form-item col-lg-6" >
+													<div class="layui-inline col-lg-6">  
+													  <label class="layui-form-label">法人*</label>	<input type="text" id="corporationName" name="corporationName"  style="width:250px;" datatype="*" nullmsg="请输入法人名称"  autocomplete="off" class="layui-input" >
+													</div>
+													<div class="layui-inline valid-info"></div>
+												</div>
+												<div class="layui-form-item col-lg-6" >
+													<div class="layui-inline col-lg-6">  
+													  <label class="layui-form-label">联系人*</label>	<input type="text" id="contactsName" name="contactsName"  style="width:250px;" datatype="*" nullmsg="请输入联系人"  autocomplete="off" class="layui-input" >
+													</div>
+													<div class="layui-inline valid-info"></div>
+												</div>
+												<div class="layui-form-item col-lg-6" >
+													<div class="layui-inline col-lg-6">  
+													  <label class="layui-form-label">联系人电话*</label>	<input type="text" id="phone" name="phone"  style="width:250px;" datatype="*" nullmsg="请输入电话"  autocomplete="off" class="layui-input" >
+													</div>
+													<div class="layui-inline valid-info"></div>
+												</div>
+												<div class="layui-form-item col-lg-6" >
+													<div class="layui-inline col-lg-6">  
+													  <label class="layui-form-label">邮政编码*</label>	<input type="text" id="postalCode" name="postalCode"  style="width:250px;" datatype="*" nullmsg="请输入邮政编码"  autocomplete="off" class="layui-input" >
+													</div>
+													<div class="layui-inline valid-info"></div>
+												</div>
+												
 													<div class="layui-form-item  col-lg-6">
 																		    <div class="layui-inline  col-lg-6" id="roleDiv">
 																		     <label class="layui-form-label">管辖单位*</label>
@@ -134,6 +148,7 @@
 		<!-- 主体内容结束 -->
 		<@h.footer />
 	</div>
+	</div>
 </body>
 <script>
 //map中的container必须与div中id保持一臿
@@ -170,11 +185,9 @@ jQuery(function(){
 		 if(_json.status == 'success'){
 			 springrain.alert(_json.message);
 		 }else{
-		     springrain.alert(_json.message);
-		  
-		     setTimeout(function() {
-		    	   springrain.goTo('${ctx}/system/index');
-		     }, 2000);
+			 layer.alert(_json.message, { icon: 1, closeBtn: 0 }, function (index) {
+					   window.location.href = ctx+'/system/login';
+			});
 		 }
 	 });
 });

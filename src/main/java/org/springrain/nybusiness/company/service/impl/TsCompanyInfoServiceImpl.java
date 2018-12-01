@@ -14,6 +14,7 @@ import org.springrain.frame.util.SecUtils;
 import org.springrain.nybusiness.company.entity.TsCompanyInfo;
 import org.springrain.nybusiness.company.service.ITsCompanyInfoService;
 import org.springrain.nybusiness.constants.SysStateEnum;
+import org.springrain.nybusiness.constants.SysStateEnum.chuShiRoleEnum;
 import org.springrain.system.entity.Org;
 import org.springrain.system.entity.User;
 import org.springrain.system.entity.UserOrg;
@@ -105,7 +106,7 @@ public class TsCompanyInfoServiceImpl extends BaseSpringrainServiceImpl implemen
 		String userId = super.save(user).toString();
 		
 		UserRole userRole = new UserRole();
-		userRole.setRoleId("b259ecdaeff843a89490f805c8690de8"); //固定角色
+		userRole.setRoleId(chuShiRoleEnum.企业角色.getValue()); //固定角色
 		userRole.setUserId(userId);
 		
 		super.save(userRole);
@@ -146,8 +147,8 @@ public class TsCompanyInfoServiceImpl extends BaseSpringrainServiceImpl implemen
 		}
 		//进行判断只能查看自己辖区的企业信息
 		Finder f = new Finder();
-		f.append("select * from ts_company_info t where t.state =:state and orgid in(:orgid) order by createTime desc ");
-		f.setParam("state", "0").setParam("orgid", listStrOrg);
+		f.append("select * from ts_company_info t where  orgid in(:orgid) order by createTime desc ");
+		f.setParam("orgid", listStrOrg);
 		List<TsCompanyInfo> list = super.queryForList(f, TsCompanyInfo.class);
 		return list;
 	}

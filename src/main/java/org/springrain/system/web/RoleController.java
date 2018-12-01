@@ -128,7 +128,20 @@ public class RoleController  extends BaseController {
 
 	
 
-	
+	@RequestMapping("/list/pre")
+	@ResponseBody 
+	public ReturnDatas listpre(HttpServletRequest request, Model model, Role role) throws Exception {
+		ReturnDatas returnObject = ReturnDatas.getSuccessReturnDatas();
+		List<Role> datas = null;
+		try {
+			datas =roleService.listFinderSysRole();
+			returnObject.setQueryBean(role);
+			returnObject.setData(datas);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return returnObject;
+	}
 
 	/**
 	 * 查看操作,调用APP端lookjson方法

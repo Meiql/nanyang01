@@ -141,43 +141,38 @@ public class TsMsgEnviroRiskController  extends BaseController {
 	public ReturnDatas saveorupdate(Model model,TsMsgEnviroRisk tsMsgEnviroRisk,HttpServletRequest request,HttpServletResponse response) throws Exception{
 		ReturnDatas returnObject = ReturnDatas.getSuccessReturnDatas();
 		returnObject.setMessage(MessageUtils.UPDATE_SUCCESS);
-		java.lang.String id =tsMsgEnviroRisk.getId();
 		try {
-			if(StringUtils.isBlank(tsMsgEnviroRisk.getRiskUnitName())){
-				updateBak1(id);
-			} else {				
-				if(StringUtils.isBlank(id)){
-					tsMsgEnviroRisk.setId(null);
-				}
-				Date date = new Date();
-				SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-				String formatStr =formatter.format(date);
-				System.out.println(formatStr);
-				//1.创建时间
-				if(StringUtils.isBlank(tsMsgEnviroRisk.getCreateTime())){
-					tsMsgEnviroRisk.setCreateTime(formatStr);
-				}
-				//2.创建用户id
-				if(StringUtils.isBlank(tsMsgEnviroRisk.getCreateUser())){
-					tsMsgEnviroRisk.setCreateUser(SessionUser.getUserId());
-				}
-				//3.创建用户name
-				if(StringUtils.isBlank(tsMsgEnviroRisk.getCreateUserName())){
-					tsMsgEnviroRisk.setCreateUserName(SessionUser.getUserName());
-				}
-				//4.公司代码
-				java.lang.String companyId = SessionUser.getCompanyid(); 
-				if(StringUtils.isBlank(tsMsgEnviroRisk.getCompanyId())){
-					
-					tsMsgEnviroRisk.setCompanyId(companyId);
-				}
-				//5.数据状态
-				if(StringUtils.isBlank(tsMsgEnviroRisk.getBak1())){				
-					tsMsgEnviroRisk.setBak1("1");
-				}						
-				tsMsgEnviroRiskService.saveorupdate(tsMsgEnviroRisk);
+			java.lang.String id =tsMsgEnviroRisk.getId();
+			if(StringUtils.isBlank(id)){
+				tsMsgEnviroRisk.setId(null);
 			}
-			
+			Date date = new Date();
+			SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+			String formatStr =formatter.format(date);
+			System.out.println("系统时间为 ："+ formatStr);
+			//1.创建时间
+			if(StringUtils.isBlank(tsMsgEnviroRisk.getCreateTime())){
+				tsMsgEnviroRisk.setCreateTime(formatStr);
+			}
+			//2.创建用户id
+			if(StringUtils.isBlank(tsMsgEnviroRisk.getCreateUser())){
+				tsMsgEnviroRisk.setCreateUser(SessionUser.getUserId());
+			}
+			//3.创建用户name
+			if(StringUtils.isBlank(tsMsgEnviroRisk.getCreateUserName())){
+				tsMsgEnviroRisk.setCreateUserName(SessionUser.getUserName());
+			}
+			//4.公司代码
+			java.lang.String companyId = SessionUser.getCompanyid(); 
+			if(StringUtils.isBlank(tsMsgEnviroRisk.getCompanyId())){
+				
+				tsMsgEnviroRisk.setCompanyId(companyId);
+			}
+			//5.数据状态
+			if(StringUtils.isBlank(tsMsgEnviroRisk.getBak1())){				
+				tsMsgEnviroRisk.setBak1("1");
+			}						
+			tsMsgEnviroRiskService.saveorupdate(tsMsgEnviroRisk);
 			
 		} catch (Exception e) {
 			logger.error(e.getMessage(),e);
@@ -192,8 +187,10 @@ public class TsMsgEnviroRiskController  extends BaseController {
 	 * 提交操作
 	 * @return 
 	 */ 
+	@RequestMapping("/updateBak1")
+	@ResponseBody    
 	public ReturnDatas updateBak1(String id) throws Exception {
-
+		System.out.println("环境风险执行提交");
 			// 执行提交
 		try {
 		if(StringUtils.isNotBlank(id)){

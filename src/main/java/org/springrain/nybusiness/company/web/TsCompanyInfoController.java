@@ -129,12 +129,19 @@ public class TsCompanyInfoController  extends BaseController {
 	public  ReturnDatas examinejson(HttpServletRequest request, Model model,TsCompanyInfo companyInfo) throws Exception{
 		ReturnDatas returnObject = ReturnDatas.getSuccessReturnDatas();
 		// ==构造分页请求
+		List<TsCompanyInfo> datas = null;
 		Page page = newPage(request);
 		// ==执行分页查询
-		List<TsCompanyInfo> datas=tsCompanyInfoService.finderExamineCompany(page, companyInfo);
-		returnObject.setQueryBean(companyInfo);
-		returnObject.setPage(page);
-		returnObject.setData(datas);
+		try {
+			 datas=tsCompanyInfoService.finderExamineCompany(page, companyInfo);
+			returnObject.setQueryBean(companyInfo);
+			returnObject.setPage(page);
+			returnObject.setData(datas);
+		} catch (Exception e) {
+			// TODO: handle exception
+			e.printStackTrace();
+		}
+
 		return returnObject;
 	}
 	

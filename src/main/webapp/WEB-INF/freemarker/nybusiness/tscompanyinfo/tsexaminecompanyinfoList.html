@@ -105,6 +105,7 @@
 <!-- 														<th id="th_runningDays" >运行天数</th> -->
 <!-- 														<th id="th_mainBusiness" >主要业务</th> -->
 														<th id="th_createTime" >创建时间</th>
+														<th  >状态</th>
 												</tr> 
 											</thead>
 										  <!--first_end_export-->
@@ -118,9 +119,14 @@
 																<input name="check_li" value="${_data.id}"  type="checkbox">
 														</td>
 														<td>
-															<@shiro.hasPermission name="/tscompanyinfo/examineupdate" >
-								                           		 <a href="#" data-action="${ctx}/tscompanyinfo/examineupdate/pre?id=${(_data.id)!''}" class="layui-btn layui-btn-normal layui-btn-mini">审核</a>
-								                            </@shiro.hasPermission>
+															
+																<@shiro.hasPermission name="/tscompanyinfo/examineupdate" >
+								                           			 <#if (_data.state)?? && (_data.state=='0')>
+								                           				 <a href="#" data-action="${ctx}/tscompanyinfo/examineupdate/pre?id=${(_data.id)!''}" class="layui-btn layui-btn-normal layui-btn-mini">审核</a>
+								                           		 </#if>
+								                           		 </@shiro.hasPermission>
+															
+															
 														</td>
 														<!--end_no_export-->
 														<td >
@@ -144,6 +150,14 @@
 														<td >
 															${(_data.createTime)!''}
 														</td>
+														<td >
+															<#if (_data.state)?? && (_data.state=='0')>
+															未审核
+															<#else>
+															已审核
+								                           	 </#if>
+														</td>
+														
 													</tr>
 												</#list>
 											 </#if>
