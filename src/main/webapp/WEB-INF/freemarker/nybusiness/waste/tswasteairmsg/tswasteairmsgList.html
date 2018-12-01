@@ -69,19 +69,9 @@
 							          				<div class="layui-inline">
 									                    <label class="layui-form-label">废气处理方式</label>
 									                    <div class="layui-input-inline">
-									                           <input type="text" name="wgProcessingMethod" value="${(returnDatas.queryBean.wgProcessingMethod)!''}" placeholder="请输入名称 " class="layui-input">
+									                           <input type="text" name="wgProcessingMethod" value="${(returnDatas.queryBean.wgProcessingMethod)!''}" placeholder="废气处理方式名称 " class="layui-input">
 									                    </div>
 							                		</div>
-									                 <div class="layui-inline">
-									                    <label class="layui-form-label">是否可用</label>
-									                    <div class="layui-input-inline">
-									                        <select name="active" id="active" class="layui-input">
-									                          <option value="">==请选择==</option>
-															  <option value="1">是</option>
-															  <option value="0">否</option>
-															</select>   
-									                    </div>
-									                </div>
 							          			</td>
 							          			<td>
 							          			   <div class="layui-inline">
@@ -111,20 +101,14 @@
 												  <th class="center">
 															<input id="checkAll"  type="checkbox">
 												  </th>
-												  <th>操作</th>
+												  <th style="text-align: center">操作</th>
 												  <!--first_end_no_export-->
-														<th id="th_wgProcessingMethod" >废气处理方式名称</th>
-														<th id="th_wgprocessingCapacity" >废气处理能力 吨</th>
-														<th id="th_wgSource" >废气来源</th>
-														<th id="th_wgTreatmentEffect" >废气处理效果</th>
-														<th id="th_emissionHeight" >排放高度</th>
-														<!-- <th id="th_createUser" >创建人</th>
-														<th id="th_createTime" >创建时间</th> -->
-														<!-- <th id="th_remarks" >remarks</th>
-														<th id="th_companyId" >companyId</th>
-														<th id="th_bak1" >bak1</th>
-														<th id="th_bak2" >bak2</th>
-														<th id="th_bak3" >bak3</th> -->
+														<th id="th_wgProcessingMethod" style="text-align: center">废气处理方式名称</th>
+														<th id="th_wgprocessingCapacity" style="text-align: center">废气处理能力 吨</th>
+														<th id="th_wgSource" style="text-align: center">废气来源</th>
+														<th id="th_wgTreatmentEffect" style="text-align: center">废气处理效果</th>
+														<th id="th_emissionHeight" style="text-align: center">排放高度</th>
+													
 												</tr> 
 											</thead>
 										  <!--first_end_export-->
@@ -137,7 +121,7 @@
 														<td class="center">
 																<input name="check_li" value="${_data.id}"  type="checkbox">
 														</td>
-														<td>
+														<td class="center">
 															<@shiro.hasPermission name="/tswasteairmsg/update" >
 								                           		 <a href="#" data-action="${ctx}/tswasteairmsg/update/pre?id=${_data.id}" class="layui-btn layui-btn-normal layui-btn-mini">编辑</a>
 								                            </@shiro.hasPermission>
@@ -146,42 +130,22 @@
 								                            </@shiro.hasPermission>
 														</td>
 														<!--end_no_export-->
-														<td >
+														<td class="center">
 															${(_data.wgProcessingMethod)!''}
 														</td>
-														<td >
+														<td class="center">
 															${(_data.wgprocessingCapacity)!''}
 														</td>
-														<td >
+														<td class="center">
 															${(_data.wgSource)!''}
 														</td>
-														<td >
+														<td class="center">
 															${(_data.wgTreatmentEffect)!''}
 														</td>
-														<td >
+														<td class="center">
 															${(_data.emissionHeight)!''}
 														</td>
-														<!-- <td >
-															${(_data.createUser)!''}
-														</td>
-														<td >
-															${(_data.createTime)!''}
-														</td> -->
-														<!-- <td >
-															${(_data.remarks)!''}
-														</td>
-														<td >
-															${(_data.companyId)!''}
-														</td>
-														<td >
-															${(_data.bak1)!''}
-														</td>
-														<td >
-															${(_data.bak2)!''}
-														</td>
-														<td >
-															${(_data.bak3)!''}
-														</td> -->
+												
 													</tr>
 												</#list>
 											 </#if>

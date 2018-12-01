@@ -2,7 +2,11 @@ package org.springrain.nybusiness.waste.service.impl;
 
 import java.io.File;
 import java.util.List;
+
+import org.apache.commons.collections.CollectionUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;
+import org.springrain.nybusiness.ergency.entity.TsErgencyInvestigation;
 import org.springrain.nybusiness.waste.entity.TsWasteAirMsg;
 import org.springrain.nybusiness.waste.service.ITsWasteAirMsgService;
 import org.springrain.frame.entity.IBaseEntity;
@@ -75,4 +79,20 @@ public class TsWasteAirMsgServiceImpl extends BaseSpringrainServiceImpl implemen
 			 return super.findDataExportExcel(finder,ftlurl,page,clazz,o);
 		}
 
+		
+		@Override
+		public List<TsWasteAirMsg> finderTsMaillistForList(Page page,
+				TsWasteAirMsg tsWasteAirMsg, List<String> listCompany) throws Exception {
+			if(CollectionUtils.isEmpty(listCompany)){
+				return null;
+			}
+			Finder finder = new Finder();
+			finder.append("SELECT * FROM `ts_waste_air_msg` t where t.companyid in (:companyId)")
+			.setParam("companyId", listCompany);
+			if(StringUtils.isNoneBlank(tsWasteAirMsg.getWgProcessingMethod())) {
+				finder.append(" and t.wgProcessingMethod like:name").setParam("name", "%"+tsWasteAirMsg.getWgProcessingMethod()+"%");
+			}
+			return super.queryForList(finder, TsWasteAirMsg.class, page);
+		}
+		
 }

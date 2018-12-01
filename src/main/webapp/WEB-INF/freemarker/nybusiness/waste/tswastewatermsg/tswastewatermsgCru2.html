@@ -46,14 +46,14 @@
 																    <div class="layui-inline">
 																      <label class="layui-form-label">废水处理措施*</label>
 																		<div class="layui-input-inline">  
-																			<input type="text" name="processingMethod" id="processingMethod" datatype="*" nullmsg="不能为空" errormsg="不能为空！" autocomplete="off" class="layui-input" value="${(returnDatas.data.processingMethod)!''}">
+																			<input type="text" readonly name="processingMethod" id="processingMethod" datatype="*" nullmsg="不能为空" errormsg="不能为空！" autocomplete="off" class="layui-input" value="${(returnDatas.data.processingMethod)!''}">
 																		</div>
 																		
 																    </div>
 																     <div class="layui-inline">
 																      <label class="layui-form-label">废水处理能力 吨*</label>
 																		<div class="layui-input-inline">  
-																			<input type="text" name="processingCapacity" id="processingCapacity" datatype="*" nullmsg="不能为空" errormsg="不能为空！" autocomplete="off" class="layui-input" value="${(returnDatas.data.processingCapacity)!''}">
+																			<input type="text" readonly name="processingCapacity" id="processingCapacity" datatype="*" nullmsg="不能为空" errormsg="不能为空！" autocomplete="off" class="layui-input" value="${(returnDatas.data.processingCapacity)!''}">
 																		</div>
 																		
 																    </div>
@@ -62,14 +62,14 @@
 																    <div class="layui-inline">
 																      <label class="layui-form-label">排污口方位*</label>
 																		<div class="layui-input-inline">  
-																			<input type="text" name="outletLocation" id="outletLocation" datatype="*" nullmsg="不能为空" errormsg="不能为空！" autocomplete="off" class="layui-input" value="${(returnDatas.data.outletLocation)!''}">
+																			<input type="text" readonly name="outletLocation" id="outletLocation" datatype="*" nullmsg="不能为空" errormsg="不能为空！" autocomplete="off" class="layui-input" value="${(returnDatas.data.outletLocation)!''}">
 																		</div>
 																		
 																    </div>
 																     <div class="layui-inline">
 																      <label class="layui-form-label">废水排放去向代码*</label>
 																		<div class="layui-input-inline">  
-																			<input type="text" name="emissionCode" id="emissionCode" datatype="*" nullmsg="不能为空" errormsg="不能为空！" autocomplete="off" class="layui-input" value="${(returnDatas.data.emissionCode)!''}">
+																			<input type="text" readonly name="emissionCode" id="emissionCode" datatype="*" nullmsg="不能为空" errormsg="不能为空！" autocomplete="off" class="layui-input" value="${(returnDatas.data.emissionCode)!''}">
 																		</div>
 																		
 																    </div>
@@ -79,14 +79,14 @@
 																    <div class="layui-inline">
 																      <label class="layui-form-label">污水来源*</label>
 																		<div class="layui-input-inline">  
-																			<input type="text" name="sewageSource" id="sewageSource" datatype="*" nullmsg="不能为空" errormsg="不能为空！" autocomplete="off" class="layui-input" value="${(returnDatas.data.sewageSource)!''}">
+																			<input type="text" readonly name="sewageSource" id="sewageSource" datatype="*" nullmsg="不能为空" errormsg="不能为空！" autocomplete="off" class="layui-input" value="${(returnDatas.data.sewageSource)!''}">
 																		</div>
 																		
 																    </div>
 																     <div class="layui-inline">
 																      <label class="layui-form-label">废水中恶臭物质*</label>
 																		<div class="layui-input-inline">  
-																			<input type="text" name="stinkingMaterial" id="stinkingMaterial" datatype="*" nullmsg="不能为空" errormsg="不能为空！" autocomplete="off" class="layui-input" value="${(returnDatas.data.stinkingMaterial)!''}">
+																			<input type="text" readonly name="stinkingMaterial" id="stinkingMaterial" datatype="*" nullmsg="不能为空" errormsg="不能为空！" autocomplete="off" class="layui-input" value="${(returnDatas.data.stinkingMaterial)!''}">
 																		</div>
 																		
 																    </div>
@@ -96,7 +96,7 @@
 																    <div class="layui-inline">
 																      <label class="layui-form-label">废水中是否有臭气控制*</label>
 																		<div class="layui-input-inline">  
-																			<select class="form-control" name="controlMeasures" id="controlMeasures" datatype="*"  nullmsg="不能为空" autocomplete="off">
+																			<select class="form-control" disabled name="controlMeasures" id="controlMeasures" datatype="*"  nullmsg="不能为空" autocomplete="off">
 														                          <option value="">==请选择==</option>
 																				  <option value="1">是</option>
 																				  <option value="2">否</option>
@@ -108,7 +108,7 @@
 																    <div class="layui-inline">
 																      <label class="layui-form-label">措施行为*</label>
 																		<div class="layui-input-inline ">  
-																			 <select class="form-control" name="actionBehavior" id="actionBehavior" datatype="*"  nullmsg="不能为空" autocomplete="off">
+																			 <select class="form-control" disabled name="actionBehavior" id="actionBehavior" datatype="*"  nullmsg="不能为空" autocomplete="off">
 														                          <option value="">==请选择行为==</option>
 																				  <option value="1">加盖</option>
 																				  <option value="2">加药</option>
@@ -123,25 +123,18 @@
 																    <div class="layui-inline">
 																      <label class="layui-form-label">流程说明*</label>
 																		<div class="layui-input-inline">  
-																			<input type="text" name="processDesc" id="processDesc" datatype="*" nullmsg="不能为空" errormsg="不能为空！" autocomplete="off" class="layui-input" value="${(returnDatas.data.processDesc)!''}">
+																			<input type="text" readonly name="processDesc" id="processDesc" datatype="*" nullmsg="不能为空" errormsg="不能为空！" autocomplete="off" class="layui-input" value="${(returnDatas.data.processDesc)!''}">
 																		</div>
 																		
 																    </div>
 																     <div class="layui-inline">
 																      <label class="layui-form-label">废水处理效果*</label>
 																		<div class="layui-input-inline">  
-																			<input type="text" name="treatmentEffect" id="treatmentEffect" datatype="*" nullmsg="不能为空" errormsg="不能为空！" autocomplete="off" class="layui-input" value="${(returnDatas.data.treatmentEffect)!''}">
+																			<input type="text" readonly name="treatmentEffect" id="treatmentEffect" datatype="*" nullmsg="不能为空" errormsg="不能为空！" autocomplete="off" class="layui-input" value="${(returnDatas.data.treatmentEffect)!''}">
 																		</div>
 																		
 																    </div>
 																  </div>
-													<div class="layui-form-item change-submit">
-													<label class="layui-form-label"></label>
-															<div class="layui-inline">
-																<button type="button" class="layui-btn" id="smtbtn"style="margin-left: 200px">保存</button>
-																<button type="button" class="layui-btn layui-btn-primary" id="rstbtn">重置</button>
-															</div>
-														</div>
 													</form>
 												</div>
 								  </div>

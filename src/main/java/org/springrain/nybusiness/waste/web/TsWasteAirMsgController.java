@@ -23,6 +23,8 @@ import org.springrain.frame.util.MessageUtils;
 import org.springrain.frame.util.Page;
 import org.springrain.frame.util.ReturnDatas;
 import org.springrain.nybusiness.company.entity.TsCompanyInfo;
+import org.springrain.nybusiness.company.service.ITsCompanyInfoService;
+import org.springrain.nybusiness.ergency.entity.TsErgencyInvestigation;
 import org.springrain.nybusiness.waste.entity.TsWasteAirMsg;
 import org.springrain.nybusiness.waste.service.ITsWasteAirMsgService;
 
@@ -39,7 +41,8 @@ import org.springrain.nybusiness.waste.service.ITsWasteAirMsgService;
 public class TsWasteAirMsgController  extends BaseController {
 	@Resource
 	private ITsWasteAirMsgService tsWasteAirMsgService;
-	
+	@Resource
+	private ITsCompanyInfoService tsCompanyInfoService;
 	private String listurl="/nybusiness/waste/tswasteairmsg/tswasteairmsgList";
 	
 	
@@ -75,19 +78,28 @@ public class TsWasteAirMsgController  extends BaseController {
 	public  ReturnDatas listjson(HttpServletRequest request, Model model,TsWasteAirMsg tsWasteAirMsg) throws Exception{
 		ReturnDatas returnObject = ReturnDatas.getSuccessReturnDatas();
 		
-		String companyid=SessionUser.getCompanyid();
+		/*String companyid=SessionUser.getCompanyid();
 		Finder finder;
 		finder = Finder.getSelectFinder(TsWasteAirMsg.class);
 		if (StringUtils.isBlank(companyid)) {
 			finder=null;
 		}else{
 			finder.append("where companyId =:companyId").setParam("companyId", companyid);
-		}
+		}*/
 		// ==构造分页请求
 		Page page = newPage(request);
 		// ==执行分页查询
-		List<TsWasteAirMsg> datas=tsWasteAirMsgService.findListDataByFinder(finder,page,TsWasteAirMsg.class,tsWasteAirMsg);
-			returnObject.setQueryBean(tsWasteAirMsg);
+		//List<TsWasteAirMsg> datas=tsWasteAirMsgService.findListDataByFinder(finder,page,TsWasteAirMsg.class,tsWasteAirMsg);
+			//returnObject.setQueryBean(tsWasteAirMsg);
+			
+			
+			
+			List<String> listCompany = tsCompanyInfoService.finderCompanyIdByUserId(SessionUser.getUserId());
+			List<TsWasteAirMsg> datas=tsWasteAirMsgService.finderTsMaillistForList(page, tsWasteAirMsg, listCompany);
+				returnObject.setQueryBean(tsWasteAirMsg);
+			
+
+			
 		returnObject.setPage(page);
 		returnObject.setData(datas);
 		return returnObject;

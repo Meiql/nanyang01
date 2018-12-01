@@ -2,7 +2,11 @@ package org.springrain.nybusiness.waste.service.impl;
 
 import java.io.File;
 import java.util.List;
+
+import org.apache.commons.collections.CollectionUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;
+import org.springrain.nybusiness.waste.entity.TsWasteAirMsg;
 import org.springrain.nybusiness.waste.entity.TsWasteWaterMsg;
 import org.springrain.nybusiness.waste.service.ITsWasteWaterMsgService;
 import org.springrain.frame.entity.IBaseEntity;
@@ -75,4 +79,19 @@ public class TsWasteWaterMsgServiceImpl extends BaseSpringrainServiceImpl implem
 			 return super.findDataExportExcel(finder,ftlurl,page,clazz,o);
 		}
 
+		
+		@Override
+		public List<TsWasteWaterMsg> finderTsMaillistForList(Page page,
+				TsWasteWaterMsg tsWasteWaterMsg, List<String> listCompany) throws Exception {
+			if(CollectionUtils.isEmpty(listCompany)){
+				return null;
+			}
+			Finder finder = new Finder();
+			finder.append("SELECT * FROM `ts_waste_water_msg` t where t.companyid in (:companyId)")
+			.setParam("companyId", listCompany);
+			if(StringUtils.isNoneBlank(tsWasteWaterMsg.getOutletLocation())) {
+				finder.append(" and t.outletLocation like:name").setParam("name", "%"+tsWasteWaterMsg.getOutletLocation()+"%");
+			}
+			return super.queryForList(finder, TsWasteWaterMsg.class, page);
+		}
 }

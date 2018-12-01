@@ -21,7 +21,16 @@
 		springrain.mydelete(_id,"${ctx}/tswastewatermsg/delete");
 	}
 </script>
-
+<style>
+	@media screen and (max-width: 1880px) {
+	    .layui-btn,
+	    .layui-btn+.layui-btn{
+	        display: block;
+	        width: 70px;
+	        margin: 3px 0 0;
+	    }
+	}
+</style>
 </head>
 <body>
 	<div class="layui-layout layui-layout-admin">
@@ -72,16 +81,7 @@
 									                           <input type="text" name="outletLocation" value="${(returnDatas.queryBean.outletLocation)!''}" placeholder="请输入名称 " class="layui-input">
 									                    </div>
 							                		</div>
-									                 <div class="layui-inline">
-									                    <label class="layui-form-label">是否可用</label>
-									                    <div class="layui-input-inline">
-									                        <select name="active" id="active" class="layui-input">
-									                          <option value="">==请选择==</option>
-															  <option value="1">是</option>
-															  <option value="0">否</option>
-															</select>   
-									                    </div>
-									                </div>
+
 							          			</td>
 							          			<td>
 							          			   <div class="layui-inline">
@@ -104,25 +104,25 @@
 										  <!--first_start_export-->
 											<thead>
 												<tr>
-													<th colspan="9">废水处理设施基本情况表列表<font id='recordsView' class='recorsView'>共<span></span>页,共 <span></span>条记录</font></th>
+													<th colspan="12">废水处理设施基本情况表列表<font id='recordsView' class='recorsView'>共<span></span>页,共 <span></span>条记录</font></th>
 												</tr>
 												<tr>
 												  <!--first_start_no_export-->
 												  <th class="center">
 															<input id="checkAll"  type="checkbox">
 												  </th>
-												  <th>操作</th>
+												  <th style="width : 80px;text-align: center">操作</th>
 												  <!--first_end_no_export-->
-														<th id="th_processingMethod" >废水处理措施</th>
-														<th id="th_processingCapacity" >废水处理能力 吨</th>
-														<th id="th_outletLocation" >排污口方位</th>
-														<th id="th_emissionCode" >废水排放去向代码</th>
-														<th id="th_sewageSource" >污水来源</th>
-														<th id="th_stinkingMaterial" >废水中恶臭物质</th>
-														<th id="th_controlMeasures" >废水中是否有臭气控制</th>
-														<th id="th_actionBehavior" >措施行为 1 加盖 2 加药 3其他</th>
-														<th id="th_processDesc" >流程说明</th>
-														<th id="th_treatmentEffect" >废水处理效果</th>
+														<th id="th_processingMethod" style="text-align: center">处理措施</th>
+														<th id="th_processingCapacity" style="text-align: center">处理能力 吨</th>
+														<th id="th_outletLocation" style="text-align: center">排污口方位</th>
+														<!-- <th id="th_emissionCode" style="text-align: center">排放去向代码</th> -->
+														<th id="th_sewageSource" style="text-align: center">污水来源</th>
+														<th id="th_stinkingMaterial" style="text-align: center">废水中恶臭物质</th>
+														<th id="th_controlMeasures" style="text-align: center">是否有臭气控制</th>
+														<th id="th_actionBehavior" style="text-align: center">措施行为</th>
+														<!-- <th id="th_processDesc" style="text-align: center">流程说明</th>
+														<th id="th_treatmentEffect" style="text-align: center">废水处理效果</th> -->
 														<!-- <th id="th_createUser" >创建人</th>
 														<th id="th_createTime" >创建时间</th> -->
 														<!-- <th id="th_remarks" >remarks</th>
@@ -142,45 +142,58 @@
 														<td class="center">
 																<input name="check_li" value="${_data.id}"  type="checkbox">
 														</td>
-														<td>
+														<td class="center">
 															<@shiro.hasPermission name="/tswastewatermsg/update" >
 								                           		 <a href="#" data-action="${ctx}/tswastewatermsg/update/pre?id=${_data.id}" class="layui-btn layui-btn-normal layui-btn-mini">编辑</a>
 								                            </@shiro.hasPermission>
 								                            <@shiro.hasPermission name="/tswastewatermsg/delete" >
 								                            	<a href="javascript:del('${(_data.id)!''}')" class="layui-btn layui-btn-danger layui-btn-mini ajax-delete">删除</a>
 								                            </@shiro.hasPermission>
+								                            <@shiro.hasPermission name="/tswastewatermsg/detail" >
+								                            <a href="#"  data-action="${ctx}/tswastewatermsg/detail?id=${(_data.id)!''}" class="layui-btn layui-btn-normal layui-btn-mini" >详情</a>
+								                            </@shiro.hasPermission>
 														</td>
 														<!--end_no_export-->
-														<td >
+														<td class="center">
 															${(_data.processingMethod)!''}
 														</td>
-														<td >
+														<td class="center">
 															${(_data.processingCapacity)!''}
 														</td>
-														<td >
+														<td class="center">
 															${(_data.outletLocation)!''}
 														</td>
-														<td >
+														<!-- <td class="center">
 															${(_data.emissionCode)!''}
-														</td>
-														<td >
+														</td> -->
+														<td class="center">
 															${(_data.sewageSource)!''}
 														</td>
-														<td >
+														<td class="center">
 															${(_data.stinkingMaterial)!''}
 														</td>
-														<td >
-															${(_data.controlMeasures)!''}
+														<td class="center">
+															<#if (_data.controlMeasures)?? && (_data.controlMeasures=="1")>
+																	是
+															<#elseif (_data.controlMeasures)?? && (_data.controlMeasures=="2")>
+																	否
+															</#if>
 														</td>
-														<td >
-															${(_data.actionBehavior)!''}
+														<td class="center">
+															<#if (_data.actionBehavior)?? && (_data.actionBehavior=="1")>
+																	加盖
+															<#elseif (_data.actionBehavior)?? && (_data.actionBehavior=="2")>
+																	加药
+															<#elseif (_data.actionBehavior)?? && (_data.actionBehavior=="3")>
+																	其他
+															</#if>
 														</td>
-														<td >
+														<!-- <td class="center">
 															${(_data.processDesc)!''}
 														</td>
-														<td >
+														<td class="center">
 															${(_data.treatmentEffect)!''}
-														</td>
+														</td> -->
 														<!-- <td >
 															${(_data.createUser)!''}
 														</td>

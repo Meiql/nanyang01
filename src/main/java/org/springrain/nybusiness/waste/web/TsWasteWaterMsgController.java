@@ -23,6 +23,8 @@ import org.springrain.frame.util.MessageUtils;
 import org.springrain.frame.util.Page;
 import org.springrain.frame.util.ReturnDatas;
 import org.springrain.nybusiness.company.entity.TsCompanyInfo;
+import org.springrain.nybusiness.company.service.ITsCompanyInfoService;
+import org.springrain.nybusiness.waste.entity.TsWasteAirMsg;
 import org.springrain.nybusiness.waste.entity.TsWasteOpenstopCar;
 import org.springrain.nybusiness.waste.entity.TsWasteWaterMsg;
 import org.springrain.nybusiness.waste.service.ITsWasteWaterMsgService;
@@ -40,7 +42,8 @@ import org.springrain.nybusiness.waste.service.ITsWasteWaterMsgService;
 public class TsWasteWaterMsgController  extends BaseController {
 	@Resource
 	private ITsWasteWaterMsgService tsWasteWaterMsgService;
-	
+	@Resource
+	private ITsCompanyInfoService tsCompanyInfoService;
 	private String listurl="/nybusiness/waste/tswastewatermsg/tswastewatermsgList";
 	
 	
@@ -75,19 +78,25 @@ public class TsWasteWaterMsgController  extends BaseController {
 	@ResponseBody   
 	public  ReturnDatas listjson(HttpServletRequest request, Model model,TsWasteWaterMsg tsWasteWaterMsg) throws Exception{
 		ReturnDatas returnObject = ReturnDatas.getSuccessReturnDatas();
-		String companyid=SessionUser.getCompanyid();
+		/*String companyid=SessionUser.getCompanyid();
 		Finder finder;
 		finder = Finder.getSelectFinder(TsWasteWaterMsg.class);
 		if (StringUtils.isBlank(companyid)) {
 			finder=null;
 		}else{
 			finder.append("where companyId =:companyId").setParam("companyId", companyid);
-		}
+		}*/
 		// ==构造分页请求
 		Page page = newPage(request);
 		// ==执行分页查询
-		List<TsWasteWaterMsg> datas=tsWasteWaterMsgService.findListDataByFinder(finder,page,TsWasteWaterMsg.class,tsWasteWaterMsg);
-			returnObject.setQueryBean(tsWasteWaterMsg);
+		//List<TsWasteWaterMsg> datas=tsWasteWaterMsgService.findListDataByFinder(finder,page,TsWasteWaterMsg.class,tsWasteWaterMsg);
+			//returnObject.setQueryBean(tsWasteWaterMsg);
+			
+
+			List<String> listCompany = tsCompanyInfoService.finderCompanyIdByUserId(SessionUser.getUserId());
+			List<TsWasteWaterMsg> datas=tsWasteWaterMsgService.finderTsMaillistForList(page, tsWasteWaterMsg, listCompany);
+				returnObject.setQueryBean(tsWasteWaterMsg);	
+			
 		returnObject.setPage(page);
 		returnObject.setData(datas);
 		return returnObject;
@@ -133,6 +142,20 @@ public class TsWasteWaterMsgController  extends BaseController {
 		
 	}
 	
+	/**
+	 * 详情
+	 * @param model
+	 * @param request
+	 * @param response
+	 * @return
+	 * @throws Exception
+	 */
+	@RequestMapping(value = "/detail")
+	public String detail(Model model,HttpServletRequest request,HttpServletResponse response)  throws Exception{
+		ReturnDatas returnObject = lookjson(model, request, response);
+		model.addAttribute(GlobalStatic.returnDatas, returnObject);
+		return "/nybusiness/waste/tswastewatermsg/tswastewatermsgCru2";
+	}
 	
 	/**
 	 * 新增/修改 操作吗,返回json格式数据
