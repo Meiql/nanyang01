@@ -1,5 +1,7 @@
 package org.springrain.system.service;
 
+import java.util.List;
+
 import org.springrain.system.entity.Role;
 
 /**
@@ -57,4 +59,5 @@ public interface IRoleService extends IBaseSpringrainService {
 	 */
 	String findNameById(String roleId)throws Exception;
 	
+	List<Role> listFinderSysRole()throws Exception;
 }

@@ -33,12 +33,6 @@
 						 <@shiro.hasPermission name="/system/role/update" >
 			             		<button type="button" class="layui-btn layui-btn-small" data-action="${ctx}/system/role/update/admin/pre"><i class="layui-icon layui-icon-specil">&#xe61f;</i>新增</button>
 			             	</@shiro.hasPermission>
-			             	<@shiro.hasPermission name="/system/role/list/export" >
-					        	<button type="button" class="layui-btn layui-btn-small"><i class="layui-icon layui-icon-specil">&#xe609;</i>导出</button>
-					        </@shiro.hasPermission>
-		                <@shiro.hasPermission name="/system/role/delete" >
-		               		 <button type="button"  class="layui-btn layui-btn-danger layui-btn-small"><i class="layui-icon">&#xe640;</i>批量删除</button>
-		                </@shiro.hasPermission>
 		             </li>
 	       		</ul>
 				
@@ -108,12 +102,6 @@
 															<th id="th_roleType">角色类型</th>
 															<th id="th_code" >归属部门</th>
 															<th id="th_active" >是否有效</th>
-															<th id="th_code" >归属部门</th>
-															<th id="th_active" >是否有效</th>
-															<th id="th_code" >归属部门</th>
-															<th id="th_active" >是否有效</th>
-															<th id="th_code" >归属部门</th>
-															<th id="th_active" >是否有效</th>
 													</tr> 
 												</thead>
 											  <!--first_end_export-->
@@ -150,25 +138,6 @@
 															<td >
 															     ${(_data.orgname)!''}
 															</td>
-															<td >
-															     ${(_data.orgname)!''}
-															</td>
-															<td >
-															     ${(_data.orgname)!''}
-															</td>
-															<td >
-															     ${(_data.orgname)!''}
-															</td>
-															<td >
-															     ${(_data.orgname)!''}
-															</td>
-															<td >
-															     ${(_data.orgname)!''}
-															</td>
-															<td >
-															     ${(_data.orgname)!''}
-															</td>
-															
 															<td >
 																<#if (_data.active)?? && (_data.active==1)>
 																	是

@@ -162,7 +162,7 @@ public class SystemLoginController extends BaseController {
 		
 		 User user2 = userService.findUserByAccount(currUser.getAccount());
 		 if(user2!=null&&user2.getUserType()!=null&&user2.getUserType()==0){
-			 model.addAttribute("message", "您不属于政府用户");
+			 model.addAttribute("message", "您不属于企业用户");
 			 model.addAttribute("showyzm", "yes"); 
 			 return "/system/login";
 		 }
@@ -273,7 +273,12 @@ public class SystemLoginController extends BaseController {
 		if (StringUtils.isNotBlank(systemSiteId)) {
 			model.addAttribute("systemSiteId", systemSiteId);
 		}
-
+		 User user2 = userService.findUserByAccount(currUser.getAccount());
+		 if(user2!=null&&user2.getUserType()!=null&&user2.getUserType()==1){
+			 model.addAttribute("message", "您不属于政府用户");
+			 model.addAttribute("showyzm", "yes"); 
+			 return "/system/login";
+		 }
 		String gotourl = request.getParameter("gotourl");
 		// 通过账号和密码获取 UsernamePasswordToken token
 		FrameAuthenticationToken token = new FrameAuthenticationToken(currUser.getAccount(), currUser.getPassword());
