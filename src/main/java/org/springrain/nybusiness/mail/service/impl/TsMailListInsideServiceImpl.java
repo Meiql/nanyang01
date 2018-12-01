@@ -89,6 +89,9 @@ public class TsMailListInsideServiceImpl extends BaseSpringrainServiceImpl imple
 		Finder finder = new Finder();
 		finder.append("SELECT * FROM `ts_mail_list_inside` t where t.companyId in (:companyId)")
 		.setParam("companyId", listCompany);
+		if(StringUtils.isNoneBlank(tsMailListInside.getUnitName())){
+			finder.append(" and t.unitName like:unitName").setParam("unitName", "%"+tsMailListInside.getUnitName()+"%");
+		}
 		return super.queryForList(finder, TsMailListInside.class, page);
 	}
 
