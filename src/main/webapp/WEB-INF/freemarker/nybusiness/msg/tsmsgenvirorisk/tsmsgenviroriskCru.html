@@ -36,35 +36,35 @@
 												</header>
 												<div class="larry-personal-body clearfix changepwd">
 													<form id="validForm" class="layui-form <!--  -->"  method="post" action="${ctx}/tsmsgenvirorisk/update">
-																	<div class="layui-form-item col-lg-6">
+																	<div class="layui-form-item col-lg-7">
 																		<label class="layui-form-label">风险单元名称*</label>
 																		<div class="layui-inline col-lg-5">  
 																			<input type="text" name="riskUnitName" id="riskUnitName" datatype="*"  nullmsg="不能为空" errormsg="不能为空！" autocomplete="off" class="layui-input" value="${(returnDatas.data.riskUnitName)!''}">
 																		</div>
 																		<div class="layui-inline valid-info"></div>
 																	</div>
-																	<div class="layui-form-item col-lg-6">
+																	<div class="layui-form-item col-lg-7">
 																		<label class="layui-form-label">风险单元类别*</label>
 																		<div class="layui-inline col-lg-5">  
-																			<input type="text" name="riskUnitTypeName" id="riskUnitTypeName"  nullmsg="不能为空" errormsg="不能为空！" autocomplete="off" class="layui-input" value="${(returnDatas.data.riskUnitTypeName)!''}">
+																			<input type="text" name="riskUnitTypeName" id="riskUnitTypeName" datatype="*" nullmsg="不能为空" errormsg="不能为空！" autocomplete="off" class="layui-input" value="${(returnDatas.data.riskUnitTypeName)!''}">
 																		</div>
 																		<div class="layui-inline valid-info"></div>
 																	</div>
-																	<div class="layui-form-item col-lg-6">
+																	<div class="layui-form-item col-lg-7">
 																		<label class="layui-form-label">设计能力或储量*</label>
 																		<div class="layui-inline col-lg-5">  
-																			<input type="text" name="reserves" id="reserves"  nullmsg="不能为空" errormsg="不能为空！" autocomplete="off" class="layui-input" value="${(returnDatas.data.reserves)!''}">
+																			<input type="text" name="reserves" id="reserves" datatype="*" nullmsg="不能为空" errormsg="不能为空！" autocomplete="off" class="layui-input" value="${(returnDatas.data.reserves)!''}">
 																		</div>
 																		<div class="layui-inline valid-info"></div>
 																	</div>
-																	<div class="layui-form-item col-lg-6">
+																	<div class="layui-form-item col-lg-7">
 																		<label class="layui-form-label">主要涉及的化学品*</label>
 																		<div class="layui-inline col-lg-5">  
-																			<input type="text" name="involveChemical" id="involveChemical"  nullmsg="不能为空" errormsg="不能为空！" autocomplete="off" class="layui-input" value="${(returnDatas.data.involveChemical)!''}">
+																			<input type="text" name="involveChemical" id="involveChemical"  datatype="*" nullmsg="不能为空" errormsg="不能为空！" autocomplete="off" class="layui-input" value="${(returnDatas.data.involveChemical)!''}">
 																		</div>
 																	<div class="layui-inline valid-info"></div>
 																	</div>
-																		<div class="layui-form-item col-lg-6">
+																		<div class="layui-form-item col-lg-7">
 																		<label class="layui-form-label">描述（用途、特征、危险性、曾发生事故等）*</label>
 																		<div class="layui-inline col-lg-5">  
 																			<input type="text" name="describes" id="describes"  nullmsg="不能为空" errormsg="不能为空！" autocomplete="off" class="layui-input" value="${(returnDatas.data.describes)!''}">

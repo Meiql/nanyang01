@@ -38,20 +38,20 @@
 													<form id="validForm" class="layui-form <!--  -->"  method="post" action="${ctx}/tsemergencyuser/update">
 																<input type="hidden" id="id" name="id" value="${(returnDatas.data.id)!''}"/>
 																<#if (returnDatas.data.id)??>
-																	<input type="text" id="emergencyOrgId" name="emergencyOrgId" value="${(returnDatas.data.emergencyOrgId)!''}"/>
+																	<input type="hidden" id="emergencyOrgId" name="emergencyOrgId" value="${(returnDatas.data.emergencyOrgId)!''}"/>
 																	<#else> 
-																	<input type="text" id="emergencyOrgId" name="emergencyOrgId" value="${emergencyOrgId!''}"/>
+																	<input type="hidden" id="emergencyOrgId" name="emergencyOrgId" value="${emergencyOrgId!''}"/>
 																</#if>
 																
-																	<div class="layui-form-item col-lg-6">
+																	<div class="layui-form-item col-lg-7">
 																		<label class="layui-form-label">名称*</label>
 																		<div class="layui-inline col-lg-5">  
 																			<input type="text" name="name" id="name" datatype="*" nullmsg="不能为空" errormsg="不能为空！" autocomplete="off" class="layui-input" value="${(returnDatas.data.name)!''}">
 																		</div>
 																		<div class="layui-inline valid-info"></div>
 																	</div>
-																	<div class="layui-form-item col-lg-6">
-																		<label class="layui-form-label">备注*</label>
+																	<div class="layui-form-item col-lg-7">
+																		<label class="layui-form-label">备注</label>
 																		<div class="layui-inline col-lg-5">  
 																			<input type="text" name="bak1" id="bak1" autocomplete="off" class="layui-input" value="${(returnDatas.data.bak1)!''}">
 																		</div>

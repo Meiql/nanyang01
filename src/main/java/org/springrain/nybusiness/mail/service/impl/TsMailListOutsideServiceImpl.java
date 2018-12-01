@@ -4,6 +4,7 @@ import java.io.File;
 import java.util.List;
 
 import org.apache.commons.collections.CollectionUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;
 import org.springrain.frame.entity.IBaseEntity;
 import org.springrain.frame.util.Finder;
@@ -87,6 +88,9 @@ public class TsMailListOutsideServiceImpl extends BaseSpringrainServiceImpl impl
 		Finder finder = new Finder();
 		finder.append("SELECT * FROM `ts_mail_list_outside` t where t.companyId in (:companyId)")
 		.setParam("companyId", listCompany);
+		if(StringUtils.isNoneBlank(tsMailListOutside.getOrgname())){
+			finder.append(" and t.orgname like:orgname").setParam("orgname", "%"+tsMailListOutside.getOrgname()+"%");
+		}
 		return super.queryForList(finder, TsMailListOutside.class, page);
 	}
 
