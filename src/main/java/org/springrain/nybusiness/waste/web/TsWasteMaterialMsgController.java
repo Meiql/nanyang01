@@ -17,10 +17,13 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springrain.frame.common.SessionUser;
 import org.springrain.frame.controller.BaseController;
 import org.springrain.frame.util.DateUtils;
+import org.springrain.frame.util.Finder;
 import org.springrain.frame.util.GlobalStatic;
 import org.springrain.frame.util.MessageUtils;
 import org.springrain.frame.util.Page;
 import org.springrain.frame.util.ReturnDatas;
+import org.springrain.nybusiness.company.entity.TsCompanyInfo;
+import org.springrain.nybusiness.waste.entity.TsWasteEmptyingMsg;
 import org.springrain.nybusiness.waste.entity.TsWasteMaterialMsg;
 import org.springrain.nybusiness.waste.service.ITsWasteMaterialMsgService;
 
@@ -72,10 +75,18 @@ public class TsWasteMaterialMsgController  extends BaseController {
 	@ResponseBody   
 	public  ReturnDatas listjson(HttpServletRequest request, Model model,TsWasteMaterialMsg tsWasteMaterialMsg) throws Exception{
 		ReturnDatas returnObject = ReturnDatas.getSuccessReturnDatas();
+		String companyid=SessionUser.getCompanyid();
+		Finder finder;
+		finder = Finder.getSelectFinder(TsWasteMaterialMsg.class);
+		if (StringUtils.isBlank(companyid)) {
+			finder=null;
+		}else{
+			finder.append("where companyId =:companyId").setParam("companyId", companyid);
+		}
 		// ==构造分页请求
 		Page page = newPage(request);
 		// ==执行分页查询
-		List<TsWasteMaterialMsg> datas=tsWasteMaterialMsgService.findListDataByFinder(null,page,TsWasteMaterialMsg.class,tsWasteMaterialMsg);
+		List<TsWasteMaterialMsg> datas=tsWasteMaterialMsgService.findListDataByFinder(finder,page,TsWasteMaterialMsg.class,tsWasteMaterialMsg);
 			returnObject.setQueryBean(tsWasteMaterialMsg);
 		returnObject.setPage(page);
 		returnObject.setData(datas);

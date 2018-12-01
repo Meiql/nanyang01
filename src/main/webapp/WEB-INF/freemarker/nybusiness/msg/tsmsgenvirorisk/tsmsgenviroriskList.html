@@ -42,7 +42,7 @@
 			layer.alert("已审批完成的单元不能提交");
 			return;
 		}
-		springrain.mydelete(_id,"${ctx}/tsmsgenvirorisk/update","是否提交","");
+		springrain.mydelete(_id,"${ctx}/tsmsgenvirorisk/updateBak1","是否提交","");
 	}
 </script>
 <style>
@@ -132,7 +132,7 @@
 										  <!--first_start_export-->
 											<thead>
 												<tr>
-													<th colspan="9">环境风险单元信息表列表<font id='recordsView' class='recorsView'>共<span></span>页,共 <span></span>条记录</font></th>
+													<th colspan="10">环境风险单元信息表列表<font id='recordsView' class='recorsView'>共<span></span>页,共 <span></span>条记录</font></th>
 												</tr>
 												<tr>
 												  <!--first_start_no_export-->
@@ -164,7 +164,7 @@
 														<td>													
 															<@shiro.hasPermission name="/tsmsgenvirorisk/update" >
 																 <#if (_data.bak1)?? && (_data.bak1=='1'||_data.bak1=='4')>
-								                           		 <a href="#" data-action="${ctx}/tsmsgenvirorisk/update/pre?id=${(_data.id)!}"class="layui-btn layui-btn-normal layui-btn-mini">编辑</a>
+								                           		 <a href="#" data-action="${ctx}/tsmsgenvirorisk/update/pre?id=${(_data.id)!}" class="layui-btn layui-btn-normal layui-btn-mini">编辑</a>
 								                            	 </#if>
 								                            </@shiro.hasPermission>
 								                            <@shiro.hasPermission name="/tsmsgenvirorisk/delete" >

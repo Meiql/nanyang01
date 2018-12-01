@@ -72,7 +72,12 @@
 	<div class="div5">
 	统计分析
 	</div>
-	<div class="div1"></div>
+	<div class="div1">
+	<p id="companyinfomapnumber"></p>
+	<p id="flueGasDealTon"></p>
+	<p id="wasteWaterDealTon"></p>
+	<p id="hazardousWastesProduceTon"></p>
+	</div>
 	</div>	
 						          
 	<div class="div4" style="width: 50%;margin-left:4%;">
@@ -84,7 +89,11 @@
 	
 	<div class="div4" style="margin-left:4%;">
 	<div class="div5">实时监控</div>
-	<div class="div1">浓度：
+	<div class="div1"style="top: 25%;">
+	浓度：
+     </div>
+	<div class="div1"id="infoe">
+	
      </div>
 	<div class="div1" style="top:50%">库存位置：
 	<input style="border: none;"/>
@@ -103,11 +112,9 @@ var point = new BMap.Point(112.52 ,33.00); //这里设置刚开始的点所在�
 map.enableScrollWheelZoom(); //滚动放大
 map.enableKeyboard(); //键盘放大
 map.centerAndZoom(point, 12); //绘制地图  
-function addMarker(point){
-	  var marker = new BMap.Marker(point);
-	  map.addOverlay(marker);
-	}
- var  coordinate=new Array();
+var  coordinate=new Array();
+var companyinfomapnumber=0;
+var companyid=0;
  $(document)
 .ready(
 		function() {
@@ -117,20 +124,24 @@ function addMarker(point){
 							function(_json) {
 								if (_json.status == "success") {
 									if(_json!=null&&_json.data!=null&&_json.data.length>0){
+										companyinfomapnumber=_json.data.length;
+										document.getElementById('companyinfomapnumber').innerHTML = '企业个数:  '+companyinfomapnumber;
 					            		 for(var i=0;i<_json.data.length;i++){
-					            			 coordinate.push(_json.data[i].longitude+","+_json.data[i].latitude+","+_json.data[i].companyName);
+					            			 coordinate.push(_json.data[i].longitude+","+_json.data[i].latitude+","+_json.data[i].companyName+","+_json.data[i].id);
 					            		 }
-					            		 
+					            		 var point = new Array(); //存放标注点经纬信息的数组
+					                     var marker = new Array(); //存放标注点对象的数组
+					                     var info = new Array(); //存放提示信息窗口对象的数组
 					            		  for (var i = 0; i < coordinate.length; i ++) {
-					            			 	var center=coordinate[i].split(",");
-					            			 	var longitude=center[0];
-					            			 	var latitude=center[1];
-					            			 	var name=center[2];
+					            			 	var longitude=coordinate[i].split(",")[0];
+					            			 	var latitude=coordinate[i].split(",")[1];
+					            			 	var name=coordinate[i].split(",")[2];
+					            			 	var companyid=coordinate[i].split(",")[3];
 					            				var point = new BMap.Point(longitude,latitude);
-					            				 var marker = new BMap.Marker(point);
-					            				 map.addOverlay(marker);
-					            				 var label = new BMap.Label(name, { offset: new BMap.Size(30, -10) });
-					            				                         marker.setLabel(label);
+					            				 point[i] = new window.BMap.Point(longitude, latitude); //循环生成新的地图点
+					                             marker[i] = new window.BMap.Marker(point[i]); //按照地图点坐标生成标记
+					                             map.addOverlay(marker[i]);
+					            				 var label = new window.BMap.Label(name,{ offset: new BMap.Size(30, -10) });
 					            				                         label.setStyle({
 					            				                            width: "100px",
 												            				 color: '#fff',
@@ -141,17 +152,51 @@ function addMarker(point){
 												            				 height: "26px",
 												            				 lineHeight: "26px"
 					            				  }); 
-					            				 marker.addEventListener("click", function () { 
-					            					 alert("11111"); //接口
-					            				 });
-					            			} 
-					            	 }
+					                             marker[i].setLabel(label);
+					            		  		}
+					            		  for (var i = 0; i < coordinate.length; i ++) 
+					                      {
+					                              var index = i;
+					                              addinfo(coordinate[i].split(",")[3],marker[i]);
+					                      }
+					            		  }
+					            				 function addinfo(companyid,marker){
+					            					 marker.addEventListener("click",function(){
+					            					document.getElementById('infoe').innerHTML = "";
+					            					 var div = document.getElementById('infoe')
+					            					 var p = document.createElement('p');//创建p节点
+					            					 jQuery.ajax({
+					            							url:"${ctx}/tsfacilityinfo/getinfo",
+					            							type:"post",
+					            							dataType:"json",
+					            							data:{'companyid':companyid},
+					            							success:function(data){
+					            								if(data.status=='success'){
+					            								var info=data.data.split("}, {");
+					            									
+					            								for (var i = 0; i < 5; i++) {
+																	var infos=info[i].split(",")
+																		var gasUnit=infos[0].substring(9);
+																		var concentration=infos[1].substring(15);
+																		var probeId=infos[2].substring(9);
+																		p.innerHTML = probeId+' : '+concentration+' '+gasUnit;//p节点显示的文字
+																		//div.appendChild(p)
+																		div.innerHTML+='<p>'+probeId+' : '+concentration+' '+gasUnit+'</p>';
+					            								}					            								 
+					            							}else{
+					            								div.innerHTML='<p>无设备信息</p>';
+					            							}
+					            							}
+					            						}); 
+					            					 }); 
+					            				 };	
 								} else {
 									myalert(_json.message);
 								}
 							});
 
-		});  
+		}
+		);  
 
  var longitude1="";
  var latitude1="";
@@ -171,19 +216,58 @@ jQuery(function(){
 		          title: "公司信息:<hr />"  // 信息窗口标题 ，这里声明下，可以在自己输出的信息里面嵌入html标签的
 		      } 
 		      	 var infoWindow = new BMap.InfoWindow("地址:" + address + ".", opts); 
-		      	marker.enableDragging(); //启用拖拽事件
-		              
+		   	marker.enableDragging(); //启用拖拽事件
+            point = new BMap.Point(longitude1, latitude1); 
+            marker = new BMap.Marker(point);  //事件类
+            map.openInfoWindow(infoWindow, point);
+		      		 /*  marker.enableDragging(); //启用拖拽事件
 		              marker = new BMap.Marker(point);  //事件类
-		               map.openInfoWindow(infoWindow, point); 
+		             map.openInfoWindow(infoWindow, point);  
 		              point = new BMap.Point(longitude1, latitude1);
 		            var marker = new BMap.Marker(point);  // 创建标注
 		            map.clearOverlays();//清除图层覆盖物
-		           	map.addOverlay(marker);               // 将标注添加到地图中
-		           	marker.setAnimation(BMAP_ANIMATION_BOUNCE); //跳动的动画
+                    marker[i].setAnimation(BMAP_ANIMATION_BOUNCE); //跳动的动画 */
 		}
 	</#if>         
  }); 
-      
+  var flueGasDealTon=0;//废物
+  var wasteWaterDealTon=0;//废水
+  var hazardousWastesProduceTon=0;//废气
+$(document)
+.ready(
+		function() {
+			jQuery
+					.post(
+							"${ctx}/tsexplorergatherinfo/list/json",
+							function(_json) {
+								var p1 = document.getElementById('flueGasDealTon');
+								var p2= document.getElementById('wasteWaterDealTon');
+								var p3 = document.getElementById('hazardousWastesProduceTon');
+								if (_json.status == "success") {
+									debugger;
+									if(_json!=null&&_json.data!=null&&_json.data.length>0){
+										for (var i = 0; i <_json.data.length; i++) {
+											if(_json.data[i].flueGasDealTon!=""&&_json.data[i].flueGasDealTon!=null){
+												flueGasDealTon+= parseInt(_json.data[i].flueGasDealTon);
+												}
+											if(_json.data[i].wasteWaterDealTon!=""&&_json.data[i].wasteWaterDealTon!=null){
+												wasteWaterDealTon+=parseInt(_json.data[i].wasteWaterDealTon);
+												}
+											if(_json.data[i].hazardousWastesProduceTon!=""&&_json.data[i].hazardousWastesProduceTon!=null){
+												hazardousWastesProduceTon+=parseInt(_json.data[i].hazardousWastesProduceTon);
+												}
+										}
+										 
+										 document.getElementById('flueGasDealTon').innerHTML = '废物总量:  '+flueGasDealTon;
+										 document.getElementById('wasteWaterDealTon').innerHTML ='废水总量: '+ wasteWaterDealTon;
+										 document.getElementById('hazardousWastesProduceTon').innerHTML = '废气总量: '+hazardousWastesProduceTon;
+									}else{
+									}
+								} 
+							});
+
+		}
+		);  
 
 </script>
 </body>

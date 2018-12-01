@@ -17,12 +17,15 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springrain.frame.common.SessionUser;
 import org.springrain.frame.controller.BaseController;
 import org.springrain.frame.util.DateUtils;
+import org.springrain.frame.util.Finder;
 import org.springrain.frame.util.GlobalStatic;
 import org.springrain.frame.util.MessageUtils;
 import org.springrain.frame.util.Page;
 import org.springrain.frame.util.ReturnDatas;
+import org.springrain.nybusiness.company.entity.TsCompanyInfo;
 import org.springrain.nybusiness.environment.entity.TsEnvironmentElement;
 import org.springrain.nybusiness.environment.service.ITsEnvironmentElementService;
+import org.springrain.nybusiness.waste.entity.TsWasteWaterMsg;
 
 
 /**
@@ -73,6 +76,14 @@ public class TsEnvironmentElementController  extends BaseController {
 	@ResponseBody   
 	public  ReturnDatas listjson(HttpServletRequest request, Model model,TsEnvironmentElement tsEnvironmentElement) throws Exception{
 		ReturnDatas returnObject = ReturnDatas.getSuccessReturnDatas();
+		/*String companyid=SessionUser.getCompanyid();
+		Finder finder;
+		finder = Finder.getSelectFinder(TsEnvironmentElement.class);
+		if (StringUtils.isBlank(companyid)) {
+			finder=null;
+		}else{
+			finder.append("where companyId =:companyId").setParam("companyId", companyid);
+		}*/
 		// ==构造分页请求
 		Page page = newPage(request);
 		// ==执行分页查询

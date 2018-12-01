@@ -13,13 +13,17 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springrain.frame.common.SessionUser;
 import org.springrain.frame.controller.BaseController;
+import org.springrain.frame.util.Finder;
 import org.springrain.frame.util.GlobalStatic;
 import org.springrain.frame.util.MessageUtils;
 import org.springrain.frame.util.Page;
 import org.springrain.frame.util.ReturnDatas;
 import org.springrain.nybusiness.company.entity.TsCompanyInfo;
 import org.springrain.nybusiness.company.service.ITsCompanyInfoService;
+import org.springrain.nybusiness.facility.entity.TsFacilityInfo;
+
 
 
 /**
@@ -69,10 +73,19 @@ public class TsCompanyInfoController  extends BaseController {
 	@ResponseBody   
 	public  ReturnDatas listjson(HttpServletRequest request, Model model,TsCompanyInfo tsCompanyInfo) throws Exception{
 		ReturnDatas returnObject = ReturnDatas.getSuccessReturnDatas();
+		String id=SessionUser.getCompanyid();
+		Finder finder;
+		finder = Finder.getSelectFinder(TsCompanyInfo.class);
+		if (StringUtils.isBlank(id)) {
+			finder=null;
+		}else{
+			finder.append("where id =:id").setParam("id", id);
+		}
 		// ==构造分页请求
 		Page page = newPage(request);
 		// ==执行分页查询
-		List<TsCompanyInfo> datas=tsCompanyInfoService.findListDataByFinder(null,page,TsCompanyInfo.class,tsCompanyInfo);
+		//System.out.println(id);
+		List<TsCompanyInfo> datas=tsCompanyInfoService.findListDataByFinder(finder,page,TsCompanyInfo.class,tsCompanyInfo);
 			returnObject.setQueryBean(tsCompanyInfo);
 		returnObject.setPage(page);
 		returnObject.setData(datas);
