@@ -4,9 +4,7 @@ import java.io.File;
 import java.io.IOException;
 import java.util.Arrays;
 import java.util.Date;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
@@ -20,21 +18,10 @@ import org.apache.http.client.methods.HttpPost;
 import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.util.EntityUtils;
-import org.json.JSONArray;
-import org.json.JSONObject;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springrain.nybusiness.company.entity.TsCompanyInfo;
-import org.springrain.nybusiness.facility.entity.TsFacilityInfo;
-import org.springrain.nybusiness.facility.service.ITsFacilityInfoService;
-import org.springrain.nybusiness.waste.entity.TsWasteAirMsg;
-import org.springrain.system.entity.Role;
-import org.springrain.system.entity.User;
-import org.springrain.system.entity.UserRole;
-import org.springrain.system.service.IUserRoleMenuService;
-import org.springrain.system.service.IUserService;
 import org.springrain.frame.common.SessionUser;
 import org.springrain.frame.controller.BaseController;
 import org.springrain.frame.util.DateUtils;
@@ -43,6 +30,9 @@ import org.springrain.frame.util.GlobalStatic;
 import org.springrain.frame.util.MessageUtils;
 import org.springrain.frame.util.Page;
 import org.springrain.frame.util.ReturnDatas;
+import org.springrain.nybusiness.facility.entity.TsFacilityInfo;
+import org.springrain.nybusiness.facility.service.ITsFacilityInfoService;
+import org.springrain.nybusiness.waste.entity.TsWasteAirMsg;
 
 
 /**
