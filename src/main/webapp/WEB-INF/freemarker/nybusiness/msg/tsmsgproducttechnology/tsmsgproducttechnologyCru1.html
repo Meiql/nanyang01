@@ -83,6 +83,7 @@
 												</header>
 												<div class="larry-personal-body clearfix changepwd">
 													<form id="validForm" class="layui-form <!--  -->"  method="post" action="${ctx}/tsmsgproducttechnology/update">
+																	<input type="hidden" id="id" name="id" value="${(returnDatas.data.id)!''}"/>	
 																	<div class="layui-form-item  col-lg-6">
 														    			<label class="layui-form-label">生产工艺类型*</label>
 														   				<div class="layui-inline  col-lg-5" >
@@ -121,7 +122,7 @@
 																	<div class="layui-form-item col-lg-6">
 																		<label class="layui-form-label">创建用户*</label>
 																		<div class="layui-inline col-lg-5">  
-																			<input type="text" readonly name="createUserName" style="background:#EEEEEE" id="createUserName"  nullmsg="不能为空" errormsg="不能为空！" autocomplete="off" class="layui-input" value="${(returnDatas.data.createUserName)!''}">
+																			<input type="text" readonly name="remarks" style="background:#EEEEEE" id="remarks"  nullmsg="不能为空" errormsg="不能为空！" autocomplete="off" class="layui-input" value="${(returnDatas.data.remarks)!''}">
 																		</div>
 																		<div class="layui-inline valid-info"></div>
 																	</div>
