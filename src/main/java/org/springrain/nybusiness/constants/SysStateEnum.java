@@ -108,7 +108,7 @@ public class SysStateEnum {
 
 
 	public enum chuShiRoleEnum {
-		初始角色("初始角色", "7740ec7a595e46b796538c3dfc8e1343");
+		企业角色("企业角色", "b259ecdaeff843a89490f805c8690de8");
 		private String name;
 		private String value;
 

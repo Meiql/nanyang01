@@ -18,7 +18,7 @@
 	 jQuery(function(){
 		 _userType="${(returnDatas.data.userType)!'0'}";
 		 jQuery("#userType").val(_userType);
-		 _active="${(returnDatas.data.active)!'0'}";
+		 _active="${(returnDatas.data.active)!'1'}";
 		 jQuery("#active").val(_active);
 		 _sex="${(returnDatas.data.sex)!''}";
 		 jQuery("#sex").val(_sex);
@@ -35,15 +35,6 @@
 			 }else{
 				 layer.alert(_json.message,{icon: 5});
 			 }
-		});
-		 
-		 
-		jQuery("#active").append('<option value="1">有效</option><option value="0">无效</option>');
-		 $("#active").select2({width:'320px',height:'26px'});
-		 
-		 $("#active").change(function name() {
-			var userId = $('#active option:selected').val();//选中的值
-			alert(userId)
 		});
 	 });
 </script>
@@ -224,7 +215,7 @@ jQuery(document).ready(function(){
     
     //加载角色
     jQuery.ajax({
-        url : ctx+"/system/role/list/json",
+        url : ctx+"/system/role/list/pre",
         type : "post",
         dataType : "json",
         success : function(_json) {
@@ -333,7 +324,7 @@ function add(){
 	jQuery("#addTbody").parents("table").removeClass("off");
 	var _html=["<tr>",
 					"<td><input type='text' readonly onclick='showMangerZtreeOrg(this)'   name='managerOrgNames' placeholder='单击选择' class='layui-input'><input type='hidden' name='managerOrgIds'></td>",
-					"<td><select name='managerType'><option value='10'>员工</option><option value='11'>主管</option><option value='12'>代主管</option></select></td>",
+					"<td><select name='managerType'><option value='10'>员工</option><option value='11'>主管</option></select></td><td><select name='hasleaf'><option value='0'>不包含</option><option value='1'>包含</option></select></td>",
 					"<td><a onclick='del(this)' class='layui-btn layui-btn-danger layui-btn-mini ajax-delete'>删除</a></td>",
 				"</tr>"].join('');
 	var _html=jQuery(_html);
@@ -348,7 +339,6 @@ function del(_obj){
 	});
 }
 function clickOrgValue(event, treeId, treeNode) {
-	debugger
 	var name=treeNode.name;
 	var id=treeNode.id;
 	//先看一下，有没有
@@ -429,12 +419,12 @@ function checkAccount(){
 							<div class="layui-main">
 						          <div id="LAY_preview" class="layui-my-form">
 						          				<header class="larry-personal-tit">
-													<span>添加用户</span>
+													<span>添加/修改用户</span>
 												</header>
 												<div class="larry-personal-body clearfix changepwd">
 													<form id="validForm" class="layui-form <!--  -->"  method="post" action="${ctx}/system/user/update">
 																<input type="hidden" id="id" name="id" value="${(returnDatas.data.id)!''}"/>	
-																	<div class="layui-form-item col-lg-6">
+																	<div class="layui-form-item col-lg-7">
 																		<label class="layui-form-label">姓名*</label>
 																		<div class="layui-inline col-lg-5">
 																			<#if (returnDatas.data.name)?? && (returnDatas.data.name)?length gt 0>
@@ -445,7 +435,7 @@ function checkAccount(){
 																		</div>
 																		<div class="layui-inline valid-info"></div>
 																	</div>
-																	<div class="layui-form-item col-lg-6">
+																	<div class="layui-form-item col-lg-7">
 																		<label class="layui-form-label">账号*</label>
 																		<div class="layui-inline col-lg-5">
 																		<#if (returnDatas.data.name)?? && (returnDatas.data.name)?length gt 0>
@@ -457,7 +447,7 @@ function checkAccount(){
 																		</div>
 																		<div class="layui-inline valid-info"></div>
 																	</div>
-																	<div class="layui-form-item col-lg-6">
+																	<div class="layui-form-item col-lg-7">
 																		<label class="layui-form-label">密码*</label>
 																		<div class="layui-inline col-lg-5"> 
 																			<#if (returnDatas.data??)>
@@ -468,7 +458,7 @@ function checkAccount(){
 																		</div>
 																		<div class="layui-inline valid-info"></div>
 																	</div>
-																   <div class="layui-form-item col-lg-6">
+																   <div class="layui-form-item col-lg-7">
 															    		<label class="layui-form-label">部门*</label>
 																		   <div class="layui-inline col-lg-5">  
 																				 <button type="button" onclick="add()" class="layui-btn layui-btn-normal"><i class="layui-icon">&#xe64c;</i>添加管理关系</button>
@@ -489,6 +479,7 @@ function checkAccount(){
 																							<tr>
 																								<th>部门名称</th>
 																								<th>管理类型</th>
+																								<th>是否含下级</th>
 																								<th>操作</th>
 																							</tr>
 																						</thead>
@@ -501,8 +492,14 @@ function checkAccount(){
 																											<select name='managerType'>
 																												<option value='10' <#if _data.managerType?c=='10'>selected</#if>>员工</option>
 																												<option value='11' <#if _data.managerType?c=='11'>selected</#if>>主管</option>
-																												<!-- <option value='12' <#if _data.managerType?c=='12'>selected</#if>>代理主管</option>
-																												<option value='13' <#if _data.managerType?c=='13'>selected</#if>>虚拟主管</option>-->
+																												<option value='12' <#if _data.managerType?c=='12'>selected</#if>>代理主管</option>
+																												<option value='13' <#if _data.managerType?c=='13'>selected</#if>>虚拟主管</option>
+																											</select>
+																										</td>
+																										<td>
+																											<select name='hasleaf'  lay-filter="hasleaf">
+																												<option value='0' <#if _data.hasleaf?c=='0'>selected</#if>>不包含</option>
+																												<option value='1' <#if _data.hasleaf?c=='1'>selected</#if>>包含</option>
 																											</select>
 																										</td>
 																										<td><a onclick='del(this)' class='layui-btn layui-btn-danger layui-btn-mini ajax-delete'>删除</a></td>
@@ -517,13 +514,13 @@ function checkAccount(){
 																  	<div class="layui-form-item  col-lg-6">
 																	    <label class="layui-form-label">角色*</label>
 																		    <div class="layui-inline  col-lg-5" id="roleDiv">
-																		      <select id="roleIds" name="roleIds"  datatype="*" nullmsg="角色不能为空"  multiple data-placeholder="请选择角色">
+																		      <select id="roleIds" name="roleIds" class="nolayer" datatype="*" nullmsg="角色不能为空"  multiple data-placeholder="请选择角色">
 																		      	<option value=""></option>
 																		      </select>
 																		    </div>
 																	     <div class="layui-inline valid-info"></div>
 																  	</div>
-																	 <div class="layui-form-item col-lg-6">
+															<div class="layui-form-item col-lg-7">
 																		<label class="layui-form-label">性别*</label>
 																		<div class="layui-inline col-lg-5">  
 																			 <select id="sex" name="sex" >
@@ -533,62 +530,46 @@ function checkAccount(){
 																		</div>
 																		<div class="layui-inline valid-info"></div>
 																	</div>
-																	<div class="layui-form-item col-lg-6">
+																	<div class="layui-form-item col-lg-7">
 																		<label class="layui-form-label">手机号码</label>
 																		<div class="layui-inline col-lg-5">  
 																			<input type="text" name="mobile" id="mobile" datatype="phone"  errormsg="手机格式不正确！"   autocomplete="off" class="layui-input" value="${(returnDatas.data.mobile)!''}">
 																		</div>
 																		<div class="layui-inline valid-info"></div>
 																	</div>
-																	<div class="layui-form-item col-lg-6">
+																	<div class="layui-form-item col-lg-7">
 																		<label class="layui-form-label">邮箱</label>
 																		<div class="layui-inline col-lg-5">  
 																			<input type="text" name="email" id="email" datatype="email"  errormsg="邮箱格式不正确！"  autocomplete="off" class="layui-input" value="${(returnDatas.data.email)!''}">
 																		</div>
 																		<div class="layui-inline valid-info"></div>
 																	</div> 
-																	<!-- 
-																	<div class="layui-form-item col-lg-6">
-																		<label class="layui-form-label">微信Id</label>
-																		<div class="layui-inline col-lg-5">  
-																			<input type="text" name="weixinId" id="weixinId"  autocomplete="off" class="layui-input" value="${(returnDatas.data.weixinId)!''}">
-																		</div>
-																		<div class="layui-inline valid-info"></div>
-																	</div>
-																	-->
-																	<div class="layui-form-item col-lg-6">
+																	<div class="layui-form-item col-lg-7">
 																		<label class="layui-form-label">用户类型*</label>
 																		<div class="layui-inline col-lg-5">  
 																			 <select id="userType" name="userType" datatype="*" nullmsg="用户类型不能为空" >
 																		      		<option value>请选择用户类型</option>
 																		        	<option value="0">系统账号</option>
-																					<!--<option value="1">员工</option>
-																					 <option value="2">cms管理员</option>
+																					<!-- <option value="2">cms管理员</option>
 																					<option value="3">活动管理员</option> -->
 																		      </select>
 																		</div>
 																		<div class="layui-inline valid-info"></div>
 																	</div> 
 																	
-																	<div class="layui-form-item col-lg-6">
+
+																		<div class="layui-form-item col-lg-7">
 																		<label class="layui-form-label">是否有效*</label>
 																		<div class="layui-inline col-lg-5">  
-																			<select id="active" name="active" datatype="*" nullmsg="是否有效不能为空"  class="nolayer">
+																			<select id="active" name="active" datatype="*" nullmsg="用户类型不能为空" >
+																		        	<option value=""></option>
+																		        	<option value="1">有效</option>
+																		        	<option value="0">无效</option>
+																					
 																		      </select>
 																		</div>
 																		<div class="layui-inline valid-info"></div>
-																	</div>
-																	<!--<div class="layui-form-item col-lg-6">
-																		<label class="layui-form-label">登陆微信验证*</label>
-																		<div class="layui-inline col-lg-5">  
-																			<select id="bak1" name="bak1" datatype="*" nullmsg="登陆微信验证不能为空" >
-																					<option value="off">不开启</option>
-																		        	<option value="on">开启</option>
-																		      </select>
-																		</div>
-																		<div class="layui-inline valid-info"></div>
-																	</div>-->
-													<div class="layui-form-item change-submit">
+																	</div>													<div class="layui-form-item change-submit">
 															<label class="layui-form-label"></label>
 															<div class="layui-inline">
 																<button type="button" class="layui-btn" id="chick" onclick="checkAccount();">保存</button>
