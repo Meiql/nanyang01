@@ -20,56 +20,6 @@
 	function del(_id){
 		springrain.mydelete(_id,"${ctx}/tsemergencymaterialsum/delete");
 	}
-	function approv(_id ,_table_from) {
-		 $.ajax({
-			url :"${ctx}/tsprepareapprovl/ajax/approv/pass", 
-		    type :"post",
-		    data:{"id":_id,"type":"pass","datasource":_table_from},
-			dataType : "json",
-			success:function(ret){
-				debugger
-				if(ret.status=="success"){
-					
-					layer.alert(ret.message, {icon: 1},function(){
-							layer.closeAll();
-					});
-					
-				}else{
-					layer.alert(ret.message,{icon: 5});
-				}
-				window.location.reload();
-			},
-			error:function(){
-				layer.closeAll('loading')
-				layer.alert('sorry,遇到问题添加失败了 ...',{icon: 5});
-			}
-		});  
-}
-	function refu(_id,_table_from) {
-		 $.ajax({
-			url :"${ctx}/tsprepareapprovl/ajax/approv/pass", 
-		    type :"post",
-		    data:{"id":_id,"type":"refu","datasource":_table_from},
-			dataType : "json",
-			success:function(ret){
-				debugger
-				if(ret.status=="success"){
-					
-					layer.alert(ret.message, {icon: 1},function(){
-							layer.closeAll();
-		});
-					
-				}else{
-					layer.alert(ret.message,{icon: 5});
-				}
-				window.location.reload();
-			},
-			error:function(){
-				layer.closeAll('loading')
-				layer.alert('sorry,遇到问题添加失败了 ...',{icon: 5});
-			}
-		});  
-}
 </script>
 <style>
 	@media screen and (max-width: 1880px) {
@@ -112,7 +62,7 @@
 							<div class="layui-main">
 						          <div id="LAY_preview">
 						          <!-- 查询  开始 -->
-							          <form class="layui-form layui-form-pane" id="searchForm" action="${ctx}/tsemergencymaterialsum/list" method="post">
+							          <form class="layui-form layui-form-pane" id="searchForm" action="${ctx}/tspreparegoodsnum/emergency/look" method="post">
 							          <input type="hidden" name="pageIndex" id="pageIndex" value="${(returnDatas.page.pageIndex)!'1'}" /> 
 							          <input type="hidden" name="sort" id="page_sort" value="${(returnDatas.page.sort)!'desc'}" />
 							          <input type="hidden" name="order" id="page_order" value="${(returnDatas.page.order)!'id'}" />
@@ -123,7 +73,7 @@
 										</colgroup>
 							          	<tbody>
 							          		<tr>
-							          			<th colspan="2">应急救援物资汇总表搜索</th>
+							          			<th colspan="2">应急救援物资汇总搜索</th>
 							          		</tr>
 							          		<tr>
 							          			<td>
@@ -165,14 +115,14 @@
 										  <!--first_start_export-->
 											<thead>
 												<tr>
-													<th colspan="20">应急救援物资汇总审批列表<font id='recordsView' class='recorsView'>共<span></span>页,共 <span></span>条记录</font></th>
+													<th colspan="20">应急救援物资待送审汇总列表<font id='recordsView' class='recorsView'>共<span></span>页,共 <span></span>条记录</font></th>
 												</tr>
 												<tr>
 												  <!--first_start_no_export-->
 												  <th class="center" rowspan="2">
 															<input id="checkAll"  type="checkbox">
 												  </th>
-												  < <th rowspan="2"style="width : 80px; text-align: center">操作</th> >
+												  <!-- <th rowspan="2"style="width : 80px; text-align: center">操作</th> -->
 												  <!--first_end_no_export-->
 														<th id="" rowspan="2"style=" text-align: center">序号</th>
 														<th id="th_name" rowspan="2"style=" text-align: center">物资名称</th>
@@ -184,7 +134,12 @@
 														<th id="th_bak1" rowspan="2" style=" text-align: center">审批状态</th>
 														<th id="" rowspan="2" style=" text-align: center">来源</th>
 														
-			
+														<!-- <th id="th_create_user" >创建用户</th>
+														<th id="th_create_time" >创建时间</th>
+														<th id="th_company_id" >公司id</th>
+														 <th id="th_bak1" >bak1</th>
+														<th id="th_bak2" >bak2</th>
+														<th id="th_bak3" >bak3</th> -->
 												</tr> 
 												<tr>
 														
@@ -202,14 +157,6 @@
 														<td class="center">
 																<input name="check_li" value="${_data.id}"  type="checkbox">
 														</td>
-															<td>
-								                            
-								                            	<a href="#"  class="layui-btn layui-btn-normal layui-btn-mini"  onclick="approv('${(_data.id)!''}','${(_data.table_from)!''}')" >通过</a>
-								                           	
-								                            	<a href="#"  class="layui-btn layui-btn-normal layui-btn-mini"  onclick="refu('${(_data.id)!''}','${(_data.table_from)!''}')" >退回</a>
-								                           
-														</td>
-														<!--end_no_export-->
 														<td class="center">
 															${(_data.serial_number)!0}
 														</td>

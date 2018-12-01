@@ -11,19 +11,17 @@ import javax.servlet.http.HttpServletResponse;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.WebDataBinder;
-import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springrain.nybusiness.company.entity.TsCompanyInfo;
 import org.springrain.nybusiness.company.service.ITsCompanyInfoService;
 import org.springrain.nybusiness.ergency.entity.TsEmePlanFiling;
-import org.springrain.nybusiness.ergency.entity.TsEmergencyEquipmentSum;
 import org.springrain.nybusiness.ergency.entity.TsEmergencyMaterialSum;
 import org.springrain.nybusiness.ergency.service.ITsEmePlanFilAdjustmentService;
 import org.springrain.nybusiness.ergency.service.ITsEmePlanFilingService;
 import org.springrain.nybusiness.ergency.service.ITsEmergencyEquipmentSumService;
 import org.springrain.nybusiness.ergency.service.ITsEmergencyMaterialSumService;
+import org.springrain.nybusiness.ergency.service.ITsErgencyInvestigationService;
 import org.springrain.nybusiness.msg.entity.TsMsgEnviroRisk;
 import org.springrain.nybusiness.msg.service.ITsMsgEnviroRiskService;
 import org.springrain.nybusiness.resourceAudit.entity.TsPreparegoodsNum;
@@ -53,9 +51,14 @@ public class TsPreparegoodsNumController  extends BaseController {
 	private ITsCompanyInfoService tsCompanyInfoService;
 	
 	@Resource
+	private ITsErgencyInvestigationService tsErgencyInvestigationService;
+	@Resource
 	private ITsEmergencyEquipmentSumService tsEmergencyEquipmentSumService;
+	
 	@Resource
 	private ITsEmePlanFilingService tsEmePlanFilingService;
+	
+
 	@Resource
 	private ITsEmePlanFilAdjustmentService tsEmePlanFilAdjustmentService;
 	@Resource
@@ -238,7 +241,7 @@ public class TsPreparegoodsNumController  extends BaseController {
 	}
 	
 	/**
-	 * 进入应急物资申报界面
+	 * 进入应急救援设施设备界面
 	 */
 	@RequestMapping(value = "/emergency/look")
 	public String emergencyapp(HttpServletRequest request, Model model,TsEmergencyMaterialSum tsEmergencyMaterialSum)  throws Exception{
@@ -246,41 +249,34 @@ public class TsPreparegoodsNumController  extends BaseController {
 		ReturnDatas returnObject = ReturnDatas.getSuccessReturnDatas();
 		// ==构造分页请求
 		Page page = newPage(request);
-		// ==执行分页查询
-		//List<TsEmergencyEquipmentSum> datas=tsEmergencyEquipmentSumService.findListDataByFinder(null,page,TsEmergencyEquipmentSum.class,tsEmergencyEquipmentSum);
-			//returnObject.setQueryBean(tsEmergencyEquipmentSum);
-		
+		// ==执行分页查询	
 		
 		List<String> listCompany = tsCompanyInfoService.finderCompanyIdByUserId(SessionUser.getUserId());
-		//List<TsEmergencyEquipmentSum> datas=tsEmergencyEquipmentSumService.finderTsMaillistForList(page, tsEmergencyEquipmentSum, listCompany);
-		List<TsEmergencyMaterialSum> datas=tsEmergencyMaterialSumService.finderTsMaillistForList(page, tsEmergencyMaterialSum, listCompany);
+		List<TsEmergencyMaterialSum> datas=tsPreparegoodsNumService.finderTsEmergencyForList(page, tsEmergencyMaterialSum, listCompany);
 			returnObject.setQueryBean(tsEmergencyMaterialSum);
 		
 		returnObject.setPage(page);
 		returnObject.setData(datas);
 		model.addAttribute(GlobalStatic.returnDatas, returnObject);
-		//return listurl;
-		return "/nybusiness/ergency/tsemergencymaterialsum/tsemergencymaterialsumList";
-		//return "/nybusiness/resourceAudit/tsprepareapprovl/emergencyappr";
+		//return listurl;		
+		return "/nybusiness/resourceAudit/tspreparegoodsnum/emergencysave";
 	}
-	
 	/**
 	 * 进入应急预案备案界面
 	 */
 	@RequestMapping(value = "/planfiling/look")
 	public String planfilingapp(HttpServletRequest request, Model model,TsEmePlanFiling tsEmePlanFiling)  throws Exception{
-//		ReturnDatas returnObject = listjsonEmergency(request, model, tsEmergencyEquipmentSum);
 		ReturnDatas returnObject = ReturnDatas.getSuccessReturnDatas();
 		// ==构造分页请求
 		Page page = newPage(request);
 		// ==执行分页查询
 		List<String> listCompany = tsCompanyInfoService.finderCompanyIdByUserId(SessionUser.getUserId());
-		List<TsEmePlanFiling> datas=tsEmePlanFilingService.finderTsMaillistForList(page, tsEmePlanFiling, listCompany);
+		List<TsEmePlanFiling> datas=tsPreparegoodsNumService.finderTsEmePlanFilingForList(page, tsEmePlanFiling,listCompany);
 		
 		returnObject.setPage(page);
 		returnObject.setData(datas);
 		model.addAttribute(GlobalStatic.returnDatas, returnObject);
-		return "/nybusiness/ergency/tsemeplanfiling/tsemeplanfilingList";
+		return "/nybusiness/resourceAudit/tspreparegoodsnum/planfilingsave";
 	}
 	
 	
@@ -289,37 +285,34 @@ public class TsPreparegoodsNumController  extends BaseController {
 	 */
 	@RequestMapping(value = "/company/look")
 	public String companyapp(HttpServletRequest request, Model model,TsCompanyInfo tsCompanyInfo)  throws Exception{
-//		ReturnDatas returnObject = listjsonEmergency(request, model, tsEmergencyEquipmentSum);
 		ReturnDatas returnObject = ReturnDatas.getSuccessReturnDatas();
 		// ==构造分页请求
 		Page page = newPage(request);
 		// ==执行分页查询
-		List<TsCompanyInfo> datas=tsCompanyInfoService.findListDataByFinder(null,page,TsCompanyInfo.class,tsCompanyInfo);
-		returnObject.setQueryBean(tsCompanyInfo);
+		List<TsCompanyInfo> datas=tsPreparegoodsNumService.finderTsCompanyInfoForList(page, tsCompanyInfo);
 		
 		returnObject.setPage(page);
 		returnObject.setData(datas);
 		model.addAttribute(GlobalStatic.returnDatas, returnObject);
-		return "/nybusiness/tscompanyinfo/tscompanyinfoList";
+		return "/nybusiness/resourceAudit/tspreparegoodsnum/companysave";
 	}
 	
 	/**
 	 * 进入环境分险界面
 	 */
 	@RequestMapping(value = "enviroment/look")
-	public String enviromentapp(HttpServletRequest request, Model model,TsMsgEnviroRisk TsMsgEnviroRisk)  throws Exception{
-//		ReturnDatas returnObject = listjsonEmergency(request, model, tsEmergencyEquipmentSum);
+	public String enviromentapp(HttpServletRequest request, Model model,TsMsgEnviroRisk tsMsgEnviroRisk)  throws Exception{
 		ReturnDatas returnObject = ReturnDatas.getSuccessReturnDatas();
 		// ==构造分页请求
 		Page page = newPage(request);
 		// ==执行分页查询
 		List<String> listCompany = tsCompanyInfoService.finderCompanyIdByUserId(SessionUser.getUserId());
-		List<TsMsgEnviroRisk> datas=tsMsgEnviroRiskService.finderTsEnvirolistForList(page,TsMsgEnviroRisk,listCompany);
-		returnObject.setQueryBean(TsMsgEnviroRisk);
+		List<TsMsgEnviroRisk> datas=tsPreparegoodsNumService.finderTsMsgEnviroRiskForList(page, tsMsgEnviroRisk,listCompany);
+		
 		returnObject.setPage(page);
 		returnObject.setData(datas);
 		model.addAttribute(GlobalStatic.returnDatas, returnObject);
-		return "/nybusiness/msg/tsmsgenvirorisk/tsmsgenviroriskList";
+		return "/nybusiness/resourceAudit/tspreparegoodsnum/enviromentsave";
 	}
 
 }

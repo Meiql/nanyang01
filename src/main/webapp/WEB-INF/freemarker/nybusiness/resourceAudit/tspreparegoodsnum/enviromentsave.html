@@ -1,6 +1,8 @@
 <#ftl output_format="HTML" auto_esc=true>
 <@h.commonHead title="后台管理系统" keywords="开源,永久免费" description="springrain开源系统管理后台"/>
 <script src="${ctx}/js/custom/common/form.js"></script>
+<link rel="stylesheet" href="${ctx}/js/select2/css/select2.min.css" type="text/css">
+<link rel="stylesheet" href="${ctx}/js/ztree/css/zTreeStyle/zTreeStyle.css" type="text/css">
 
 <script>
 	var _state;
@@ -18,8 +20,58 @@
 		});
 	});
 	function del(_id){
-		springrain.mydelete(_id,"${ctx}/tsgoodsinventory/delete");
+		springrain.mydelete(_id,"${ctx}/tsmsgenvirorisk/delete");
 	}
+	function approv(_id) {
+		 $.ajax({
+			url :"${ctx}/tsprepareapprovl/ajax/enviroment/pass", 
+		    type :"post",
+		    data:{"id":_id,"type":"pass"},
+			dataType : "json",
+			success:function(ret){
+				debugger
+				if(ret.status=="success"){
+					
+					layer.alert(ret.message, {icon: 1},function(){
+							layer.closeAll();
+		});
+					
+				}else{
+					layer.alert(ret.message,{icon: 5});
+				}
+				window.location.reload();
+			},
+			error:function(){
+				layer.closeAll('loading')
+				layer.alert('sorry,遇到问题添加失败了 ...',{icon: 5});
+			}
+		});  
+}
+	function refu(_id) {
+		 $.ajax({
+			url :"${ctx}/tsprepareapprovl/ajax/enviroment/pass", 
+		    type :"post",
+		    data:{"id":_id,"type":"refu"},
+			dataType : "json",
+			success:function(ret){
+				debugger
+				if(ret.status=="success"){
+					
+					layer.alert(ret.message, {icon: 1},function(){
+							layer.closeAll();
+		});
+					
+				}else{
+					layer.alert(ret.message,{icon: 5});
+				}
+				window.location.reload();
+			},
+			error:function(){
+				layer.closeAll('loading')
+				layer.alert('sorry,遇到问题添加失败了 ...',{icon: 5});
+			}
+		});  
+}
 </script>
 
 </head>
@@ -32,6 +84,11 @@
 		             <li class="layui-this">
 
 		             </li>
+					 <li style="float:right;">
+		             	<@shiro.hasPermission name="/tsmsgenvirorisk/update" >
+		             		<button type="button"   class="layui-btn layui-btn-small" data-action="${ctx}/tsmsgenvirorisk/update/pre"><i class="layui-icon layui-icon-specil">&#xe61f;</i>新增</button>
+		             	</@shiro.hasPermission>
+		             </li>
 	       		</ul>
 				
 				<div class="layui-body layui-tab-content site-demo-body">
@@ -39,7 +96,7 @@
 							<div class="layui-main">
 						          <div id="LAY_preview">
 						          <!-- 查询  开始 -->
-							          <form class="layui-form layui-form-pane" id="searchForm" action="${ctx}/tsgoodsinventory/list" method="post">
+							          <form class="layui-form layui-form-pane" id="searchForm" action="${ctx}/tspreparegoodsnum/enviroment/look" method="post">
 							          <input type="hidden" name="pageIndex" id="pageIndex" value="${(returnDatas.page.pageIndex)!'1'}" /> 
 							          <input type="hidden" name="sort" id="page_sort" value="${(returnDatas.page.sort)!'desc'}" />
 							          <input type="hidden" name="order" id="page_order" value="${(returnDatas.page.order)!'id'}" />
@@ -50,22 +107,22 @@
 										</colgroup>
 							          	<tbody>
 							          		<tr>
-							          			<th colspan="2">已发布资源清单搜索</th>
+							          			<th colspan="2">环境风险单元信息表搜索</th>
 							          		</tr>
 							          		<tr>
 							          			<td>
 							          				<div class="layui-inline">
-									                    <label class="layui-form-label">物资名称</label>
+									                    <label class="layui-form-label">风险单元名称</label>
 									                    <div class="layui-input-inline">
-									                           <input type="text" name="goods_type" value="${(returnDatas.queryBean.goods_type)!''}" placeholder="请输入名称 " class="layui-input">
+									                           <input type="text" name="riskUnitName" value="${(returnDatas.queryBean.riskUnitName)!''}" placeholder="请输入名称 " class="layui-input">
 									                    </div>
-							                		</div>
-									                 <div class="layui-inline">
-									                    <label class="layui-form-label">所属公司</label>
+							                		</div>		
+							                		<div class="layui-inline">
+									                    <label class="layui-form-label">风险单元类别</label>
 									                    <div class="layui-input-inline">
-									                           <input type="text" name="comments" value="${(returnDatas.queryBean.comments)!''}" placeholder="请输入名称 " class="layui-input">
+									                           <input type="text" name="riskUnitTypeName" value="${(returnDatas.queryBean.riskUnitTypeName)!''}" placeholder="请输入名称 " class="layui-input">
 									                    </div>
-									                </div>
+							                		</div>							               
 							          			</td>
 							          			<td>
 							          			   <div class="layui-inline">
@@ -88,20 +145,23 @@
 										  <!--first_start_export-->
 											<thead>
 												<tr>
-													<th colspan="9">已发布资源清单列表<font id='recordsView' class='recorsView'>共<span></span>页,共 <span></span>条记录</font></th>
+													<th colspan="9">环境风险单元信息待送审列表<font id='recordsView' class='recorsView'>共<span></span>页,共 <span></span>条记录</font></th>
 												</tr>
 												<tr>
 												  <!--first_start_no_export-->
 												  <th class="center">
 															<input id="checkAll"  type="checkbox">
-												  </th>
+												  </th>												  
 												  <!--first_end_no_export-->
-														<th id="" >物质类别</th>
-														<th id="" >型号名称</th>
-														<th id="" >单位</th>
-														<th id="" >数量</th>
-														<th id="" >型号规格</th>
-														<th id="" >所属公司</th>
+														<th id="th_riskUnitName" >风险单元名称</th>
+														<th id="th_riskUnitTypeName" >风险单元类别</th>
+														<th id="th_reserves" >设计能力/储量</th>
+														<th id="th_involveChemical" >主要涉及的化学品</th>														
+														<th id="th_createUserName" >创建用户</th>
+														<th id="th_createTime" >创建时间</th>
+														<th id="th_companyId" >企业id</th>
+														<th id="th_describes" >描述（用途、特征、危险性、曾发生事故等）</th>
+														<th id="th_bak1" >单元状态</th>
 												</tr> 
 											</thead>
 										  <!--first_end_export-->
@@ -114,25 +174,35 @@
 														<td class="center">
 																<input name="check_li" value="${_data.id}"  type="checkbox">
 														</td>
+													
 														<!--end_no_export-->
 														<td >
-															${(_data.goods_name)!''}
+															${(_data.riskUnitName)!''}
 														</td>
 														<td >
-															${(_data.goods_type)!''}
+															${(_data.riskUnitTypeName)!''}
 														</td>
 														<td >
-															${(_data.goods_num)!''}
+															${(_data.reserves)!''}
 														</td>
 														<td >
-															${(_data.useful_life_num)!''}
+															${(_data.involveChemical)!''}
+														</td>														
+														<td >
+															${(_data.createUserName)!''}
 														</td>
 														<td >
-															${(_data.expiry_date_num)!''}
+															${(_data.createTime)!''}
 														</td>
 														<td >
-															${(_data.comments)!''}
+															${(_data.companyId)!''}
 														</td>
+														<td >
+															${(_data.describes)!''}
+														</td>
+														<td >
+															${(_data.bak1)!''}
+														</td>												
 													</tr>
 												</#list>
 											 </#if>
@@ -143,8 +213,8 @@
 										<@h.layPage page=returnDatas.page /> 
 									</#if>
 								</div>
-							</div>
-						</div>
+							</div>							
+						</div>			
 				</div>
 			</div>
 		<!-- 主体内容结束 -->

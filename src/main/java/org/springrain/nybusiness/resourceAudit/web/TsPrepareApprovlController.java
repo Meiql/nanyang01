@@ -19,6 +19,7 @@ import org.springrain.nybusiness.company.entity.TsCompanyInfo;
 import org.springrain.nybusiness.company.service.ITsCompanyInfoService;
 import org.springrain.nybusiness.ergency.entity.TsEmePlanFiling;
 import org.springrain.nybusiness.ergency.entity.TsEmergencyEquipmentSum;
+import org.springrain.nybusiness.ergency.entity.TsEmergencyMaterialSum;
 import org.springrain.nybusiness.ergency.service.ITsEmePlanFilingService;
 import org.springrain.nybusiness.ergency.service.ITsEmergencyEquipmentSumService;
 import org.springrain.nybusiness.msg.entity.TsMsgEnviroRisk;
@@ -182,7 +183,7 @@ public class TsPrepareApprovlController  extends BaseController {
 	 * 进入应急物资申报审核界面，先查询结果，在审核
 	 */
 	@RequestMapping(value = "/emergency/app")
-	public String emergencyapp(HttpServletRequest request, Model model,TsEmergencyEquipmentSum tsEmergencyEquipmentSum)  throws Exception{
+	public String emergencyapp(HttpServletRequest request, Model model,TsEmergencyMaterialSum tsEmergencyMaterialSum)  throws Exception{
 //		ReturnDatas returnObject = listjsonEmergency(request, model, tsEmergencyEquipmentSum);
 		ReturnDatas returnObject = ReturnDatas.getSuccessReturnDatas();
 		// ==构造分页请求
@@ -191,8 +192,8 @@ public class TsPrepareApprovlController  extends BaseController {
 		//List<TsEmergencyEquipmentSum> datas=tsEmergencyEquipmentSumService.findListDataByFinder(null,page,TsEmergencyEquipmentSum.class,tsEmergencyEquipmentSum);
 			//returnObject.setQueryBean(tsEmergencyEquipmentSum);
 		
-		List<TsEmergencyEquipmentSum> datas=tsPrepareApprovlService.finderTsEmergencyForList(page, tsEmergencyEquipmentSum);
-			returnObject.setQueryBean(tsEmergencyEquipmentSum);
+		List<TsEmergencyMaterialSum> datas=tsPrepareApprovlService.finderTsEmergencyForList(page, tsEmergencyMaterialSum);
+			returnObject.setQueryBean(tsEmergencyMaterialSum);
 		
 		returnObject.setPage(page);
 		returnObject.setData(datas);
@@ -316,11 +317,15 @@ public class TsPrepareApprovlController  extends BaseController {
 		try {
 		java.lang.String id=request.getParameter("id");
 		java.lang.String  type=request.getParameter("type");
+		java.lang.String  source=request.getParameter("datasource");
 		if(StringUtils.isNotBlank(id)){
+			if(source.equals("F2")) {
 			tsPrepareApprovlService.updateTsEmergencyEquipmentSumPass(id,type);
-			} 
+			} else {
+				tsPrepareApprovlService.updateTsErgencyInvestigation(id,type);
+			}
 		returnDatas.setMessage("审批通过");
-		} catch (Exception e) {
+		}} catch (Exception e) {
 			logger.error(e.getMessage(), e);
 		}
 		return returnDatas;

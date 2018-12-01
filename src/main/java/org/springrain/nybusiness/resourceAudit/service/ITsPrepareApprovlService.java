@@ -6,6 +6,7 @@ import org.springrain.frame.util.Page;
 import org.springrain.nybusiness.company.entity.TsCompanyInfo;
 import org.springrain.nybusiness.ergency.entity.TsEmePlanFiling;
 import org.springrain.nybusiness.ergency.entity.TsEmergencyEquipmentSum;
+import org.springrain.nybusiness.ergency.entity.TsEmergencyMaterialSum;
 import org.springrain.nybusiness.msg.entity.TsMsgEnviroRisk;
 import org.springrain.nybusiness.resourceAudit.entity.TsPrepareApprovl;
 import org.springrain.nybusiness.resourceAudit.entity.TsPreparegoodsNum;
@@ -39,7 +40,7 @@ public interface ITsPrepareApprovlService extends IBaseSpringrainService {
 	 * @throws Exception
 	 */
 
-	List<TsEmergencyEquipmentSum> finderTsEmergencyForList(Page page, TsEmergencyEquipmentSum tsEmergencyEquipmentSum)
+	List<TsEmergencyMaterialSum> finderTsEmergencyForList(Page page, TsEmergencyMaterialSum tsEmergencyMaterialSum )
 			throws Exception;
 
 	List<TsEmePlanFiling> finderTsEmePlanFilingForList(Page page, TsEmePlanFiling tsEmePlanFiling) throws Exception;
@@ -53,6 +54,7 @@ public interface ITsPrepareApprovlService extends IBaseSpringrainService {
 	void updateTsCompanyInfoPass(String id, String type) throws Exception;
 
 	void updateTsEmergencyEquipmentSumPass(String id, String type) throws Exception;
+	void updateTsErgencyInvestigation(String id, String type)throws Exception;
 
 	void updateTsMsgEnviroRiskPass(String id, String type) throws Exception;
 

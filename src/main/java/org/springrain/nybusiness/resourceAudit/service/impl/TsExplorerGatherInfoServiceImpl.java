@@ -86,14 +86,14 @@ public class TsExplorerGatherInfoServiceImpl extends BaseSpringrainServiceImpl i
 			return null;
 		}
 		Finder finder = new Finder();
-		finder.append("select t.id,info.orgid as competentOrganization,info.companyName as companyname,t.flueGasDealTon ,t.wasteWaterDealTon,t.hazardousWastesProduceTon,t.hazardousWastesDealTon,t.goodsType  from (SELECT t.id,t.companyId,t.wgprocessingCapacity as flueGasDealTon ,:nullvalue as wasteWaterDealTon,:nullvalue as hazardousWastesProduceTon, :nullvalue as hazardousWastesDealTon,:F1 as goodsType  FROM `ts_waste_air_msg` t union all select t.id ,t.companyId,:nullvalue as flueGasDealTon,t.processingCapacity ,:nullvalue as hazardousWastesProduceTon, :nullvalue as hazardousWastesDealTon,:F2 as goodsType  from `ts_waste_water_msg` t union all select t.id,t.companyId,:nullvalue as flueGasDealTon, :nullvalue as wasteWaterDealTon,t.hwproductNum , t.hwhandleNum ,:F3 as goodsType from ts_waste_material_msg t  )t left join ts_company_info info on t.companyId=info.id where t.companyId in (:companyId)")
+		finder.append("select t.id,org.name as competentOrganization,info.companyName as companyname,t.flueGasDealTon ,t.wasteWaterDealTon,t.hazardousWastesProduceTon,t.hazardousWastesDealTon,t.goodsType  from (SELECT t.id,t.companyId,t.wgprocessingCapacity as flueGasDealTon ,:nullvalue as wasteWaterDealTon,:nullvalue as hazardousWastesProduceTon, :nullvalue as hazardousWastesDealTon,:F1 as goodsType  FROM `ts_waste_air_msg` t union all select t.id ,t.companyId,:nullvalue as flueGasDealTon,t.processingCapacity ,:nullvalue as hazardousWastesProduceTon, :nullvalue as hazardousWastesDealTon,:F2 as goodsType  from `ts_waste_water_msg` t union all select t.id,t.companyId,:nullvalue as flueGasDealTon, :nullvalue as wasteWaterDealTon,t.hwproductNum , t.hwhandleNum ,:F3 as goodsType from ts_waste_material_msg t  )t left join ts_company_info info on t.companyId=info.id left join t_org org on info.orgid=org.id where t.companyId in (:companyId)")
 		.setParam("companyId", listCompany).setParam("nullvalue", "").setParam("F1", "废气").setParam("F2", "废水").setParam("F3", "危险废物");
 		
 		if(StringUtils.isNoneBlank(tsExplorerGatherInfo.getGoodsType())) {
 			finder.append(" and t.goodsType like:goodsType").setParam("goodsType", "%"+tsExplorerGatherInfo.getGoodsType()+"%");
 		}
 		if(StringUtils.isNoneBlank(tsExplorerGatherInfo.getCompetentOrganization())) {
-			finder.append(" and info.orgid like:orgid").setParam("orgid", "%"+tsExplorerGatherInfo.getCompetentOrganization()+"%");
+			finder.append(" and org.name like:orgid").setParam("orgid", "%"+tsExplorerGatherInfo.getCompetentOrganization()+"%");
 		}
 	
 		

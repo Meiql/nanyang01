@@ -6,7 +6,13 @@ import java.util.List;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;
+import org.springrain.nybusiness.company.entity.TsCompanyInfo;
+import org.springrain.nybusiness.ergency.entity.TsEmePlanFiling;
+import org.springrain.nybusiness.ergency.entity.TsEmergencyEquipmentSum;
 import org.springrain.nybusiness.ergency.entity.TsEmergencyMaterialSum;
+import org.springrain.nybusiness.ergency.entity.TsErgencyInvestigation;
+import org.springrain.nybusiness.msg.entity.TsMsgEnviroRisk;
+import org.springrain.nybusiness.resourceAudit.entity.TsGoodsInventory;
 import org.springrain.nybusiness.resourceAudit.entity.TsPreparegoodsNum;
 import org.springrain.nybusiness.resourceAudit.service.ITsPreparegoodsNumService;
 import org.springrain.frame.entity.IBaseEntity;
@@ -88,12 +94,71 @@ public class TsPreparegoodsNumServiceImpl extends BaseSpringrainServiceImpl impl
 			Finder finder = new Finder();
 			finder.append("select :id").setParam("id", "1");
 			finder.append(",a.company,b.emergency ,c.enviro ,d.filing from (select count(id) company from ts_company_info  where bak1=:company and id in (:companyid) ").setParam("company", "1").setParam("companyid", listCompany);
-			finder.append(" ORDER BY id) a,(select count(id) emergency from (select t.id from ts_emergency_equipment_sum t where t.bak1=:eme and t.company_id in (:companyid) union all select t.id from ts_ergency_investigation t where t.bak1=:eme and t.company_id in (:companyid))t ").setParam("eme", "1").setParam("companyid", listCompany); 
-			finder.append(" ORDER BY id) b,"
-					+ "(select count(id) enviro from ts_msg_enviro_risk where bak1=:enviro and companyId in (:companyid)").setParam("enviro", "1").setParam("companyid", listCompany); finder.append(" ORDER BY id) c,(select count(id) filing from ts_eme_plan_filing where bak1=:fil and company_id in (:companyid)").setParam("fil", "1").setParam("companyid", listCompany); 
-					finder.append(" ORDER BY id) d");
+			finder.append(" ORDER BY id) a,(select count(id) emergency from (select t.id from ts_emergency_equipment_sum t where t.bak1=:eme and t.company_id in (:companyid) union all select t.id from ts_ergency_investigation t where t.bak1=:eme and t.company_id in (:companyid))t").setParam("eme", "1").setParam("companyid",listCompany ); 
+			finder.append(" ORDER BY id) b,(select count(id) enviro from ts_msg_enviro_risk where bak1=:enviro and companyId in (:companyid)").setParam("enviro", "1").setParam("companyid", listCompany); 
+			finder.append(" ORDER BY id) c,(select count(id) filing from ts_eme_plan_filing where bak1=:fil and company_id in (:companyid)").setParam("fil", "1").setParam("companyid", listCompany); 
+			finder.append(" ORDER BY id) d");
+			
 			
 			return super.queryForList(finder, TsPreparegoodsNum.class);
+		}
+		
+		@Override
+		public List<TsEmergencyMaterialSum> finderTsEmergencyForList(Page page,
+				TsEmergencyMaterialSum tsEmergencyMaterialSum ,List<String> listCompany) throws Exception {
+			if(CollectionUtils.isEmpty(listCompany)){
+				return null;
+			}
+			Finder finder = new Finder();
+			finder.append("select * from (SELECT t.id,t.serial_number,t.`name`,t.quantity,t.Unit,:nullvalue as in_Equipment,:nullvalue as outside_company,:nullvalue as outside_people, :nullvalue as outside_tel,t.bak1,:F1 as table_from,t.company_id FROM `ts_ergency_investigation` t  union all SELECT t.id,t.Serial_number,t.`name`,t.quantity,t.unit,t.in_Equipment,t.outside_company,t.outside_people,t.outside_tel,t.bak1,:F2 as table_from,t.company_id FROM `ts_emergency_equipment_sum` t )t where t.bak1=:bak and t.company_id in (:companyId)")
+			.setParam("companyId", listCompany).setParam("nullvalue", "").setParam("F1", "F1").setParam("F2", "F2").setParam("bak", "1");
+		if(StringUtils.isNoneBlank(tsEmergencyMaterialSum.getName())) {
+			finder.append(" and t.name like:name").setParam("name", "%"+tsEmergencyMaterialSum.getName()+"%");
+		}
+		if(tsEmergencyMaterialSum.getIn_Equipment()!=null&&!"0".equals(tsEmergencyMaterialSum.getIn_Equipment())) {
+			finder.append(" and t.in_equipment =:in_equipment").setParam("in_equipment", tsEmergencyMaterialSum.getIn_Equipment());
+		}
+			return super.queryForList(finder, TsEmergencyMaterialSum.class, page);
+		}
+
+		@Override
+		public List<TsEmePlanFiling> finderTsEmePlanFilingForList(Page page, TsEmePlanFiling tsEmePlanFiling ,List<String> listCompany) throws Exception {
+			if(CollectionUtils.isEmpty(listCompany)){
+				return null;
+			}
+			Finder finder = new Finder();
+			finder.append("SELECT * FROM `ts_eme_plan_filing` t where t.bak1=:eme and t.company_id in (:companyId)").setParam("eme", "1").setParam("companyId", listCompany);
+			if (StringUtils.isNoneBlank(tsEmePlanFiling.getCompany_name())) {
+				finder.append(" and t.company_name like:name").setParam("name", "%" + tsEmePlanFiling.getCompany_name() + "%");
+			}
+			return super.queryForList(finder, TsEmePlanFiling.class, page);
+		}
+		
+		@Override
+		public List<TsCompanyInfo> finderTsCompanyInfoForList(Page page, TsCompanyInfo tsCompanyInfo) throws Exception {
+			Finder finder = new Finder();
+			finder.append("SELECT * FROM `ts_company_info` t where t.bak1=:eme").setParam("eme", "1");
+			if (StringUtils.isNoneBlank(tsCompanyInfo.getCompanyName())) {
+				finder.append(" and t.companyName like:name").setParam("name", "%" + tsCompanyInfo.getCompanyName() + "%");
+			}
+			return super.queryForList(finder, TsCompanyInfo.class, page);
+		}
+		
+		@Override
+		public List<TsMsgEnviroRisk> finderTsMsgEnviroRiskForList(Page page, TsMsgEnviroRisk tsMsgEnviroRisk,List<String> listCompany)
+				throws Exception {
+			if(CollectionUtils.isEmpty(listCompany)){
+				return null;
+			}
+			Finder finder = new Finder();
+			finder.append("SELECT * FROM `ts_msg_enviro_risk` t where t.bak1=:eme and t.companyId in (:companyId) ").setParam("eme", "1").setParam("companyId", listCompany);
+			if (StringUtils.isNoneBlank(tsMsgEnviroRisk.getRiskUnitName())) {
+				finder.append(" and t.riskUnitName like:name").setParam("name", "%" + tsMsgEnviroRisk.getRiskUnitName()+ "%");
+			}
+			if (StringUtils.isNoneBlank(tsMsgEnviroRisk.getRiskUnitTypeName())) {
+				finder.append(" and t.riskUnitTypeName like:name").setParam("name", "%" + tsMsgEnviroRisk.getRiskUnitTypeName() + "%");
+			}
+			return super.queryForList(finder, TsMsgEnviroRisk.class, page);
 		}
 
 }

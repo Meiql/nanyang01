@@ -32,18 +32,7 @@
 		             <li class="layui-this">
 
 		             </li>
-					 <li style="float:right;">
-		             	<@shiro.hasPermission name="/tsexplorergatherinfo/update" >
-		             		<button type="button"   class="layui-btn layui-btn-small" data-action="${ctx}/tsexplorergatherinfo/update/pre"><i class="layui-icon layui-icon-specil">&#xe61f;</i>新增</button>
-		             	</@shiro.hasPermission>
-		             	<@shiro.hasPermission name="/tsexplorergatherinfo/list/export" >
-				        	<button type="button"   class="layui-btn layui-btn-small"><i class="layui-icon layui-icon-specil">&#xe609;</i>导出</button>
-				        </@shiro.hasPermission>
-		                <button type="button"  class="layui-btn layui-btn-warm layui-btn-small"><i class="layui-icon layui-icon-specil">&#xe601;</i>导入</button>
-		                <@shiro.hasPermission name="/tsexplorergatherinfo/delete" >
-		               		 <button type="button"  class="layui-btn layui-btn-danger layui-btn-small"><i class="layui-icon">&#xe640;</i>批量删除</button>
-		                </@shiro.hasPermission>
-		             </li>
+					
 	       		</ul>
 				
 				<div class="layui-body layui-tab-content site-demo-body">
@@ -69,7 +58,7 @@
 							          				<div class="layui-inline">
 									                    <label class="layui-form-label">主管单位</label>
 									                    <div class="layui-input-inline">
-									                           <input type="text" name="name" value="${(returnDatas.queryBean.name)!''}" placeholder="请输入名称 " class="layui-input">
+									                           <input type="text" name=competentOrganization id="competentOrganization" value="${(returnDatas.queryBean.competentOrganization)!''}" placeholder="请输入名称 " class="layui-input">
 									                    </div>
 							                		</div>
 									                 <div class="layui-inline">

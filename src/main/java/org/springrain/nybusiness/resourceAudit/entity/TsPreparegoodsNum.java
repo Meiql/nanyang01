@@ -26,9 +26,10 @@ public class TsPreparegoodsNum  extends BaseEntity {
 	public static final String TABLE_ALIAS = "待送审资源表";
 	public static final String ALIAS_ID = "id";
 	public static final String ALIAS_COMPANY = "企业信息注册";
-	public static final String ALIAS_EMERGENCY = "应急物资申报";
+	public static final String ALIAS_EMERGENCY = "应急救援设施设备";
 	public static final String ALIAS_ENVIRO = "环境风险信息调查";
 	public static final String ALIAS_FILING = "应急预案备案";
+	public static final String ALIAS_INVESTIGATION = "应急资源现状";
     */
 	//date formats
 	
@@ -42,7 +43,7 @@ public class TsPreparegoodsNum  extends BaseEntity {
 	 */
 	private java.lang.String company;
 	/**
-	 * 应急物资申报
+	 * 应急救援设施设备
 	 */
 	private java.lang.String emergency;
 	/**
@@ -106,8 +107,9 @@ public class TsPreparegoodsNum  extends BaseEntity {
 	public java.lang.String getCompany() {
 		return this.company;
 	}
+     
 		/**
-		 * 应急物资申报
+		 * 应急救援设施设备
 		 */
 	public void setEmergency(java.lang.String value) {
 		    if(StringUtils.isNotBlank(value)){
@@ -119,9 +121,9 @@ public class TsPreparegoodsNum  extends BaseEntity {
 	
 	
 	/**
-	 * 应急物资申报
+	 * 应急救援设施设备
 	 */
-     @WhereSQL(sql="emergency=:TsPreparegoodsNum_emergency")
+  @WhereSQL(sql="emergency=:TsPreparegoodsNum_emergency")
 	public java.lang.String getEmergency() {
 		return this.emergency;
 	}
