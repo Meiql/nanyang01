@@ -136,7 +136,7 @@ public class TsPrepareApprovlServiceImpl extends BaseSpringrainServiceImpl imple
 		Finder finder = new Finder();
 		finder.append("SELECT * FROM `ts_eme_plan_filing` t where t.bak1=:eme").setParam("eme", "2");
 		if (StringUtils.isNoneBlank(tsEmePlanFiling.getCompany_name())) {
-			finder.append(" and t.name like:name").setParam("name", "%" + tsEmePlanFiling.getCompany_name() + "%");
+			finder.append(" and t.company_name like:name").setParam("name", "%" + tsEmePlanFiling.getCompany_name() + "%");
 		}
 		return super.queryForList(finder, TsEmePlanFiling.class, page);
 	}
