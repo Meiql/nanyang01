@@ -86,11 +86,12 @@ public class TsMailListOutsideServiceImpl extends BaseSpringrainServiceImpl impl
 			return null;
 		}
 		Finder finder = new Finder();
-		finder.append("SELECT * FROM `ts_mail_list_outside` t where t.companyId in (:companyId)")
+		finder.append("SELECT t.*,t1.companyName as companyName FROM `ts_mail_list_outside` t ,ts_company_info t1 where t.companyId = t1.id and t.companyId in (:companyId)")
 		.setParam("companyId", listCompany);
 		if(StringUtils.isNoneBlank(tsMailListOutside.getOrgname())){
 			finder.append(" and t.orgname like:orgname").setParam("orgname", "%"+tsMailListOutside.getOrgname()+"%");
 		}
+		finder.append("  order by t.companyId , t.createTime desc");
 		return super.queryForList(finder, TsMailListOutside.class, page);
 	}
 

@@ -1,0 +1,121 @@
+<#ftl output_format="HTML" auto_esc=true>
+<@h.commonHead title="后台管理系统" keywords="开源,永久免费" description="springrain开源系统管理后台"/>
+
+<script src="${ctx}/js/validform/validform.min.js"></script>
+<link rel="stylesheet" href="${ctx}/js/validform/validform.css" media="all">
+<script>
+	 jQuery(function(){
+		 /*
+		 init_valid(_before,_after)
+		 @_before:提交表单前，调用 的函数   可以为空，一般有validform处理不了，独自进行处理时使用
+		 @_after:保存成功后，调用的函数  可以为空，一般为对应的列表页面
+		 */
+		 springrain.initValid(null,function(){window.location.href="${ctx}/tsenvironmentsensitivepoint/list?springraintoken="+springraintoken});
+	 });
+</script>
+</head>
+<body>
+	<div class="layui-layout layui-layout-admin">
+		<@h.naviHeader /><@h.leftMenu />
+		<!-- 主体内容开始 -->
+			<div class="layui-tab layui-tab-brief">
+				<ul class="layui-tab-title site-demo-title">
+		            <li class="layui-this">
+		            </li>
+		             <li style="float:right;">
+				        <button type="button" onclick="history.go(-1)" class="layui-btn layui-btn-small" style="margin-top:8px;"><i class="layui-icon layui-icon-specil">&#xe603;</i>返回</button>
+		             </li>
+	       		</ul>
+				
+				<div class="layui-body layui-tab-content site-demo-body">
+					<div class="layui-tab-item layui-show">
+							<div class="layui-main">
+						          <div id="LAY_preview" class="layui-my-form">
+						          				<header class="larry-personal-tit">
+													<span>添加周边环境敏感点分布</span>
+												</header>
+												<div class="larry-personal-body clearfix changepwd">
+													<form id="validForm" class="layui-form <!--  -->"  method="post" action="${ctx}/tsenvironmentsensitivepoint/update">
+																<input type="hidden" id="id" name="id" value="${(returnDatas.data.id)!''}"/>	
+																	<!-- <div class="layui-form-item col-lg-6">
+																		<label class="layui-form-label">环境要素id*</label>
+																		<div class="layui-inline col-lg-5">  
+																			<input type="text" name="envirElementId" id="envirElementId" datatype="*" nullmsg="不能为空" errormsg="不能为空！" autocomplete="off" class="layui-input" value="${(returnDatas.data.envirElementId)!''}">
+																		</div>
+																		<div class="layui-inline valid-info"></div>
+																	</div> -->
+																	<div class="layui-form-item col-lg-6">
+																		<label class="layui-form-label">环境要素名称*</label>
+																		<div class="layui-inline col-lg-5">  
+																			<input type="text" name="envirElementName" id="envirElementName"  readonly style="background:#EEEEEE" datatype="*" nullmsg="不能为空" errormsg="不能为空！" autocomplete="off" class="layui-input" value="${(returnDatas.data.envirElementName)!''}">
+																		</div>
+																		<div class="layui-inline valid-info"></div>
+																	</div>
+																	<div class="layui-form-item col-lg-6">
+																		<label class="layui-form-label">环境保护 *</label>
+																		<div class="layui-inline col-lg-5">  
+																			<input type="text" name="ring" id="ring"  readonly style="background:#EEEEEE" datatype="*" nullmsg="不能为空" errormsg="不能为空！" autocomplete="off" class="layui-input" value="${(returnDatas.data.ring)!''}">
+																		</div>
+																		<div class="layui-inline valid-info"></div>
+																	</div>
+																	<div class="layui-form-item col-lg-6">
+																		<label class="layui-form-label">方位*</label>
+																		<div class="layui-inline col-lg-5">  
+																			<input type="text" name="position" id="position"  readonly style="background:#EEEEEE" datatype="*" nullmsg="不能为空" errormsg="不能为空！" autocomplete="off" class="layui-input" value="${(returnDatas.data.position)!''}">
+																		</div>
+																		<div class="layui-inline valid-info"></div>
+																	</div>
+																	<div class="layui-form-item col-lg-6">
+																		<label class="layui-form-label">距离*</label>
+																		<div class="layui-inline col-lg-5">  
+																			<input type="text" name="distance" id="distance"  readonly style="background:#EEEEEE" datatype="*" nullmsg="不能为空" errormsg="不能为空！" autocomplete="off" class="layui-input" value="${(returnDatas.data.distance)!''}">
+																		</div>
+																		<div class="layui-inline valid-info"></div>
+																	</div>
+																	<div class="layui-form-item col-lg-6">
+																		<label class="layui-form-label">规模*</label>
+																		<div class="layui-inline col-lg-5">  
+																			<input type="text" name="scale" id="scale"  readonly style="background:#EEEEEE" datatype="*" nullmsg="不能为空" errormsg="不能为空！" autocomplete="off" class="layui-input" value="${(returnDatas.data.scale)!''}">
+																		</div>
+																		<div class="layui-inline valid-info"></div>
+																	</div>
+																	<div class="layui-form-item col-lg-6">
+																		<label class="layui-form-label">经度*</label>
+																		<div class="layui-inline col-lg-5">  
+																			<input type="text" name="longitude" id="longitude"  readonly style="background:#EEEEEE" datatype="*" nullmsg="不能为空" errormsg="不能为空！" autocomplete="off" class="layui-input" value="${(returnDatas.data.longitude)!''}">
+																		</div>
+																		<div class="layui-inline valid-info"></div>
+																	</div>
+																	<div class="layui-form-item col-lg-6">
+																		<label class="layui-form-label">纬度*</label>
+																		<div class="layui-inline col-lg-5">  
+																			<input type="text" name="latitude" id="latitude" readonly style="background:#EEEEEE" datatype="*" nullmsg="不能为空" errormsg="不能为空！" autocomplete="off" class="layui-input" value="${(returnDatas.data.latitude)!''}">
+																		</div>
+																		<div class="layui-inline valid-info"></div>
+																	</div>
+																	 <div class="layui-form-item col-lg-6">
+																		<label class="layui-form-label">创建用户*</label>
+																		<div class="layui-inline col-lg-5">  
+																			<input type="text" name="createUserName" id="createUserName"  readonly style="background:#EEEEEE" datatype="*" nullmsg="不能为空" errormsg="不能为空！" autocomplete="off" class="layui-input" value="${(returnDatas.data.createUserName)!''}">
+																		</div>
+																		<div class="layui-inline valid-info"></div>
+																	</div>
+																	<div class="layui-form-item col-lg-6">
+																		<label class="layui-form-label">创建或修改时间*</label>
+																		<div class="layui-inline col-lg-5">  
+																			<input type="text" name="createTime" id="createTime" readonly style="background:#EEEEEE" datatype="*" nullmsg="不能为空" errormsg="不能为空！" autocomplete="off" class="layui-input" value="${(returnDatas.data.createTime)!''}">
+																		</div>
+																		<div class="layui-inline valid-info"></div>
+																	</div>
+													</form>
+												</div>
+								  </div>
+							</div>
+					</div>
+			</div>
+		</div>
+		<!-- 主体内容结束 -->
+		<@h.footer />
+	</div>
+</body>
+</html>

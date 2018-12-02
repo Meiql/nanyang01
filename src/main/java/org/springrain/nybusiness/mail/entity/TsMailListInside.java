@@ -79,6 +79,7 @@ public class TsMailListInside  extends BaseEntity {
 	 */
 	private java.lang.String bak3;
 	//columns END 数据库字段结束
+	private String companyName;
 	//concstructor
 
 	public TsMailListInside(){
@@ -282,6 +283,16 @@ public class TsMailListInside  extends BaseEntity {
 	public java.lang.String getBak3() {
 		return this.bak3;
 	}
+     
+     @Transient
+	public String getCompanyName() {
+		return companyName;
+	}
+
+	public void setCompanyName(String companyName) {
+		this.companyName = companyName;
+	}
+
 	@Override
 	public String toString() {
 		return new StringBuilder()

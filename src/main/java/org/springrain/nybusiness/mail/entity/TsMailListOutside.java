@@ -2,11 +2,11 @@ package org.springrain.nybusiness.mail.entity;
 
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
-
 import org.springrain.frame.annotation.WhereSQL;
 import org.springrain.frame.entity.BaseEntity;
 /**
@@ -94,7 +94,7 @@ public class TsMailListOutside  extends BaseEntity {
 	 */
 	private java.lang.String bak3;
 	//columns END 数据库字段结束
-	
+	private String companyName;
 	//concstructor
 
 	public TsMailListOutside(){
@@ -355,6 +355,16 @@ public class TsMailListOutside  extends BaseEntity {
 	public java.lang.String getBak3() {
 		return this.bak3;
 	}
+     
+     @Transient
+	public String getCompanyName() {
+		return companyName;
+	}
+
+	public void setCompanyName(String companyName) {
+		this.companyName = companyName;
+	}
+
 	@Override
 	public String toString() {
 		return new StringBuilder()

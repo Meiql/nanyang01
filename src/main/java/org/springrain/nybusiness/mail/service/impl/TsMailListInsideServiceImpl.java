@@ -87,11 +87,12 @@ public class TsMailListInsideServiceImpl extends BaseSpringrainServiceImpl imple
 			return null;
 		}
 		Finder finder = new Finder();
-		finder.append("SELECT * FROM `ts_mail_list_inside` t where t.companyId in (:companyId)")
+		finder.append("SELECT t.* ,t1.companyName as companyName FROM `ts_mail_list_inside` t ,ts_company_info t1 where t.companyId = t1.id  and t.companyId in (:companyId)")
 		.setParam("companyId", listCompany);
 		if(StringUtils.isNoneBlank(tsMailListInside.getUnitName())){
 			finder.append(" and t.unitName like:unitName").setParam("unitName", "%"+tsMailListInside.getUnitName()+"%");
 		}
+		finder.append("  order by t.companyId , t.createTime desc");
 		return super.queryForList(finder, TsMailListInside.class, page);
 	}
 

@@ -177,7 +177,7 @@
 		             											<a href="javascript:updateBak1('${(_data.id)!''}','${(_data.bak1)!''}')" class="layui-btn layui-btn-danger layui-btn-mini ajax-delete">上报</a>
 		             											</#if>
 		             										</@shiro.hasPermission>
-								                           	<@shiro.hasPermission name="/tsmsgenvirorisk/update" >
+								                           	<@shiro.hasPermission name="/tsmsgenvirorisk/details" >
 								                            	<a href="#"  data-action="${ctx}/tsmsgenvirorisk/details?id=${(_data.id)!''}" class="layui-btn layui-btn-normal layui-btn-mini" >详情</a>
 								                            </@shiro.hasPermission>						                            	
 														</td>

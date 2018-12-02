@@ -43,7 +43,7 @@ public class TsMsgProductController  extends BaseController {
 	@Resource
 	private ITsCompanyInfoService tsCompanyInfoService;
 	
-	private String listurl="/nybusiness/msg/tsmsgenvirorisk/tsmsgenviroriskList";
+	private String listurl="/nybusiness/msg/tsmsgproducttechnology/tsmsgproducttechnologyList";
 	
 	
 	   

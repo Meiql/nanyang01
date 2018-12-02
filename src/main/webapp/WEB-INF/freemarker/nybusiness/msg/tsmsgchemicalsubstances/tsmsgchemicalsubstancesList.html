@@ -137,7 +137,7 @@
 								                            <@shiro.hasPermission name="/tsmsgchemicalsubstances/delete" >
 								                            	<a href="javascript:del('${(_data.id)!''}')" class="layui-btn layui-btn-danger layui-btn-mini ajax-delete">删除</a>
 								                            </@shiro.hasPermission>
-								                            <@shiro.hasPermission name="/tsmsgchemicalsubstances/update" >
+								                            <@shiro.hasPermission name="/tsmsgchemicalsubstances/details" >
 								                            	<a href="#"  data-action="${ctx}/tsmsgchemicalsubstances/details?id=${(_data.id)!''}" class="layui-btn layui-btn-normal layui-btn-mini" >详情</a>
 								                            </@shiro.hasPermission>	
 														</td>
