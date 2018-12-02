@@ -17,13 +17,11 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springrain.frame.common.SessionUser;
 import org.springrain.frame.controller.BaseController;
 import org.springrain.frame.util.DateUtils;
-import org.springrain.frame.util.Finder;
 import org.springrain.frame.util.GlobalStatic;
 import org.springrain.frame.util.MessageUtils;
 import org.springrain.frame.util.Page;
 import org.springrain.frame.util.ReturnDatas;
-import org.springrain.nybusiness.company.entity.TsCompanyInfo;
-import org.springrain.nybusiness.waste.entity.TsWasteMaterialMsg;
+import org.springrain.nybusiness.company.service.ITsCompanyInfoService;
 import org.springrain.nybusiness.waste.entity.TsWasteOpenstopCar;
 import org.springrain.nybusiness.waste.service.ITsWasteOpenstopCarService;
 
@@ -40,7 +38,8 @@ import org.springrain.nybusiness.waste.service.ITsWasteOpenstopCarService;
 public class TsWasteOpenstopCarController  extends BaseController {
 	@Resource
 	private ITsWasteOpenstopCarService tsWasteOpenstopCarService;
-	
+	@Resource
+	private ITsCompanyInfoService tsCompanyInfoService;
 	private String listurl="/nybusiness/waste/tswasteopenstopcar/tswasteopenstopcarList";
 	
 	
@@ -75,18 +74,12 @@ public class TsWasteOpenstopCarController  extends BaseController {
 	@ResponseBody   
 	public  ReturnDatas listjson(HttpServletRequest request, Model model,TsWasteOpenstopCar tsWasteOpenstopCar) throws Exception{
 		ReturnDatas returnObject = ReturnDatas.getSuccessReturnDatas();
-		String companyid=SessionUser.getCompanyid();
-		Finder finder;
-		finder = Finder.getSelectFinder(TsWasteOpenstopCar.class);
-		if (StringUtils.isBlank(companyid)) {
-			finder=null;
-		}else{
-			finder.append("where companyId =:companyId").setParam("companyId", companyid);
-		}
+		//首先查询companyId
+				List<String> listCompany = tsCompanyInfoService.finderCompanyIdByUserId(SessionUser.getUserId());
 		// ==构造分页请求
 		Page page = newPage(request);
 		// ==执行分页查询
-		List<TsWasteOpenstopCar> datas=tsWasteOpenstopCarService.findListDataByFinder(finder,page,TsWasteOpenstopCar.class,tsWasteOpenstopCar);
+		List<TsWasteOpenstopCar> datas=tsWasteOpenstopCarService.listFinderForPage(page, tsWasteOpenstopCar, listCompany);
 			returnObject.setQueryBean(tsWasteOpenstopCar);
 		returnObject.setPage(page);
 		returnObject.setData(datas);

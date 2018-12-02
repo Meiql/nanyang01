@@ -33,16 +33,6 @@
 
 		             </li>
 					 <li style="float:right;">
-		             	<!-- <@shiro.hasPermission name="/tscompanyinfo/update" >
-		             		<button type="button"   class="layui-btn layui-btn-small" data-action="${ctx}/tscompanyinfo/update/pre"><i class="layui-icon layui-icon-specil">&#xe61f;</i>新增</button>
-		             	</@shiro.hasPermission> -->
-		             	<!-- <@shiro.hasPermission name="/tscompanyinfo/list/export" >
-				        	<button type="button"   class="layui-btn layui-btn-small"><i class="layui-icon layui-icon-specil">&#xe609;</i>导出</button>
-				        </@shiro.hasPermission>
-		                <button type="button"  class="layui-btn layui-btn-warm layui-btn-small"><i class="layui-icon layui-icon-specil">&#xe601;</i>导入</button>
-		                <@shiro.hasPermission name="/tscompanyinfo/delete" >
-		               		 <button type="button"  class="layui-btn layui-btn-danger layui-btn-small"><i class="layui-icon">&#xe640;</i>批量删除</button>
-		                </@shiro.hasPermission> -->
 		             </li>
 	       		</ul>
 				
@@ -72,16 +62,6 @@
 									                           <input type="text" name="companyName" value="${(returnDatas.queryBean.companyName)!''}" placeholder="请输入名称 " class="layui-input">
 									                    </div>
 							                		</div>
-									                 <div class="layui-inline">
-									                    <label class="layui-form-label">是否可用</label>
-									                    <div class="layui-input-inline">
-									                        <select name="active" id="active" class="layui-input">
-									                          <option value="">==请选择==</option>
-															  <option value="1">是</option>
-															  <option value="0">否</option>
-															</select>   
-									                    </div>
-									                </div>
 							          			</td>
 							          			<td>
 							          			   <div class="layui-inline">
@@ -104,7 +84,7 @@
 										  <!--first_start_export-->
 											<thead>
 												<tr>
-													<th colspan="9">企业列表<font id='recordsView' class='recorsView'>共<span></span>页,共 <span></span>条记录</font></th>
+													<th colspan="17">企业列表<font id='recordsView' class='recorsView'>共<span></span>页,共 <span></span>条记录</font></th>
 												</tr>
 												<tr>
 												  <!--first_start_no_export-->
@@ -126,7 +106,6 @@
 														<th id="th_industryCode" >行业编码</th>
 														<th id="th_registerType" >注册类型</th>
 														<th id="th_factoryTime" >建厂时间</th>
-														<th id="th_createTime" >创建时间</th>
 												</tr> 
 											</thead>
 										  <!--first_end_export-->
@@ -186,9 +165,6 @@
 														</td>
 														<td >
 															${(_data.factoryTime)!''}
-														</td>
-														<td >
-															${(_data.createTime)!''}
 														</td>
 													</tr>
 												</#list>

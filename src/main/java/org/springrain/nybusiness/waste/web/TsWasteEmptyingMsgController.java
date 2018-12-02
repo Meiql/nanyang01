@@ -17,15 +17,19 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springrain.frame.common.SessionUser;
 import org.springrain.frame.controller.BaseController;
 import org.springrain.frame.util.DateUtils;
-import org.springrain.frame.util.Finder;
 import org.springrain.frame.util.GlobalStatic;
 import org.springrain.frame.util.MessageUtils;
 import org.springrain.frame.util.Page;
 import org.springrain.frame.util.ReturnDatas;
-import org.springrain.nybusiness.company.entity.TsCompanyInfo;
+import org.springrain.nybusiness.company.service.ITsCompanyInfoService;
 import org.springrain.nybusiness.waste.entity.TsWasteAirMsg;
 import org.springrain.nybusiness.waste.entity.TsWasteEmptyingMsg;
+import org.springrain.nybusiness.waste.entity.TsWasteMaterialMsg;
+import org.springrain.nybusiness.waste.entity.TsWasteWaterMsg;
+import org.springrain.nybusiness.waste.service.ITsWasteAirMsgService;
 import org.springrain.nybusiness.waste.service.ITsWasteEmptyingMsgService;
+import org.springrain.nybusiness.waste.service.ITsWasteMaterialMsgService;
+import org.springrain.nybusiness.waste.service.ITsWasteWaterMsgService;
 
 
 /**
@@ -40,6 +44,14 @@ import org.springrain.nybusiness.waste.service.ITsWasteEmptyingMsgService;
 public class TsWasteEmptyingMsgController  extends BaseController {
 	@Resource
 	private ITsWasteEmptyingMsgService tsWasteEmptyingMsgService;
+	@Resource
+	private ITsWasteWaterMsgService tsWasteWaterMsgService;
+	@Resource
+	private ITsWasteAirMsgService tsWasteAirMsgService;
+	@Resource
+	private ITsWasteMaterialMsgService  tsWasteMaterialMsgService;
+	@Resource
+	private ITsCompanyInfoService tsCompanyInfoService;
 	
 	private String listurl="/nybusiness/waste/tswasteemptyingmsg/tswasteemptyingmsgList";
 	
@@ -61,7 +73,21 @@ public class TsWasteEmptyingMsgController  extends BaseController {
 		model.addAttribute(GlobalStatic.returnDatas, returnObject);
 		return listurl;
 	}
-	
+	@RequestMapping("/list/json")
+	@ResponseBody   
+	public  ReturnDatas listjson(HttpServletRequest request, Model model,TsWasteEmptyingMsg tsWasteEmptyingMsg) throws Exception{
+		ReturnDatas returnObject = ReturnDatas.getSuccessReturnDatas();
+		//首先查询companyId
+				List<String> listCompany = tsCompanyInfoService.finderCompanyIdByUserId(SessionUser.getUserId());
+		// ==构造分页请求
+		Page page = newPage(request);
+		// ==执行分页查询
+		List<TsWasteEmptyingMsg> datas=tsWasteEmptyingMsgService.listFinderTsWasteEmptyingMsg(page, tsWasteEmptyingMsg, listCompany);
+			returnObject.setQueryBean(tsWasteEmptyingMsg);
+		returnObject.setPage(page);
+		returnObject.setData(datas);
+		return returnObject;
+	}
 	/**
 	 * json数据,为APP提供数据
 	 * 
@@ -71,27 +97,38 @@ public class TsWasteEmptyingMsgController  extends BaseController {
 	 * @return
 	 * @throws Exception
 	 */
-	@RequestMapping("/list/json")
+	@RequestMapping("/ajax/watsterlistjson/json")
 	@ResponseBody   
-	public  ReturnDatas listjson(HttpServletRequest request, Model model,TsWasteEmptyingMsg tsWasteEmptyingMsg) throws Exception{
+	public  ReturnDatas watsterlistjson(HttpServletRequest request, Model model,TsWasteEmptyingMsg tsWasteEmptyingMsg) throws Exception{
 		ReturnDatas returnObject = ReturnDatas.getSuccessReturnDatas();
-		String companyid=SessionUser.getCompanyid();
-		Finder finder;
-		finder = Finder.getSelectFinder(TsWasteEmptyingMsg.class);
-		if (StringUtils.isBlank(companyid)) {
-			finder=null;
-		}else{
-			finder.append("where companyId =:companyId").setParam("companyId", companyid);
-		}
-		// ==构造分页请求
-		Page page = newPage(request);
 		// ==执行分页查询
-		List<TsWasteEmptyingMsg> datas=tsWasteEmptyingMsgService.findListDataByFinder(finder,page,TsWasteEmptyingMsg.class,tsWasteEmptyingMsg);
-			returnObject.setQueryBean(tsWasteEmptyingMsg);
-		returnObject.setPage(page);
+		List<TsWasteWaterMsg> datas=tsWasteWaterMsgService.listFinderTsWasteWaterMsg();
 		returnObject.setData(datas);
 		return returnObject;
 	}
+	
+	
+	@RequestMapping("/ajax/airIdlistjson/json")
+	@ResponseBody   
+	public  ReturnDatas airIdlistjson(HttpServletRequest request, Model model,TsWasteEmptyingMsg tsWasteEmptyingMsg) throws Exception{
+		ReturnDatas returnObject = ReturnDatas.getSuccessReturnDatas();
+		// ==执行分页查询
+		List<TsWasteAirMsg> datas=tsWasteAirMsgService.listFinderTsWasteAirMsg();
+		returnObject.setData(datas);
+		return returnObject;
+	}
+	
+	@RequestMapping("/ajax/materialIdlistjson/json")
+	@ResponseBody   
+	public  ReturnDatas materialIdlistjson(HttpServletRequest request, Model model,TsWasteEmptyingMsg tsWasteEmptyingMsg) throws Exception{
+		ReturnDatas returnObject = ReturnDatas.getSuccessReturnDatas();
+		// ==执行分页查询
+		List<TsWasteMaterialMsg> datas=tsWasteMaterialMsgService.listFinderTsWasteMaterialMsg();
+		returnObject.setData(datas);
+		return returnObject;
+	}
+	
+	
 	
 	@RequestMapping("/list/export")
 	public void listexport(HttpServletRequest request,HttpServletResponse response, Model model,TsWasteEmptyingMsg tsWasteEmptyingMsg) throws Exception{
@@ -160,6 +197,7 @@ public class TsWasteEmptyingMsgController  extends BaseController {
 			tsWasteEmptyingMsgService.saveorupdate(tsWasteEmptyingMsg);
 			
 		} catch (Exception e) {
+			e.printStackTrace();
 			logger.error(e.getMessage(),e);
 			returnObject.setStatus(ReturnDatas.ERROR);
 			returnObject.setMessage(MessageUtils.UPDATE_ERROR);

@@ -1,5 +1,7 @@
 package org.springrain.nybusiness.waste.service;
 
+import java.util.List;
+
 import org.springrain.nybusiness.waste.entity.TsWasteMaterialMsg;
 import org.springrain.system.service.IBaseSpringrainService;
 /**
@@ -20,5 +22,11 @@ public interface ITsWasteMaterialMsgService extends IBaseSpringrainService {
 	TsWasteMaterialMsg findTsWasteMaterialMsgById(Object id) throws Exception;
 	
 	
-	
+
+	/**
+	 * 
+	 * @return 查询废水处理信息
+	 * @throws Exception
+	 */
+	List<TsWasteMaterialMsg> listFinderTsWasteMaterialMsg()throws Exception;
 }

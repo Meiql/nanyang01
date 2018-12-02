@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.commons.collections.CollectionUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;
 import org.springrain.frame.common.SessionUser;
 import org.springrain.frame.entity.IBaseEntity;
@@ -15,6 +16,7 @@ import org.springrain.nybusiness.company.entity.TsCompanyInfo;
 import org.springrain.nybusiness.company.service.ITsCompanyInfoService;
 import org.springrain.nybusiness.constants.SysStateEnum;
 import org.springrain.nybusiness.constants.SysStateEnum.chuShiRoleEnum;
+import org.springrain.nybusiness.waste.entity.TsWasteEmptyingMsg;
 import org.springrain.system.entity.Org;
 import org.springrain.system.entity.User;
 import org.springrain.system.entity.UserOrg;
@@ -210,6 +212,21 @@ public class TsCompanyInfoServiceImpl extends BaseSpringrainServiceImpl implemen
 			}
 		}
 		return listStr;
+	}
+
+	@Override
+	public List<TsCompanyInfo> finderCompanyInfo(Page page,
+			TsCompanyInfo companyInfo,List<String> listCompany) throws Exception {
+		if(CollectionUtils.isEmpty(listCompany)){
+			return null;
+		}
+		Finder finder = new Finder();
+		finder.append("SELECT * FROM `ts_company_info` t where t.id in (:companyId)")
+		.setParam("companyId", listCompany);
+		if(StringUtils.isNoneBlank(companyInfo.getCompanyName())){
+			finder.append(" and t.companyName like:companyName").setParam("companyName", "%"+companyInfo.getCompanyName()+"%");
+		}
+		return super.queryForList(finder, TsCompanyInfo.class, page);
 	}
 
 }

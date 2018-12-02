@@ -1,5 +1,8 @@
 package org.springrain.nybusiness.waste.service;
 
+import java.util.List;
+
+import org.springrain.frame.util.Page;
 import org.springrain.nybusiness.waste.entity.TsWasteEmptyingMsg;
 import org.springrain.system.service.IBaseSpringrainService;
 /**
@@ -18,6 +21,18 @@ public interface ITsWasteEmptyingMsgService extends IBaseSpringrainService {
 	 * @throws Exception
 	 */
 	TsWasteEmptyingMsg findTsWasteEmptyingMsgById(Object id) throws Exception;
+	
+	
+
+	/**
+	 * 
+	 * @param page
+	 * @param tsWasteEmptyingMsg
+	 * @param listCompany
+	 * @return 分页查询
+	 * @throws Exception
+	 */
+	List<TsWasteEmptyingMsg> listFinderTsWasteEmptyingMsg(Page page,TsWasteEmptyingMsg tsWasteEmptyingMsg,List<String> listCompany)throws Exception;
 	
 	
 	

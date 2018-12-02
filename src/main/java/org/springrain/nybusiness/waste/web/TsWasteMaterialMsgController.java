@@ -22,8 +22,6 @@ import org.springrain.frame.util.GlobalStatic;
 import org.springrain.frame.util.MessageUtils;
 import org.springrain.frame.util.Page;
 import org.springrain.frame.util.ReturnDatas;
-import org.springrain.nybusiness.company.entity.TsCompanyInfo;
-import org.springrain.nybusiness.waste.entity.TsWasteEmptyingMsg;
 import org.springrain.nybusiness.waste.entity.TsWasteMaterialMsg;
 import org.springrain.nybusiness.waste.service.ITsWasteMaterialMsgService;
 

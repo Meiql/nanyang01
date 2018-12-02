@@ -6,12 +6,12 @@ import java.util.List;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;
-import org.springrain.nybusiness.ergency.entity.TsErgencyInvestigation;
-import org.springrain.nybusiness.waste.entity.TsWasteAirMsg;
-import org.springrain.nybusiness.waste.service.ITsWasteAirMsgService;
+import org.springrain.frame.common.SessionUser;
 import org.springrain.frame.entity.IBaseEntity;
 import org.springrain.frame.util.Finder;
 import org.springrain.frame.util.Page;
+import org.springrain.nybusiness.waste.entity.TsWasteAirMsg;
+import org.springrain.nybusiness.waste.service.ITsWasteAirMsgService;
 import org.springrain.system.service.BaseSpringrainServiceImpl;
 
 
@@ -94,5 +94,15 @@ public class TsWasteAirMsgServiceImpl extends BaseSpringrainServiceImpl implemen
 			}
 			return super.queryForList(finder, TsWasteAirMsg.class, page);
 		}
-		
+		@Override
+		public List<TsWasteAirMsg> listFinderTsWasteAirMsg() throws Exception {
+			String companyid=SessionUser.getCompanyid();
+			Finder finder = Finder.getSelectFinder(TsWasteAirMsg.class);
+			if (StringUtils.isBlank(companyid)) {
+				finder=null;
+			}else{
+				finder.append("where companyId =:companyId").setParam("companyId", companyid);
+			}
+			return super.queryForList(finder, TsWasteAirMsg.class);
+		}
 }

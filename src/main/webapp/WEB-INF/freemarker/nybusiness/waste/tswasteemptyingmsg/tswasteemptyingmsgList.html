@@ -21,7 +21,16 @@
 		springrain.mydelete(_id,"${ctx}/tswasteemptyingmsg/delete");
 	}
 </script>
-
+<style>
+	@media screen and (max-width: 1880px) {
+	    .layui-btn,
+	    .layui-btn+.layui-btn{
+	        display: block;
+	        width: 70px;
+	        margin: 3px 0 0;
+	    }
+	}
+</style>
 </head>
 <body>
 	<div class="layui-layout layui-layout-admin">
@@ -72,16 +81,6 @@
 									                           <input type="text" name="processName" value="${(returnDatas.queryBean.processName)!''}" placeholder="请输入名称 " class="layui-input">
 									                    </div>
 							                		</div>
-									                 <div class="layui-inline">
-									                    <label class="layui-form-label">是否可用</label>
-									                    <div class="layui-input-inline">
-									                        <select name="active" id="active" class="layui-input">
-									                          <option value="">==请选择==</option>
-															  <option value="1">是</option>
-															  <option value="0">否</option>
-															</select>   
-									                    </div>
-									                </div>
 							          			</td>
 							          			<td>
 							          			   <div class="layui-inline">
@@ -146,6 +145,9 @@
 								                            </@shiro.hasPermission>
 								                            <@shiro.hasPermission name="/tswasteemptyingmsg/delete" >
 								                            	<a href="javascript:del('${(_data.id)!''}')" class="layui-btn layui-btn-danger layui-btn-mini ajax-delete">删除</a>
+								                            </@shiro.hasPermission>
+								                            <@shiro.hasPermission name="/tswasteemptyingmsg/look" >
+								                           		 <a href="#" data-action="${ctx}/tswasteemptyingmsg/look?id=${_data.id}" class="layui-btn layui-btn-normal layui-btn-mini">详情</a>
 								                            </@shiro.hasPermission>
 														</td>
 														<!--end_no_export-->

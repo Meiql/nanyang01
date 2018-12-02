@@ -25,4 +25,13 @@ public interface ITsWasteAirMsgService extends IBaseSpringrainService {
 	public List<TsWasteAirMsg> finderTsMaillistForList(Page page,
 			TsWasteAirMsg tsWasteAirMsg, List<String> listCompany) throws Exception;
 	
+	
+
+	/**
+	 * 
+	 * @return 查询废气处理信息
+	 * @throws Exception
+	 */
+	List<TsWasteAirMsg> listFinderTsWasteAirMsg()throws Exception;
+	
 }

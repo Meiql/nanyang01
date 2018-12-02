@@ -6,12 +6,12 @@ import java.util.List;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;
-import org.springrain.nybusiness.waste.entity.TsWasteAirMsg;
-import org.springrain.nybusiness.waste.entity.TsWasteWaterMsg;
-import org.springrain.nybusiness.waste.service.ITsWasteWaterMsgService;
+import org.springrain.frame.common.SessionUser;
 import org.springrain.frame.entity.IBaseEntity;
 import org.springrain.frame.util.Finder;
 import org.springrain.frame.util.Page;
+import org.springrain.nybusiness.waste.entity.TsWasteWaterMsg;
+import org.springrain.nybusiness.waste.service.ITsWasteWaterMsgService;
 import org.springrain.system.service.BaseSpringrainServiceImpl;
 
 
@@ -93,5 +93,16 @@ public class TsWasteWaterMsgServiceImpl extends BaseSpringrainServiceImpl implem
 				finder.append(" and t.outletLocation like:name").setParam("name", "%"+tsWasteWaterMsg.getOutletLocation()+"%");
 			}
 			return super.queryForList(finder, TsWasteWaterMsg.class, page);
+		}
+		@Override
+		public List<TsWasteWaterMsg> listFinderTsWasteWaterMsg() throws Exception {
+			String companyid=SessionUser.getCompanyid();
+			Finder finder = Finder.getSelectFinder(TsWasteWaterMsg.class);
+			if (StringUtils.isBlank(companyid)) {
+				finder=null;
+			}else{
+				finder.append("where companyId =:companyId").setParam("companyId", companyid);
+			}
+			return super.queryForList(finder, TsWasteWaterMsg.class);
 		}
 }

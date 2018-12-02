@@ -61,5 +61,13 @@ public interface ITsCompanyInfoService extends IBaseSpringrainService {
 	 * @throws Exception
 	 */
 	List<String> finderCompanyIdByUserId(String userId)throws Exception;
-	
+	/**
+	 *  查询企业信息 
+	 * @param page
+	 * @param companyInfo
+	 * @param listCompany
+	 * @return
+	 * @throws Exception
+	 */
+	List<TsCompanyInfo> finderCompanyInfo(Page page,TsCompanyInfo companyInfo,List<String> listCompany)throws Exception;
 }

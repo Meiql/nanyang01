@@ -2,12 +2,18 @@ package org.springrain.nybusiness.waste.service.impl;
 
 import java.io.File;
 import java.util.List;
+
+import org.apache.commons.collections.CollectionUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;
-import org.springrain.nybusiness.waste.entity.TsWasteEmptyingMsg;
-import org.springrain.nybusiness.waste.service.ITsWasteEmptyingMsgService;
 import org.springrain.frame.entity.IBaseEntity;
 import org.springrain.frame.util.Finder;
 import org.springrain.frame.util.Page;
+import org.springrain.nybusiness.waste.entity.TsWasteAirMsg;
+import org.springrain.nybusiness.waste.entity.TsWasteEmptyingMsg;
+import org.springrain.nybusiness.waste.entity.TsWasteMaterialMsg;
+import org.springrain.nybusiness.waste.entity.TsWasteWaterMsg;
+import org.springrain.nybusiness.waste.service.ITsWasteEmptyingMsgService;
 import org.springrain.system.service.BaseSpringrainServiceImpl;
 
 
@@ -41,7 +47,31 @@ public class TsWasteEmptyingMsgServiceImpl extends BaseSpringrainServiceImpl imp
     }
     @Override
 	public TsWasteEmptyingMsg findTsWasteEmptyingMsgById(Object id) throws Exception{
-	 return super.findById(id,TsWasteEmptyingMsg.class);
+    	
+	 TsWasteEmptyingMsg tsWasteEmptyingMsg =  super.findById(id,TsWasteEmptyingMsg.class);
+	 
+	 if(tsWasteEmptyingMsg == null){
+		 return null;
+	 }
+	 if(StringUtils.isNoneBlank(tsWasteEmptyingMsg.getAirId())){
+		 TsWasteAirMsg tsWasteAirMsg = super.findById(tsWasteEmptyingMsg.getAirId(),TsWasteAirMsg.class);
+		 if(tsWasteAirMsg!=null){
+			 tsWasteEmptyingMsg.setTsWasteAirMsg(tsWasteAirMsg);
+		 }
+	 }
+	 if(StringUtils.isNoneBlank(tsWasteEmptyingMsg.getWaterId())){
+		 TsWasteWaterMsg tsWasteWaterMsg = super.findById(tsWasteEmptyingMsg.getWaterId(),TsWasteWaterMsg.class);
+		 if(tsWasteWaterMsg!=null){
+			 tsWasteEmptyingMsg.setTsWasteWaterMsg(tsWasteWaterMsg);
+		 }
+	 }
+	 if(StringUtils.isNoneBlank(tsWasteEmptyingMsg.getMaterialId())){
+		 TsWasteMaterialMsg tsWasteMaterialMsg = super.findById(tsWasteEmptyingMsg.getMaterialId(),TsWasteMaterialMsg.class);
+		 if(tsWasteMaterialMsg!=null){
+			 tsWasteEmptyingMsg.setTsWasteMaterialMsg(tsWasteMaterialMsg);
+		 }
+	 }
+	 return tsWasteEmptyingMsg;
 	}
 	
 /**
@@ -74,5 +104,20 @@ public class TsWasteEmptyingMsgServiceImpl extends BaseSpringrainServiceImpl imp
 			throws Exception {
 			 return super.findDataExportExcel(finder,ftlurl,page,clazz,o);
 		}
+
+	@Override
+	public List<TsWasteEmptyingMsg> listFinderTsWasteEmptyingMsg(Page page,TsWasteEmptyingMsg tsWasteEmptyingMsg,List<String> listCompany)
+			throws Exception {
+		if(CollectionUtils.isEmpty(listCompany)){
+			return null;
+		}
+		Finder finder = new Finder();
+		finder.append("SELECT * FROM `ts_waste_emptying_msg` t where t.companyId in (:companyId)")
+		.setParam("companyId", listCompany);
+		if(StringUtils.isNoneBlank(tsWasteEmptyingMsg.getProcessName())){
+			finder.append(" and t.processName like:processName").setParam("processName", "%"+tsWasteEmptyingMsg.getProcessName()+"%");
+		}
+		return super.queryForList(finder, TsWasteEmptyingMsg.class, page);
+	}
 
 }

@@ -21,7 +21,16 @@
 		springrain.mydelete(_id,"${ctx}/tswasteopenstopcar/delete");
 	}
 </script>
-
+<style>
+	@media screen and (max-width: 1880px) {
+	    .layui-btn,
+	    .layui-btn+.layui-btn{
+	        display: block;
+	        width: 70px;
+	        margin: 3px 0 0;
+	    }
+	}
+</style>
 </head>
 <body>
 	<div class="layui-layout layui-layout-admin">
@@ -36,13 +45,6 @@
 		             	<@shiro.hasPermission name="/tswasteopenstopcar/update" >
 		             		<button type="button"   class="layui-btn layui-btn-small" data-action="${ctx}/tswasteopenstopcar/update/pre"><i class="layui-icon layui-icon-specil">&#xe61f;</i>新增</button>
 		             	</@shiro.hasPermission>
-		             	<!-- <@shiro.hasPermission name="/tswasteopenstopcar/list/export" >
-				        	<button type="button"   class="layui-btn layui-btn-small"><i class="layui-icon layui-icon-specil">&#xe609;</i>导出</button>
-				        </@shiro.hasPermission> -->
-		                <!-- <button type="button"  class="layui-btn layui-btn-warm layui-btn-small"><i class="layui-icon layui-icon-specil">&#xe601;</i>导入</button> -->
-		                <!-- <@shiro.hasPermission name="/tswasteopenstopcar/delete" >
-		               		 <button type="button"  class="layui-btn layui-btn-danger layui-btn-small"><i class="layui-icon">&#xe640;</i>批量删除</button>
-		                </@shiro.hasPermission> -->
 		             </li>
 	       		</ul>
 				
@@ -113,21 +115,11 @@
 												  </th>
 												  <th>操作</th>
 												  <!--first_end_no_export-->
-														<!-- <th id="th_waterId" >废水处理表id</th>
-														<th id="th_airId" >废弃处理表id</th>
-														<th id="th_material" >危险物质表id</th> -->
 														<th id="th_address" >存在正常开停车的场所</th>
 														<th id="th_volume" >是否有吹扫过程/ 吹扫容积(m3)</th>
 														<th id="th_countermeasure" >防范措施</th>
 														<th id="th_parkingCycle" >停车周期</th>
 														<th id="th_parkingReason" >停车原因</th>
-														<!-- <th id="th_createUser" >创建人</th>
-														<th id="th_createTime" >创建时间</th> -->
-														<!-- <th id="th_companyId" >companyId</th>
-														<th id="th_remarks" >remarks</th>
-														<th id="th_bak1" >bak1</th>
-														<th id="th_bak2" >bak2</th>
-														<th id="th_bak3" >bak3</th> -->
 												</tr> 
 											</thead>
 										  <!--first_end_export-->
@@ -147,17 +139,11 @@
 								                            <@shiro.hasPermission name="/tswasteopenstopcar/delete" >
 								                            	<a href="javascript:del('${(_data.id)!''}')" class="layui-btn layui-btn-danger layui-btn-mini ajax-delete">删除</a>
 								                            </@shiro.hasPermission>
+								                             <@shiro.hasPermission name="/tswasteopenstopcar/look" >
+								                           		 <a href="#" data-action="${ctx}/tswasteopenstopcar/look?id=${_data.id}" class="layui-btn layui-btn-normal layui-btn-mini">详情</a>
+								                            </@shiro.hasPermission>
 														</td>
 														<!--end_no_export-->
-														<!-- <td >
-															${(_data.waterId)!''}
-														</td>
-														<td >
-															${(_data.airId)!''}
-														</td>
-														<td >
-															${(_data.material)!''}
-														</td> -->
 														<td >
 															${(_data.address)!''}
 														</td>
@@ -173,27 +159,6 @@
 														<td >
 															${(_data.parkingReason)!''}
 														</td>
-														<!-- <td >
-															${(_data.createUser)!''}
-														</td>
-														<td >
-															${(_data.createTime)!''}
-														</td> -->
-														<!-- <td >
-															${(_data.companyId)!''}
-														</td>
-														<td >
-															${(_data.remarks)!''}
-														</td>
-														<td >
-															${(_data.bak1)!''}
-														</td>
-														<td >
-															${(_data.bak2)!''}
-														</td>
-														<td >
-															${(_data.bak3)!''}
-														</td> -->
 													</tr>
 												</#list>
 											 </#if>

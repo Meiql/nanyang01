@@ -15,14 +15,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springrain.frame.common.SessionUser;
 import org.springrain.frame.controller.BaseController;
-import org.springrain.frame.util.Finder;
 import org.springrain.frame.util.GlobalStatic;
 import org.springrain.frame.util.MessageUtils;
 import org.springrain.frame.util.Page;
 import org.springrain.frame.util.ReturnDatas;
 import org.springrain.nybusiness.company.entity.TsCompanyInfo;
 import org.springrain.nybusiness.company.service.ITsCompanyInfoService;
-import org.springrain.nybusiness.facility.entity.TsFacilityInfo;
 
 
 
@@ -73,19 +71,12 @@ public class TsCompanyInfoController  extends BaseController {
 	@ResponseBody   
 	public  ReturnDatas listjson(HttpServletRequest request, Model model,TsCompanyInfo tsCompanyInfo) throws Exception{
 		ReturnDatas returnObject = ReturnDatas.getSuccessReturnDatas();
-		String id=SessionUser.getCompanyid();
-		Finder finder;
-		finder = Finder.getSelectFinder(TsCompanyInfo.class);
-		if (StringUtils.isBlank(id)) {
-			finder=null;
-		}else{
-			finder.append("where id =:id").setParam("id", id);
-		}
 		// ==构造分页请求
 		Page page = newPage(request);
+		List<String> listCompany = tsCompanyInfoService.finderCompanyIdByUserId(SessionUser.getUserId());
 		// ==执行分页查询
 		//System.out.println(id);
-		List<TsCompanyInfo> datas=tsCompanyInfoService.findListDataByFinder(finder,page,TsCompanyInfo.class,tsCompanyInfo);
+		List<TsCompanyInfo> datas=tsCompanyInfoService.finderCompanyInfo(page, tsCompanyInfo, listCompany);
 			returnObject.setQueryBean(tsCompanyInfo);
 		returnObject.setPage(page);
 		returnObject.setData(datas);
@@ -237,6 +228,9 @@ public class TsCompanyInfoController  extends BaseController {
 			if(StringUtils.isBlank(id)){
 			  tsCompanyInfo.setId(null);
 			}
+			 TsCompanyInfo tsCompanyInfoTmp = tsCompanyInfoService.findById(tsCompanyInfo.getId(),TsCompanyInfo.class);
+			 tsCompanyInfo.setState(tsCompanyInfoTmp.getState());
+			 tsCompanyInfo.setDismissal(tsCompanyInfoTmp.getDismissal());
 			tsCompanyInfoService.saveorupdate(tsCompanyInfo);
 			
 		} catch (Exception e) {

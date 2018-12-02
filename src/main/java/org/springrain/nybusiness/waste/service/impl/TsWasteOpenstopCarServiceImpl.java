@@ -2,12 +2,18 @@ package org.springrain.nybusiness.waste.service.impl;
 
 import java.io.File;
 import java.util.List;
+
+import org.apache.commons.collections.CollectionUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;
-import org.springrain.nybusiness.waste.entity.TsWasteOpenstopCar;
-import org.springrain.nybusiness.waste.service.ITsWasteOpenstopCarService;
 import org.springrain.frame.entity.IBaseEntity;
 import org.springrain.frame.util.Finder;
 import org.springrain.frame.util.Page;
+import org.springrain.nybusiness.waste.entity.TsWasteAirMsg;
+import org.springrain.nybusiness.waste.entity.TsWasteMaterialMsg;
+import org.springrain.nybusiness.waste.entity.TsWasteOpenstopCar;
+import org.springrain.nybusiness.waste.entity.TsWasteWaterMsg;
+import org.springrain.nybusiness.waste.service.ITsWasteOpenstopCarService;
 import org.springrain.system.service.BaseSpringrainServiceImpl;
 
 
@@ -41,7 +47,31 @@ public class TsWasteOpenstopCarServiceImpl extends BaseSpringrainServiceImpl imp
     }
     @Override
 	public TsWasteOpenstopCar findTsWasteOpenstopCarById(Object id) throws Exception{
-	 return super.findById(id,TsWasteOpenstopCar.class);
+    	
+    	TsWasteOpenstopCar tsWasteOpenstopCar =  super.findById(id,TsWasteOpenstopCar.class);
+	 
+	 if(tsWasteOpenstopCar == null){
+		 return null;
+	 }
+	 if(StringUtils.isNoneBlank(tsWasteOpenstopCar.getAirId())){
+		 TsWasteAirMsg tsWasteAirMsg = super.findById(tsWasteOpenstopCar.getAirId(),TsWasteAirMsg.class);
+		 if(tsWasteAirMsg!=null){
+			 tsWasteOpenstopCar.setTsWasteAirMsg(tsWasteAirMsg);
+		 }
+	 }
+	 if(StringUtils.isNoneBlank(tsWasteOpenstopCar.getWaterId())){
+		 TsWasteWaterMsg tsWasteWaterMsg = super.findById(tsWasteOpenstopCar.getWaterId(),TsWasteWaterMsg.class);
+		 if(tsWasteWaterMsg!=null){
+			 tsWasteOpenstopCar.setTsWasteWaterMsg(tsWasteWaterMsg);
+		 }
+	 }
+	 if(StringUtils.isNoneBlank(tsWasteOpenstopCar.getMaterial())){
+		 TsWasteMaterialMsg tsWasteMaterialMsg = super.findById(tsWasteOpenstopCar.getMaterial(),TsWasteMaterialMsg.class);
+		 if(tsWasteMaterialMsg!=null){
+			 tsWasteOpenstopCar.setTsWasteMaterialMsg(tsWasteMaterialMsg);
+		 }
+	 }
+	 return tsWasteOpenstopCar;
 	}
 	
 /**
@@ -74,5 +104,21 @@ public class TsWasteOpenstopCarServiceImpl extends BaseSpringrainServiceImpl imp
 			throws Exception {
 			 return super.findDataExportExcel(finder,ftlurl,page,clazz,o);
 		}
+
+	@Override
+	public List<TsWasteOpenstopCar> listFinderForPage(Page page,
+			TsWasteOpenstopCar tsWasteOpenstopCar, List<String> listCompany)
+			throws Exception {
+		if(CollectionUtils.isEmpty(listCompany)){
+			return null;
+		}
+		Finder finder = new Finder();
+		finder.append("SELECT * FROM `ts_waste_openstop_car` t where t.companyId in (:companyId)")
+		.setParam("companyId", listCompany);
+		if(StringUtils.isNoneBlank(tsWasteOpenstopCar.getAddress())){
+			finder.append(" and t.address like:address").setParam("address", "%"+tsWasteOpenstopCar.getAddress()+"%");
+		}
+		return super.queryForList(finder, TsWasteOpenstopCar.class, page);
+	}
 
 }

@@ -2,7 +2,16 @@
 <@h.commonHead title="后台管理系统" keywords="开源,永久免费" description="springrain开源系统管理后台"/>
 
 <script src="${ctx}/js/validform/validform.min.js"></script>
+<script type="text/javascript" src="${ctx}/js/ztree/js/jquery.ztree.all-3.5.js"></script>
+<script type="text/javascript" src="${ctx}/js/ztree/js/ztreeUtils.js"></script>
+<script type="text/javascript" src="${ctx}/js/select2/js/select2.full.min.js"></script>
+<script type="text/javascript" src="${ctx}/js/select2/js/i18n/zh-CN.js"></script>
+<script type="text/javascript" src="${ctx}/js/custom/common/select2remote.js"></script>
+<script type="text/javascript" src="${ctx}/js/validform/validform.min.js"></script>
+<link rel="stylesheet" href="${ctx}/js/select2/css/select2.min.css" type="text/css">
+<link rel="stylesheet" href="${ctx}/js/ztree/css/zTreeStyle/zTreeStyle.css" type="text/css">
 <link rel="stylesheet" href="${ctx}/js/validform/validform.css" media="all">
+<link rel="stylesheet" href="${ctx}/css/custom/common/myztree.css" type="text/css">
 <script>
 	 jQuery(function(){
 		 /*
@@ -12,6 +21,82 @@
 		 */
 		 springrain.initValid(null,function(){window.location.href="${ctx}/tswasteopenstopcar/list?springraintoken="+springraintoken});
 	 });
+</script>
+<script type="text/javascript">
+	
+	
+jQuery(document).ready(function(){
+	//airId
+	//materialId
+	  jQuery.ajax({
+	        url : ctx+"/tswasteemptyingmsg/ajax/watsterlistjson/json",
+	        type : "post",
+	        dataType : "json",
+	        success : function(_json) {
+	            if(_json.status=="error"){
+	                return;
+	            }
+	            
+	            jQuery(_json.data).each(function(i,_obj){
+	                jQuery("#waterId").append("<option value='"+_obj.id+"'>"+_obj.processingMethod+"</option>");
+	            });
+	            
+	            jQuery("#waterId").select2();
+	            
+	             <#if returnDatas.data??>
+				 	$("#waterId").find("option:selected").prop("selected",false);
+				 		 jQuery("#waterId option[value='${(returnDatas.data.waterId)!''}']").prop("selected",true);
+				 	 jQuery("#waterId").trigger("change");
+			 	</#if> 
+	        }
+	    });
+	  
+	  jQuery.ajax({
+	        url : ctx+"/tswasteemptyingmsg/ajax/airIdlistjson/json",
+	        type : "post",
+	        dataType : "json",
+	        success : function(_json) {
+	            if(_json.status=="error"){
+	                return;
+	            }
+	            
+	            jQuery(_json.data).each(function(i,_obj){
+	                jQuery("#airId").append("<option value='"+_obj.id+"'>"+_obj.wgProcessingMethod+"</option>");
+	            });
+	            
+	            jQuery("#airId").select2();
+	            
+	            <#if returnDatas.data??>
+				 	$("#airId").find("option:selected").prop("selected",false);
+				 		 jQuery("#airId option[value='${(returnDatas.data.airId)!''}']").prop("selected",true);
+				 	 jQuery("#airId").trigger("change");
+		 		</#if>
+	        }
+	    });
+	  
+	  jQuery.ajax({
+	        url : ctx+"/tswasteemptyingmsg/ajax/materialIdlistjson/json",
+	        type : "post",
+	        dataType : "json",
+	        success : function(_json) {
+	            if(_json.status=="error"){
+	                return;
+	            }
+	            
+	            jQuery(_json.data).each(function(i,_obj){
+	                jQuery("#material").append("<option value='"+_obj.id+"'>"+_obj.hwproductNum+"</option>");
+	            });
+	            
+	            jQuery("#material").select2();
+	            
+	            <#if returnDatas.data??>
+				 	$("#material").find("option:selected").prop("selected",false);
+				 		 jQuery("#material option[value='${(returnDatas.data.material)!''}']").prop("selected",true);
+				 	 jQuery("#material").trigger("change");
+			 	</#if>
+	        }
+	    });
+})
 </script>
 </head>
 <body>
@@ -37,27 +122,34 @@
 												<div class="larry-personal-body clearfix changepwd">
 													<form id="validForm" class="layui-form <!--  -->"  method="post" action="${ctx}/tswasteopenstopcar/update">
 																<input type="hidden" id="id" name="id" value="${(returnDatas.data.id)!''}"/>	
-																	<!-- <div class="layui-form-item col-lg-7">
-																		<label class="layui-form-label">废水处理表id*</label>
+																	 <div class="layui-form-item col-lg-7">
+																		<label class="layui-form-label">废水处理信息*</label>
+																		<div class="layui-inline col-lg-5">
+																		<select id="waterId" name="waterId" class="nolayer" datatype="*" nullmsg="废水处理信息不能为空"  multiple data-placeholder="请选择废水处理信息">
+																		      	<option value=""></option>
+																		      </select>  
+																		</div>
+																		
+																		<div class="layui-inline valid-info"></div>
+																	</div>
+																	<div class="layui-form-item col-lg-7">
+																		<label class="layui-form-label">废气处理信息*</label>
 																		<div class="layui-inline col-lg-5">  
-																			<input type="text" name="waterId" id="waterId" datatype="*" nullmsg="不能为空" errormsg="不能为空！" autocomplete="off" class="layui-input" value="${(returnDatas.data.waterId)!''}">
+																		<select id="airId" name="airId" class="nolayer" datatype="*" nullmsg="废气处理信息不能为空"  multiple data-placeholder="请选择废气处理信息">
+																		      	<option value=""></option>
+																		      </select>
 																		</div>
 																		<div class="layui-inline valid-info"></div>
 																	</div>
 																	<div class="layui-form-item col-lg-7">
-																		<label class="layui-form-label">废弃处理表id*</label>
+																		<label class="layui-form-label">危险物质信息*</label>
 																		<div class="layui-inline col-lg-5">  
-																			<input type="text" name="airId" id="airId" datatype="*" nullmsg="不能为空" errormsg="不能为空！" autocomplete="off" class="layui-input" value="${(returnDatas.data.airId)!''}">
+																		<select id="material" name="material" class="nolayer" datatype="*" nullmsg="危险物质信息不能为空"  multiple data-placeholder="请选择危险物质信息">
+																		      	<option value=""></option>
+																		 </select>
 																		</div>
 																		<div class="layui-inline valid-info"></div>
-																	</div>
-																	<div class="layui-form-item col-lg-7">
-																		<label class="layui-form-label">危险物质表id*</label>
-																		<div class="layui-inline col-lg-5">  
-																			<input type="text" name="material" id="material" datatype="*" nullmsg="不能为空" errormsg="不能为空！" autocomplete="off" class="layui-input" value="${(returnDatas.data.material)!''}">
-																		</div>
-																		<div class="layui-inline valid-info"></div>
-																	</div> -->
+																	</div> 
 																	<div class="layui-form-item col-lg-7">
 																		<label class="layui-form-label">存在正常开停车的场所*</label>
 																		<div class="layui-inline col-lg-5">  

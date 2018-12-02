@@ -24,5 +24,11 @@ public interface ITsWasteWaterMsgService extends IBaseSpringrainService {
 	
 	public List<TsWasteWaterMsg> finderTsMaillistForList(Page page,
 			TsWasteWaterMsg tsWasteWaterMsg, List<String> listCompany) throws Exception;
-	
+
+	/**
+	 * 
+	 * @return 查询废水处理信息
+	 * @throws Exception
+	 */
+	List<TsWasteWaterMsg> listFinderTsWasteWaterMsg()throws Exception;
 }

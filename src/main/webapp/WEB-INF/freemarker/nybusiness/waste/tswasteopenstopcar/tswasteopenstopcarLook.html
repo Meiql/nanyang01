@@ -1,7 +1,35 @@
 <#ftl output_format="HTML" auto_esc=true>
 <@h.commonHead title="后台管理系统" keywords="开源,永久免费" description="springrain开源系统管理后台"/>
 
-
+<script type="text/javascript" src="${ctx}/js/ztree/js/jquery.ztree.all-3.5.js"></script>
+<script type="text/javascript" src="${ctx}/js/ztree/js/ztreeUtils.js"></script>
+<script type="text/javascript" src="${ctx}/js/select2/js/select2.full.min.js"></script>
+<script type="text/javascript" src="${ctx}/js/select2/js/i18n/zh-CN.js"></script>
+<script type="text/javascript" src="${ctx}/js/custom/common/select2remote.js"></script>
+<script type="text/javascript" src="${ctx}/js/validform/validform.min.js"></script>
+<link rel="stylesheet" href="${ctx}/js/select2/css/select2.min.css" type="text/css">
+<link rel="stylesheet" href="${ctx}/js/ztree/css/zTreeStyle/zTreeStyle.css" type="text/css">
+<link rel="stylesheet" href="${ctx}/js/validform/validform.css" media="all">
+<link rel="stylesheet" href="${ctx}/css/custom/common/myztree.css" type="text/css">
+<script>
+	 jQuery(function(){
+		 /*
+		 init_valid(_before,_after)
+		 @_before:提交表单前，调用 的函数   可以为空，一般有validform处理不了，独自进行处理时使用
+		 @_after:保存成功后，调用的函数  可以为空，一般为对应的列表页面
+		 */
+		 springrain.initValid(null,function(){window.location.href="${ctx}/tswasteemptyingmsg/list?springraintoken="+springraintoken});
+	 });
+</script>
+<style type="text/css">
+.tg  {border-collapse:collapse;border-spacing:0;}
+.tg td{font-family:Arial, sans-serif;font-size:14px;padding:5px 5px;border-style:solid;border-width:1px;overflow:hidden;word-break:normal;border-color:black;}
+.tg th{font-family:Arial, sans-serif;font-size:14px;font-weight:normal;padding:5px 5px;border-style:solid;border-width:1px;overflow:hidden;word-break:normal;border-color:black;}
+.tg .tg-baqh{text-align:center;vertical-align:top}
+.tg .tg-c3ow{border-color:inherit;text-align:center;vertical-align:top}
+.tg .tg-0pky{border-color:inherit;text-align:left;vertical-align:top}
+.tg .tg-0lax{text-align:left;vertical-align:top}
+</style>
 </head>
 <body>
 	<div class="layui-layout layui-layout-admin">
@@ -16,121 +44,128 @@
 		             </li>
 	       		</ul>
 				
-				<div class="layui-body layui-tab-content site-demo-body">
+				<div class="layui-body layui-tab-content site-demo-body" align="center">
 					<div class="layui-tab-item layui-show">
 							<div class="layui-main">
 						          <div id="LAY_preview" class="layui-my-form">
-						          				<header class="larry-personal-tit">
-													<span>添加开停车情况</span>
-												</header>
 												<div class="larry-personal-body clearfix changepwd">
-													<form id="validForm" class="layui-form <!--  -->"  method="post" action="${ctx}/tswasteopenstopcar/update">
-																	<div class="layui-form-item col-lg-6">
-																		<label class="layui-form-label">废水处理表id*</label>
-																		<div class="layui-inline col-lg-5">  
-																			${(returnDatas.data.waterId)!''}
-																		</div>
-																		<div class="layui-inline valid-info"></div>
-																	</div>
-																	<div class="layui-form-item col-lg-6">
-																		<label class="layui-form-label">废弃处理表id*</label>
-																		<div class="layui-inline col-lg-5">  
-																			${(returnDatas.data.airId)!''}
-																		</div>
-																		<div class="layui-inline valid-info"></div>
-																	</div>
-																	<div class="layui-form-item col-lg-6">
-																		<label class="layui-form-label">危险物质表id*</label>
-																		<div class="layui-inline col-lg-5">  
-																			${(returnDatas.data.material)!''}
-																		</div>
-																		<div class="layui-inline valid-info"></div>
-																	</div>
-																	<div class="layui-form-item col-lg-6">
-																		<label class="layui-form-label">存在正常开停车的场所*</label>
-																		<div class="layui-inline col-lg-5">  
-																			${(returnDatas.data.address)!''}
-																		</div>
-																		<div class="layui-inline valid-info"></div>
-																	</div>
-																	<div class="layui-form-item col-lg-6">
-																		<label class="layui-form-label">是否有吹扫过程/ 吹扫容积(m3)*</label>
-																		<div class="layui-inline col-lg-5">  
-																			${(returnDatas.data.volume)!''}
-																		</div>
-																		<div class="layui-inline valid-info"></div>
-																	</div>
-																	<div class="layui-form-item col-lg-6">
-																		<label class="layui-form-label">防范措施*</label>
-																		<div class="layui-inline col-lg-5">  
-																			${(returnDatas.data.countermeasure)!''}
-																		</div>
-																		<div class="layui-inline valid-info"></div>
-																	</div>
-																	<div class="layui-form-item col-lg-6">
-																		<label class="layui-form-label">停车周期*</label>
-																		<div class="layui-inline col-lg-5">  
-																			${(returnDatas.data.parkingCycle)!''}
-																		</div>
-																		<div class="layui-inline valid-info"></div>
-																	</div>
-																	<div class="layui-form-item col-lg-6">
-																		<label class="layui-form-label">停车原因*</label>
-																		<div class="layui-inline col-lg-5">  
-																			${(returnDatas.data.parkingReason)!''}
-																		</div>
-																		<div class="layui-inline valid-info"></div>
-																	</div>
-																	<div class="layui-form-item col-lg-6">
-																		<label class="layui-form-label">createUser*</label>
-																		<div class="layui-inline col-lg-5">  
-																			${(returnDatas.data.createUser)!''}
-																		</div>
-																		<div class="layui-inline valid-info"></div>
-																	</div>
-																	<div class="layui-form-item col-lg-6">
-																		<label class="layui-form-label">createTime*</label>
-																		<div class="layui-inline col-lg-5">  
-																			${(returnDatas.data.createTime)!''}
-																		</div>
-																		<div class="layui-inline valid-info"></div>
-																	</div>
-																	<div class="layui-form-item col-lg-6">
-																		<label class="layui-form-label">companyId*</label>
-																		<div class="layui-inline col-lg-5">  
-																			${(returnDatas.data.companyId)!''}
-																		</div>
-																		<div class="layui-inline valid-info"></div>
-																	</div>
-																	<div class="layui-form-item col-lg-6">
-																		<label class="layui-form-label">remarks*</label>
-																		<div class="layui-inline col-lg-5">  
-																			${(returnDatas.data.remarks)!''}
-																		</div>
-																		<div class="layui-inline valid-info"></div>
-																	</div>
-																	<div class="layui-form-item col-lg-6">
-																		<label class="layui-form-label">bak1*</label>
-																		<div class="layui-inline col-lg-5">  
-																			${(returnDatas.data.bak1)!''}
-																		</div>
-																		<div class="layui-inline valid-info"></div>
-																	</div>
-																	<div class="layui-form-item col-lg-6">
-																		<label class="layui-form-label">bak2*</label>
-																		<div class="layui-inline col-lg-5">  
-																			${(returnDatas.data.bak2)!''}
-																		</div>
-																		<div class="layui-inline valid-info"></div>
-																	</div>
-																	<div class="layui-form-item col-lg-6">
-																		<label class="layui-form-label">bak3*</label>
-																		<div class="layui-inline col-lg-5">  
-																			${(returnDatas.data.bak3)!''}
-																		</div>
-																		<div class="layui-inline valid-info"></div>
-																	</div>
-													</form>
+													<form id="validForm" class="layui-form <!--  -->"  method="post" action="${ctx}/tsemeplanfiling/update">
+														<input type="hidden" id="id" name="id" />
+									<table class="tg" style="undefined;table-layout: fixed; width: 693px">
+<colgroup>
+<col style="width: 143px">
+<col style="width: 188px">
+<col style="width: 146px">
+<col style="width: 216px">
+</colgroup>
+  <tr>
+    <th class="tg-c3ow" colspan="4"><span style="font-weight:bold">全厂废水处理设施基本情况</span></th>
+  </tr>
+  <tr>
+    <td class="tg-c3ow">污水处理方式名称</td>
+    <td class="tg-0pky"><input type="text"  style="border-style:none"  class="layui-input"  value="${(returnDatas.data.tsWasteWaterMsg.processingMethod)!''}"></td>
+    <td class="tg-c3ow">废水处理能力（吨/）天</td>
+    <td class="tg-0pky"><input type="text"  style="border-style:none"  class="layui-input"  value="${(returnDatas.data.tsWasteWaterMsg.processingCapacity)!''}"></td>
+  </tr>
+  <tr>
+    <td class="tg-c3ow">排污口方位</td>
+    <td class="tg-0pky"><input type="text"  style="border-style:none"  class="layui-input"  value="${(returnDatas.data.tsWasteWaterMsg.outletLocation)!''}"></td>
+    <td class="tg-c3ow">废水排放去向代码</td>
+    <td class="tg-0pky"><input type="text"  style="border-style:none"  class="layui-input"  value="${(returnDatas.data.tsWasteWaterMsg.emissionCode)!''}"></td>
+  </tr>
+  <tr>
+    <td class="tg-c3ow">污水来源（填产生废水的工艺名称）</td>
+    <td class="tg-0pky"><input type="text"  style="border-style:none"  class="layui-input"  value="${(returnDatas.data.tsWasteWaterMsg.sewageSource)!''}"></td>
+    <td class="tg-c3ow">废水中恶臭物质</td>
+    <td class="tg-0pky"><input type="text"  style="border-style:none"  class="layui-input"  value="${(returnDatas.data.tsWasteWaterMsg.stinkingMaterial)!''}"></td>
+  </tr>
+  <tr>
+    <td class="tg-c3ow">是否有臭气控制措施</td>
+    <td class="tg-0lax" colspan="4"><input type="text"  style="border-style:none" placeholder="填写报送单位" class="layui-input"value="${(returnDatas.data.tsWasteWaterMsg.controlMeasures)!''}"></td>
+  </tr>
+  <tr>
+    <td class="tg-c3ow">废水处理工艺流程说明</td>
+    <td class="tg-0lax" colspan="4"><input type="text"  style="border-style:none" placeholder="填写报送单位" class="layui-input"value="${(returnDatas.data.tsWasteWaterMsg.processDesc)!''}"></td>
+  </tr>
+  <tr>
+    <td class="tg-c3ow">废水处理效果</td>
+    <td class="tg-0lax" colspan="4"><input type="text"  style="border-style:none" placeholder="填写报送单位" class="layui-input"value="${(returnDatas.data.tsWasteWaterMsg.treatmentEffect)!''}"></td>
+  </tr>
+   <tr>
+    <th class="tg-c3ow" colspan="4"><span style="font-weight:bold">废气集中处理设施</span></th>
+  </tr>
+  <tr>
+    <td class="tg-c3ow">废气处理方式名称</td>
+    <td class="tg-0pky"><input type="text"  style="border-style:none"  class="layui-input"  value="${(returnDatas.data.tsWasteAirMsg.wgProcessingMethod)!''}"></td>
+    <td class="tg-c3ow">处理能力（m3/d）</td>
+    <td class="tg-0pky"><input type="text"  style="border-style:none"  class="layui-input"  value="${(returnDatas.data.tsWasteAirMsg.wgprocessingCapacity)!''}"></td>
+  </tr>
+  <tr>
+    <td class="tg-c3ow">废气来源（填产生废气的工艺或风险单元名称）</td>
+    <td class="tg-0pky"><input type="text"  style="border-style:none"  class="layui-input"  value="${(returnDatas.data.tsWasteAirMsg.wgSource)!''}"></td>
+    <td class="tg-c3ow">废气中恶臭物质</td>
+    <td class="tg-0pky"><input type="text"  style="border-style:none"  class="layui-input"  value="${(returnDatas.data.tsWasteAirMsg.wgTreatmentEffect)!''}"></td>
+  </tr>
+  <tr>
+    <td class="tg-c3ow">废气处理效果</td>
+    <td class="tg-0lax" colspan="4"><input type="text"  style="border-style:none" placeholder="填写报送单位" class="layui-input"value="${(returnDatas.data.tsWasteAirMsg.wgTreatmentEffect)!''}"></td>
+  </tr>
+  <tr>
+    <td class="tg-c3ow">排放高度（m）</td>
+    <td class="tg-0pky" colspan="4"><input type="text"  style="border-style:none"  class="layui-input"  value="${(returnDatas.data.tsWasteAirMsg.emissionHeight)!''}"></td>
+  </tr>
+  
+   <tr>
+    <th class="tg-c3ow" colspan="4"><span style="font-weight:bold">危险废物处置措施</span></th>
+  </tr>
+  <tr>
+    <td class="tg-c3ow">危险废物产生量（t/d）</td>
+    <td class="tg-0pky"><input type="text"  style="border-style:none"  class="layui-input"  value="${(returnDatas.data.tsWasteMaterialMsg.hwproductNum)!''}"></td>
+    <td class="tg-c3ow">危险废物运输量（t/d）</td>
+    <td class="tg-0pky"><input type="text"  style="border-style:none"  class="layui-input"  value="${(returnDatas.data.tsWasteMaterialMsg.hwTransportNum)!''}"></td>
+  </tr>
+  <tr>
+    <td class="tg-c3ow">危险废物处置量（t/d）</td>
+    <td class="tg-0pky"><input type="text"  style="border-style:none"  class="layui-input"  value="${(returnDatas.data.tsWasteMaterialMsg.hwhandleNum)!''}"></td>
+    <td class="tg-c3ow">危险废物存放量（t）</td>
+    <td class="tg-0pky"><input type="text"  style="border-style:none"  class="layui-input"  value="${(returnDatas.data.tsWasteMaterialMsg.hwStorageNum)!''}"></td>
+  </tr>
+  <tr>
+    <td class="tg-c3ow">危废存放风险防治措施</td>
+    <td class="tg-0pky" colspan="4"><input type="text"  style="border-style:none"  class="layui-input"  value="${(returnDatas.data.tsWasteAirMsg.remarks)!''}"></td>
+  </tr>
+  <tr>
+    <td class="tg-c3ow">危险固废处置单位</td>
+    <td class="tg-0pky"><input type="text"  style="border-style:none"  class="layui-input"  value="${(returnDatas.data.tsWasteMaterialMsg.handleUnitName)!''}"></td>
+    <td class="tg-c3ow">危险固废运输单位）</td>
+    <td class="tg-0pky"><input type="text"  style="border-style:none"  class="layui-input"  value="${(returnDatas.data.tsWasteMaterialMsg.transportUnitName)!''}"></td>
+  </tr>
+  <tr>
+    <td class="tg-c3ow">转运五联单</td>
+    <td class="tg-0pky" colspan="4"><input type="text"  style="border-style:none"  class="layui-input"  value="${(returnDatas.data.tsWasteAirMsg.zywld)!''}"></td>
+  </tr>
+     <tr>
+    <th class="tg-c3ow" colspan="4"><span style="font-weight:bold">开停车情况（针对正常停车，如设备需要检查或检修等）</span></th>
+  </tr>
+  <tr>
+    <td class="tg-c3ow">存在正常开停车的场所</td>
+    <td class="tg-0pky"><input type="text"  style="border-style:none"  class="layui-input"  value="${(returnDatas.data.address)!''}"></td>
+    <td class="tg-c3ow">是否有吹扫过程/ 吹扫容积(m3)</td>
+    <td class="tg-0pky"><input type="text"  style="border-style:none"  class="layui-input"  value="${(returnDatas.data.volume)!''}"></td>
+  </tr>
+  <tr>
+    <td class="tg-c3ow">开停车中采 取的事故防 范措施</td>
+    <td class="tg-0pky"><input type="text"  style="border-style:none"  class="layui-input"  value="${(returnDatas.data.countermeasure)!''}"></td>
+    <td class="tg-c3ow">停车周期（次/年）</td>
+    <td class="tg-0pky"><input type="text"  style="border-style:none"  class="layui-input"  value="${(returnDatas.data.parkingCycle)!''}"></td>
+  </tr>
+  <tr>
+    <td class="tg-c3ow">停车原因</td>
+    <td class="tg-0pky" colspan="4"><input type="text"  style="border-style:none"  class="layui-input"  value="${(returnDatas.data.parkingReason)!''}"></td>
+  </tr>
+</table> 
+<br>
+				</form>
 												</div>
 								  </div>
 							</div>
@@ -141,4 +176,6 @@
 		<@h.footer />
 	</div>
 </body>
+<script>
+</script>
 </html>

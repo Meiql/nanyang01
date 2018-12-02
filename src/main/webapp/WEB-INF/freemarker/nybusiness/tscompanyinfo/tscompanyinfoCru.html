@@ -7,6 +7,8 @@
 <script type="text/javascript" src="${ctx}/js/custom/common/select2remote.js"></script>
 <link rel="stylesheet" href="${ctx}/js/select2/css/select2.min.css" type="text/css">
 <link rel="stylesheet" href="${ctx}/js/validform/validform.css" media="all">
+<script type="text/javascript" src="${ctx}/js/My97DatePicker/WdatePicker.js"></script>
+<link rel="stylesheet" href="${ctx}/js/My97DatePicker/skin/default/datepicker.css" />
 <script>
 	 jQuery(function(){
 		 /*
@@ -19,7 +21,6 @@
 	
 </script>
 <style>
-        *{margin:0;padding:0;color:black;}
         .container{border: 1px #ccc solid;width: 85%;height:100%;margin-top:20px;text-align:center;margin-left:auto;margin-right:auto;z-index:5000}
         .form-table{width: 100%;margin: 0 auto;text-align: center;table-layout: fixed;}
         .form-table th{border-right: 1px #ccc solid;height:40px;border-bottom: 1px #ccc solid;background: #F3F3F3;}
@@ -51,7 +52,7 @@
 							<div class="layui-main">
 						          <div id="LAY_preview" class="layui-my-form">
 						          				<header class="larry-personal-tit">
-													<span>添加废气集中处理设施</span>
+													<span>企业信息完善</span>
 												</header>
 												<div class="larry-personal-body clearfix changepwd">
 													<form id="validForm" class="layui-form <!--  -->"  method="post" action="${ctx}/tscompanyinfo/update">
@@ -150,10 +151,10 @@
 																	<table class="form-table">
 																	 <tr>
 																		<td colspan="3">建厂年月*</td>
-																		<td colspan="2"><input type="text" name="factoryTime" id="factoryTime" datatype="*" nullmsg="不能为空" errormsg="不能为空！" autocomplete="off" value="${(returnDatas.data.factoryTime)!''}">
+																		<td colspan="2"><input type="text" name="factoryTime" id="factoryTime" onClick="WdatePicker()" datatype="*" nullmsg="不能为空" errormsg="不能为空！" autocomplete="off" value="${(returnDatas.data.factoryTime)!''}">
 																		</td>
 																		<td colspan="3">最新改扩建年月*</td>
-																		<td colspan="3"><input type="text" name="extensionYear" id="extensionYear" datatype="*" nullmsg="不能为空" errormsg="不能为空！" autocomplete="off" value="${(returnDatas.data.extensionYear)!''}">
+																		<td colspan="3"><input type="text" name="extensionYear" id="extensionYear" onClick="WdatePicker()" datatype="*" nullmsg="不能为空" errormsg="不能为空！" autocomplete="off" value="${(returnDatas.data.extensionYear)!''}">
 																		</td>
 																	</tr>
 																	</table>
@@ -190,183 +191,16 @@
 																	<table class="form-table">
 																	 <tr>
 																		<td colspan="3">历次环评审批年月*</td>
-																		<td colspan="2"><input type="text" name="eiaApproval" id="eiaApproval" datatype="*" nullmsg="不能为空" errormsg="不能为空！" autocomplete="off" value="${(returnDatas.data.eiaApproval)!''}">
+																		<td colspan="2"><input type="text" name="eiaApproval" id="eiaApproval" onClick="WdatePicker()" datatype="*" nullmsg="不能为空" errormsg="不能为空！" autocomplete="off" value="${(returnDatas.data.eiaApproval)!''}">
 																		</td>
 																		<td colspan="3"></td>
 																		<td colspan="3"></td>
 																	</tr>
 																	</table>
-																	<!-- <div class="layui-form-item col-lg-6">
-																		<label class="layui-form-label">公司名称*</label>
-																		<div class="layui-inline col-lg-5">  
-																			<input type="text" name="companyName" id="companyName" datatype="*" nullmsg="不能为空" errormsg="不能为空！" autocomplete="off" class="layui-input" value="${(returnDatas.data.companyName)!''}">
-																		</div>
-																		<div class="layui-inline valid-info"></div>
-																	</div>
-																	<div class="layui-form-item col-lg-6">
-																		<label class="layui-form-label">主要从事业务*</label>
-																		<div class="layui-inline col-lg-5">  
-																			<input type="text" name="mainBusiness" id="mainBusiness" datatype="*" nullmsg="不能为空" errormsg="不能为空！" autocomplete="off" class="layui-input" value="${(returnDatas.data.mainBusiness)!''}">
-																		</div>
-																		<div class="layui-inline valid-info"></div>
-																	</div>
-																	<div class="layui-form-item col-lg-6">
-																		<label class="layui-form-label">上级公司或所属集 团公司名称*</label>
-																		<div class="layui-inline col-lg-5">  
-																			<input type="text" name="orgid" id="orgid" datatype="*" nullmsg="不能为空" errormsg="不能为空！" autocomplete="off" class="layui-input" value="${(returnDatas.data.orgid)!''}">
-																		</div>
-																		<div class="layui-inline valid-info"></div>
-																	</div>
-																	<div class="layui-form-item col-lg-6">
-																		<label class="layui-form-label">所在工业园区*</label>
-																		<div class="layui-inline col-lg-5">  
-																			<input type="text" name="industrialyuanchu" id="industrialyuanchu" datatype="*" nullmsg="不能为空" errormsg="不能为空！" autocomplete="off" class="layui-input" value="${(returnDatas.data.industrialyuanchu)!''}">
-																		</div>
-																		<div class="layui-inline valid-info"></div>
-																	</div>
-																	<div class="layui-form-item col-lg-6">
-																		<label class="layui-form-label">单位所在地*</label>
-																		<div class="layui-inline col-lg-5">  
-																			<input type="text" name="address" id="address" datatype="*" nullmsg="不能为空" errormsg="不能为空！" autocomplete="off" class="layui-input" value="${(returnDatas.data.address)!''}">
-																		</div>
-																		<div class="layui-inline valid-info"></div>
-																	</div>
-																	<div class="layui-form-item col-lg-6">
-																		<label class="layui-form-label">中心经度*</label>
-																		<div class="layui-inline col-lg-5">  
-																			<input type="text" name="longitude" id="longitude" datatype="*" nullmsg="不能为空" errormsg="不能为空！" autocomplete="off" class="layui-input" value="${(returnDatas.data.longitude)!''}">
-																		</div>
-																		<div class="layui-inline valid-info"></div>
-																	</div>
-																	<div class="layui-form-item col-lg-6">
-																		<label class="layui-form-label">中心纬度*</label>
-																		<div class="layui-inline col-lg-5">  
-																			<input type="text" name="latitude" id="latitude" datatype="*" nullmsg="不能为空" errormsg="不能为空！" autocomplete="off" class="layui-input" value="${(returnDatas.data.latitude)!''}">
-																		</div>
-																		<div class="layui-inline valid-info"></div>
-																	</div>
-																	<div class="layui-form-item col-lg-6">
-																		<label class="layui-form-label">组织机构代码*</label>
-																		<div class="layui-inline col-lg-5">  
-																			<input type="text" name="companyCode" id="companyCode" datatype="*" nullmsg="不能为空" errormsg="不能为空！" autocomplete="off" class="layui-input" value="${(returnDatas.data.companyCode)!''}">
-																		</div>
-																		<div class="layui-inline valid-info"></div>
-																	</div>
-																	<div class="layui-form-item col-lg-6">
-																		<label class="layui-form-label">邮政编码*</label>
-																		<div class="layui-inline col-lg-5">  
-																			<input type="text" name="postalCode" id="postalCode" datatype="*" nullmsg="不能为空" errormsg="不能为空！" autocomplete="off" class="layui-input" value="${(returnDatas.data.postalCode)!''}">
-																		</div>
-																		<div class="layui-inline valid-info"></div>
-																	</div>
-																	<div class="layui-form-item col-lg-6">
-																		<label class="layui-form-label">法人代表*</label>
-																		<div class="layui-inline col-lg-5">  
-																			<input type="text" name="corporationName" id="corporationName" datatype="*" nullmsg="不能为空" errormsg="不能为空！" autocomplete="off" class="layui-input" value="${(returnDatas.data.corporationName)!''}">
-																		</div>
-																		<div class="layui-inline valid-info"></div>
-																	</div>
-																	<div class="layui-form-item col-lg-6">
-																		<label class="layui-form-label">联系电话*</label>
-																		<div class="layui-inline col-lg-5">  
-																			<input type="text" name="" id="" datatype="*" nullmsg="不能为空" errormsg="不能为空！" autocomplete="off" class="layui-input" value="">
-																		</div>
-																		<div class="layui-inline valid-info"></div>
-																	</div>
-																	<div class="layui-form-item col-lg-6">
-																		<label class="layui-form-label">行业类别（中类）*</label>
-																		<div class="layui-inline col-lg-5">  
-																			<input type="text" name="industryCategary" id="industryCategary" datatype="*" nullmsg="不能为空" errormsg="不能为空！" autocomplete="off" class="layui-input" value="${(returnDatas.data.industryCategary)!''}">
-																		</div>
-																		<div class="layui-inline valid-info"></div>
-																	</div>
-																	<div class="layui-form-item col-lg-6">
-																		<label class="layui-form-label">行业代码（中类）*</label>
-																		<div class="layui-inline col-lg-5">  
-																			<input type="text" name="industryCode" id="industryCode" datatype="*" nullmsg="不能为空" errormsg="不能为空！" autocomplete="off" class="layui-input" value="${(returnDatas.data.industryCode)!''}">
-																		</div>
-																		<div class="layui-inline valid-info"></div>
-																	</div>
-																	<div class="layui-form-item col-lg-6">
-																		<label class="layui-form-label">登记注册类型*</label>
-																		<div class="layui-inline col-lg-5">  
-																			<input type="text" name="registerType" id="registerType" datatype="*" nullmsg="不能为空" errormsg="不能为空！" autocomplete="off" class="layui-input" value="${(returnDatas.data.registerType)!''}">
-																		</div>
-																		<div class="layui-inline valid-info"></div>
-																	</div>
-																	<div class="layui-form-item col-lg-6">
-																		<label class="layui-form-label">注册资本*</label>
-																		<div class="layui-inline col-lg-5">  
-																			<input type="text" name="" id="" datatype="*" nullmsg="不能为空" errormsg="不能为空！" autocomplete="off" class="layui-input" value="">
-																		</div>
-																		<div class="layui-inline valid-info"></div>
-																	</div>
-																	<div class="layui-form-item col-lg-6">
-																		<label class="layui-form-label">建厂年月*</label>
-																		<div class="layui-inline col-lg-5">  
-																			<input type="text" name="factoryTime" id="factoryTime" datatype="*" nullmsg="不能为空" errormsg="不能为空！" autocomplete="off" class="layui-input" value="${(returnDatas.data.factoryTime)!''}">
-																		</div>
-																		<div class="layui-inline valid-info"></div>
-																	</div>
-																	<div class="layui-form-item col-lg-6">
-																		<label class="layui-form-label">最新改扩建年月*</label>
-																		<div class="layui-inline col-lg-5">  
-																			<input type="text" name="" id="" datatype="*" nullmsg="不能为空" errormsg="不能为空！" autocomplete="off" class="layui-input" value="">
-																		</div>
-																		<div class="layui-inline valid-info"></div>
-																	</div>
-																	<div class="layui-form-item col-lg-6">
-																		<label class="layui-form-label">职工人数*</label>
-																		<div class="layui-inline col-lg-5">  
-																			<input type="text" name="" id="" datatype="*" nullmsg="不能为空" errormsg="不能为空！" autocomplete="off" class="layui-input" value="">
-																		</div>
-																		<div class="layui-inline valid-info"></div>
-																	</div>
-																	<div class="layui-form-item col-lg-6">
-																		<label class="layui-form-label">企业规模*</label>
-																		<div class="layui-inline col-lg-5">  
-																			<input type="text" name="enterprisesize" id="enterprisesize" datatype="*" nullmsg="不能为空" errormsg="不能为空！" autocomplete="off" class="layui-input" value="${(returnDatas.data.enterprisesize)!''}">
-																		</div>
-																		<div class="layui-inline valid-info"></div>
-																	</div>
-																	<div class="layui-form-item col-lg-6">
-																		<label class="layui-form-label">应急联系人*</label>
-																		<div class="layui-inline col-lg-5">  
-																			<input type="text" name="contactsName" id="contactsName" datatype="*" nullmsg="不能为空" errormsg="不能为空！" autocomplete="off" class="layui-input" value="${(returnDatas.data.contactsName)!''}">
-																		</div>
-																		<div class="layui-inline valid-info"></div>
-																	</div>
-																	<div class="layui-form-item col-lg-6">
-																		<label class="layui-form-label">联系电话*</label>
-																		<div class="layui-inline col-lg-5">  
-																			<input type="text" name="phone" id="phone" datatype="*" nullmsg="不能为空" errormsg="不能为空！" autocomplete="off" class="layui-input" value="${(returnDatas.data.phone)!''}">
-																		</div>
-																		<div class="layui-inline valid-info"></div>
-																	</div>
-																	<div class="layui-form-item col-lg-6">
-																		<label class="layui-form-label">环保联系人*</label>
-																		<div class="layui-inline col-lg-5">  
-																			<input type="text" name="" id="" datatype="*" nullmsg="不能为空" errormsg="不能为空！" autocomplete="off" class="layui-input" value="">
-																		</div>
-																		<div class="layui-inline valid-info"></div>
-																	</div>
-																	<div class="layui-form-item col-lg-6">
-																		<label class="layui-form-label">联系电话*</label>
-																		<div class="layui-inline col-lg-5">  
-																			<input type="text" name="" id="" datatype="*" nullmsg="不能为空" errormsg="不能为空！" autocomplete="off" class="layui-input" value="">
-																		</div>
-																		<div class="layui-inline valid-info"></div>
-																	</div>
-																	<div class="layui-form-item col-lg-6">
-																		<label class="layui-form-label">历次环评审批年月*</label>
-																		<div class="layui-inline col-lg-5">  
-																			<input type="text" name="" id="" datatype="*" nullmsg="不能为空" errormsg="不能为空！" autocomplete="off" class="layui-input" value="">
-																		</div>
-																		<div class="layui-inline valid-info"></div>
-																	</div> -->
 																	
 															
 														</div>
+														<br>
 														<div style='margin-left:50%'>
 																<button type="button" class="layui-btn" id="smtbtn">保存</button>
 																<!-- <button type="button" class="layui-btn layui-btn-primary" id="rstbtn">重置</button> -->

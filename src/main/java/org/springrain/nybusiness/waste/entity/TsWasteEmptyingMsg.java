@@ -2,11 +2,11 @@ package org.springrain.nybusiness.waste.entity;
 
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
-
 import org.springrain.frame.annotation.WhereSQL;
 import org.springrain.frame.entity.BaseEntity;
 /**
@@ -109,7 +109,12 @@ public class TsWasteEmptyingMsg  extends BaseEntity {
 	 */
 	private java.lang.String bak3;
 	//columns END 数据库字段结束
-	
+	@Transient
+	private TsWasteAirMsg tsWasteAirMsg;
+	@Transient
+	private TsWasteWaterMsg tsWasteWaterMsg;
+	@Transient
+	private TsWasteMaterialMsg tsWasteMaterialMsg;
 	//concstructor
 
 	public TsWasteEmptyingMsg(){
@@ -427,6 +432,32 @@ public class TsWasteEmptyingMsg  extends BaseEntity {
 	public java.lang.String getBak3() {
 		return this.bak3;
 	}
+     
+ 	@Transient
+	public TsWasteAirMsg getTsWasteAirMsg() {
+		return tsWasteAirMsg;
+	}
+
+	public void setTsWasteAirMsg(TsWasteAirMsg tsWasteAirMsg) {
+		this.tsWasteAirMsg = tsWasteAirMsg;
+	}
+	@Transient
+	public TsWasteWaterMsg getTsWasteWaterMsg() {
+		return tsWasteWaterMsg;
+	}
+
+	public void setTsWasteWaterMsg(TsWasteWaterMsg tsWasteWaterMsg) {
+		this.tsWasteWaterMsg = tsWasteWaterMsg;
+	}
+	@Transient
+	public TsWasteMaterialMsg getTsWasteMaterialMsg() {
+		return tsWasteMaterialMsg;
+	}
+
+	public void setTsWasteMaterialMsg(TsWasteMaterialMsg tsWasteMaterialMsg) {
+		this.tsWasteMaterialMsg = tsWasteMaterialMsg;
+	}
+
 	@Override
 	public String toString() {
 		return new StringBuilder()

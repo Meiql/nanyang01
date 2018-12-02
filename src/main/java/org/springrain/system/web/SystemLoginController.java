@@ -166,6 +166,17 @@ public class SystemLoginController extends BaseController {
 			 model.addAttribute("showyzm", "yes"); 
 			 return "/system/login";
 		 }
+		 
+		 if(StringUtils.isNoneBlank(user2.getConpanyid())){
+			 TsCompanyInfo companyInfo = tsCompanyInfoService.findById(user2.getConpanyid(), TsCompanyInfo.class);
+			 if(companyInfo!=null && StringUtils.isNoneBlank(companyInfo.getState())&&!"1".equals(companyInfo.getState())){
+				 model.addAttribute("message", "您还没有通过审核，请审核通过后登陆");
+				 model.addAttribute("showyzm", "yes"); 
+				 return "/system/login";
+			 }
+			 
+			 
+		 }
 		// 通过账号和密码获取 UsernamePasswordToken token
 		FrameAuthenticationToken token = new FrameAuthenticationToken(
 				currUser.getAccount(), currUser.getPassword());
