@@ -178,6 +178,21 @@ public class TsWasteAirMsgController  extends BaseController {
 	}
 	
 	/**
+	 * 详情
+	 * @param model
+	 * @param request
+	 * @param response
+	 * @return
+	 * @throws Exception
+	 */
+	@RequestMapping(value = "/detail")
+	public String detail(Model model,HttpServletRequest request,HttpServletResponse response)  throws Exception{
+		ReturnDatas returnObject = lookjson(model, request, response);
+		model.addAttribute(GlobalStatic.returnDatas, returnObject);
+		return "/nybusiness/waste/tswasteairmsg/tswasteairmsgCru2";
+	}
+	
+	/**
 	 * 进入修改页面,APP端可以调用 lookjson 获取json格式数据
 	 */
 	@RequestMapping(value = "/update/pre")

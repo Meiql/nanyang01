@@ -2,6 +2,7 @@ package org.springrain.nybusiness.waste.service;
 
 import java.util.List;
 
+import org.springrain.frame.util.Page;
 import org.springrain.nybusiness.waste.entity.TsWasteMaterialMsg;
 import org.springrain.system.service.IBaseSpringrainService;
 /**
@@ -29,4 +30,7 @@ public interface ITsWasteMaterialMsgService extends IBaseSpringrainService {
 	 * @throws Exception
 	 */
 	List<TsWasteMaterialMsg> listFinderTsWasteMaterialMsg()throws Exception;
+	
+	public List<TsWasteMaterialMsg> finderTsMaillistForList(Page page,
+			TsWasteMaterialMsg tsWasteMaterialMsg, List<String> listCompany) throws Exception;
 }

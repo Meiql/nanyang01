@@ -21,7 +21,16 @@
 		springrain.mydelete(_id,"${ctx}/tswasteairmsg/delete");
 	}
 </script>
-
+<style>
+	@media screen and (max-width: 1880px) {
+	    .layui-btn,
+	    .layui-btn+.layui-btn{
+	        display: block;
+	        width: 70px;
+	        margin: 3px 0 0;
+	    }
+	}
+</style>
 </head>
 <body>
 	<div class="layui-layout layui-layout-admin">
@@ -67,7 +76,7 @@
 							          		<tr>
 							          			<td>
 							          				<div class="layui-inline">
-									                    <label class="layui-form-label">废气处理方式</label>
+									                    <label class="layui-form-label">废气处理方式名称</label>
 									                    <div class="layui-input-inline">
 									                           <input type="text" name="wgProcessingMethod" value="${(returnDatas.queryBean.wgProcessingMethod)!''}" placeholder="废气处理方式名称 " class="layui-input">
 									                    </div>
@@ -101,14 +110,15 @@
 												  <th class="center">
 															<input id="checkAll"  type="checkbox">
 												  </th>
-												  <th style="text-align: center">操作</th>
+												  <th style="width : 80px;text-align: center">操作</th>
 												  <!--first_end_no_export-->
 														<th id="th_wgProcessingMethod" style="text-align: center">废气处理方式名称</th>
-														<th id="th_wgprocessingCapacity" style="text-align: center">废气处理能力 吨</th>
+														<th id="th_wgprocessingCapacity" style="text-align: center">处理能力 （立方米/时）</th>
 														<th id="th_wgSource" style="text-align: center">废气来源</th>
-														<th id="th_wgTreatmentEffect" style="text-align: center">废气处理效果</th>
-														<th id="th_emissionHeight" style="text-align: center">排放高度</th>
-													
+														<th id="th_bak1" style="text-align: center">废气中恶臭物质</th>
+														<th id="th_emissionHeight" style="text-align: center">排放高度（米）</th>
+														<th id="th_bak2" style="text-align: center">口径（米）</th>
+														<th id="th_wgTreatmentEffect" style="text-align: center">处理效果</th>
 												</tr> 
 											</thead>
 										  <!--first_end_export-->
@@ -128,6 +138,9 @@
 								                            <@shiro.hasPermission name="/tswasteairmsg/delete" >
 								                            	<a href="javascript:del('${(_data.id)!''}')" class="layui-btn layui-btn-danger layui-btn-mini ajax-delete">删除</a>
 								                            </@shiro.hasPermission>
+								                            <@shiro.hasPermission name="/tswastewatermsg/detail" >
+								                            <a href="#"  data-action="${ctx}/tswasteairmsg/detail?id=${(_data.id)!''}" class="layui-btn layui-btn-normal layui-btn-mini" >详情</a>
+								                            </@shiro.hasPermission>
 														</td>
 														<!--end_no_export-->
 														<td class="center">
@@ -140,10 +153,16 @@
 															${(_data.wgSource)!''}
 														</td>
 														<td class="center">
-															${(_data.wgTreatmentEffect)!''}
+															${(_data.bak1)!''}
 														</td>
 														<td class="center">
 															${(_data.emissionHeight)!''}
+														</td>
+														<td class="center">
+															${(_data.bak2)!''}
+														</td>
+														<td class="center">
+															${(_data.wgTreatmentEffect)!''}
 														</td>
 												
 													</tr>

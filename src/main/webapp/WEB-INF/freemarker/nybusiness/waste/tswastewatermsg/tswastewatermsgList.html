@@ -113,15 +113,15 @@
 												  </th>
 												  <th style="width : 80px;text-align: center">操作</th>
 												  <!--first_end_no_export-->
-														<th id="th_processingMethod" style="text-align: center">处理措施</th>
-														<th id="th_processingCapacity" style="text-align: center">处理能力 吨</th>
+														<th id="th_processingMethod" style="text-align: center">污水处理方式名称</th>
+														<th id="th_processingCapacity" style="text-align: center">处理能力 (吨/天)</th>
 														<th id="th_outletLocation" style="text-align: center">排污口方位</th>
 														<!-- <th id="th_emissionCode" style="text-align: center">排放去向代码</th> -->
 														<th id="th_sewageSource" style="text-align: center">污水来源</th>
 														<th id="th_stinkingMaterial" style="text-align: center">废水中恶臭物质</th>
 														<th id="th_controlMeasures" style="text-align: center">是否有臭气控制</th>
-														<th id="th_actionBehavior" style="text-align: center">措施行为</th>
-														<!-- <th id="th_processDesc" style="text-align: center">流程说明</th>
+														<!--<th id="th_actionBehavior" style="text-align: center">措施行为</th>
+														 <th id="th_processDesc" style="text-align: center">流程说明</th>
 														<th id="th_treatmentEffect" style="text-align: center">废水处理效果</th> -->
 														<!-- <th id="th_createUser" >创建人</th>
 														<th id="th_createTime" >创建时间</th> -->
@@ -179,7 +179,7 @@
 																	否
 															</#if>
 														</td>
-														<td class="center">
+														<!--<td class="center">
 															<#if (_data.actionBehavior)?? && (_data.actionBehavior=="1")>
 																	加盖
 															<#elseif (_data.actionBehavior)?? && (_data.actionBehavior=="2")>
@@ -188,7 +188,7 @@
 																	其他
 															</#if>
 														</td>
-														<!-- <td class="center">
+														 <td class="center">
 															${(_data.processDesc)!''}
 														</td>
 														<td class="center">

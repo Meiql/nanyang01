@@ -21,7 +21,16 @@
 		springrain.mydelete(_id,"${ctx}/tswastematerialmsg/delete");
 	}
 </script>
-
+<style>
+	@media screen and (max-width: 1880px) {
+	    .layui-btn,
+	    .layui-btn+.layui-btn{
+	        display: block;
+	        width: 70px;
+	        margin: 3px 0 0;
+	    }
+	}
+</style>
 </head>
 <body>
 	<div class="layui-layout layui-layout-admin">
@@ -72,16 +81,7 @@
 									                           <input type="text" name="handleUnitName" value="${(returnDatas.queryBean.handleUnitName)!''}" placeholder="请输入名称 " class="layui-input">
 									                    </div>
 							                		</div>
-									                 <div class="layui-inline">
-									                    <label class="layui-form-label">是否可用</label>
-									                    <div class="layui-input-inline">
-									                        <select name="active" id="active" class="layui-input">
-									                          <option value="">==请选择==</option>
-															  <option value="1">是</option>
-															  <option value="0">否</option>
-															</select>   
-									                    </div>
-									                </div>
+									                
 							          			</td>
 							          			<td>
 							          			   <div class="layui-inline">
@@ -104,24 +104,22 @@
 										  <!--first_start_export-->
 											<thead>
 												<tr>
-													<th colspan="9">危险废物处理措施列表<font id='recordsView' class='recorsView'>共<span></span>页,共 <span></span>条记录</font></th>
+													<th colspan="12">危险废物处理措施列表<font id='recordsView' class='recorsView'>共<span></span>页,共 <span></span>条记录</font></th>
 												</tr>
 												<tr>
 												  <!--first_start_no_export-->
 												  <th class="center">
 															<input id="checkAll"  type="checkbox">
 												  </th>
-												  <th>操作</th>
+												  <th style="width : 80px;text-align: center">操作</th>
 												  <!--first_end_no_export-->
-														<th id="th_hwproductNum" >危险废物产生量</th>
-														<th id="th_hwTransportNum" >危险废物运输量</th>
-														<th id="th_hwhandleNum" >危险废物处置量</th>
-														<th id="th_hwStorageNum" >危险废物存放量</th>
-														<th id="th_handleUnitName" >处置单位名称</th>
-														<th id="th_handelUnitAddress" >处置单位地址</th>
-														<th id="th_transportUnitName" >危险固废运输单位名称</th>
-														<th id="th_vehicleType" >车船型</th>
-														<th id="th_zywld" >转运五联单 1 有 0无</th>
+														<th id="th_hwproductNum" style="text-align: center">产生量（吨/时）</th>
+														<th id="th_hwTransportNum" style="text-align: center">运输量（吨/时）</th>
+														<th id="th_hwhandleNum" style="text-align: center">处置量（吨/时）</th>
+														<th id="th_hwStorageNum" style="text-align: center">存放量（吨）</th>
+														<th id="th_handleUnitName" style="text-align: center">处置单位</th>
+														<th id="th_transportUnitName" style="text-align: center">运输单位</th>
+														<th id="th_zywld" style="text-align: center">转运五联单</th>
 														<!-- <th id="th_createUser" >创建人</th>
 														<th id="th_createTime" >创建时间</th> -->
 														<!-- <th id="th_remarks" >remarks</th>
@@ -141,63 +139,47 @@
 														<td class="center">
 																<input name="check_li" value="${_data.id}"  type="checkbox">
 														</td>
-														<td>
+														<td class="center">
 															<@shiro.hasPermission name="/tswastematerialmsg/update" >
 								                           		 <a href="#" data-action="${ctx}/tswastematerialmsg/update/pre?id=${_data.id}" class="layui-btn layui-btn-normal layui-btn-mini">编辑</a>
 								                            </@shiro.hasPermission>
 								                            <@shiro.hasPermission name="/tswastematerialmsg/delete" >
 								                            	<a href="javascript:del('${(_data.id)!''}')" class="layui-btn layui-btn-danger layui-btn-mini ajax-delete">删除</a>
 								                            </@shiro.hasPermission>
+								                            <@shiro.hasPermission name="/tswastematerialmsg/detail" >
+								                            <a href="#"  data-action="${ctx}/tswastematerialmsg/detail?id=${(_data.id)!''}" class="layui-btn layui-btn-normal layui-btn-mini" >详情</a>
+								                            </@shiro.hasPermission>
 														</td>
 														<!--end_no_export-->
-														<td >
+														<td class="center">
 															${(_data.hwproductNum)!''}
 														</td>
-														<td >
+														<td class="center">
 															${(_data.hwTransportNum)!''}
 														</td>
-														<td >
+														<td class="center">
 															${(_data.hwhandleNum)!''}
 														</td>
-														<td >
+														<td class="center">
 															${(_data.hwStorageNum)!''}
 														</td>
-														<td >
+														<td class="center">
 															${(_data.handleUnitName)!''}
 														</td>
-														<td >
-															${(_data.handelUnitAddress)!''}
-														</td>
-														<td >
+														
+														<td class="center">
 															${(_data.transportUnitName)!''}
 														</td>
-														<td >
-															${(_data.vehicleType)!''}
+														
+														<td class="center">
+															
+															<#if (_data.zywld)?? && (_data.zywld=="1")>
+																	是
+															<#elseif (_data.zywld)?? && (_data.zywld=="0")>
+																	否
+															</#if>
 														</td>
-														<td >
-															${(_data.zywld)!''}
-														</td>
-														<!-- <td >
-															${(_data.createUser)!''}
-														</td>
-														<td >
-															${(_data.createTime)!''}
-														</td> -->
-														<!-- <td >
-															${(_data.remarks)!''}
-														</td>
-														<td >
-															${(_data.companyId)!''}
-														</td>
-														<td >
-															${(_data.bak1)!''}
-														</td>
-														<td >
-															${(_data.bak2)!''}
-														</td>
-														<td >
-															${(_data.bak3)!''}
-														</td> -->
+													
 													</tr>
 												</#list>
 											 </#if>

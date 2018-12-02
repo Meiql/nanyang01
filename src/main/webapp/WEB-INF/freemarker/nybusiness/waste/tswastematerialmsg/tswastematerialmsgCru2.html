@@ -47,14 +47,14 @@
 																    <div class="layui-inline">
 																      <label class="layui-form-label">危废产生量（吨/时）*</label>
 																		<div class="layui-input-inline"> 
-																		 <input type="text" name="hwproductNum" id="hwproductNum" datatype="*" nullmsg="不能为空" errormsg="不能为空！" autocomplete="off" class="layui-input" value="${(returnDatas.data.hwproductNum)!''}">
+																		 <input type="text" readonly name="hwproductNum" id="hwproductNum" datatype="*" nullmsg="不能为空" errormsg="不能为空！" autocomplete="off" class="layui-input" value="${(returnDatas.data.hwproductNum)!''}">
 																		</div>
 																		
 																    </div>
 																     <div class="layui-inline">
 																      <label class="layui-form-label">危废运输量（吨/时）*</label>
 																		<div class="layui-input-inline">
-																			<input type="text" name="hwTransportNum" id="hwTransportNum" datatype="*" nullmsg="不能为空" errormsg="不能为空！" autocomplete="off" class="layui-input" value="${(returnDatas.data.hwTransportNum)!''}">
+																			<input type="text" readonly name="hwTransportNum" id="hwTransportNum" datatype="*" nullmsg="不能为空" errormsg="不能为空！" autocomplete="off" class="layui-input" value="${(returnDatas.data.hwTransportNum)!''}">
 																		</div>
 																		 
 																    </div>
@@ -63,14 +63,14 @@
 																    <div class="layui-inline">
 																      <label class="layui-form-label">危废处置量（吨/时）*</label>
 																		<div class="layui-input-inline"> 
-																		 <input type="text" name="hwhandleNum" id="hwhandleNum" datatype="*" nullmsg="不能为空" errormsg="不能为空！" autocomplete="off" class="layui-input" value="${(returnDatas.data.hwhandleNum)!''}">
+																		 <input type="text" readonly name="hwhandleNum" id="hwhandleNum" datatype="*" nullmsg="不能为空" errormsg="不能为空！" autocomplete="off" class="layui-input" value="${(returnDatas.data.hwhandleNum)!''}">
 																		</div>
 																		
 																    </div>
 																     <div class="layui-inline">
 																      <label class="layui-form-label">危废存放量（吨）*</label>
 																		<div class="layui-input-inline">
-																			<input type="text" name="hwStorageNum" id="hwStorageNum" datatype="*" nullmsg="不能为空" errormsg="不能为空！" autocomplete="off" class="layui-input" value="${(returnDatas.data.hwStorageNum)!''}">
+																			<input type="text" readonly name="hwStorageNum" id="hwStorageNum" datatype="*" nullmsg="不能为空" errormsg="不能为空！" autocomplete="off" class="layui-input" value="${(returnDatas.data.hwStorageNum)!''}">
 																		</div>
 																		 
 																    </div>
@@ -79,7 +79,7 @@
 																	  <div class="layui-inline" >
 																	      <label class="layui-form-label">危废存放风险防治措施*</label>
 																			<div class="layui-input-inline ">  
-																				 <select class="form-control" name="bak1" id="bak1" datatype="*" nullmsg="不能为空" errormsg="不能为空！" autocomplete="off">
+																				 <select class="form-control" disabled name="bak1" id="bak1" datatype="*" nullmsg="不能为空" errormsg="不能为空！" autocomplete="off">
 															                          <option value="">==废气收集和处理装置==</option>
 																					  <option value="1">有</option>
 																					  <option value="2">无</option>
@@ -90,7 +90,7 @@
 																	<div class="layui-inline" >
 																	      <label class="layui-form-label"></label>
 																			<div class="layui-input-inline ">  
-																				 <select class="form-control" name="bak2" id="bak2" datatype="*" nullmsg="不能为空" errormsg="不能为空！" autocomplete="off"" >
+																				 <select class="form-control" disabled name="bak2" id="bak2" datatype="*" nullmsg="不能为空" errormsg="不能为空！" autocomplete="off"" >
 															                          <option value="">==地下水防渗措施==</option>
 																					  <option value="1">有</option>
 																					  <option value="2">无</option>
@@ -104,14 +104,14 @@
 																    <div class="layui-inline">
 																      <label class="layui-form-label">危废处置单位名称*</label>
 																		<div class="layui-input-inline"> 
-																		 <input type="text" name="handleUnitName" id="handleUnitName" datatype="*" nullmsg="不能为空" errormsg="不能为空！" autocomplete="off" class="layui-input" value="${(returnDatas.data.handleUnitName)!''}">
+																		 <input type="text" readonly name="handleUnitName" id="handleUnitName" datatype="*" nullmsg="不能为空" errormsg="不能为空！" autocomplete="off" class="layui-input" value="${(returnDatas.data.handleUnitName)!''}">
 																		</div>
 																		
 																    </div>
 																     <div class="layui-inline">
 																      <label class="layui-form-label">危废处置单位地址*</label>
 																		<div class="layui-input-inline">
-																			<input type="text" name="handelUnitAddress" id="handelUnitAddress" datatype="*" nullmsg="不能为空" errormsg="不能为空！" autocomplete="off" class="layui-input" value="${(returnDatas.data.handelUnitAddress)!''}">
+																			<input type="text" readonly name="handelUnitAddress" id="handelUnitAddress" datatype="*" nullmsg="不能为空" errormsg="不能为空！" autocomplete="off" class="layui-input" value="${(returnDatas.data.handelUnitAddress)!''}">
 																		</div>
 																		 
 																    </div>
@@ -121,14 +121,14 @@
 																    <div class="layui-inline">
 																      <label class="layui-form-label">危废运输单位名称*</label>
 																		<div class="layui-input-inline"> 
-																		 <input type="text" name="transportUnitName" id="transportUnitName" datatype="*" nullmsg="不能为空" errormsg="不能为空！" autocomplete="off" class="layui-input" value="${(returnDatas.data.transportUnitName)!''}">
+																		 <input type="text" readonly name="transportUnitName" id="transportUnitName" datatype="*" nullmsg="不能为空" errormsg="不能为空！" autocomplete="off" class="layui-input" value="${(returnDatas.data.transportUnitName)!''}">
 																		</div>
 																		
 																    </div>
 																     <div class="layui-inline">
 																      <label class="layui-form-label">危废运输车船型号*</label>
 																		<div class="layui-input-inline">
-																			<input type="text" name="vehicleType" id="vehicleType" datatype="*" nullmsg="不能为空" errormsg="不能为空！" autocomplete="off" class="layui-input" value="${(returnDatas.data.vehicleType)!''}">
+																			<input type="text" readonly name="vehicleType" id="vehicleType" datatype="*" nullmsg="不能为空" errormsg="不能为空！" autocomplete="off" class="layui-input" value="${(returnDatas.data.vehicleType)!''}">
 																		</div>
 																		 
 																    </div>
@@ -137,7 +137,7 @@
 																    <div class="layui-inline" >
 																      <label class="layui-form-label">转运五联单*</label>
 																		<div class="layui-input-inline ">  
-																			 <select class="form-control" name="zywld" id="zywld" datatype="*" nullmsg="不能为空" errormsg="不能为空！" autocomplete="off"" >
+																			 <select class="form-control" disabled name="zywld" id="zywld" datatype="*" nullmsg="不能为空" errormsg="不能为空！" autocomplete="off"" >
 															                          <option value="">==请选择有无转运五联单==</option>
 																					  <option value="1">有</option>
 																					  <option value="0">无</option>
@@ -148,19 +148,12 @@
 																	<div class="layui-inline">
 																      <label class="layui-form-label">备注*</label>
 																		<div class="layui-input-inline">
-																			<input type="text" name="remarks" id="remarks" datatype="*" nullmsg="不能为空" errormsg="不能为空！" autocomplete="off" class="layui-input" value="${(returnDatas.data.remarks)!''}">
+																			<input type="text" readonly name="remarks" id="remarks" datatype="*" nullmsg="不能为空" errormsg="不能为空！" autocomplete="off" class="layui-input" value="${(returnDatas.data.remarks)!''}">
 																		</div>
 																		 
 																    </div>
 																  </div>
 
-													<div class="layui-form-item change-submit">
-													<label class="layui-form-label"></label>
-															<div class="layui-inline">
-																<button type="button" class="layui-btn" id="smtbtn" style="margin-left: 200px">保存</button>
-																<button type="button" class="layui-btn layui-btn-primary" id="rstbtn">重置</button>
-															</div>
-														</div>
 													</form>
 												</div>
 								  </div>

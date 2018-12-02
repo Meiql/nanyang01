@@ -3,6 +3,7 @@ package org.springrain.nybusiness.waste.service.impl;
 import java.io.File;
 import java.util.List;
 
+import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;
 import org.springrain.frame.common.SessionUser;
@@ -10,6 +11,7 @@ import org.springrain.frame.entity.IBaseEntity;
 import org.springrain.frame.util.Finder;
 import org.springrain.frame.util.Page;
 import org.springrain.nybusiness.waste.entity.TsWasteMaterialMsg;
+import org.springrain.nybusiness.waste.entity.TsWasteWaterMsg;
 import org.springrain.nybusiness.waste.service.ITsWasteMaterialMsgService;
 import org.springrain.system.service.BaseSpringrainServiceImpl;
 
@@ -88,5 +90,20 @@ public class TsWasteMaterialMsgServiceImpl extends BaseSpringrainServiceImpl imp
 				finder.append("where companyId =:companyId").setParam("companyId", companyid);
 			}
 			return super.queryForList(finder, TsWasteMaterialMsg.class);
+		}
+		
+		@Override
+		public List<TsWasteMaterialMsg> finderTsMaillistForList(Page page,
+				TsWasteMaterialMsg tsWasteMaterialMsg, List<String> listCompany) throws Exception {
+			if(CollectionUtils.isEmpty(listCompany)){
+				return null;
+			}
+			Finder finder = new Finder();
+			finder.append("SELECT * FROM `ts_waste_material_msg` t where t.companyid in (:companyId)")
+			.setParam("companyId", listCompany);
+			if(StringUtils.isNoneBlank(tsWasteMaterialMsg.getHandleUnitName())) {
+				finder.append(" and t.handleUnitName like:name").setParam("name", "%"+tsWasteMaterialMsg.getHandleUnitName()+"%");
+			}
+			return super.queryForList(finder, TsWasteMaterialMsg.class, page);
 		}
 }

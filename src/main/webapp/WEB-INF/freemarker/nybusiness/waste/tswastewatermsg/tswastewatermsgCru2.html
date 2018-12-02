@@ -2,6 +2,13 @@
 <@h.commonHead title="后台管理系统" keywords="开源,永久免费" description="springrain开源系统管理后台"/>
 
 <script src="${ctx}/js/validform/validform.min.js"></script>
+<script type="text/javascript" src="${ctx}/js/jquery/jquery.min.js"></script>
+<script type="text/javascript" src="${ctx}/js/jquery/jquery-1.12.4.js"></script>
+<script type="text/javascript" src="${ctx}/js/custom/common/select2remote.js"></script>
+<script type="text/javascript" src="${ctx}/js/select2/js/select2.full.min.js"></script>
+<script type="text/javascript" src="${ctx}/js/select2/js/i18n/zh-CN.js"></script>
+<script type="text/javascript" src="${ctx}/js/validform/validform.min.js"></script>
+<link rel="stylesheet" href="${ctx}/js/select2/css/select2.min.css" type="text/css">
 <link rel="stylesheet" href="${ctx}/js/validform/validform.css" media="all">
 <script>
 	 jQuery(function(){
@@ -10,12 +17,71 @@
 		 jQuery("#actionBehavior").val(_state);
 		 _state2="${(returnDatas.data.controlMeasures)!''}";
 		 jQuery("#controlMeasures").val(_state2);
+		 var  _controlMeasures="${(returnDatas.data.controlMeasures)!''}";
 		 /*
 		 init_valid(_before,_after)
 		 @_before:提交表单前，调用 的函数   可以为空，一般有validform处理不了，独自进行处理时使用
 		 @_after:保存成功后，调用的函数  可以为空，一般为对应的列表页面
 		 */
 		 springrain.initValid(null,function(){window.location.href="${ctx}/tswastewatermsg/list?springraintoken="+springraintoken});
+		 
+		 
+		 jQuery("#controlMeasures").append('<option value="">==请选择==</option><option value="1">是</option><option value="2">否</option>');
+		 $("#controlMeasures").select2({
+			 minimumResultsForSearch:-1,
+			 width:'190px',
+			 height:'38px'
+			});
+		 if(_controlMeasures!=""){
+			 $("#controlMeasures").val(_controlMeasures).select2({ minimumResultsForSearch:-1})
+		 }
+		 if(_controlMeasures=="1"){
+			 $("#controlMeasures").val(_controlMeasures).select2({ minimumResultsForSearch:-1})
+			 document.getElementById("controlMeasuresYes").style.display="";
+			 document.getElementById("controlMeasuresNo").style.display="none" 
+			 $("actionBehavior").show();
+			 $("bak1").hide();
+		 }else if(_controlMeasures=="2"){
+			 $("#controlMeasures").val(_controlMeasures).select2({ minimumResultsForSearch:-1})
+			 document.getElementById("controlMeasuresYes").style.display="none";//隐藏
+				document.getElementById("controlMeasuresNo").style.display="";
+				$("actionBehavior").hide();
+				$("bak1").show();
+				
+		 }else if(_controlMeasures==""){
+			 document.getElementById("controlMeasuresYes").style.display="none";//隐藏
+				document.getElementById("controlMeasuresNo").style.display="none";//隐藏
+				$("actionBehavior").hide();
+				$("bak1").hide();
+			
+			
+		};
+		 
+		 $("#controlMeasures").change(function name() {
+			var controlMeasures = $('#controlMeasures option:selected').val();//选中的值
+			if(controlMeasures=="1"){
+				 document.getElementById("controlMeasuresYes").style.display="";
+				 document.getElementById("controlMeasuresNo").style.display="none" 
+				 $("actionBehavior").show();
+				 $("bak1").hide();
+				
+				
+			}else if(controlMeasures=="2"){
+				 document.getElementById("controlMeasuresYes").style.display="none";//隐藏
+					document.getElementById("controlMeasuresNo").style.display="";//隐藏
+					$("actionBehavior").hide();
+					$("bak1").show();
+				
+			}else{
+				 document.getElementById("controlMeasuresYes").style.display="none";//隐藏
+					document.getElementById("controlMeasuresNo").style.display="none";//隐藏
+					$("actionBehavior").hide();
+					$("bak1").hide();
+				
+				
+			};
+			
+		});
 	 });
 </script>
 </head>
@@ -44,14 +110,14 @@
 																<input type="hidden" id="id" name="id" value="${(returnDatas.data.id)!''}"/>	
 																<div class="layui-form-item">
 																    <div class="layui-inline">
-																      <label class="layui-form-label">废水处理措施*</label>
+																      <label class="layui-form-label">污水处理方式名称*</label>
 																		<div class="layui-input-inline">  
 																			<input type="text" readonly name="processingMethod" id="processingMethod" datatype="*" nullmsg="不能为空" errormsg="不能为空！" autocomplete="off" class="layui-input" value="${(returnDatas.data.processingMethod)!''}">
 																		</div>
 																		
 																    </div>
 																     <div class="layui-inline">
-																      <label class="layui-form-label">废水处理能力 吨*</label>
+																      <label class="layui-form-label">废水处理能力 (吨/天)*</label>
 																		<div class="layui-input-inline">  
 																			<input type="text" readonly name="processingCapacity" id="processingCapacity" datatype="*" nullmsg="不能为空" errormsg="不能为空！" autocomplete="off" class="layui-input" value="${(returnDatas.data.processingCapacity)!''}">
 																		</div>
@@ -92,7 +158,44 @@
 																    </div>
 																  </div>
 																
-																<div class="layui-form-item">
+																																<div class="layui-form-item">
+																    <div class="layui-inline">
+																      <label class="layui-form-label">废水中是否有臭气控制*</label>
+																		<div class="layui-input-inline">  
+																			<!-- <select class="form-control" name="controlMeasures" id="controlMeasures" datatype="*"  nullmsg="不能为空" autocomplete="off">
+														                          <option value="">==请选择==</option>
+																				  <option value="1">是</option>
+																				  <option value="2">否</option>
+																			  </select> -->
+																		<select id="controlMeasures" disabled name="controlMeasures" datatype="*" nullmsg="是否有效不能为空"  class="nolayer" datatype="*" nullmsg="不能为空" errormsg="不能为空！" autocomplete="off"></select>
+																		</div>
+																    </div>
+																    
+																    <div class="layui-inline" style="display:none;" id="controlMeasuresYes">
+																      <label class="layui-form-label">措施行为*</label>
+																		<div class="layui-input-inline ">  
+																			 <select class="form-control" disabled name="actionBehavior" id="actionBehavior" >
+														                          <option value="">==请选择行为==</option>
+																				  <option value="1">加盖</option>
+																				  <option value="2">加药</option>
+																				  <option value="3">其他</option>
+																			  </select>
+																			</div>
+																			
+																		</div>
+																		
+																	<div class="layui-inline" style="display:none;" id="controlMeasuresNo">
+																      <label class="layui-form-label">未设置臭气控制措施区域*</label>
+																		<div class="layui-input-inline">  
+																			<input type="text" readonly name="bak1" id="bak1"  class="layui-input" value="${(returnDatas.data.bak1)!''}">
+																		</div>
+																		
+																    </div>	
+																		
+																  </div>
+																
+																
+															<!-- 	<div class="layui-form-item">
 																    <div class="layui-inline">
 																      <label class="layui-form-label">废水中是否有臭气控制*</label>
 																		<div class="layui-input-inline">  
@@ -117,7 +220,7 @@
 																			</div>
 																			
 																		</div>
-																  </div>
+																  </div> -->
 																  
 																  <div class="layui-form-item">
 																    <div class="layui-inline">

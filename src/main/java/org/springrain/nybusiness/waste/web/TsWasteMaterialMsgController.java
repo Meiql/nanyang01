@@ -22,7 +22,9 @@ import org.springrain.frame.util.GlobalStatic;
 import org.springrain.frame.util.MessageUtils;
 import org.springrain.frame.util.Page;
 import org.springrain.frame.util.ReturnDatas;
+import org.springrain.nybusiness.company.service.ITsCompanyInfoService;
 import org.springrain.nybusiness.waste.entity.TsWasteMaterialMsg;
+import org.springrain.nybusiness.waste.entity.TsWasteWaterMsg;
 import org.springrain.nybusiness.waste.service.ITsWasteMaterialMsgService;
 
 
@@ -38,7 +40,8 @@ import org.springrain.nybusiness.waste.service.ITsWasteMaterialMsgService;
 public class TsWasteMaterialMsgController  extends BaseController {
 	@Resource
 	private ITsWasteMaterialMsgService tsWasteMaterialMsgService;
-	
+	@Resource
+	private ITsCompanyInfoService tsCompanyInfoService;
 	private String listurl="/nybusiness/waste/tswastematerialmsg/tswastematerialmsgList";
 	
 	
@@ -73,19 +76,22 @@ public class TsWasteMaterialMsgController  extends BaseController {
 	@ResponseBody   
 	public  ReturnDatas listjson(HttpServletRequest request, Model model,TsWasteMaterialMsg tsWasteMaterialMsg) throws Exception{
 		ReturnDatas returnObject = ReturnDatas.getSuccessReturnDatas();
-		String companyid=SessionUser.getCompanyid();
+		/*String companyid=SessionUser.getCompanyid();
 		Finder finder;
 		finder = Finder.getSelectFinder(TsWasteMaterialMsg.class);
 		if (StringUtils.isBlank(companyid)) {
 			finder=null;
 		}else{
 			finder.append("where companyId =:companyId").setParam("companyId", companyid);
-		}
+		}*/
 		// ==构造分页请求
 		Page page = newPage(request);
 		// ==执行分页查询
-		List<TsWasteMaterialMsg> datas=tsWasteMaterialMsgService.findListDataByFinder(finder,page,TsWasteMaterialMsg.class,tsWasteMaterialMsg);
-			returnObject.setQueryBean(tsWasteMaterialMsg);
+		//List<TsWasteMaterialMsg> datas=tsWasteMaterialMsgService.findListDataByFinder(finder,page,TsWasteMaterialMsg.class,tsWasteMaterialMsg);
+			//returnObject.setQueryBean(tsWasteMaterialMsg);
+		List<String> listCompany = tsCompanyInfoService.finderCompanyIdByUserId(SessionUser.getUserId());
+		List<TsWasteMaterialMsg> datas=tsWasteMaterialMsgService.finderTsMaillistForList(page, tsWasteMaterialMsg, listCompany);
+			returnObject.setQueryBean(tsWasteMaterialMsg);	
 		returnObject.setPage(page);
 		returnObject.setData(datas);
 		return returnObject;
@@ -164,6 +170,21 @@ public class TsWasteMaterialMsgController  extends BaseController {
 		}
 		return returnObject;
 	
+	}
+	
+	/**
+	 * 详情
+	 * @param model
+	 * @param request
+	 * @param response
+	 * @return
+	 * @throws Exception
+	 */
+	@RequestMapping(value = "/detail")
+	public String detail(Model model,HttpServletRequest request,HttpServletResponse response)  throws Exception{
+		ReturnDatas returnObject = lookjson(model, request, response);
+		model.addAttribute(GlobalStatic.returnDatas, returnObject);
+		return "/nybusiness/waste/tswastematerialmsg/tswastematerialmsgCru2";
 	}
 	
 	/**
