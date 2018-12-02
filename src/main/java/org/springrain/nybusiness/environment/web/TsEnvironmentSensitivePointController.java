@@ -12,18 +12,14 @@ import javax.servlet.http.HttpServletResponse;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.WebDataBinder;
-import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springrain.nybusiness.company.entity.TsCompanyInfo;
-import org.springrain.nybusiness.environment.entity.TsEnvironmentElement;
+import org.springrain.nybusiness.company.service.ITsCompanyInfoService;
 import org.springrain.nybusiness.environment.entity.TsEnvironmentSensitivePoint;
 import org.springrain.nybusiness.environment.service.ITsEnvironmentSensitivePointService;
 import org.springrain.frame.common.SessionUser;
 import org.springrain.frame.controller.BaseController;
 import org.springrain.frame.util.DateUtils;
-import org.springrain.frame.util.Finder;
 import org.springrain.frame.util.GlobalStatic;
 import org.springrain.frame.util.MessageUtils;
 import org.springrain.frame.util.Page;
@@ -31,7 +27,7 @@ import org.springrain.frame.util.ReturnDatas;
 
 
 /**
- * TODO 在此加入类描述
+ * TODO 周边环境敏感点
  * @copyright {@link weicms.net}
  * @author springrain<Auto generate>
  * @version  2018-11-26 17:39:21
@@ -42,6 +38,9 @@ import org.springrain.frame.util.ReturnDatas;
 public class TsEnvironmentSensitivePointController  extends BaseController {
 	@Resource
 	private ITsEnvironmentSensitivePointService tsEnvironmentSensitivePointService;
+	
+	@Resource
+	private ITsCompanyInfoService tsCompanyInfoService;
 	
 	private String listurl="/nybusiness/environment/tsenvironmentsensitivepoint/tsenvironmentsensitivepointList";
 	
@@ -77,19 +76,16 @@ public class TsEnvironmentSensitivePointController  extends BaseController {
 	@ResponseBody   
 	public  ReturnDatas listjson(HttpServletRequest request, Model model,TsEnvironmentSensitivePoint tsEnvironmentSensitivePoint) throws Exception{
 		ReturnDatas returnObject = ReturnDatas.getSuccessReturnDatas();
-		String companyid=SessionUser.getCompanyid();
-		Finder finder;
-		finder = Finder.getSelectFinder(TsEnvironmentSensitivePoint.class);
-		if (StringUtils.isBlank(companyid)) {
-			finder=null;
-		}else{
-			finder.append("where companyId =:companyId").setParam("companyId", companyid);
-		}
 		// ==构造分页请求
 		Page page = newPage(request);
-		// ==执行分页查询
-		List<TsEnvironmentSensitivePoint> datas=tsEnvironmentSensitivePointService.findListDataByFinder(finder,page,TsEnvironmentSensitivePoint.class,tsEnvironmentSensitivePoint);
-			returnObject.setQueryBean(tsEnvironmentSensitivePoint);
+		
+		//首先查询companyId
+		List<String> listCompany = tsCompanyInfoService.finderCompanyIdByUserId(SessionUser.getUserId());
+				
+		//根据公司权限执行分页查询	
+		List<TsEnvironmentSensitivePoint> datas=tsEnvironmentSensitivePointService.findTsEnvironmentSensitivePointByDetail(page,tsEnvironmentSensitivePoint,listCompany);
+		
+		returnObject.setQueryBean(tsEnvironmentSensitivePoint);
 		returnObject.setPage(page);
 		returnObject.setData(datas);
 		return returnObject;
@@ -151,23 +147,43 @@ public class TsEnvironmentSensitivePointController  extends BaseController {
 			if(StringUtils.isBlank(id)){
 			  tsEnvironmentSensitivePoint.setId(null);
 			}
+			//创建用户id
 			if(StringUtils.isBlank(tsEnvironmentSensitivePoint.getCreateUser())){
 				tsEnvironmentSensitivePoint.setCreateUser(SessionUser.getUserId());
 			}
+			//获取创建用户name
+			if(StringUtils.isBlank(tsEnvironmentSensitivePoint.getCreateUserName())){
+				tsEnvironmentSensitivePoint.setCreateUserName(SessionUser.getUserName());
+			}
+			//创建时间
 			if(StringUtils.isBlank(tsEnvironmentSensitivePoint.getCreateTime())){
 				tsEnvironmentSensitivePoint.setCreateTime(DateUtils.convertDate2String("yyyy-MM-dd HH:mm:ss", new Date()));
 			}
+			//公司代码
 			java.lang.String companyId = SessionUser.getCompanyid(); 
-			tsEnvironmentSensitivePoint.setCompanyId(companyId);
+			if(StringUtils.isBlank(tsEnvironmentSensitivePoint.getCompanyId())){
+				tsEnvironmentSensitivePoint.setCompanyId(companyId);
+			}
 			tsEnvironmentSensitivePointService.saveorupdate(tsEnvironmentSensitivePoint);
 			
 		} catch (Exception e) {
+			e.printStackTrace();
 			logger.error(e.getMessage(),e);
 			returnObject.setStatus(ReturnDatas.ERROR);
 			returnObject.setMessage(MessageUtils.UPDATE_ERROR);
 		}
 		return returnObject;
 	
+	}
+	
+	/**
+	 * 进入详情页面
+	 */
+	@RequestMapping(value = "/details")
+	public String details(Model model,HttpServletRequest request,HttpServletResponse response)  throws Exception{
+		ReturnDatas returnObject = lookjson(model, request, response);
+		model.addAttribute(GlobalStatic.returnDatas, returnObject);
+		return "/nybusiness/environment/tsenvironmentsensitivepoint/tsenvironmentsensitivepointCru1";
 	}
 	
 	/**

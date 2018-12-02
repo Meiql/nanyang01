@@ -97,9 +97,9 @@ public class TsEnvironmentSensitivePoint  extends BaseEntity {
 	 */
 	private java.lang.String companyId;
 	/**
-	 * bak1
+	 * createUserName
 	 */
-	private java.lang.String bak1;
+	private java.lang.String createUserName;
 	/**
 	 * bak2
 	 */
@@ -108,6 +108,7 @@ public class TsEnvironmentSensitivePoint  extends BaseEntity {
 	 * bak3
 	 */
 	private java.lang.String bak3;
+	
 	//columns END 数据库字段结束
 	
 	//concstructor
@@ -373,11 +374,11 @@ public class TsEnvironmentSensitivePoint  extends BaseEntity {
 		/**
 		 * bak1
 		 */
-	public void setBak1(java.lang.String value) {
+	public void setCreateUserName(java.lang.String value) {
 		    if(StringUtils.isNotBlank(value)){
 			 value=value.trim();
 			}
-		this.bak1 = value;
+		this.createUserName = value;
 	}
 	
 	
@@ -385,9 +386,9 @@ public class TsEnvironmentSensitivePoint  extends BaseEntity {
 	/**
 	 * bak1
 	 */
-     @WhereSQL(sql="bak1=:TsEnvironmentSensitivePoint_bak1")
-	public java.lang.String getBak1() {
-		return this.bak1;
+     @WhereSQL(sql="createUserName=:TsEnvironmentSensitivePoint_createUserName")
+	public java.lang.String getCreateUserName() {
+		return this.createUserName;
 	}
 		/**
 		 * bak2
@@ -427,6 +428,8 @@ public class TsEnvironmentSensitivePoint  extends BaseEntity {
 	public java.lang.String getBak3() {
 		return this.bak3;
 	}
+     
+
 	@Override
 	public String toString() {
 		return new StringBuilder()
@@ -443,7 +446,6 @@ public class TsEnvironmentSensitivePoint  extends BaseEntity {
 			.append("createTime[").append(getCreateTime()).append("],")
 			.append("remarks[").append(getRemarks()).append("],")
 			.append("companyId[").append(getCompanyId()).append("],")
-			.append("bak1[").append(getBak1()).append("],")
 			.append("bak2[").append(getBak2()).append("],")
 			.append("bak3[").append(getBak3()).append("],")
 			.toString();

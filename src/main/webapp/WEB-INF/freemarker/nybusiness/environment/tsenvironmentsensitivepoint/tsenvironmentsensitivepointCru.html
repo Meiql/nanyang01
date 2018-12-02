@@ -12,6 +12,13 @@
 		 */
 		 springrain.initValid(null,function(){window.location.href="${ctx}/tsenvironmentsensitivepoint/list?springraintoken="+springraintoken});
 	 });
+	 jQuery(document).ready(function(){
+		    //反显涉及工艺状态
+			 var  envirElementName="${(returnDatas.data.envirElementName)!''}";
+			 if(envirElementName!=null && envirElementName !=""){
+				 $("#envirElementName option[value = "+envirElementName+"]").attr("selected",true); 
+			 }	
+		});
 </script>
 </head>
 <body>
@@ -43,14 +50,19 @@
 																			<input type="text" name="envirElementId" id="envirElementId" datatype="*" nullmsg="不能为空" errormsg="不能为空！" autocomplete="off" class="layui-input" value="${(returnDatas.data.envirElementId)!''}">
 																		</div>
 																		<div class="layui-inline valid-info"></div>
-																	</div> -->
-																	<div class="layui-form-item col-lg-6">
-																		<label class="layui-form-label">环境要素名称*</label>
-																		<div class="layui-inline col-lg-5">  
-																			<input type="text" name="envirElementName" id="envirElementName" datatype="*" nullmsg="不能为空" errormsg="不能为空！" autocomplete="off" class="layui-input" value="${(returnDatas.data.envirElementName)!''}">
-																		</div>
-																		<div class="layui-inline valid-info"></div>
-																	</div>
+																	</div> -->													
+																	<div class="layui-form-item  col-lg-6">
+														    			<label class="layui-form-label">环境要素名称*</label>
+														    			<div class="layui-inline  col-lg-5">
+														      				<select id="envirElementName" datatype="*"  nullmsg="不能为空" errormsg="不能为空！" name="envirElementName">
+														      					<option value=""></option>
+														        				<option value="大气">大气</option>
+																				<option value="水">水</option>
+																				<option value="土壤">土壤</option>
+																				<option value="其他">其他</option>
+														      				</select>
+														    			</div>
+													  				</div>	
 																	<div class="layui-form-item col-lg-6">
 																		<label class="layui-form-label">环境保护 *</label>
 																		<div class="layui-inline col-lg-5">  

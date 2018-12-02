@@ -2,6 +2,8 @@ package org.springrain.nybusiness.environment.service.impl;
 
 import java.io.File;
 import java.util.List;
+
+import org.apache.commons.collections.CollectionUtils;
 import org.springframework.stereotype.Service;
 import org.springrain.nybusiness.environment.entity.TsEnvironmentSensitivePoint;
 import org.springrain.nybusiness.environment.service.ITsEnvironmentSensitivePointService;
@@ -74,5 +76,30 @@ public class TsEnvironmentSensitivePointServiceImpl extends BaseSpringrainServic
 			throws Exception {
 			 return super.findDataExportExcel(finder,ftlurl,page,clazz,o);
 		}
+
+	/**
+	 * @param page 分页对象
+	 * @param tsEnvironmentSensitivePoint 查询条件
+	 * @param listCompany  公司权限
+	 * @return TsEnvironmentSensitivePoint
+	 */
+	@Override
+	public List<TsEnvironmentSensitivePoint> findTsEnvironmentSensitivePointByDetail(Page page,
+			TsEnvironmentSensitivePoint tsEnvironmentSensitivePoint, List<String> listCompany) throws Exception {
+		if(CollectionUtils.isEmpty(listCompany)){
+			return null;
+		}
+		Finder finder = new Finder();
+		//1.查询条件：公司id
+		finder.append("SELECT * FROM `ts_environment_sensitive_point` t where t.companyId in (:companyId)").setParam("companyId", listCompany);
+		
+		String envirElementName = tsEnvironmentSensitivePoint.getEnvirElementName();
+		System.out.println("环境敏感点名称envirElementName= "+envirElementName);		
+		if(envirElementName != null && !envirElementName.equals("")) {
+			finder.append(" and t.envirElementName like:envirElementName").setParam("envirElementName", "%"+envirElementName+"%");
+		}
+		System.out.println("环境敏感点查询sql   "+finder.getSql());
+		return super.queryForList(finder, TsEnvironmentSensitivePoint.class, page);
+	}
 
 }

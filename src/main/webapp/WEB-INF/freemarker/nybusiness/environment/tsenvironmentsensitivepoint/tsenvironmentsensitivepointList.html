@@ -21,7 +21,16 @@
 		springrain.mydelete(_id,"${ctx}/tsenvironmentsensitivepoint/delete");
 	}
 </script>
-
+<style>
+	@media screen and (max-width: 1880px) {
+	    .layui-btn,
+	    .layui-btn+.layui-btn{
+	        display: block;
+	        width: 70px;
+	        margin: 3px 0 0;
+	    }
+	}
+</style>
 </head>
 <body>
 	<div class="layui-layout layui-layout-admin">
@@ -67,18 +76,14 @@
 							          		<tr>
 							          			<td>
 							          				<div class="layui-inline">
-									                    <label class="layui-form-label">环境要素</label>
+									                    <label class="layui-form-label">环境要素名称</label>
 									                    <div class="layui-input-inline">
-									                           <input type="text" name="envirElementName" value="${(returnDatas.queryBean.envirElementName)!''}" placeholder="请输入名称 " class="layui-input">
-									                    </div>
-							                		</div>
-									                 <div class="layui-inline">
-									                    <label class="layui-form-label">是否可用</label>
-									                    <div class="layui-input-inline">
-									                        <select name="active" id="active" class="layui-input">
+									                        <select name="envirElementName" id="envirElementName" class="layui-input">
 									                          <option value="">==请选择==</option>
-															  <option value="1">是</option>
-															  <option value="0">否</option>
+															  <option value="大气">大气</option>
+															  <option value="水">水</option>
+															  <option value="土壤">土壤</option>
+															  <option value="其他">其他</option>
 															</select>   
 									                    </div>
 									                </div>
@@ -104,14 +109,14 @@
 										  <!--first_start_export-->
 											<thead>
 												<tr>
-													<th colspan="9">周边环境敏感点分布列表<font id='recordsView' class='recorsView'>共<span></span>页,共 <span></span>条记录</font></th>
+													<th colspan="11">周边环境敏感点分布列表<font id='recordsView' class='recorsView'>共<span></span>页,共 <span></span>条记录</font></th>
 												</tr>
 												<tr>
 												  <!--first_start_no_export-->
 												  <th class="center">
 															<input id="checkAll"  type="checkbox">
 												  </th>
-												  <th>操作</th>
+												   <th rowspan="2"style="width : 80px; text-align: center">操作</th>
 												  <!--first_end_no_export-->
 														<!-- <th id="th_envirElementId" >环境要素id</th> -->
 														<th id="th_envirElementName" >环境要素名称</th>
@@ -121,13 +126,8 @@
 														<th id="th_scale" >规模</th>
 														<th id="th_longitude" >经度</th>
 														<th id="th_latitude" >纬度</th>
-														<!-- <th id="th_createUser" >createUser</th>
-														<th id="th_createTime" >createTime</th>
-														<th id="th_remarks" >remarks</th>
-														<th id="th_companyId" >companyId</th>
-														<th id="th_bak1" >bak1</th>
-														<th id="th_bak2" >bak2</th>
-														<th id="th_bak3" >bak3</th> -->
+														<th id="th_createUserName" >创建用户</th>
+														<th id="th_createTime" >创建或修改时间</th>
 												</tr> 
 											</thead>
 										  <!--first_end_export-->
@@ -147,6 +147,9 @@
 								                            <@shiro.hasPermission name="/tsenvironmentsensitivepoint/delete" >
 								                            	<a href="javascript:del('${(_data.id)!''}')" class="layui-btn layui-btn-danger layui-btn-mini ajax-delete">删除</a>
 								                            </@shiro.hasPermission>
+								                              <@shiro.hasPermission name="/tsenvironmentsensitivepoint/details" >
+								                            	<a href="#"  data-action="${ctx}/tsenvironmentsensitivepoint/details?id=${(_data.id)!''}" class="layui-btn layui-btn-normal layui-btn-mini" >详情</a>
+								                            </@shiro.hasPermission>	
 														</td>
 														<!--end_no_export-->
 														<!-- <td >
@@ -173,27 +176,12 @@
 														<td >
 															${(_data.latitude)!''}
 														</td>
-														<!-- <td >
-															${(_data.createUser)!''}
+														 <td >
+															${(_data.createUserName)!''}
 														</td>
 														<td >
 															${(_data.createTime)!''}
 														</td>
-														<td >
-															${(_data.remarks)!''}
-														</td>
-														<td >
-															${(_data.companyId)!''}
-														</td>
-														<td >
-															${(_data.bak1)!''}
-														</td>
-														<td >
-															${(_data.bak2)!''}
-														</td>
-														<td >
-															${(_data.bak3)!''}
-														</td> -->
 													</tr>
 												</#list>
 											 </#if>

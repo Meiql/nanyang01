@@ -1,5 +1,8 @@
 package org.springrain.nybusiness.environment.service;
 
+import java.util.List;
+
+import org.springrain.frame.util.Page;
 import org.springrain.nybusiness.environment.entity.TsEnvironmentSensitivePoint;
 import org.springrain.system.service.IBaseSpringrainService;
 /**
@@ -19,6 +22,7 @@ public interface ITsEnvironmentSensitivePointService extends IBaseSpringrainServ
 	 */
 	TsEnvironmentSensitivePoint findTsEnvironmentSensitivePointById(Object id) throws Exception;
 	
-	
+	public List<TsEnvironmentSensitivePoint> findTsEnvironmentSensitivePointByDetail(Page page,
+			TsEnvironmentSensitivePoint tsEnvironmentSensitivePoint, List<String> listCompany) throws Exception ;
 	
 }
