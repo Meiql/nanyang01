@@ -76,7 +76,7 @@
 	<p id="companyinfomapnumber"></p>
 	<p id="flueGasDealTon"></p>
 	<p id="wasteWaterDealTon"></p>
-	<p id="hazardousWastesProduceTon"></p>
+	<p id="hazardousWastesDealTon"></p>
 	</div>
 	</div>	
 						          
@@ -242,25 +242,25 @@ $(document)
 							function(_json) {
 								var p1 = document.getElementById('flueGasDealTon');
 								var p2= document.getElementById('wasteWaterDealTon');
-								var p3 = document.getElementById('hazardousWastesProduceTon');
+								var p3 = document.getElementById('hazardousWastesDealTon');
 								if (_json.status == "success") {
 									debugger;
 									if(_json!=null&&_json.data!=null&&_json.data.length>0){
 										for (var i = 0; i <_json.data.length; i++) {
 											if(_json.data[i].flueGasDealTon!=""&&_json.data[i].flueGasDealTon!=null){
-												flueGasDealTon+= parseInt(_json.data[i].flueGasDealTon);
+												flueGasDealTon= parseInt(_json.data[i].flueGasDealTon);
 												}
 											if(_json.data[i].wasteWaterDealTon!=""&&_json.data[i].wasteWaterDealTon!=null){
-												wasteWaterDealTon+=parseInt(_json.data[i].wasteWaterDealTon);
+												wasteWaterDealTon=parseInt(_json.data[i].wasteWaterDealTon);
 												}
-											if(_json.data[i].hazardousWastesProduceTon!=""&&_json.data[i].hazardousWastesProduceTon!=null){
-												hazardousWastesProduceTon+=parseInt(_json.data[i].hazardousWastesProduceTon);
+											if(_json.data[i].hazardousWastesDealTon!=""&&_json.data[i].hazardousWastesDealTon!=null){
+												hazardousWastesDealTon=parseInt(_json.data[i].hazardousWastesDealTon);
 												}
 										}
 										 
-										 document.getElementById('flueGasDealTon').innerHTML = '废物总量:  '+flueGasDealTon;
+										 document.getElementById('flueGasDealTon').innerHTML = '废气总量:  '+flueGasDealTon;
 										 document.getElementById('wasteWaterDealTon').innerHTML ='废水总量: '+ wasteWaterDealTon;
-										 document.getElementById('hazardousWastesProduceTon').innerHTML = '废气总量: '+hazardousWastesProduceTon;
+										 document.getElementById('hazardousWastesDealTon').innerHTML = '废物总量: '+hazardousWastesDealTon;
 									}else{
 									}
 								} 

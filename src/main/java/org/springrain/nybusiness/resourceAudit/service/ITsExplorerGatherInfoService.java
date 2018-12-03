@@ -25,5 +25,7 @@ public interface ITsExplorerGatherInfoService extends IBaseSpringrainService {
 	public List<TsExplorerGatherInfo> findListData(Page page, TsExplorerGatherInfo tsExplorerGatherInfo,List<String> listCompany) throws Exception;
 	
 	
+	public List<TsExplorerGatherInfo> findThreeWastesData(Page page, TsExplorerGatherInfo tsExplorerGatherInfo) throws Exception;
+	
 	
 }

@@ -100,4 +100,20 @@ public class TsExplorerGatherInfoServiceImpl extends BaseSpringrainServiceImpl i
 		return super.queryForList(finder, TsExplorerGatherInfo.class, page);
 	}
 
+	@Override
+	public List<TsExplorerGatherInfo> findThreeWastesData(Page page, TsExplorerGatherInfo tsExplorerGatherInfo)
+			throws Exception {
+		Finder finder = new Finder();
+		finder.append("select :id as id ").setParam("id", "1");
+		finder.append(" ,t1.flueGasDealTon ,t2.wasteWaterDealTon,t3.hazardousWastesDealTon "
+				+ " from (SELECT sum(0+wgprocessingCapacity) as flueGasDealTon   FROM `ts_waste_air_msg`  ) t1 ,"
+				+ "( select sum(0+processingCapacity) wasteWaterDealTon  from `ts_waste_water_msg`   ) t2,"
+				+ " ( select sum(0+hwhandleNum) as hazardousWastesDealTon  from ts_waste_material_msg )t3 ");
+		
+
+	
+		
+		return super.queryForList(finder, TsExplorerGatherInfo.class, page);
+	}
+
 }

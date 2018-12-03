@@ -78,9 +78,10 @@ public class TsExplorerGatherInfoController  extends BaseController {
 		// ==构造分页请求
 		Page page = newPage(request);
 		// ==执行分页查询
-		List<String> listCompany = tsCompanyInfoService.finderCompanyIdByUserId(SessionUser.getUserId());
-		List<TsExplorerGatherInfo> datas=tsExplorerGatherInfoService.findListData(page, tsExplorerGatherInfo, listCompany);
-			returnObject.setQueryBean(tsExplorerGatherInfo);
+		List<TsExplorerGatherInfo> datas=tsExplorerGatherInfoService.findThreeWastesData(page, tsExplorerGatherInfo);
+		returnObject.setQueryBean(tsExplorerGatherInfo);
+	returnObject.setPage(page);
+	returnObject.setData(datas);
 		returnObject.setPage(page);
 		returnObject.setData(datas);
 		return returnObject;
@@ -211,6 +212,29 @@ public class TsExplorerGatherInfoController  extends BaseController {
 		return new ReturnDatas(ReturnDatas.SUCCESS,MessageUtils.DELETE_ALL_SUCCESS);
 		
 		
+	}
+	
+	/**
+	 * json数据,为地图统计使用
+	 * 
+	 * @param request
+	 * @param model
+	 * @param tsExplorerGatherInfo
+	 * @return
+	 * @throws Exception
+	 */
+	@RequestMapping("/find/json")
+	@ResponseBody   
+	public  ReturnDatas findThreeWastes(HttpServletRequest request, Model model,TsExplorerGatherInfo tsExplorerGatherInfo) throws Exception{
+		ReturnDatas returnObject = ReturnDatas.getSuccessReturnDatas();
+		// ==构造分页请求
+		Page page = newPage(request);
+		// ==执行分页查询
+		List<TsExplorerGatherInfo> datas=tsExplorerGatherInfoService.findThreeWastesData(page, tsExplorerGatherInfo);
+			returnObject.setQueryBean(tsExplorerGatherInfo);
+		returnObject.setPage(page);
+		returnObject.setData(datas);
+		return returnObject;
 	}
 
 }
