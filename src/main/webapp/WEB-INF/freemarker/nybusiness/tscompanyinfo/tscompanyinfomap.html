@@ -232,13 +232,15 @@ jQuery(function(){
  }); 
   var flueGasDealTon=0;//废物
   var wasteWaterDealTon=0;//废水
-  var hazardousWastesProduceTon=0;//废气
+  var hazardousWastesDealTon=0;//废气
 $(document)
 .ready(
+		
 		function() {
+		
 			jQuery
 					.post(
-							"${ctx}/tsexplorergatherinfo/list/json",
+							"${ctx}/tsexplorergatherinfo/find/json",
 							function(_json) {
 								var p1 = document.getElementById('flueGasDealTon');
 								var p2= document.getElementById('wasteWaterDealTon');

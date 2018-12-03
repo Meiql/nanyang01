@@ -78,7 +78,8 @@ public class TsExplorerGatherInfoController  extends BaseController {
 		// ==构造分页请求
 		Page page = newPage(request);
 		// ==执行分页查询
-		List<TsExplorerGatherInfo> datas=tsExplorerGatherInfoService.findThreeWastesData(page, tsExplorerGatherInfo);
+		List<String> listCompany = tsCompanyInfoService.finderCompanyIdByUserId(SessionUser.getUserId());
+		List<TsExplorerGatherInfo> datas=tsExplorerGatherInfoService.findListData(page, tsExplorerGatherInfo,listCompany);
 		returnObject.setQueryBean(tsExplorerGatherInfo);
 	returnObject.setPage(page);
 	returnObject.setData(datas);
@@ -223,7 +224,7 @@ public class TsExplorerGatherInfoController  extends BaseController {
 	 * @return
 	 * @throws Exception
 	 */
-	@RequestMapping("/find/json")
+	@RequestMapping(value= "/find/json")
 	@ResponseBody   
 	public  ReturnDatas findThreeWastes(HttpServletRequest request, Model model,TsExplorerGatherInfo tsExplorerGatherInfo) throws Exception{
 		ReturnDatas returnObject = ReturnDatas.getSuccessReturnDatas();
@@ -231,7 +232,7 @@ public class TsExplorerGatherInfoController  extends BaseController {
 		Page page = newPage(request);
 		// ==执行分页查询
 		List<TsExplorerGatherInfo> datas=tsExplorerGatherInfoService.findThreeWastesData(page, tsExplorerGatherInfo);
-			returnObject.setQueryBean(tsExplorerGatherInfo);
+		returnObject.setQueryBean(tsExplorerGatherInfo);
 		returnObject.setPage(page);
 		returnObject.setData(datas);
 		return returnObject;
