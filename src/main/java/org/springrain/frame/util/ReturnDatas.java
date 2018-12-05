@@ -16,6 +16,7 @@ public class ReturnDatas implements Serializable{
 	private String status;
 	private String message;
 	private Object data;
+	private String userType;//用户类型
     @SuppressWarnings("rawtypes")
 	private Map map;
 	private Page page;
@@ -103,4 +104,13 @@ public class ReturnDatas implements Serializable{
 	public void setStatusCode(String statusCode) {
 		this.statusCode = statusCode;
 	}
+
+	public String getUserType() {
+		return userType;
+	}
+
+	public void setUserType(String userType) {
+		this.userType = userType;
+	}
+	
 }

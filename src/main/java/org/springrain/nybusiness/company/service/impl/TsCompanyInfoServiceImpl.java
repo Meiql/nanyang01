@@ -229,4 +229,12 @@ public class TsCompanyInfoServiceImpl extends BaseSpringrainServiceImpl implemen
 		return super.queryForList(finder, TsCompanyInfo.class, page);
 	}
 
+	@Override
+	public List<TsCompanyInfo> listCompanyInfo() throws Exception {
+		Finder finder = new Finder();
+		finder.append("SELECT * FROM `ts_company_info` t where t.state=:state")
+		.setParam("state", 1);
+		return super.queryForList(finder, TsCompanyInfo.class);
+	}
+
 }

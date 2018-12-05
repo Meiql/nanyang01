@@ -180,6 +180,27 @@ public class TsCompanyInfoController  extends BaseController {
 		model.addAttribute(GlobalStatic.returnDatas, returnObject);
 		return "/nybusiness/tscompanyinfo/tsexaminecompanyinfoCru";
 	}
+	
+	/**
+	 * 查询已经审核的企业信息 通用
+	 * @param request
+	 * @return
+	 * @throws Exception
+	 */
+	@RequestMapping(value="/ajax/tscompanyInfo/json")
+	@ResponseBody      
+	public  ReturnDatas tscompanyInfo(HttpServletRequest request) throws Exception {
+		ReturnDatas returnDatas = ReturnDatas.getSuccessReturnDatas();
+			// 执行上报
+		try {
+			List<TsCompanyInfo> list = tsCompanyInfoService.listCompanyInfo();
+			returnDatas.setData(list);
+		} catch (Exception e) {
+			e.printStackTrace();
+			logger.error(e.getMessage(), e);
+		}
+		return returnDatas;
+	}
 	@RequestMapping("/list/export")
 	public void listexport(HttpServletRequest request,HttpServletResponse response, Model model,TsCompanyInfo tsCompanyInfo) throws Exception{
 		// ==构造分页请求

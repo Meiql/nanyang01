@@ -1,17 +1,16 @@
 package org.springrain.nybusiness.mail.service.impl;
 
 import java.io.File;
-import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;
-import org.springrain.nybusiness.mail.entity.TsMailListInside;
-import org.springrain.nybusiness.mail.service.ITsMailListInsideService;
 import org.springrain.frame.entity.IBaseEntity;
 import org.springrain.frame.util.Finder;
 import org.springrain.frame.util.Page;
+import org.springrain.nybusiness.mail.entity.TsMailListInside;
+import org.springrain.nybusiness.mail.service.ITsMailListInsideService;
 import org.springrain.system.service.BaseSpringrainServiceImpl;
 
 
@@ -91,6 +90,9 @@ public class TsMailListInsideServiceImpl extends BaseSpringrainServiceImpl imple
 		.setParam("companyId", listCompany);
 		if(StringUtils.isNoneBlank(tsMailListInside.getUnitName())){
 			finder.append(" and t.unitName like:unitName").setParam("unitName", "%"+tsMailListInside.getUnitName()+"%");
+		}
+		if(StringUtils.isNoneBlank(tsMailListInside.getCompanyId())){
+			finder.append(" and t.companyId =:companyId").setParam("companyId", tsMailListInside.getCompanyId());
 		}
 		finder.append("  order by t.companyId , t.createTime desc");
 		return super.queryForList(finder, TsMailListInside.class, page);

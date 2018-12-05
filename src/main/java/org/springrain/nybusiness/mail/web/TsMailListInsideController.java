@@ -24,6 +24,7 @@ import org.springrain.frame.util.ReturnDatas;
 import org.springrain.nybusiness.company.service.ITsCompanyInfoService;
 import org.springrain.nybusiness.mail.entity.TsMailListInside;
 import org.springrain.nybusiness.mail.service.ITsMailListInsideService;
+import org.springrain.system.service.IUserService;
 
 
 /**
@@ -40,7 +41,8 @@ public class TsMailListInsideController  extends BaseController {
 	private ITsMailListInsideService tsMailListInsideService;
 	@Resource
 	private ITsCompanyInfoService tsCompanyInfoService;
-	
+	@Resource
+	private IUserService userService;
 	
 	private String listurl="/nybusiness/mail/tsmaillistinside/tsmaillistinsideList";
 	
@@ -82,9 +84,11 @@ public class TsMailListInsideController  extends BaseController {
 		List<String> listCompany = tsCompanyInfoService.finderCompanyIdByUserId(SessionUser.getUserId());
 		// ==执行分页查询
 		List<TsMailListInside> datas=tsMailListInsideService.finderTsMaillistForList(page, tsMailListInside, listCompany);
-			returnObject.setQueryBean(tsMailListInside);
+		returnObject.setQueryBean(tsMailListInside);
 		returnObject.setPage(page);
 		returnObject.setData(datas);
+		//将用户类型传到前台 判断是否显示企业信息
+		returnObject.setUserType(String.valueOf(SessionUser.getUserType()));
 		return returnObject;
 	}
 	

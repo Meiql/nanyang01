@@ -70,4 +70,10 @@ public interface ITsCompanyInfoService extends IBaseSpringrainService {
 	 * @throws Exception
 	 */
 	List<TsCompanyInfo> finderCompanyInfo(Page page,TsCompanyInfo companyInfo,List<String> listCompany)throws Exception;
+	/**
+	 * 查询已经审核的企业信息 通用
+	 * @return
+	 * @throws Exception
+	 */
+	List<TsCompanyInfo> listCompanyInfo()throws Exception;
 }
