@@ -2,6 +2,8 @@ package  org.springrain.nybusiness.facility.web;
 
 import java.io.File;
 import java.io.IOException;
+import java.io.UnsupportedEncodingException;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
@@ -12,6 +14,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.lang3.StringUtils;
 import org.apache.http.HttpResponse;
+import org.apache.http.ParseException;
 import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpPost;
@@ -30,6 +33,7 @@ import org.springrain.frame.util.GlobalStatic;
 import org.springrain.frame.util.MessageUtils;
 import org.springrain.frame.util.Page;
 import org.springrain.frame.util.ReturnDatas;
+import org.springrain.nybusiness.company.service.ITsCompanyInfoService;
 import org.springrain.nybusiness.facility.entity.TsFacilityInfo;
 import org.springrain.nybusiness.facility.service.ITsFacilityInfoService;
 import org.springrain.nybusiness.waste.entity.TsWasteAirMsg;
@@ -47,6 +51,8 @@ import org.springrain.nybusiness.waste.entity.TsWasteAirMsg;
 public class TsFacilityInfoController  extends BaseController {
 	@Resource
 	private ITsFacilityInfoService tsFacilityInfoService;
+	@Resource
+	private ITsCompanyInfoService tsCompanyInfoService;
 	private String listurl="/nybusiness/tsfacilityinfo/tsfacilityinfoList";
 	
 	
@@ -81,19 +87,19 @@ public class TsFacilityInfoController  extends BaseController {
 	@ResponseBody   
 	public  ReturnDatas listjson(HttpServletRequest request, Model model,TsFacilityInfo tsFacilityInfo) throws Exception{
 		ReturnDatas returnObject = ReturnDatas.getSuccessReturnDatas();
-		String companyid=SessionUser.getUserId();
-		Finder finder;
-		finder = Finder.getSelectFinder(TsWasteAirMsg.class);
-		if (StringUtils.isBlank(companyid)) {
-			finder=null;
-		}else{
-			finder.append("where companyId =:companyId").setParam("companyId", companyid);
-		}
 		// ==构造分页请求
 		Page page = newPage(request);
+		java.lang.String companyid=request.getParameter("companyid");
+		List<String> listCompany = new ArrayList<String>();
+		if(StringUtils.isNoneBlank(companyid)){
+				listCompany.add(companyid);
+		}else{
+		listCompany = tsCompanyInfoService.finderCompanyIdByUserId(SessionUser.getUserId());
+		}
 		// ==执行分页查询
-		List<TsFacilityInfo> datas=tsFacilityInfoService.findListDataByFinder(null,page,TsFacilityInfo.class,tsFacilityInfo);
-			returnObject.setQueryBean(tsFacilityInfo);
+		// ==执行分页查询
+		List<TsFacilityInfo> datas=tsFacilityInfoService.findertsFacilityInfo(page,tsFacilityInfo,listCompany);
+		returnObject.setQueryBean(tsFacilityInfo);
 		returnObject.setPage(page);
 		returnObject.setData(datas);
 		return returnObject;
@@ -138,7 +144,22 @@ public class TsFacilityInfoController  extends BaseController {
 		return returnObject;
 		
 	}
-	
+	/**
+	 * 详情
+	 * 
+	 * @param request
+	 * @param model
+	 * @param tsFacilityInfo
+	 * @return
+	 * @throws Exception
+	 */
+	@RequestMapping("/detail")
+	public String detail(Model model,HttpServletRequest request,HttpServletResponse response) 
+			throws Exception {
+		ReturnDatas returnObject = lookjson(model,request,response);
+		model.addAttribute(GlobalStatic.returnDatas, returnObject);
+		return "/nybusiness/tsfacilityinfo/tsfacilityinfoCru2";
+	}
 	
 	/**
 	 * 新增/修改 操作吗,返回json格式数据
@@ -246,30 +267,25 @@ public class TsFacilityInfoController  extends BaseController {
 				if(list.size()==0){
 					returnObject.setStatus(ReturnDatas.ERROR);
 				}else{
-				String str=httpTest(list);
-				str=StringUtils.remove(str,"\"{data=");
-				str=str.substring(0,str.lastIndexOf(','));
-				str=StringUtils.remove(str,"[{");
-				str=StringUtils.remove(str,"}]");
-				/*
-				str=str.replace("=", "\":\"");
-				str=str.replace("{", "{\"");
-				str=str.replace(",", "\",\"");
-				str=str.replace("}\",\" {", "\"},{");
-				str=str.replace("}]","\"}]");
-				str=str.replaceAll(" ", "");
-				JSONArray json=new JSONArray(str);
-				System.out.println(json);*/
+				String message=httpTest(list);
+				boolean status = message.contains("\"{data=");
+				if(status){
+				message=StringUtils.remove(message,"\"{data=");
+				message=message.substring(0,message.lastIndexOf(','));
+				message=StringUtils.remove(message,"[{");
+				message=StringUtils.remove(message,"}]");
 				returnObject.setStatus(ReturnDatas.SUCCESS);
-				returnObject.setData(str);
+				returnObject.setData(message);
+				}else{
+					returnObject.setStatus(ReturnDatas.ERROR);
 				}
+			}
 		return returnObject;
 	}
 	
 	
 	
-	public String httpTest(List<TsFacilityInfo> list) throws ClientProtocolException, IOException {
-		//"{\"dev_id_list\":\"503790188\",\"36272217\"}";
+	public String httpTest(List<TsFacilityInfo> list) throws ParseException, IOException {
 		String json = "{\"dev_id_list\":";
 		if(list.size()==1){
 			json+="\"";
@@ -286,14 +302,15 @@ public class TsFacilityInfoController  extends BaseController {
 			}
 			json+="\"}";
 		}
+		String content="";
 		HttpClient httpClient = new DefaultHttpClient();
 		HttpPost post = new HttpPost("http://116.255.158.88:8082/bsa-admin-api/oneNet/queryData");
-		StringEntity postingString = new StringEntity(json);// json传递
-		post.setEntity(postingString);
+		StringEntity postingString;
+			postingString = new StringEntity(json);
+			post.setEntity(postingString);
 		post.setHeader("Content-type", "application/json");
 		HttpResponse response = httpClient.execute(post);
-		String content = EntityUtils.toString(response.getEntity());
-		System.out.println(content);
+		content = EntityUtils.toString(response.getEntity());
 		return content;
 	}
 	}

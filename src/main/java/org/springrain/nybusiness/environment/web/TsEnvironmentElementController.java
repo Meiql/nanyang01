@@ -23,8 +23,10 @@ import org.springrain.frame.util.MessageUtils;
 import org.springrain.frame.util.Page;
 import org.springrain.frame.util.ReturnDatas;
 import org.springrain.nybusiness.company.entity.TsCompanyInfo;
+import org.springrain.nybusiness.company.service.ITsCompanyInfoService;
 import org.springrain.nybusiness.environment.entity.TsEnvironmentElement;
 import org.springrain.nybusiness.environment.service.ITsEnvironmentElementService;
+import org.springrain.nybusiness.facility.entity.TsFacilityInfo;
 import org.springrain.nybusiness.waste.entity.TsWasteWaterMsg;
 
 
@@ -40,7 +42,8 @@ import org.springrain.nybusiness.waste.entity.TsWasteWaterMsg;
 public class TsEnvironmentElementController  extends BaseController {
 	@Resource
 	private ITsEnvironmentElementService tsEnvironmentElementService;
-	
+	@Resource
+	private ITsCompanyInfoService tsCompanyInfoService;
 	private String listurl="/nybusiness/environment/tsenvironmentelement/tsenvironmentelementList";
 	
 	
@@ -62,7 +65,22 @@ public class TsEnvironmentElementController  extends BaseController {
 		model.addAttribute(GlobalStatic.returnDatas, returnObject);
 		return listurl;
 	}
-	
+	/**
+	 * 详情
+	 * 
+	 * @param request
+	 * @param model
+	 * @param tsFacilityInfo
+	 * @return
+	 * @throws Exception
+	 */
+	@RequestMapping("/detail")
+	public String detail(Model model,HttpServletRequest request,HttpServletResponse response) 
+			throws Exception {
+		ReturnDatas returnObject = lookjson(model,request,response);
+		model.addAttribute(GlobalStatic.returnDatas, returnObject);
+		return "/nybusiness/environment/tsenvironmentelement/tsenvironmentelementCru2";
+	}
 	/**
 	 * json数据,为APP提供数据
 	 * 
@@ -76,18 +94,11 @@ public class TsEnvironmentElementController  extends BaseController {
 	@ResponseBody   
 	public  ReturnDatas listjson(HttpServletRequest request, Model model,TsEnvironmentElement tsEnvironmentElement) throws Exception{
 		ReturnDatas returnObject = ReturnDatas.getSuccessReturnDatas();
-		/*String companyid=SessionUser.getCompanyid();
-		Finder finder;
-		finder = Finder.getSelectFinder(TsEnvironmentElement.class);
-		if (StringUtils.isBlank(companyid)) {
-			finder=null;
-		}else{
-			finder.append("where companyId =:companyId").setParam("companyId", companyid);
-		}*/
 		// ==构造分页请求
 		Page page = newPage(request);
 		// ==执行分页查询
-		List<TsEnvironmentElement> datas=tsEnvironmentElementService.findListDataByFinder(null,page,TsEnvironmentElement.class,tsEnvironmentElement);
+		List<String> listCompany = tsCompanyInfoService.finderCompanyIdByUserId(SessionUser.getUserId());
+		List<TsEnvironmentElement> datas=tsEnvironmentElementService.finderTsEnvironmentElementForList(page, tsEnvironmentElement, listCompany);
 			returnObject.setQueryBean(tsEnvironmentElement);
 		returnObject.setPage(page);
 		returnObject.setData(datas);
@@ -150,6 +161,17 @@ public class TsEnvironmentElementController  extends BaseController {
 			if(StringUtils.isBlank(id)){
 			  tsEnvironmentElement.setId(null);
 			}
+			if(StringUtils.isBlank(tsEnvironmentElement.getCreateUser())){
+				tsEnvironmentElement.setCreateUser(SessionUser.getUserId());
+			}
+			if(StringUtils.isBlank(tsEnvironmentElement.getCreateName())){
+				tsEnvironmentElement.setCreateName(SessionUser.getUserName());
+			}
+			if(StringUtils.isBlank(tsEnvironmentElement.getCreateTime())){
+				tsEnvironmentElement.setCreateTime(DateUtils.convertDate2String("yyyy-MM-dd HH:mm:ss", new Date()));
+			}
+			java.lang.String companyId = SessionUser.getCompanyid(); 
+			tsEnvironmentElement.setCompanyId(companyId);
 			tsEnvironmentElementService.saveorupdate(tsEnvironmentElement);
 			
 		} catch (Exception e) {

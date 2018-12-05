@@ -52,7 +52,7 @@
 							<div class="layui-main">
 						          <div id="LAY_preview" class="layui-my-form">
 						          				<header class="larry-personal-tit">
-													<span>企业信息完善</span>
+													<span>企业信息</span>
 												</header>
 												<div class="larry-personal-body clearfix changepwd">
 													<form id="validForm" class="layui-form <!--  -->"  method="post" action="${ctx}/tscompanyinfo/update">
@@ -67,131 +67,131 @@
 																	 <table class="form-table">
 																	 <tr>
 																		<td colspan="3">公司名称*</td>
-																		<td colspan="8"><input type="text" name="companyName" id="companyName" datatype="*" nullmsg="不能为空" errormsg="不能为空！" autocomplete="off" value="${(returnDatas.data.companyName)!''}">
+																		<td colspan="8"><input type="text" readonly name="companyName" id="companyName" value="${(returnDatas.data.companyName)!''}">
 																		</td>
 																	</tr>
 																	</table>
 																	<table class="form-table">
 																	 <tr>
 																		<td colspan="3">主要从事业务*</td>
-																		<td colspan="8"><input type="text" name="mainBusiness" id="mainBusiness" datatype="*" nullmsg="不能为空" errormsg="不能为空！" autocomplete="off" value="${(returnDatas.data.mainBusiness)!''}">
+																		<td colspan="8"><input type="text" readonly name="mainBusiness"   value="${(returnDatas.data.mainBusiness)!''}">
 																		</td>
 																	</tr>
 																	</table>
 																	<table class="form-table">
 																	 <tr>
-																		<td colspan="3">上级公司或所属集 团公司名称*</td>
+																		<td colspan="3">上级公司或所属集 团公司名称</td>
 																		<td colspan="2">
-																			<select id="orgid" name="orgid"  datatype="*" nullmsg="管辖单位不能为空"  multiple data-placeholder="请选择管辖单位">
-																		      	<option value=""></option>
+																			<select id="orgid" name="orgid"  disabled multiple data-placeholder="请选择管辖单位">
+																		      	<option value="" ></option>
 																		     </select>
 																		</td>
-																		<td colspan="3">所在工业园区*</td>
-																		<td colspan="3"><input type="text" name="industrialyuanchu" id="industrialyuanchu" datatype="*" nullmsg="不能为空" errormsg="不能为空！" autocomplete="off" value="${(returnDatas.data.industrialyuanchu)!''}">
+																		<td colspan="3">所在工业园区</td>
+																		<td colspan="3"><input type="text" readonly name="industrialyuanchu" id="industrialyuanchu"  value="${(returnDatas.data.industrialyuanchu)!''}">
 																		</td>
 																	</tr>
 																	</table>
 																	<table class="form-table">
 																	 <tr>
 																		<td colspan="3">单位所在地*</td>
-																		<td colspan="8"><input type="text" name="address" id="address" datatype="*" nullmsg="不能为空" errormsg="不能为空！" autocomplete="off" value="${(returnDatas.data.address)!''}">
+																		<td colspan="8"><input type="text" readonly name="address" id="address"  value="${(returnDatas.data.address)!''}">
 																		</td>
 																	</tr>
 																	</table>
 																	<table class="form-table">
 																	 <tr>
 																		<td colspan="3">中心经度*</td>
-																		<td colspan="2"><input type="text" name="longitude" id="longitude" datatype="*" nullmsg="不能为空" errormsg="不能为空！" autocomplete="off" value="${(returnDatas.data.longitude)!''}">
+																		<td colspan="2"><input type="text" readonly name="longitude" id="longitude"  value="${(returnDatas.data.longitude)!''}">
 																		</td>
 																		<td colspan="3">中心纬度*</td>
-																		<td colspan="3"><input type="text" name="latitude" id="latitude" datatype="*" nullmsg="不能为空" errormsg="不能为空！" autocomplete="off" value="${(returnDatas.data.latitude)!''}">
+																		<td colspan="3"><input type="text" readonly name="latitude" id="latitude"  value="${(returnDatas.data.latitude)!''}">
 																		</td>
 																	</tr>
 																	</table>
 																	<table class="form-table">
 																	 <tr>
 																		<td colspan="3">组织机构代码*</td>
-																		<td colspan="2"><input type="text" name="companyCode" id="companyCode" datatype="*" nullmsg="不能为空" errormsg="不能为空！" autocomplete="off" value="${(returnDatas.data.companyName)!''}">
+																		<td colspan="2"><input type="text" readonly name="companyCode" id="companyCode"  value="${(returnDatas.data.companyName)!''}">
 																		</td>
 																		<td colspan="3">邮政编码*</td>
-																		<td colspan="3"><input type="text" name="postalCode" id="postalCode" datatype="*" nullmsg="不能为空" errormsg="不能为空！" autocomplete="off" value="${(returnDatas.data.postalCode)!''}">
+																		<td colspan="3"><input type="text" readonly name="postalCode" id="postalCode"  value="${(returnDatas.data.postalCode)!''}">
 																		</td>
 																	</tr>
 																	</table>
 																	<table class="form-table">
 																	 <tr>
 																		<td colspan="3">法人代表*</td>
-																		<td colspan="2"><input type="text" name="corporationName" id="corporationName" datatype="*" nullmsg="不能为空" errormsg="不能为空！" autocomplete="off" value="${(returnDatas.data.corporationName)!''}">
+																		<td colspan="2"><input type="text" readonly name="corporationName" id="corporationName"  value="${(returnDatas.data.corporationName)!''}">
 																		</td>
 																		<td colspan="3">联系电话*</td>
-																		<td colspan="3"><input type="text" name="corporationPhone" id="corporationPhone" datatype="*" nullmsg="不能为空" errormsg="不能为空！" autocomplete="off" value="${(returnDatas.data.corporationPhone)!''}">
+																		<td colspan="3"><input type="text" readonly name="corporationPhone" id="corporationPhone" value="${(returnDatas.data.corporationPhone)!''}">
 																		</td>
 																	</tr>
 																	</table>
 																	<table class="form-table">
 																	 <tr>
 																		<td colspan="3">行业类别（中类）*</td>
-																		<td colspan="2"><input type="text" name="industryCategary" id="industryCategary" datatype="*" nullmsg="不能为空" errormsg="不能为空！" autocomplete="off" value="${(returnDatas.data.industryCategary)!''}">
+																		<td colspan="2"><input type="text" readonly name="industryCategary" id="industryCategary"  value="${(returnDatas.data.industryCategary)!''}">
 																		</td>
 																		<td colspan="3">行业代码（中类）*</td>
-																		<td colspan="3"><input type="text" name="industryCode" id="industryCode" datatype="*" nullmsg="不能为空" errormsg="不能为空！" autocomplete="off" value="${(returnDatas.data.industryCode)!''}">
+																		<td colspan="3"><input type="text" readonly name="industryCode" id="industryCode" value="${(returnDatas.data.industryCode)!''}">
 																		</td>
 																	</tr>
 																	</table>
 																	<table class="form-table">
 																	 <tr>
 																		<td colspan="3">登记注册类型*</td>
-																		<td colspan="2"><input type="text" name="registerType" id="registerType" datatype="*" nullmsg="不能为空" errormsg="不能为空！" autocomplete="off" value="${(returnDatas.data.registerType)!''}">
+																		<td colspan="2"><input type="text" readonly name="registerType" id="registerType"  value="${(returnDatas.data.registerType)!''}">
 																		</td>
 																		<td colspan="3">注册资本*</td>
-																		<td colspan="3"><input type="text" name="registeredCapital" id="registeredCapital" datatype="*" nullmsg="不能为空" errormsg="不能为空！" autocomplete="off" value="${(returnDatas.data.registeredCapital)!''}">
+																		<td colspan="3"><input type="text" readonly name="registeredCapital" id="registeredCapital"  value="${(returnDatas.data.registeredCapital)!''}">
 																		</td>
 																	</tr>
 																	</table>
 																	<table class="form-table">
 																	 <tr>
 																		<td colspan="3">建厂年月*</td>
-																		<td colspan="2"><input type="text" name="factoryTime" id="factoryTime" onClick="WdatePicker()" datatype="*" nullmsg="不能为空" errormsg="不能为空！" autocomplete="off" value="${(returnDatas.data.factoryTime)!''}">
+																		<td colspan="2"><input type="text" readonly name="factoryTime" id="factoryTime" value="${(returnDatas.data.factoryTime)!''}">
 																		</td>
 																		<td colspan="3">最新改扩建年月*</td>
-																		<td colspan="3"><input type="text" name="extensionYear" id="extensionYear" onClick="WdatePicker()" datatype="*" nullmsg="不能为空" errormsg="不能为空！" autocomplete="off" value="${(returnDatas.data.extensionYear)!''}">
+																		<td colspan="3"><input type="text" readonly name="extensionYear" id="extensionYear"   value="${(returnDatas.data.extensionYear)!''}">
 																		</td>
 																	</tr>
 																	</table>
 																	<table class="form-table">
 																	 <tr>
 																		<td colspan="3">职工人数*</td>
-																		<td colspan="2"><input type="text" name="numberOfEmployees" id="numberOfEmployees" datatype="*" nullmsg="不能为空" errormsg="不能为空！" autocomplete="off" value="${(returnDatas.data.numberOfEmployees)!''}">
+																		<td colspan="2"><input type="text" readonly name="numberOfEmployees" id="numberOfEmployees"  value="${(returnDatas.data.numberOfEmployees)!''}">
 																		</td>
 																		<td colspan="3">企业规模*</td>
-																		<td colspan="3"><input type="text" name="enterprisesize" id="enterprisesize" datatype="*" nullmsg="不能为空" errormsg="不能为空！" autocomplete="off" value="${(returnDatas.data.enterprisesize)!''}">
+																		<td colspan="3"><input type="text" readonly name="enterprisesize" id="enterprisesize"  value="${(returnDatas.data.enterprisesize)!''}">
 																		</td>
 																	</tr>
 																	</table>
 																	<table class="form-table">
 																	 <tr>
 																		<td colspan="3">应急联系人*</td>
-																		<td colspan="2"><input type="text" name="contactsName" id="contactsName" datatype="*" nullmsg="不能为空" errormsg="不能为空！" autocomplete="off" value="${(returnDatas.data.contactsName)!''}">
+																		<td colspan="2"><input type="text" readonly name="contactsName" id="contactsName" value="${(returnDatas.data.contactsName)!''}">
 																		</td>
 																		<td colspan="3">联系电话*</td>
-																		<td colspan="3"><input type="text" name="phone" id="phone" datatype="*" nullmsg="不能为空" errormsg="不能为空！" autocomplete="off" value="${(returnDatas.data.phone)!''}">
+																		<td colspan="3"><input type="text" readonly name="phone" id="phone"  value="${(returnDatas.data.phone)!''}">
 																		</td>
 																	</tr>
 																	</table>
 																	<table class="form-table">
 																	 <tr>
 																		<td colspan="3">环保联系人*</td>
-																		<td colspan="2"><input type="text" name="environmentalContacts" id="environmentalContacts" datatype="*" nullmsg="不能为空" errormsg="不能为空！" autocomplete="off" value="${(returnDatas.data.environmentalContacts)!''}">
+																		<td colspan="2"><input type="text" readonly name="environmentalContacts" id="environmentalContacts"  value="${(returnDatas.data.environmentalContacts)!''}">
 																		</td>
 																		<td colspan="3">联系电话*</td>
-																		<td colspan="3"><input type="text" name="environmentalPhone" id="environmentalPhone" datatype="*" nullmsg="不能为空" errormsg="不能为空！" autocomplete="off" value="${(returnDatas.data.environmentalPhone)!''}">
+																		<td colspan="3"><input type="text" readonly name="environmentalPhone" id="environmentalPhone"  value="${(returnDatas.data.environmentalPhone)!''}">
 																		</td>
 																	</tr>
 																	</table>
 																	<table class="form-table">
 																	 <tr>
 																		<td colspan="3">历次环评审批年月*</td>
-																		<td colspan="2"><input type="text" name="eiaApproval" id="eiaApproval" onClick="WdatePicker()" datatype="*" nullmsg="不能为空" errormsg="不能为空！" autocomplete="off" value="${(returnDatas.data.eiaApproval)!''}">
+																		<td colspan="2"><input type="text" readonly name="eiaApproval" id="eiaApproval"  value="${(returnDatas.data.eiaApproval)!''}">
 																		</td>
 																		<td colspan="3"></td>
 																		<td colspan="3"></td>
@@ -201,10 +201,6 @@
 															
 														</div>
 														<br>
-														<div style='margin-left:50%'>
-																<button type="button" class="layui-btn" id="smtbtn">保存</button>
-																<!-- <button type="button" class="layui-btn layui-btn-primary" id="rstbtn">重置</button> -->
-															</div>
 													</form>
 													
 													
@@ -235,7 +231,7 @@
             }
             
             jQuery(_json.data).each(function(i,_obj){
-                jQuery("#orgid").append("<option value='"+_obj.id+"'>"+_obj.name+"</option>");
+                jQuery("#orgid").append("<option  value='"+_obj.id+"'>"+_obj.name+"</option>");
                 var a="${(returnDatas.data.orgid)!''}";
             	$("#orgid").find("option[value='"+a+"']").attr("selected",true);
             });

@@ -113,6 +113,7 @@
 												  </th>
 												  <th style="width : 80px;text-align: center">操作</th>
 												  <!--first_end_no_export-->
+												  		<th id="th_createName"style="text-align: center">创建人</th>
 														<th id="th_processingMethod" style="text-align: center">污水处理方式名称</th>
 														<th id="th_processingCapacity" style="text-align: center">处理能力 (吨/天)</th>
 														<th id="th_outletLocation" style="text-align: center">排污口方位</th>
@@ -154,6 +155,9 @@
 								                            </@shiro.hasPermission>
 														</td>
 														<!--end_no_export-->
+														<td class="center">
+															${(_data.createName)!''}
+														</td>
 														<td class="center">
 															${(_data.processingMethod)!''}
 														</td>

@@ -2,6 +2,7 @@ package org.springrain.nybusiness.waste.entity;
 
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.builder.EqualsBuilder;
@@ -113,7 +114,8 @@ public class TsWasteMaterialMsg  extends BaseEntity {
 	 */
 	private java.lang.String bak3;
 	//columns END 数据库字段结束
-	
+	@Transient
+	private java.lang.String createName; 
 	//concstructor
 
 	public TsWasteMaterialMsg(){
@@ -441,7 +443,14 @@ public class TsWasteMaterialMsg  extends BaseEntity {
 		this.bak3 = value;
 	}
 	
-	
+	@Transient
+	public String getCreateName() {
+		return createName;
+	}
+
+	public void setCreateName(String createName) {
+		this.createName = createName;
+	}
 	
 	/**
 	 * bak3

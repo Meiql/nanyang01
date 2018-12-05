@@ -95,6 +95,9 @@ public class TsErgencyInvestigationServiceImpl extends BaseSpringrainServiceImpl
 		if(tsErgencyInvestigation.getCategory()!=null&&tsErgencyInvestigation.getCategory()!=0) {
 			finder.append(" and t.category =:category").setParam("category", tsErgencyInvestigation.getCategory());
 		}
+		if(tsErgencyInvestigation.getBak1()!=null&&tsErgencyInvestigation.getBak1()!="") {
+			finder.append(" and t.Bak1 =:Bak1").setParam("Bak1", tsErgencyInvestigation.getBak1());
+		}
 		return super.queryForList(finder, TsErgencyInvestigation.class, page);
 	}
 	@Override

@@ -1,276 +1,516 @@
-<#ftl output_format="HTML" auto_esc=true>
-<@h.commonHead title="后台管理系统" keywords="开源,永久免费" description="springrain开源系统管理后台"/>
-<script src="${ctx}/js/custom/common/form.js">
+<#ftl output_format="HTML" auto_esc=true> <@h.commonHead
+title="后台管理系统" keywords="开源,永久免费" description="springrain开源系统管理后台"/> <script
+	src="${ctx}/js/custom/common/form.js">
+	
 </script>
 <style type="text/css">
-.div4{margin-top:2%;float: left;width: 15%;height: 88%;border: 1px solid #e2e2e2;position:relative;background: white;}
-.div1{width: 100%;height: 2%;border:none;position:absolute;top: 30%;left:30%;margin-top: -10%;margin-left: -10%;}
-.div5{width: 100%;height: 8%;border-bottom: 1px solid #e2e2e2;text-align:center;line-height:3;}
+.div4 {
+	margin-top: 2%;
+	float: left;
+	width: 15%;
+	height: 88%;
+	border: 1px solid #e2e2e2;
+	position: relative;
+	background: white;
+}
+
+.div1 {
+	width: 100%;
+	height: 2%;
+	border: none;
+	position: absolute;
+	top: 30%;
+	left: 30%;
+	margin-top: -10%;
+	margin-left: -20%;
+	font-size: 18px;
+}
+
+.div5 {
+	width: 100%;
+	height: 8%;
+	border-bottom: 1px solid #e2e2e2;
+	text-align: center;
+	line-height: 3;
+}
 </style>
 <head>
-	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-	<meta name="viewport" content="initial-scale=1.0, user-scalable=no" />
-	<style type="text/css">
-		body, html{width: 100%;height: 100%;margin:0;font-family:"微软雅黑";}
-		#allmap{height:500px;width:100%;}
-		#r-result{width:100%; font-size:14px;}
-	</style>
-	<script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=5q6yZCveu2aXOq9oYdoLGIgtvkdBBnBn"></script>
-	<title>城市名定位</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="initial-scale=1.0, user-scalable=no" />
+<style type="text/css">
+body, html {
+	width: 100%;
+	height: 100%;
+	margin: 0;
+	font-family: "微软雅黑";
+}
+
+#allmap {
+	height: 500px;
+	width: 100%;
+}
+
+#r-result {
+	width: 100%;
+	font-size: 14px;
+}
+</style>
+<script type="text/javascript"
+	src="http://api.map.baidu.com/api?v=2.0&ak=5q6yZCveu2aXOq9oYdoLGIgtvkdBBnBn"></script>
+<title>城市名定位</title>
 </head>
 <body>
 
-<div class="layui-layout layui-layout-admin">
+	<div class="layui-layout layui-layout-admin">
 		<@h.naviHeader /><@h.leftMenu />
-		<div class="layui-tab layui-tab-brief"> 
-		<ul class="layui-tab-title site-demo-title">
-		             <li class="layui-this">
+		<div class="layui-tab layui-tab-brief">
+			<ul class="layui-tab-title site-demo-title">
+				<li class="layui-this"></li>
+			</ul>
+			<div class="layui-body layui-tab-content site-demo-body">
+				<form class="layui-form layui-form-pane" id="searchForm"
+					action="${ctx}/tscompanyinfomap/list" method="post">
+					<table class="layui-table search-wrap">
+						<colgroup>
+							<col width="">
+							<col width="150">
+						</colgroup>
+						<tbody>
+							<tr>
+								<th colspan="2">企业信息搜索</th>
+							</tr>
+							<tr>
+								<td>
+									<div class="layui-inline">
+										<label class="layui-form-label">企业名称</label>
+										<div class="layui-input-inline">
+											<input type="text" id="companyName" name="companyName"
+												value="${(returnDatas.queryBean.companyName)!''}"
+												placeholder="请输入名称 " class="layui-input">
+										</div>
+									</div>
+								</td>
+								<td>
+									<div class="layui-inline">
+										<button class="layui-btn" type="button" id="sbtButton">
+											<i class="layui-icon" style="top: 4px; right: 5px;">&#xe615;</i>搜索
+										</button>
+									</div>
+								</td>
+							</tr>
+						</tbody>
+					</table>
+				</form>
+				<div
+					style="width: 100%; height: 82.5%; border: 1px solid #e2e2e2; background: white;">
+					<div class="div4" style="margin-left: 6%;">
+						<div class="div5">统计分析</div>
+						<div class="div1" style="top: 40%">
+							<p id="companyinfomapnumber"></p>
+							<p id="flueGasDealTon" style="margin-top: 5%"></p>
+							<p id="wasteWaterDealTon" style="margin-top: 5%"></p>
+							<p id="hazardousWastesProduceTon" style="margin-top: 5%"></p>
+						</div>
+					</div>
 
-		             </li>
-	       		</ul>
-		<div class="layui-body layui-tab-content site-demo-body">
-		 <form class="layui-form layui-form-pane" id="searchForm" action="${ctx}/tscompanyinfomap/list" method="post"> 
-		<table class="layui-table search-wrap">
-									  	<colgroup>
-										    <col width="">
-										    <col width="150">
-										</colgroup>
-							          	<tbody>
-							          		<tr>
-							          			<th colspan="2">企业信息搜索</th>
-							          		</tr>
-							          		<tr>
-							          			<td>
-							          				<div class="layui-inline">
-									                    <label class="layui-form-label">企业名称</label>
-									                    <div class="layui-input-inline">
-									                           <input type="text" id="companyName"name="companyName" value="${(returnDatas.queryBean.companyName)!''}" placeholder="请输入名称 " class="layui-input">
-									                    </div>
-							                		</div>
-									                 <div class="layui-inline">
-									                    <label class="layui-form-label">是否可用</label>
-									                    <div class="layui-input-inline">
-									                        <select name="active" id="active" class="layui-input">
-									                          <option value="">==请选择==</option>
-															  <option value="1">是</option>
-															  <option value="0">否</option>
-															</select>   
-									                    </div>
-									                </div>
-							          			</td>
-							          			<td>
-							          			   <div class="layui-inline">
-									                     <button class="layui-btn" type="button" id="sbtButton"><i class="layui-icon" style="top:4px;right:5px;">&#xe615;</i>搜索</button>
-									                </div>
-							          			</td>
-							          		</tr>
-							          	</tbody>
-							          </table>
-							          </form> 
-	<div style="width: 100%;height: 82.5%;border: 1px solid #e2e2e2;background: white;" >								
-	<div class="div4" style="margin-left:6%;">
-	<div class="div5">
-	统计分析
-	</div>
-	<div class="div1">
-	<p id="companyinfomapnumber"></p>
-	<p id="flueGasDealTon"></p>
-	<p id="wasteWaterDealTon"></p>
-	<p id="hazardousWastesDealTon"></p>
-	</div>
-	</div>	
-						          
-	<div class="div4" style="width: 50%;margin-left:4%;">
-	<div class="div5">
-	地图
-	</div>
-	<div style="height:95%;"id="allmap"></div>
-	</div>
-	
-	<div class="div4" style="margin-left:4%;">
-	<div class="div5">实时监控</div>
-	<div class="div1"style="top: 25%;">
-	浓度：
-     </div>
-	<div class="div1"id="infoe">
-	
-     </div>
-	<div class="div1" style="top:50%">库存位置：
-	<input style="border: none;"/>
-	</div>
-	<div class="div1" style="top:70%">库存数量：
-     </div>
-	</div>
-	</div>
-	 </div> 
-	 </div>
+					<div class="div4" style="width: 50%; margin-left: 4%;">
+						<div class="div5">地图</div>
+						<div style="height: 95%;" id="allmap"></div>
+					</div>
+
+					<div class="div4" style="margin-left: 4%;">
+						<div class="div5">实时监控</div>
+						<div class="div1" style="top: 15%;">
+							<p style="float:left;">公司名称：</p>
+							<p id="name" style="float:left;color:red;"></p>
+						</div>
+						<div class="div1" style="top: 25%;height:50%">浓度：
+						<textarea id="infoe" style="height:60%;width:90%;border:none;"></textarea>
+						</div>
+						<div class="div1" style="top: 70%;height:50%">库存信息：
+						<!-- <div class="div1" id="stock" style="margin-top: 10%;"> -->
+						<textarea id="stock" style="height:60%;width:90%;border: none;"></textarea>
+						</div>
+						</div>
+						</div>
+						<!-- <div class="div1" style="top: 80%">
+							<p style="float:left;">库存数量：&nbsp</p>
+							 <p id="num" style="float:left;"></p> 
+						</div> -->
+					</div>
+				</div>
+			</div>
+		</div>
 		<@h.footer />
 	</div>
-<script type="text/javascript">
-var map = new BMap.Map("allmap");
-var point = new BMap.Point(112.52 ,33.00); //这里设置刚开始的点所在处
-map.enableScrollWheelZoom(); //滚动放大
-map.enableKeyboard(); //键盘放大
-map.centerAndZoom(point, 12); //绘制地图  
-var  coordinate=new Array();
-var companyinfomapnumber=0;
-var companyid=0;
- $(document)
-.ready(
-		function() {
-			jQuery
-					.post(
-							"${ctx}/tscompanyinfomap/list/json",
-							function(_json) {
-								if (_json.status == "success") {
-									if(_json!=null&&_json.data!=null&&_json.data.length>0){
-										companyinfomapnumber=_json.data.length;
-										document.getElementById('companyinfomapnumber').innerHTML = '企业个数:  '+companyinfomapnumber;
-					            		 for(var i=0;i<_json.data.length;i++){
-					            			 coordinate.push(_json.data[i].longitude+","+_json.data[i].latitude+","+_json.data[i].companyName+","+_json.data[i].id);
-					            		 }
-					            		 var point = new Array(); //存放标注点经纬信息的数组
-					                     var marker = new Array(); //存放标注点对象的数组
-					                     var info = new Array(); //存放提示信息窗口对象的数组
-					            		  for (var i = 0; i < coordinate.length; i ++) {
-					            			 	var longitude=coordinate[i].split(",")[0];
-					            			 	var latitude=coordinate[i].split(",")[1];
-					            			 	var name=coordinate[i].split(",")[2];
-					            			 	var companyid=coordinate[i].split(",")[3];
-					            				var point = new BMap.Point(longitude,latitude);
-					            				 point[i] = new window.BMap.Point(longitude, latitude); //循环生成新的地图点
-					                             marker[i] = new window.BMap.Marker(point[i]); //按照地图点坐标生成标记
-					                             map.addOverlay(marker[i]);
-					            				 var label = new window.BMap.Label(name,{ offset: new BMap.Size(30, -10) });
-					            				                         label.setStyle({
-					            				                            width: "100px",
-												            				 color: '#fff',
-												            				 background: '#ff8355',
-												            				 border: '1px solid "#ff8355"',
-												            				 borderRadius: "5px",
-												            				 textAlign: "center",
-												            				 height: "26px",
-												            				 lineHeight: "26px"
-					            				  }); 
-					                             marker[i].setLabel(label);
-					            		  		}
-					            		  for (var i = 0; i < coordinate.length; i ++) 
-					                      {
-					                              var index = i;
-					                              addinfo(coordinate[i].split(",")[3],marker[i]);
-					                      }
-					            		  }
-					            				 function addinfo(companyid,marker){
-					            					 marker.addEventListener("click",function(){
-					            					document.getElementById('infoe').innerHTML = "";
-					            					 var div = document.getElementById('infoe')
-					            					 var p = document.createElement('p');//创建p节点
-					            					 jQuery.ajax({
-					            							url:"${ctx}/tsfacilityinfo/getinfo",
-					            							type:"post",
-					            							dataType:"json",
-					            							data:{'companyid':companyid},
-					            							success:function(data){
-					            								if(data.status=='success'){
-					            								var info=data.data.split("}, {");
-					            									
-					            								for (var i = 0; i < 5; i++) {
-																	var infos=info[i].split(",")
-																		var gasUnit=infos[0].substring(9);
-																		var concentration=infos[1].substring(15);
-																		var probeId=infos[2].substring(9);
-																		p.innerHTML = probeId+' : '+concentration+' '+gasUnit;//p节点显示的文字
-																		//div.appendChild(p)
-																		div.innerHTML+='<p>'+probeId+' : '+concentration+' '+gasUnit+'</p>';
-					            								}					            								 
-					            							}else{
-					            								div.innerHTML='<p>无设备信息</p>';
-					            							}
-					            							}
-					            						}); 
-					            					 }); 
-					            				 };	
-								} else {
-									myalert(_json.message);
-								}
+	<script type="text/javascript">
+		var map = new BMap.Map("allmap");
+		var point = new BMap.Point(112.52, 33.00); //这里设置刚开始的点所在处
+		map.enableScrollWheelZoom(); //滚动放大
+		map.enableKeyboard(); //键盘放大
+		map.centerAndZoom(point, 12); //绘制地图  
+		var coordinate = new Array();
+		var companyinfomapnumber = 0;
+		var companyid = 0;
+		$(document)
+				.ready(
+						function() {
+							jQuery
+									.post(
+											"${ctx}/tscompanyinfomap/list/json",
+											function(_json) {
+												if (_json.status == "success") {
+													if (_json != null
+															&& _json.data != null
+															&& _json.data.length > 0) {
+														
+														companyinfomapnumber = _json.data.length;
+														document
+																.getElementById('companyinfomapnumber').innerHTML = '企业个数  ：  '
+																+ companyinfomapnumber;
+														for (var i = 0; i < _json.data.length; i++) {
+															coordinate
+																	.push(_json.data[i].longitude
+																			+ ","
+																			+ _json.data[i].latitude
+																			+ ","
+																			+ _json.data[i].companyName
+																			+ ","
+																			+ _json.data[i].id);
+														}
+														var point = new Array(); //存放标注点经纬信息的数组
+														var marker = new Array(); //存放标注点对象的数组
+														var info = new Array(); //存放提示信息窗口对象的数组
+														for (var i = 0; i < coordinate.length; i++) {
+															var longitude = coordinate[i]
+																	.split(",")[0];
+															var latitude = coordinate[i]
+																	.split(",")[1];
+															var name = coordinate[i]
+																	.split(",")[2];
+															var companyid = coordinate[i]
+																	.split(",")[3];
+															var point = new BMap.Point(
+																	longitude,
+																	latitude);
+															point[i] = new window.BMap.Point(
+																	longitude,
+																	latitude); //循环生成新的地图点
+															marker[i] = new window.BMap.Marker(
+																	point[i]); //按照地图点坐标生成标记
+															map
+																	.addOverlay(marker[i]);
+															var label = new window.BMap.Label(
+																	name,
+																	{
+																		offset : new BMap.Size(
+																				30,
+																				-10)
+																	});
+															label
+																	.setStyle({
+																		width : "100px",
+																		color : '#fff',
+																		background : '#ff8355',
+																		border : '1px solid "#ff8355"',
+																		borderRadius : "5px",
+																		textAlign : "center",
+																		height : "26px",
+																		lineHeight : "26px"
+																	});
+															marker[i]
+																	.setLabel(label);
+														}
+														for (var i = 0; i < coordinate.length; i++) {
+															var index = i;
+															addinfo(coordinate[i]
+															.split(",")[2],
+																	coordinate[i]
+																			.split(",")[3],
+																	marker[i]);
+														}
+													}
+													function addinfo(name,companyid,
+															marker) {
+														marker
+																.addEventListener(
+																		"click",
+																		function() {
+																			document
+																			.getElementById('name').innerHTML = name;
+																			var id=companyid;
+																			document
+																					.getElementById('infoe').innerHTML = "";
+																			document
+																					.getElementById('stock').innerHTML = "";
+																			var div = document
+																					.getElementById('infoe');
+																			var div2 = document
+																					.getElementById('stock');
+																					/* var flueGasDealTon = 0;//废物
+																					var wasteWaterDealTon = 0;//废水
+																					var hazardousWastesProduceTon = 0;//废气
+																			 jQuery
+																					.ajax({
+																						url : "${ctx}/tsexplorergatherinfo/list/json",
+																						type : "post",
+																						dataType : "json",
+																						data : {
+																							'companyid' : companyid
+																						},
+																						success : function(
+																								_json) {
+																							if (_json.page.empty == false) {
+																								if (_json.status == 'success') {
+																									if (_json != null
+																											&& _json.data != null
+																											&& _json.data.length > 0) {
+																										for (var i = 0; i < _json.data.length; i++) {
+																											for (var i = 0; i < _json.data.length; i++) {
+																												if (_json.data[i].flueGasDealTon != ""
+																														&& _json.data[i].flueGasDealTon != null) {
+																													flueGasDealTon += parseInt(_json.data[i].flueGasDealTon);
+																												}
+																												if (_json.data[i].wasteWaterDealTon != ""
+																														&& _json.data[i].wasteWaterDealTon != null) {
+																													wasteWaterDealTon += parseInt(_json.data[i].wasteWaterDealTon);
+																												}
+																												if (_json.data[i].hazardousWastesProduceTon != ""
+																														&& _json.data[i].hazardousWastesProduceTon != null) {
+																													hazardousWastesProduceTon += parseInt(_json.data[i].hazardousWastesProduceTon);
+																												}
+																											}
+																										}
+																										document
+																												.getElementById('num').innerHTML =flueGasDealTon+wasteWaterDealTon+hazardousWastesProduceTon
+																												+ " 吨";
+																									}
+																								}
+																							} else {
+																								document
+																										.getElementById('num').innerHTML = '库存数量：0 吨';
+																							}
+																						}
+																					});  */
+																					jQuery
+																					.ajax({
+																						url : "${ctx}/tsergencyinvestigation/list/json",
+																						type : "post",
+																						dataType : "json",
+																						data : {
+																							'companyid' : companyid,
+																							'Bak1':3,
+																							'category':2
+																						},
+																						success : function(
+																								_json) {
+																							if (_json.page.empty == false) {
+																								if (_json.status == 'success') {
+																									if (_json != null
+																											&& _json.data != null
+																											&& _json.data.length > 0) {
+																										for(var i=0;i<_json.data.length;i++){
+																											var name=_json.data[i].name;
+																											var place=_json.data[i].place;
+																											var Unit=_json.data[i].unit;//单位
+																											var quantity=_json.data[i].quantity;//数量
+																											if(i>0){
+																											div2.innerHTML += '\n'
+																											}
+																											div2.innerHTML +=  place
+																													+ ' : '
+																													+ quantity
+																													+ '  '
+																													+ Unit
+																													+ '  '
+																													+ name
+																														;
+																										}
+																									}
+																								}
+																							}else{
+																								div2.innerHTML = '无库存信息！';
+																							}
+																						}
+																					});
+																			jQuery.ajax({
+																						url : "${ctx}/tsfacilityinfo/getinfo",
+																						type : "post",
+																						dataType : "json",
+																						data : {'companyid' : companyid},
+																						success : function(data) {
+																							if (data.status == 'success') {
+																								var info = data.data
+																										.split("}, {");
+																								if (info == "[]") {
+																									div.innerHTML = '连接不到设备!';
+																								} else {
+																									for (var i = 0; i < info.length; i++) {
+																										var infos = info[i]
+																												.split(",")
+																										var gasUnit = infos[0]
+																												.substring(9);
+																										var concentration = infos[1]
+																												.substring(15);
+																										var probeId = infos[2]
+																												.substring(9);
+																										if(i>0){
+																											div.innerHTML += '\n'
+																										}
+																										div.innerHTML +=probeId
+																												+ ' : '
+																												+ concentration
+																												+ ' '
+																												+ gasUnit;
+																									}
+																								}
+																							} else {
+																								div.innerHTML = '无设备信息!';
+																							}
+																						}
+																					});
+																		});
+													}
+													;
+												} 
+											});
+
+						});
+
+		var longitude1 = "";
+		var latitude1 = "";
+		jQuery(function() {
+			$("#sbtButton")
+					.click(
+							function() {
+								var cpm = document
+										.getElementById('companyName').value;
+								var tscompanyinfo = new Array();
+								var point = new Array();
+								var marker = new Array();
+								var opts = "";
+								var infoWindow = new Array();
+								debugger;
+								jQuery
+										.ajax({
+											url : "${ctx}/tscompanyinfo/list/json",
+											type : "post",
+											dataType : "json",
+											data : {
+												'companyName' : cpm
+											},
+											success : function(data) {
+												debugger;
+												tscompanyinfo = data.data;
+												if (data.page.empty == false) {
+													if (data.status == 'success') {
+														for (var i = 0; i < tscompanyinfo.length; i++) {
+															var contactsName = data.data[i].contactsName;
+															var phone = data.data[i].phone;
+															var address = data.data[i].address;
+															var longitude = data.data[i].longitude;
+															var latitude = data.data[i].latitude;
+															if (longitude != ""
+																	&& latitude != "") {
+																opts = {
+																	width : 5, // 信息窗口宽度  
+																	height : 120, // 信息窗口高度  
+																	title : "公司信息:<hr />" // 信息窗口标题 ，这里声明下，可以在自己输出的信息里面嵌入html标签的
+																}
+																point[i] = new BMap.Point(
+																		longitude,
+																		latitude);
+																marker[i] = new BMap.Marker(
+																		point[i]); //事件类
+																marker[i]
+																		.enableDragging(); //启用拖拽事件
+																		infoWindow = "地址:"
+																				+ tscompanyinfo[i].address
+																				+ "."
+																				+ "<br/>联系人:"
+																				+ tscompanyinfo[i].contactsName
+																				+ "."
+																				+ "<br/>联系人电话:"
+																				+ tscompanyinfo[i].phone
+																				+ ".",
+																		opts;
+															}
+														}
+														for (var i = 0; i < tscompanyinfo.length; i++) {
+															var index = i;
+															addwinds(
+																	infoWindow,
+																	point[i]);
+														}
+														function addwinds(
+																infoWindow,
+																points) {
+															var allOverlay = map
+																	.getOverlays();
+															/* var marker =new BMap.Marker(points);
+															map.removeOverlay(points);
+															map.addOverlay(marker);// 将标注添加到地图中
+															marker.setAnimation(BMAP_ANIMATION_BOUNCE); */
+															var infoWindows = new BMap.InfoWindow(
+																	infoWindow,
+																	opts); // 创建信息窗口对象 
+															map
+																	.openInfoWindow(
+																			infoWindows,
+																			points); //开启信息窗口
+														}
+													}
+												}
+											}
+										});
 							});
-
-		}
-		);  
-
- var longitude1="";
- var latitude1="";
-jQuery(function(){
-       $("#sbtButton").click(function(){
-    	   $("#searchForm").submit();
-     }); 
-       <#if returnDatas.data?? && returnDatas.data?size lt 2 && returnDatas.data?size gt 0> 
-		address="${(returnDatas.data[0].address)!''}";
-		longitude1="${(returnDatas.data[0].longitude)!''}";
-		latitude1="${(returnDatas.data[0].latitude)!''}";
-		if(longitude1!="" && latitude1!=""){
-			 var marker = new BMap.Marker(point); //地图事件类
-		       var opts = {
-		          width: 25,     // 信息窗口宽度  
-		          height: 120,     // 信息窗口高度  
-		          title: "公司信息:<hr />"  // 信息窗口标题 ，这里声明下，可以在自己输出的信息里面嵌入html标签的
-		      } 
-		      	 var infoWindow = new BMap.InfoWindow("地址:" + address + ".", opts); 
-		   	marker.enableDragging(); //启用拖拽事件
-            point = new BMap.Point(longitude1, latitude1); 
-            marker = new BMap.Marker(point);  //事件类
-            map.openInfoWindow(infoWindow, point);
-		      		 /*  marker.enableDragging(); //启用拖拽事件
-		              marker = new BMap.Marker(point);  //事件类
-		             map.openInfoWindow(infoWindow, point);  
-		              point = new BMap.Point(longitude1, latitude1);
-		            var marker = new BMap.Marker(point);  // 创建标注
-		            map.clearOverlays();//清除图层覆盖物
-                    marker[i].setAnimation(BMAP_ANIMATION_BOUNCE); //跳动的动画 */
-		}
-	</#if>         
- }); 
-  var flueGasDealTon=0;//废物
-  var wasteWaterDealTon=0;//废水
-  var hazardousWastesDealTon=0;//废气
-$(document)
-.ready(
-		
-		function() {
-		
-			jQuery
-					.post(
-							"${ctx}/tsexplorergatherinfo/find/json",
-							function(_json) {
-								var p1 = document.getElementById('flueGasDealTon');
-								var p2= document.getElementById('wasteWaterDealTon');
-								var p3 = document.getElementById('hazardousWastesDealTon');
-								if (_json.status == "success") {
-									debugger;
-									if(_json!=null&&_json.data!=null&&_json.data.length>0){
-										for (var i = 0; i <_json.data.length; i++) {
-											if(_json.data[i].flueGasDealTon!=""&&_json.data[i].flueGasDealTon!=null){
-												flueGasDealTon= parseInt(_json.data[i].flueGasDealTon);
+		});
+		var flueGasDealTon = 0;//废物
+		var wasteWaterDealTon = 0;//废水
+		var hazardousWastesProduceTon = 0;//废气
+		$(document)
+				.ready(
+						function() {
+							jQuery
+									.post(
+											"${ctx}/tsexplorergatherinfo/list/json",
+											function(_json) {
+												if (_json.status == "success") {
+													if (_json != null
+															&& _json.data != null
+															&& _json.data.length > 0) {
+														for (var i = 0; i < _json.data.length; i++) {
+															if (_json.data[i].flueGasDealTon != ""
+																	&& _json.data[i].flueGasDealTon != null) {
+																flueGasDealTon += parseInt(_json.data[i].flueGasDealTon);
+															}
+															if (_json.data[i].wasteWaterDealTon != ""
+																	&& _json.data[i].wasteWaterDealTon != null) {
+																wasteWaterDealTon += parseInt(_json.data[i].wasteWaterDealTon);
+															}
+															if (_json.data[i].hazardousWastesProduceTon != ""
+																	&& _json.data[i].hazardousWastesProduceTon != null) {
+																hazardousWastesProduceTon += parseInt(_json.data[i].hazardousWastesProduceTon);
+															}
+														}
+														document
+																.getElementById('flueGasDealTon').innerHTML = '废物总量 : '
+																+ flueGasDealTon
+																+ ' 吨';
+														document
+																.getElementById('wasteWaterDealTon').innerHTML = '废水总量 : '
+																+ wasteWaterDealTon
+																+ ' 吨';
+														document
+																.getElementById('hazardousWastesProduceTon').innerHTML = '废气总量 : '
+																+ hazardousWastesProduceTon
+																+ ' 吨';
+													} else {
+													}
 												}
-											if(_json.data[i].wasteWaterDealTon!=""&&_json.data[i].wasteWaterDealTon!=null){
-												wasteWaterDealTon=parseInt(_json.data[i].wasteWaterDealTon);
-												}
-											if(_json.data[i].hazardousWastesDealTon!=""&&_json.data[i].hazardousWastesDealTon!=null){
-												hazardousWastesDealTon=parseInt(_json.data[i].hazardousWastesDealTon);
-												}
-										}
-										 
-										 document.getElementById('flueGasDealTon').innerHTML = '废气总量:  '+flueGasDealTon+' 吨';
-										 document.getElementById('wasteWaterDealTon').innerHTML ='废水总量: '+ wasteWaterDealTon+' 吨';
-										 document.getElementById('hazardousWastesDealTon').innerHTML = '废物总量: '+hazardousWastesDealTon+' 吨';
-									}else{
-									}
-								} 
-							});
+											});
 
-		}
-		);  
-
-</script>
+						}); 
+	</script>
 </body>
 </html>

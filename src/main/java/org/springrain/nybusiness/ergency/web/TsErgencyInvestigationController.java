@@ -1,6 +1,7 @@
 package  org.springrain.nybusiness.ergency.web;
 
 import java.io.File;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
@@ -77,13 +78,23 @@ public class TsErgencyInvestigationController  extends BaseController {
 	@ResponseBody   
 	public  ReturnDatas listjson(HttpServletRequest request, Model model,TsErgencyInvestigation tsErgencyInvestigation) throws Exception{
 		ReturnDatas returnObject = ReturnDatas.getSuccessReturnDatas();
+		String companyid=request.getParameter("companyid");
+		String Bak1=request.getParameter("Bak1");
+		String category=request.getParameter("category");
+		List<String> listCompany = new ArrayList<String>();
+		if(StringUtils.isNoneBlank(companyid)&&StringUtils.isNoneBlank(Bak1)&&StringUtils.isNoneBlank(category)){
+			listCompany.add(companyid);
+			tsErgencyInvestigation.setBak1("3");
+			tsErgencyInvestigation.setCategory((long) 2);
+		}else{
+			listCompany= tsCompanyInfoService.finderCompanyIdByUserId(SessionUser.getUserId());
+		}
 		// ==构造分页请求
 		Page page = newPage(request);
 		// ==执行分页查询
 		//List<TsErgencyInvestigation> datas=tsErgencyInvestigationService.findListDataByFinder(null,page,TsErgencyInvestigation.class,tsErgencyInvestigation);
 			//returnObject.setQueryBean(tsErgencyInvestigation);
-			
-			List<String> listCompany = tsCompanyInfoService.finderCompanyIdByUserId(SessionUser.getUserId());
+		
 			List<TsErgencyInvestigation> datas=tsErgencyInvestigationService.finderTsMaillistForList(page, tsErgencyInvestigation, listCompany);
 				returnObject.setQueryBean(tsErgencyInvestigation);
 			

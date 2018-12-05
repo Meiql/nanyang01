@@ -115,6 +115,8 @@ public class TsWasteOpenstopCar  extends BaseEntity {
 	private TsWasteWaterMsg tsWasteWaterMsg;
 	@Transient
 	private TsWasteMaterialMsg tsWasteMaterialMsg;
+	@Transient
+	private java.lang.String createName; 
 	//concstructor
 
 	public TsWasteOpenstopCar(){
@@ -458,6 +460,15 @@ public class TsWasteOpenstopCar  extends BaseEntity {
 		this.tsWasteMaterialMsg = tsWasteMaterialMsg;
 	}
 
+	@Transient
+	public String getCreateName() {
+		return createName;
+	}
+
+	public void setCreateName(String createName) {
+		this.createName = createName;
+	}
+	
 	@Override
 	public String toString() {
 		return new StringBuilder()

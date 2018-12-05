@@ -2,9 +2,14 @@ package org.springrain.nybusiness.ergency.service.impl;
 
 import java.io.File;
 import java.util.List;
+
+import org.apache.commons.collections.CollectionUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;
 import org.springrain.nybusiness.ergency.entity.TsDeclare;
 import org.springrain.nybusiness.ergency.service.ITsDeclareService;
+import org.springrain.nybusiness.waste.entity.TsWasteAirMsg;
+import org.springrain.frame.common.SessionUser;
 import org.springrain.frame.entity.IBaseEntity;
 import org.springrain.frame.util.Finder;
 import org.springrain.frame.util.Page;
@@ -75,4 +80,18 @@ public class TsDeclareServiceImpl extends BaseSpringrainServiceImpl implements I
 			 return super.findDataExportExcel(finder,ftlurl,page,clazz,o);
 		}
 
+		@Override
+		public List<TsDeclare> finderTsDeclareForList(Page page,
+				TsDeclare tsDeclare, List<String> listCompany) throws Exception {
+			if(CollectionUtils.isEmpty(listCompany)){
+				return null;
+			}
+			Finder finder = new Finder();
+			finder.append("select t.*,t1.name as createName  FROM `ts_declare` t,t_user t1 where t.createUser=t1.id and t.companyid in (:companyId)")
+			.setParam("companyId", listCompany);
+			if(StringUtils.isNoneBlank(tsDeclare.getMaterialName())) {
+				finder.append(" and t.materialName like:name").setParam("name", "%"+tsDeclare.getMaterialName()+"%");
+			}
+			return super.queryForList(finder, TsDeclare.class, page);
+		}
 }

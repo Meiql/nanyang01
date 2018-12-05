@@ -74,16 +74,6 @@
 									                           <input type="text" name="address" value="${(returnDatas.queryBean.address)!''}" placeholder="请输入名称 " class="layui-input">
 									                    </div>
 							                		</div>
-									                 <div class="layui-inline">
-									                    <label class="layui-form-label">是否可用</label>
-									                    <div class="layui-input-inline">
-									                        <select name="active" id="active" class="layui-input">
-									                          <option value="">==请选择==</option>
-															  <option value="1">是</option>
-															  <option value="0">否</option>
-															</select>   
-									                    </div>
-									                </div>
 							          			</td>
 							          			<td>
 							          			   <div class="layui-inline">
@@ -115,6 +105,7 @@
 												  </th>
 												  <th>操作</th>
 												  <!--first_end_no_export-->
+												  		<th id="th_createName"style="text-align: center">创建人</th>
 														<th id="th_address" >存在正常开停车的场所</th>
 														<th id="th_volume" >是否有吹扫过程/ 吹扫容积(m3)</th>
 														<th id="th_countermeasure" >防范措施</th>
@@ -144,19 +135,22 @@
 								                            </@shiro.hasPermission>
 														</td>
 														<!--end_no_export-->
-														<td >
+														<td class="center">
+															${(_data.createName)!''}
+														</td>
+														<td class="center">
 															${(_data.address)!''}
 														</td>
-														<td >
+														<td class="center">
 															${(_data.volume)!''}
 														</td>
-														<td >
+														<td class="center">
 															${(_data.countermeasure)!''}
 														</td>
-														<td >
+														<td class="center">
 															${(_data.parkingCycle)!''}
 														</td>
-														<td >
+														<td class="center">
 															${(_data.parkingReason)!''}
 														</td>
 													</tr>

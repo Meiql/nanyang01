@@ -1,6 +1,7 @@
 package  org.springrain.nybusiness.resourceAudit.web;
 
 import java.io.File;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -75,10 +76,16 @@ public class TsExplorerGatherInfoController  extends BaseController {
 	@ResponseBody   
 	public  ReturnDatas listjson(HttpServletRequest request, Model model,TsExplorerGatherInfo tsExplorerGatherInfo) throws Exception{
 		ReturnDatas returnObject = ReturnDatas.getSuccessReturnDatas();
+		java.lang.String companyid=request.getParameter("companyid");
 		// ==构造分页请求
 		Page page = newPage(request);
 		// ==执行分页查询
-		List<String> listCompany = tsCompanyInfoService.finderCompanyIdByUserId(SessionUser.getUserId());
+		List<String> listCompany = new ArrayList<String>();
+		if(StringUtils.isNoneBlank(companyid)){
+				listCompany.add(companyid);
+		}else{
+			listCompany=tsCompanyInfoService.finderCompanyIdByUserId(SessionUser.getUserId());
+		}
 		List<TsExplorerGatherInfo> datas=tsExplorerGatherInfoService.findListData(page, tsExplorerGatherInfo,listCompany);
 		returnObject.setQueryBean(tsExplorerGatherInfo);
 	returnObject.setPage(page);

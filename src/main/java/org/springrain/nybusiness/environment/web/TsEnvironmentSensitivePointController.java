@@ -131,7 +131,6 @@ public class TsEnvironmentSensitivePointController  extends BaseController {
 		
 	}
 	
-	
 	/**
 	 * 新增/修改 操作吗,返回json格式数据
 	 * 

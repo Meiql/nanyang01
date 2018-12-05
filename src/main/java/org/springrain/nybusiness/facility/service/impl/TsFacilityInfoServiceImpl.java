@@ -1,13 +1,23 @@
 package org.springrain.nybusiness.facility.service.impl;
 
 import java.io.File;
+import java.util.ArrayList;
 import java.util.List;
+
+import org.apache.commons.collections.CollectionUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;
+import org.springrain.nybusiness.company.entity.TsCompanyInfo;
+import org.springrain.nybusiness.constants.SysStateEnum;
 import org.springrain.nybusiness.facility.entity.TsFacilityInfo;
 import org.springrain.nybusiness.facility.service.ITsFacilityInfoService;
+import org.springrain.frame.common.SessionUser;
 import org.springrain.frame.entity.IBaseEntity;
 import org.springrain.frame.util.Finder;
 import org.springrain.frame.util.Page;
+import org.springrain.system.entity.Org;
+import org.springrain.system.entity.User;
+import org.springrain.system.entity.UserOrg;
 import org.springrain.system.service.BaseSpringrainServiceImpl;
 
 
@@ -74,5 +84,19 @@ public class TsFacilityInfoServiceImpl extends BaseSpringrainServiceImpl impleme
 			throws Exception {
 			 return super.findDataExportExcel(finder,ftlurl,page,clazz,o);
 		}
-
+		
+		@Override
+		public List<TsFacilityInfo> findertsFacilityInfo(Page page,
+				TsFacilityInfo tsFacilityInfo,List<String> listCompany) throws Exception {
+			if(CollectionUtils.isEmpty(listCompany)){
+				return null;
+			}
+			Finder finder = new Finder();
+			finder.append("SELECT t.*,t1.name as createName FROM `ts_facility_info` t,t_user t1 where t.createUser=t1.id and t.companyId in (:companyId)")
+			.setParam("companyId", listCompany);
+			if(StringUtils.isNoneBlank(tsFacilityInfo.getDeviceNumber())){
+				finder.append(" and t.deviceNumber like:deviceNumber").setParam("deviceNumber", "%"+tsFacilityInfo.getDeviceNumber()+"%");
+			}
+			return super.queryForList(finder, TsFacilityInfo.class, page);
+		}
 }

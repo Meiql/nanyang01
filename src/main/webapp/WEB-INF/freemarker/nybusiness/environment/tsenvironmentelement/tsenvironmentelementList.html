@@ -69,19 +69,15 @@
 							          				<div class="layui-inline">
 									                    <label class="layui-form-label">环境要素名称</label>
 									                    <div class="layui-input-inline">
-									                           <input type="text" name="envirElementName" value="${(returnDatas.queryBean.envirElementName)!''}" placeholder="请输入名称 " class="layui-input">
-									                    </div>
-							                		</div>
-									                 <div class="layui-inline">
-									                    <label class="layui-form-label">是否可用</label>
-									                    <div class="layui-input-inline">
-									                        <select name="active" id="active" class="layui-input">
+									                        <select name="envirElementName" id="envirElementName" class="layui-input">
 									                          <option value="">==请选择==</option>
-															  <option value="1">是</option>
-															  <option value="0">否</option>
+															  <option value="大气">大气</option>
+															  <option value="水">水</option>
+															  <option value="土壤">土壤</option>
+															  <option value="其他">其他</option>
 															</select>   
 									                    </div>
-									                </div>
+							                		</div>
 							          			</td>
 							          			<td>
 							          			   <div class="layui-inline">
@@ -114,7 +110,7 @@
 												  <th>操作</th>
 												  <!--first_end_no_export-->
 														<th id="th_envirElementName" >环境要素名称</th>
-														<th id="th_createUser" >创建人</th>
+														<th id="th_createName" >创建人</th>
 														<th id="th_createTime" >创建时间</th>
 														<!-- <th id="th_remarks" >remarks</th> -->
 												</tr> 
@@ -136,13 +132,16 @@
 								                            <@shiro.hasPermission name="/tsenvironmentelement/delete" >
 								                            	<a href="javascript:del('${(_data.id)!''}')" class="layui-btn layui-btn-danger layui-btn-mini ajax-delete">删除</a>
 								                            </@shiro.hasPermission>
+								                            <@shiro.hasPermission name="/tswastewatermsg/detail" >
+								                            <a href="#"  data-action="${ctx}/tsenvironmentelement/detail?id=${(_data.id)!''}" class="layui-btn layui-btn-normal layui-btn-mini" >详情</a>
+								                            </@shiro.hasPermission>
 														</td>
 														<!--end_no_export-->
 														<td >
 															${(_data.envirElementName)!''}
 														</td>
 														<td >
-															${(_data.createUser)!''}
+															${(_data.createName)!''}
 														</td>
 														<td >
 															${(_data.createTime)!''}

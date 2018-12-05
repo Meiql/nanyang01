@@ -113,7 +113,7 @@ public class TsWasteOpenstopCarServiceImpl extends BaseSpringrainServiceImpl imp
 			return null;
 		}
 		Finder finder = new Finder();
-		finder.append("SELECT * FROM `ts_waste_openstop_car` t where t.companyId in (:companyId)")
+		finder.append("SELECT t.*,t1.name as createName FROM `ts_waste_openstop_car` t,t_user t1 where t.createUser=t1.id and t.companyId in (:companyId)")
 		.setParam("companyId", listCompany);
 		if(StringUtils.isNoneBlank(tsWasteOpenstopCar.getAddress())){
 			finder.append(" and t.address like:address").setParam("address", "%"+tsWasteOpenstopCar.getAddress()+"%");

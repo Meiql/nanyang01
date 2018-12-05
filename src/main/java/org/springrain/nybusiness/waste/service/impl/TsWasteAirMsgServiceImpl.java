@@ -87,12 +87,13 @@ public class TsWasteAirMsgServiceImpl extends BaseSpringrainServiceImpl implemen
 				return null;
 			}
 			Finder finder = new Finder();
-			finder.append("SELECT * FROM `ts_waste_air_msg` t where t.companyid in (:companyId)")
+			finder.append("select t.*,t1.name as createName from ts_waste_air_msg t,t_user t1 where t.createUser=t1.id and t.companyid in (:companyId)")
 			.setParam("companyId", listCompany);
 			if(StringUtils.isNoneBlank(tsWasteAirMsg.getWgProcessingMethod())) {
 				finder.append(" and t.wgProcessingMethod like:name").setParam("name", "%"+tsWasteAirMsg.getWgProcessingMethod()+"%");
 			}
 			return super.queryForList(finder, TsWasteAirMsg.class, page);
+			
 		}
 		@Override
 		public List<TsWasteAirMsg> listFinderTsWasteAirMsg() throws Exception {

@@ -20,6 +20,9 @@
 	function del(_id){
 		springrain.mydelete(_id,"${ctx}/tswasteairmsg/delete");
 	}
+	
+	
+	
 </script>
 <style>
 	@media screen and (max-width: 1880px) {
@@ -103,7 +106,7 @@
 										  <!--first_start_export-->
 											<thead>
 												<tr>
-													<th colspan="9">废气集中处理设施列表<font id='recordsView' class='recorsView'>共<span></span>页,共 <span></span>条记录</font></th>
+													<th colspan="10">废气集中处理设施列表<font id='recordsView' class='recorsView'>共<span></span>页,共 <span></span>条记录</font></th>
 												</tr>
 												<tr>
 												  <!--first_start_no_export-->
@@ -112,6 +115,7 @@
 												  </th>
 												  <th style="width : 80px;text-align: center">操作</th>
 												  <!--first_end_no_export-->
+												  		<th id="th_createName"style="text-align: center">创建人</th>
 														<th id="th_wgProcessingMethod" style="text-align: center">废气处理方式名称</th>
 														<th id="th_wgprocessingCapacity" style="text-align: center">处理能力 （立方米/时）</th>
 														<th id="th_wgSource" style="text-align: center">废气来源</th>
@@ -141,6 +145,9 @@
 								                            <@shiro.hasPermission name="/tswastewatermsg/detail" >
 								                            <a href="#"  data-action="${ctx}/tswasteairmsg/detail?id=${(_data.id)!''}" class="layui-btn layui-btn-normal layui-btn-mini" >详情</a>
 								                            </@shiro.hasPermission>
+														</td>
+														<td class="center">
+														${(_data.createName)!''}
 														</td>
 														<!--end_no_export-->
 														<td class="center">
@@ -183,5 +190,7 @@
 		<@h.footer />
 	</div>
 </body>
+<script>
+</script>
 </html>
 

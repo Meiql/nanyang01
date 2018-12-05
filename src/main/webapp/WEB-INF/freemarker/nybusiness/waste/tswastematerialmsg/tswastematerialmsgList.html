@@ -113,6 +113,7 @@
 												  </th>
 												  <th style="width : 80px;text-align: center">操作</th>
 												  <!--first_end_no_export-->
+												  		<th id="th_createName"style="text-align: center">创建人</th>
 														<th id="th_hwproductNum" style="text-align: center">产生量（吨/时）</th>
 														<th id="th_hwTransportNum" style="text-align: center">运输量（吨/时）</th>
 														<th id="th_hwhandleNum" style="text-align: center">处置量（吨/时）</th>
@@ -151,6 +152,9 @@
 								                            </@shiro.hasPermission>
 														</td>
 														<!--end_no_export-->
+														<td class="center">
+															${(_data.createName)!''}
+														</td>
 														<td class="center">
 															${(_data.hwproductNum)!''}
 														</td>

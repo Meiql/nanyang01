@@ -2,9 +2,13 @@ package org.springrain.nybusiness.environment.service.impl;
 
 import java.io.File;
 import java.util.List;
+
+import org.apache.commons.collections.CollectionUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;
 import org.springrain.nybusiness.environment.entity.TsEnvironmentElement;
 import org.springrain.nybusiness.environment.service.ITsEnvironmentElementService;
+import org.springrain.nybusiness.facility.entity.TsFacilityInfo;
 import org.springrain.frame.entity.IBaseEntity;
 import org.springrain.frame.util.Finder;
 import org.springrain.frame.util.Page;
@@ -74,5 +78,19 @@ public class TsEnvironmentElementServiceImpl extends BaseSpringrainServiceImpl i
 			throws Exception {
 			 return super.findDataExportExcel(finder,ftlurl,page,clazz,o);
 		}
-
+		@Override
+		public List<TsEnvironmentElement> finderTsEnvironmentElementForList(Page page,
+				TsEnvironmentElement tsEnvironmentElement,List<String> listCompany) throws Exception {
+			if(CollectionUtils.isEmpty(listCompany)){
+				return null;
+			}
+			Finder finder = new Finder();
+			finder.append("SELECT * FROM `ts_environment_element` t where t.companyId in (:companyId)")
+			.setParam("companyId", listCompany);
+			if(StringUtils.isNoneBlank(tsEnvironmentElement.getEnvirElementName())){
+				finder.append(" and t.envirElementName like:envirElementName").setParam("envirElementName", "%"+tsEnvironmentElement.getEnvirElementName()+"%");
+			}
+			System.out.println(finder.getSql());
+			return super.queryForList(finder, TsEnvironmentElement.class, page);
+		}
 }

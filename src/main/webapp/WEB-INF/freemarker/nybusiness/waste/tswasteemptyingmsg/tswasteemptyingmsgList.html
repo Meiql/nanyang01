@@ -115,6 +115,7 @@
 														<!-- <th id="th_waterId" >waterId</th>
 														<th id="th_airId" >废弃处理表id</th>
 														<th id="th_materialId" >危险物质处理表id</th> -->
+														<th id="th_createName"style="text-align: center">创建人</th>
 														<th id="th_processName" >存在放空的工艺名称</th>
 														<th id="th_mainChemicalMaterials" >涉及的化学物质</th>
 														<th id="th_emptyingCondition" >放空条件</th>
@@ -160,19 +161,22 @@
 														<td >
 															${(_data.materialId)!''}
 														</td> -->
-														<td >
+														<td class="center">
+															${(_data.createName)!''}
+														</td >
+														<td class="center">
 															${(_data.processName)!''}
 														</td>
-														<td >
+														<td class="center">
 															${(_data.mainChemicalMaterials)!''}
 														</td>
 														<td >
 															${(_data.emptyingCondition)!''}
 														</td>
-														<td >
+														<td class="center">
 															${(_data.emptyingNum)!''}
 														</td>
-														<td >
+														<td class="center">
 															${(_data.time)!''}
 														</td>
 														<!-- <td >

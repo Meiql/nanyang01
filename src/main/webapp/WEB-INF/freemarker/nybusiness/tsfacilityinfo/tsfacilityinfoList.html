@@ -67,21 +67,11 @@
 							          		<tr>
 							          			<td>
 							          				<div class="layui-inline">
-									                    <label class="layui-form-label">名称</label>
+									                    <label class="layui-form-label">设备编号</label>
 									                    <div class="layui-input-inline">
-									                           <input type="text" name="name" value="${(returnDatas.queryBean.name)!''}" placeholder="请输入名称 " class="layui-input">
+									                           <input type="text" name="deviceNumber" value="${(returnDatas.queryBean.deviceNumber)!''}" placeholder="请输入名称 " class="layui-input">
 									                    </div>
 							                		</div>
-									                 <div class="layui-inline">
-									                    <label class="layui-form-label">是否可用</label>
-									                    <div class="layui-input-inline">
-									                        <select name="active" id="active" class="layui-input">
-									                          <option value="">==请选择==</option>
-															  <option value="1">是</option>
-															  <option value="0">否</option>
-															</select>   
-									                    </div>
-									                </div>
 							          			</td>
 							          			<td>
 							          			   <div class="layui-inline">
@@ -113,6 +103,7 @@
 												  </th>
 												  <th>操作</th>
 												  <!--first_end_no_export-->
+												  		<th id="th_createName" >创建人</th>
 														<th id="th_deviceNumber" >浓度检测设备编号</th>
 														<th id="th_adress" >位置</th>
 												</tr> 
@@ -134,8 +125,14 @@
 								                            <@shiro.hasPermission name="/tsfacilityinfo/delete" >
 								                            	<a href="javascript:del('${(_data.id)!''}')" class="layui-btn layui-btn-danger layui-btn-mini ajax-delete">删除</a>
 								                            </@shiro.hasPermission>
+								                            <@shiro.hasPermission name="/tswastewatermsg/detail" >
+								                            <a href="#"  data-action="${ctx}/tsfacilityinfo/detail?id=${(_data.id)!''}" class="layui-btn layui-btn-normal layui-btn-mini" >详情</a>
+								                            </@shiro.hasPermission>
 														</td>
 														<!--end_no_export-->
+														<td >
+															${(_data.createName)!''}
+														</td>
 														<td >
 															${(_data.deviceNumber)!''}
 														</td>

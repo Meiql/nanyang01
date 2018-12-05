@@ -2,6 +2,7 @@ package org.springrain.nybusiness.facility.entity;
 
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.builder.EqualsBuilder;
@@ -78,7 +79,8 @@ public class TsFacilityInfo  extends BaseEntity {
 	 */
 	private java.lang.String bak3;
 	//columns END 数据库字段结束
-	
+	@Transient
+	private java.lang.String createName;
 	//concstructor
 
 	public TsFacilityInfo(){
@@ -281,6 +283,15 @@ public class TsFacilityInfo  extends BaseEntity {
 	public java.lang.String getBak3() {
 		return this.bak3;
 	}
+     
+     @Transient
+  	public String getCreateName() {
+  		return createName;
+  	}
+
+  	public void setCreateName(String createName) {
+  		this.createName = createName;
+  	}
 	@Override
 	public String toString() {
 		return new StringBuilder()

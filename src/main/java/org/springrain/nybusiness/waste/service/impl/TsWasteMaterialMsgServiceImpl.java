@@ -99,7 +99,7 @@ public class TsWasteMaterialMsgServiceImpl extends BaseSpringrainServiceImpl imp
 				return null;
 			}
 			Finder finder = new Finder();
-			finder.append("SELECT * FROM `ts_waste_material_msg` t where t.companyid in (:companyId)")
+			finder.append("SELECT t.*,t1.name as createName FROM `ts_waste_material_msg` t ,t_user t1 where t.createUser=t1.id and t.companyid in (:companyId)")
 			.setParam("companyId", listCompany);
 			if(StringUtils.isNoneBlank(tsWasteMaterialMsg.getHandleUnitName())) {
 				finder.append(" and t.handleUnitName like:name").setParam("name", "%"+tsWasteMaterialMsg.getHandleUnitName()+"%");

@@ -46,9 +46,17 @@ public class TsEnvironmentElement  extends BaseEntity {
 	 */
 	private java.lang.String createUser;
 	/**
+	 * createName
+	 */
+	private java.lang.String createName;
+	/**
 	 * createTime
 	 */
 	private java.lang.String createTime;
+	/**
+	 * companyId
+	 */
+	private java.lang.String companyId;
 	/**
 	 * remarks
 	 */
@@ -125,6 +133,44 @@ public class TsEnvironmentElement  extends BaseEntity {
 	public java.lang.String getCreateUser() {
 		return this.createUser;
 	}
+     /**
+		 * createName
+		 */
+	public void setCreateName(java.lang.String value) {
+		    if(StringUtils.isNotBlank(value)){
+			 value=value.trim();
+			}
+		this.createName = value;
+	}
+	
+	
+	
+	/**
+	 * createName
+	 */
+  @WhereSQL(sql="createName=:TsEnvironmentElement_createName")
+	public java.lang.String getCreateName() {
+		return this.createName;
+	}
+  /**
+	 * createName
+	 */
+public void setCompanyId(java.lang.String value) {
+	    if(StringUtils.isNotBlank(value)){
+		 value=value.trim();
+		}
+	this.companyId = value;
+}
+
+
+
+/**
+* createName
+*/
+@WhereSQL(sql="companyId=:TsEnvironmentElement_companyId")
+public java.lang.String getCompanyId() {
+	return this.companyId;
+}
 		/**
 		 * createTime
 		 */
@@ -170,6 +216,8 @@ public class TsEnvironmentElement  extends BaseEntity {
 			.append("环境要素名称[").append(getEnvirElementName()).append("],")
 			.append("createUser[").append(getCreateUser()).append("],")
 			.append("createTime[").append(getCreateTime()).append("],")
+			.append("createId[").append(getCreateTime()).append("],")
+			.append("createName[").append(getCreateTime()).append("],")
 			.append("remarks[").append(getRemarks()).append("],")
 			.toString();
 	}

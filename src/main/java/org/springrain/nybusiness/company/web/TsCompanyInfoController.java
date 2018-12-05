@@ -57,7 +57,15 @@ public class TsCompanyInfoController  extends BaseController {
 		model.addAttribute(GlobalStatic.returnDatas, returnObject);
 		return listurl;
 	}
-	
+	/**
+	 * 进入详情页面
+	 */
+	@RequestMapping(value = "/details")
+	public String details(Model model,HttpServletRequest request,HttpServletResponse response)  throws Exception{
+		ReturnDatas returnObject = lookjson(model, request, response);
+		model.addAttribute(GlobalStatic.returnDatas, returnObject);
+		return "/nybusiness/tscompanyinfo/tscompanyinfoCru2";
+	}
 	/**
 	 * json数据,为APP提供数据
 	 * 

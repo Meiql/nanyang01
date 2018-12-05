@@ -40,9 +40,9 @@
 				        	<button type="button"   class="layui-btn layui-btn-small"><i class="layui-icon layui-icon-specil">&#xe609;</i>导出</button>
 				        </@shiro.hasPermission>
 		                <!-- <button type="button"  class="layui-btn layui-btn-warm layui-btn-small"><i class="layui-icon layui-icon-specil">&#xe601;</i>导入</button> -->
-		                <@shiro.hasPermission name="/tsdeclare/delete" >
+		               <!--  <@shiro.hasPermission name="/tsdeclare/delete" >
 		               		 <button type="button"  class="layui-btn layui-btn-danger layui-btn-small"><i class="layui-icon">&#xe640;</i>批量删除</button>
-		                </@shiro.hasPermission>
+		                </@shiro.hasPermission> -->
 		             </li>
 	       		</ul>
 				
@@ -72,16 +72,6 @@
 									                           <input type="text" name="materialName" value="${(returnDatas.queryBean.materialName)!''}" placeholder="请输入名称 " class="layui-input">
 									                    </div>
 							                		</div>
-									                 <div class="layui-inline">
-									                    <label class="layui-form-label">是否可用</label>
-									                    <div class="layui-input-inline">
-									                        <select name="active" id="active" class="layui-input">
-									                          <option value="">==请选择==</option>
-															  <option value="1">是</option>
-															  <option value="0">否</option>
-															</select>   
-									                    </div>
-									                </div>
 							          			</td>
 							          			<td>
 							          			   <div class="layui-inline">
@@ -104,7 +94,7 @@
 										  <!--first_start_export-->
 											<thead>
 												<tr>
-													<th colspan="9">年（月）度申报表列表<font id='recordsView' class='recorsView'>共<span></span>页,共 <span></span>条记录</font></th>
+													<th colspan="12">年（月）度申报表列表<font id='recordsView' class='recorsView'>共<span></span>页,共 <span></span>条记录</font></th>
 												</tr>
 												<tr>
 												  <!--first_start_no_export-->
@@ -113,6 +103,7 @@
 												  </th>
 												  <th>操作</th>
 												  <!--first_end_no_export-->
+												  		<th id="th_createName" >创建人</th>
 														<th id="th_materialName" >物资名称</th>
 														<th id="th_lastYearBalance" >上年结余</th>
 														<th id="th_unit" >单位</th>
@@ -143,8 +134,14 @@
 								                            <@shiro.hasPermission name="/tsdeclare/delete" >
 								                            	<a href="javascript:del('${(_data.id)!''}')" class="layui-btn layui-btn-danger layui-btn-mini ajax-delete">删除</a>
 								                            </@shiro.hasPermission>
+								                             <@shiro.hasPermission name="/tswastewatermsg/detail" >
+								                            <a href="#"  data-action="${ctx}/tsdeclare/detail?id=${(_data.id)!''}" class="layui-btn layui-btn-normal layui-btn-mini" >详情</a>
+								                            </@shiro.hasPermission>
 														</td>
 														<!--end_no_export-->
+														<td >
+															${(_data.createName)!''}
+														</td>
 														<td >
 															${(_data.materialName)!''}
 														</td>

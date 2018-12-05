@@ -12,6 +12,43 @@
 		 */
 		 springrain.initValid(null,function(){window.location.href="${ctx}/tsenvironmentelement/list?springraintoken="+springraintoken});
 	 });
+	 layui.use('laydate', function(){
+		  var laydate = layui.laydate;
+		  
+		  //执行一个laydate实例
+		  laydate.render({
+		    elem: '#test1' //指定元素
+		  });
+		});
+</script>
+<script type="text/javascript">
+	
+	
+jQuery(document).ready(function(){
+	//airId
+	//materialId
+	  jQuery.ajax({
+	        url : ctx+"/tswasteemptyingmsg/ajax/watsterlistjson/json",
+	        type : "post",
+	        dataType : "json",
+	        success : function(_json) {
+	            if(_json.status=="error"){
+	                return;
+	            }
+	            
+	            jQuery(_json.data).each(function(i,_obj){
+	                jQuery("#waterId").append("<option value='"+_obj.id+"'>"+_obj.processingMethod+"</option>");
+	            });
+	            
+	            jQuery("#waterId").select2();
+	            
+	             <#if returnDatas.data??>
+				 	$("#waterId").find("option:selected").prop("selected",false);
+				 		 jQuery("#waterId option[value='${(returnDatas.data.waterId)!''}']").prop("selected",true);
+				 	 jQuery("#waterId").trigger("change");
+			 	</#if> 
+	        }
+	    });
 </script>
 </head>
 <body>
@@ -37,14 +74,19 @@
 												<div class="larry-personal-body clearfix changepwd">
 													<form id="validForm" class="layui-form <!--  -->"  method="post" action="${ctx}/tsenvironmentelement/update">
 																<input type="hidden" id="id" name="id" value="${(returnDatas.data.id)!''}"/>	
-																	<div class="layui-form-item col-lg-6">
-																		<label class="layui-form-label">环境要素名称*</label>
-																		<div class="layui-inline col-lg-5">  
-																			<input type="text" name="envirElementName" id="envirElementName" datatype="*" nullmsg="不能为空" errormsg="不能为空！" autocomplete="off" class="layui-input" value="${(returnDatas.data.envirElementName)!''}">
-																		</div>
-																		<div class="layui-inline valid-info"></div>
-																	</div>
-																	<div class="layui-form-item col-lg-6">
+																	<div class="layui-form-item  col-lg-6">
+														    			<label class="layui-form-label">环境要素名称*</label>
+														    			<div class="layui-inline  col-lg-5">
+														      				<select id="envirElementName" datatype="*"  nullmsg="不能为空" errormsg="不能为空！" name="envirElementName">
+														      					<option value=""></option>
+														        				<option value="大气">大气</option>
+																				<option value="水">水</option>
+																				<option value="土壤">土壤</option>
+																				<option value="其他">其他</option>
+														      				</select>
+														    			</div>
+													  				</div>
+																	<!-- <div class="layui-form-item col-lg-6">
 																		<label class="layui-form-label">创建人*</label>
 																		<div class="layui-inline col-lg-5">  
 																			<input type="text" name="createUser" id="createUser" datatype="*" nullmsg="不能为空" errormsg="不能为空！" autocomplete="off" class="layui-input" value="${(returnDatas.data.createUser)!''}">
@@ -57,7 +99,7 @@
 																			<input type="text" name="createTime" id="createTime" datatype="*" nullmsg="不能为空" errormsg="不能为空！" autocomplete="off" class="layui-input" value="${(returnDatas.data.createTime)!''}">
 																		</div>
 																		<div class="layui-inline valid-info"></div>
-																	</div>
+																	</div> -->
 																	<!-- <div class="layui-form-item col-lg-6">
 																		<label class="layui-form-label">remarks*</label>
 																		<div class="layui-inline col-lg-5">  

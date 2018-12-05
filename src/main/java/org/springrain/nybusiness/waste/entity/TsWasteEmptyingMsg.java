@@ -116,7 +116,9 @@ public class TsWasteEmptyingMsg  extends BaseEntity {
 	@Transient
 	private TsWasteMaterialMsg tsWasteMaterialMsg;
 	//concstructor
-
+	@Transient
+	private java.lang.String createName; 
+	
 	public TsWasteEmptyingMsg(){
 	}
 
@@ -458,6 +460,15 @@ public class TsWasteEmptyingMsg  extends BaseEntity {
 		this.tsWasteMaterialMsg = tsWasteMaterialMsg;
 	}
 
+	@Transient
+	public String getCreateName() {
+		return createName;
+	}
+
+	public void setCreateName(String createName) {
+		this.createName = createName;
+	}
+	
 	@Override
 	public String toString() {
 		return new StringBuilder()

@@ -95,7 +95,6 @@
 												  <!--first_end_no_export-->
 														<th id="th_companyName" >公司名称</th>
 														<th id="th_corporationName" >法人名称</th>
-														<th id="th_postalCode" >邮政编码</th>
 														<th id="th_contactsName" >联系人</th>
 														<th id="th_phone" >联系电话</th>
 														<th id="th_address" >厂区地址</th>
@@ -105,7 +104,6 @@
 														<th id="th_industryCategary" >行业类别</th>
 														<th id="th_industryCode" >行业编码</th>
 														<th id="th_registerType" >注册类型</th>
-														<th id="th_factoryTime" >建厂时间</th>
 												</tr> 
 											</thead>
 										  <!--first_end_export-->
@@ -125,6 +123,9 @@
 								                            <@shiro.hasPermission name="/tscompanyinfo/delete" >
 								                            	<a href="javascript:del('${(_data.id)!''}')" class="layui-btn layui-btn-danger layui-btn-mini ajax-delete">删除</a>
 								                            </@shiro.hasPermission>
+								                             <@shiro.hasPermission name="/tsenvironmentsensitivepoint/details" >
+								                            	<a href="#"  data-action="${ctx}/tscompanyinfo/details?id=${(_data.id)!''}" class="layui-btn layui-btn-normal layui-btn-mini" >详情</a>
+								                            </@shiro.hasPermission>	
 														</td>
 														<!--end_no_export-->
 														<td >
@@ -132,9 +133,6 @@
 														</td>
 														<td >
 															${(_data.corporationName)!''}
-														</td>
-														<td >
-															${(_data.postalCode)!''}
 														</td>
 														<td >
 															${(_data.contactsName)!''}
@@ -162,9 +160,6 @@
 														</td>
 														<td >
 															${(_data.registerType)!''}
-														</td>
-														<td >
-															${(_data.factoryTime)!''}
 														</td>
 													</tr>
 												</#list>

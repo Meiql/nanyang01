@@ -112,7 +112,7 @@ public class TsWasteEmptyingMsgServiceImpl extends BaseSpringrainServiceImpl imp
 			return null;
 		}
 		Finder finder = new Finder();
-		finder.append("SELECT * FROM `ts_waste_emptying_msg` t where t.companyId in (:companyId)")
+		finder.append("SELECT t.*,t1.name as createName FROM `ts_waste_emptying_msg` t,t_user t1 where t.createUser=t1.id and t.companyId in (:companyId)")
 		.setParam("companyId", listCompany);
 		if(StringUtils.isNoneBlank(tsWasteEmptyingMsg.getProcessName())){
 			finder.append(" and t.processName like:processName").setParam("processName", "%"+tsWasteEmptyingMsg.getProcessName()+"%");

@@ -87,7 +87,7 @@ public class TsWasteWaterMsgServiceImpl extends BaseSpringrainServiceImpl implem
 				return null;
 			}
 			Finder finder = new Finder();
-			finder.append("SELECT * FROM `ts_waste_water_msg` t where t.companyid in (:companyId)")
+			finder.append("SELECT t.*,t1.name as createName FROM `ts_waste_water_msg` t,t_user t1 where t.createUser=t1.id and t.companyid in (:companyId)")
 			.setParam("companyId", listCompany);
 			if(StringUtils.isNoneBlank(tsWasteWaterMsg.getOutletLocation())) {
 				finder.append(" and t.outletLocation like:name").setParam("name", "%"+tsWasteWaterMsg.getOutletLocation()+"%");

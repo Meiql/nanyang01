@@ -16,9 +16,10 @@ import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
-
+import org.springrain.nybusiness.company.service.ITsCompanyInfoService;
 import org.springrain.nybusiness.ergency.entity.TsDeclare;
 import org.springrain.nybusiness.ergency.service.ITsDeclareService;
+import org.springrain.nybusiness.waste.entity.TsWasteAirMsg;
 import org.springrain.frame.common.SessionUser;
 import org.springrain.frame.controller.BaseController;
 import org.springrain.frame.util.DateUtils;
@@ -40,7 +41,8 @@ import org.springrain.frame.util.ReturnDatas;
 public class TsDeclareController  extends BaseController {
 	@Resource
 	private ITsDeclareService tsDeclareService;
-	
+	@Resource
+	private ITsCompanyInfoService tsCompanyInfoService;
 	private String listurl="/nybusiness/ergency/tsdeclare/tsdeclareList";
 	
 	
@@ -78,7 +80,8 @@ public class TsDeclareController  extends BaseController {
 		// ==构造分页请求
 		Page page = newPage(request);
 		// ==执行分页查询
-		List<TsDeclare> datas=tsDeclareService.findListDataByFinder(null,page,TsDeclare.class,tsDeclare);
+		List<String> listCompany = tsCompanyInfoService.finderCompanyIdByUserId(SessionUser.getUserId());
+		List<TsDeclare> datas=tsDeclareService.finderTsDeclareForList(page, tsDeclare, listCompany);
 			returnObject.setQueryBean(tsDeclare);
 		returnObject.setPage(page);
 		returnObject.setData(datas);
@@ -124,7 +127,12 @@ public class TsDeclareController  extends BaseController {
 		return returnObject;
 		
 	}
-	
+	@RequestMapping(value = "/detail")
+	public String detail(Model model,HttpServletRequest request,HttpServletResponse response)  throws Exception{
+		ReturnDatas returnObject = lookjson(model, request, response);
+		model.addAttribute(GlobalStatic.returnDatas, returnObject);
+		return "/nybusiness/ergency/tsdeclare/tsdeclareCru2";
+	}
 	
 	/**
 	 * 新增/修改 操作吗,返回json格式数据
