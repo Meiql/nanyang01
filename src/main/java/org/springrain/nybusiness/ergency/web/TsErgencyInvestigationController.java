@@ -100,6 +100,7 @@ public class TsErgencyInvestigationController  extends BaseController {
 			
 		returnObject.setPage(page);
 		returnObject.setData(datas);
+		returnObject.setUserType(String.valueOf(SessionUser.getUserType()));
 		return returnObject;
 	}
 	

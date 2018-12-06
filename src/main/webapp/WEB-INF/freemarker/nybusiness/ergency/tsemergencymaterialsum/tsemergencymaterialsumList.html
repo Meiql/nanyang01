@@ -93,6 +93,14 @@
 															</select>   
 									                    </div>
 									                </div>
+									                <#if (returnDatas.userType)?? && (returnDatas.userType=='0')>
+									                 <div class="layui-inline">
+									                    <label class="layui-form-label">公司名称</label>
+									                    <div class="layui-input-inline">
+									                        <input type="text" name="companyName" value="${(returnDatas.queryBean.companyName)!''}" placeholder="请输入公司名称 " class="layui-input">  
+									                    </div>
+									                </div> 
+									                </#if>
 							          			</td>
 							          			<td>
 							          			   <div class="layui-inline">
@@ -132,6 +140,9 @@
 														<th id="" rowspan="2"style=" text-align: center">外部供应单位名称</th>
 														<th id="" colspan="2" style=" text-align: center">外部供应单位联系方式</th>
 														<th id="th_bak1" rowspan="2" style=" text-align: center">审批状态</th>
+														<#if (returnDatas.userType)?? && (returnDatas.userType=='0')>
+														<th id="th_companyName" rowspan="2" style="width : 100px; text-align: center">公司名称</th>
+														 </#if>
 														<th id="" rowspan="2" style=" text-align: center">来源</th>
 														
 														<!-- <th id="th_create_user" >创建用户</th>
@@ -210,6 +221,11 @@
 																	未通过
 															</#if>
 														</td>
+														<#if (returnDatas.userType)?? && (returnDatas.userType=='0')>
+														<td class="center">
+															${(_data.companyName)!''}
+														</td>
+														 </#if>
 														<td class="center">
 															${(_data.table_from)!''}
 														</td>

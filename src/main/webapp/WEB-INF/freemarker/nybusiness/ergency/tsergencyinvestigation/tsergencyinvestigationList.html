@@ -144,6 +144,14 @@
 															</select>   
 									                    </div>
 									                </div>
+									                 <#if (returnDatas.userType)?? && (returnDatas.userType=='0')>
+									                 <div class="layui-inline">
+									                    <label class="layui-form-label">公司名称</label>
+									                    <div class="layui-input-inline">
+									                        <input type="text" name="companyName" value="${(returnDatas.queryBean.companyName)!''}" placeholder="请输入公司名称 " class="layui-input">  
+									                    </div>
+									                </div> 
+									                </#if>
 							          			</td>
 							          			<td>
 							          			   <div class="layui-inline">
@@ -186,6 +194,9 @@
 														<th  style="width : 180px; text-align: center">最后有效期限</th>
 														<!-- <th style="width : 80px; text-align: center">备注</th> -->
 														<th id="bak1" style="width : 100px; text-align: center">审批状态</th>
+														<#if (returnDatas.userType)?? && (returnDatas.userType=='0')>
+														<th id="th_companyName" style="width : 100px; text-align: center">公司名称</th>
+														 </#if>
 														
 												</tr> 
 											</thead>
@@ -275,6 +286,11 @@
 																	未通过
 															</#if>
 														</td>
+														<#if (returnDatas.userType)?? && (returnDatas.userType=='0')>
+														<td class="center">
+															${(_data.companyName)!''}
+														</td>
+														 </#if>
 													</tr>
 												</#list>
 											 </#if>

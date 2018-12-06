@@ -86,13 +86,16 @@ public class TsEmergencyEquipmentSumServiceImpl extends BaseSpringrainServiceImp
 			return null;
 		}
 		Finder finder = new Finder();
-		finder.append("SELECT * FROM `ts_emergency_equipment_sum` t where t.company_id in (:companyId)")
+		finder.append("SELECT t.* ,t1.companyName as companyName FROM `ts_emergency_equipment_sum` t,ts_company_info t1 where t.company_id = t1.id  and  t.company_id in (:companyId)")
 		.setParam("companyId", listCompany);
 		if(StringUtils.isNoneBlank(tsEmergencyEquipmentSum.getName())) {
 			finder.append(" and t.name like:name").setParam("name", "%"+tsEmergencyEquipmentSum.getName()+"%");
 		}
 		if(tsEmergencyEquipmentSum.getCategory()!=null&&tsEmergencyEquipmentSum.getCategory()!=0) {
 			finder.append(" and t.category =:category").setParam("category", tsEmergencyEquipmentSum.getCategory());
+		}
+		if(StringUtils.isNoneBlank(tsEmergencyEquipmentSum.getCompanyName())) {
+			finder.append(" and t1.companyName like:companyName").setParam("companyName", "%"+tsEmergencyEquipmentSum.getCompanyName()+"%");
 		}
 		return super.queryForList(finder, TsEmergencyEquipmentSum.class, page);
 	}

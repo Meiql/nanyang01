@@ -117,12 +117,14 @@
 							          		</tr>
 							          		<tr>
 							          			<td>
+							          			<#if (returnDatas.userType)?? && (returnDatas.userType=='0')>
 							          				<div class="layui-inline">
-									                    <label class="layui-form-label">单位名称</label>
+									                    <label class="layui-form-label">公司名称</label>
 									                    <div class="layui-input-inline">
 									                           <input type="text" name="company_name" value="${(returnDatas.queryBean.company_name)!''}" placeholder="请输入名称 " class="layui-input">
 									                    </div>
 							                		</div>
+							                	</#if>
 									                 <div class="layui-inline">
 									                    <label class="layui-form-label">审批状态</label>
 									                    <div class="layui-input-inline">
@@ -135,6 +137,7 @@
 															</select>   
 									                    </div>
 									                </div>
+									              
 							          			</td>
 							          			<td>
 							          			   <div class="layui-inline">
@@ -166,7 +169,7 @@
 												  </th>
 												  <th style="width : 80px; text-align: center">操作</th>
 												  <!--first_end_no_export-->
-														<th id="" style="width : 100px;text-align: center">单位名称</th>
+														<th id="" style="width : 100px;text-align: center">公司名称</th>
 														<th id="" style="width : 100px;text-align: center">机构代码</th>
 														<th id="" style="width : 100px;text-align: center">法人</th>
 														<th id="" style="width : 100px;text-align: center">法人电话</th>
@@ -270,6 +273,7 @@
 																	未通过
 															</#if>
 														</td>
+												
 
 													</tr>
 												</#list>

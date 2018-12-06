@@ -12,14 +12,13 @@ import javax.servlet.http.HttpServletResponse;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.WebDataBinder;
-import org.springframework.web.bind.annotation.InitBinder;
+
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springrain.nybusiness.company.service.ITsCompanyInfoService;
 
 import org.springrain.nybusiness.ergency.entity.TsEmergencyMaterialSum;
-import org.springrain.nybusiness.ergency.entity.TsErgencyInvestigation;
+
 import org.springrain.nybusiness.ergency.service.ITsEmergencyMaterialSumService;
 import org.springrain.frame.common.SessionUser;
 import org.springrain.frame.controller.BaseController;
@@ -92,6 +91,7 @@ public class TsEmergencyMaterialSumController  extends BaseController {
 		
 		returnObject.setPage(page);
 		returnObject.setData(datas);
+		returnObject.setUserType(String.valueOf(SessionUser.getUserType()));
 		return returnObject;
 	}
 	

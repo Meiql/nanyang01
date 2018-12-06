@@ -97,13 +97,16 @@ public class TsEmePlanFilingServiceImpl extends BaseSpringrainServiceImpl implem
 				return null;
 			}
 			Finder finder = new Finder();
-			finder.append("SELECT * FROM `ts_eme_plan_filing` t where t.company_id in (:companyId)")
+			finder.append("SELECT t.*,t1.companyName as companyName FROM `ts_eme_plan_filing` t ,ts_company_info t1 where t.company_id = t1.id and t.company_id in (:companyId)")
 			.setParam("companyId", listCompany);
 			if(StringUtils.isNoneBlank(tsEmePlanFiling.getCompany_name())) {
 				finder.append(" and t.company_name like:name").setParam("name", "%"+tsEmePlanFiling.getCompany_name()+"%");
 			}
 			if(tsEmePlanFiling.getBak1()!=null&&!"0".equals(tsEmePlanFiling.getBak1())) {
 				finder.append(" and t.bak1 =:bak1").setParam("bak1", tsEmePlanFiling.getBak1());
+			}
+			if(StringUtils.isNoneBlank(tsEmePlanFiling.getCompanyName())) {
+				finder.append(" and t1.companyName like:companyName").setParam("companyName", "%"+tsEmePlanFiling.getCompanyName()+"%");
 			}
 			return super.queryForList(finder, TsEmePlanFiling.class, page);
 		}

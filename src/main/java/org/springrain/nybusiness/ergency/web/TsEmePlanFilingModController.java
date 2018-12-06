@@ -94,6 +94,7 @@ public class TsEmePlanFilingModController  extends BaseController {
 			
 		returnObject.setPage(page);
 		returnObject.setData(datas);
+		returnObject.setUserType(String.valueOf(SessionUser.getUserType()));
 		return returnObject;
 	}
 	

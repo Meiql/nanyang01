@@ -2,6 +2,7 @@ package org.springrain.nybusiness.ergency.entity;
 
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.builder.EqualsBuilder;
@@ -115,6 +116,15 @@ public class TsErgencyInvestigation  extends BaseEntity {
 	private java.lang.String bak2;
 	//columns END 数据库字段结束
 	
+	private java.lang.String companyName;
+	 @Transient
+		public String getCompanyName() {
+			return companyName;
+		}
+
+		public void setCompanyName(String companyName) {
+			this.companyName = companyName;
+		}
 	//concstructor
 
 	public TsErgencyInvestigation(){

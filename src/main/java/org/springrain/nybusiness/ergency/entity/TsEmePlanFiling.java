@@ -70,7 +70,16 @@ public class TsEmePlanFiling  extends BaseEntity {
 	//columns START
 	@Transient
 	private List<TsEmePlanFilAdjustment> filadjustment;
-	
+	private java.lang.String companyName;
+	 @Transient
+	public String getCompanyName() {
+			return companyName;
+	}
+
+	public void setCompanyName(String companyName) {
+			this.companyName = companyName;
+	}
+
 	/**
 	 * id
 	 */

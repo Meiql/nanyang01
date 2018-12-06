@@ -89,13 +89,12 @@ public class TsEmePlanFilingController  extends BaseController {
 		
 		List<String> listCompany = tsCompanyInfoService.finderCompanyIdByUserId(SessionUser.getUserId());
 		List<TsEmePlanFiling> datas=tsEmePlanFilingService.finderTsMaillistForList(page, tsEmePlanFiling, listCompany);
-		//获取公司信息
-		//List<TsCompanyInfo> dataCompany=tsEmePlanFilingService.finderCompanyInfo(listCompany);
-		
+
 			returnObject.setQueryBean(tsEmePlanFiling);
 		returnObject.setPage(page);
 		returnObject.setData(datas);
-		//returnObject.setData(dataCompany);
+	
+		returnObject.setUserType(String.valueOf(SessionUser.getUserType()));
 		return returnObject;
 	}
 	

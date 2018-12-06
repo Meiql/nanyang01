@@ -65,6 +65,15 @@ public class TsEmergencyMaterialSum  extends BaseEntity {
 	public void setName(java.lang.String name) {
 		this.name = name;
 	}
+	private java.lang.String companyName;
+	 @Transient
+	public String getCompanyName() {
+			return companyName;
+	}
+
+	public void setCompanyName(String companyName) {
+			this.companyName = companyName;
+	}
 	/**
 	 * id
 	 */

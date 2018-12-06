@@ -6,10 +6,10 @@ import java.util.List;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;
-import org.springrain.nybusiness.ergency.entity.TsEmePlanFiling;
+
 import org.springrain.nybusiness.ergency.entity.TsErgencyInvestigation;
 import org.springrain.nybusiness.ergency.service.ITsErgencyInvestigationService;
-import org.springrain.nybusiness.mail.entity.TsMailListOutside;
+
 import org.springrain.frame.entity.IBaseEntity;
 import org.springrain.frame.util.Finder;
 import org.springrain.frame.util.Page;
@@ -87,7 +87,7 @@ public class TsErgencyInvestigationServiceImpl extends BaseSpringrainServiceImpl
 			return null;
 		}
 		Finder finder = new Finder();
-		finder.append("SELECT * FROM `ts_ergency_investigation` t where t.company_id in (:companyId)")
+		finder.append("SELECT t.* ,t1.companyName as companyName FROM `ts_ergency_investigation` t,ts_company_info t1 where t.company_id = t1.id  and t.company_id in (:companyId)")
 		.setParam("companyId", listCompany);
 		if(StringUtils.isNoneBlank(tsErgencyInvestigation.getName())) {
 			finder.append(" and t.name like:name").setParam("name", "%"+tsErgencyInvestigation.getName()+"%");
@@ -97,6 +97,9 @@ public class TsErgencyInvestigationServiceImpl extends BaseSpringrainServiceImpl
 		}
 		if(tsErgencyInvestigation.getBak1()!=null&&tsErgencyInvestigation.getBak1()!="") {
 			finder.append(" and t.Bak1 =:Bak1").setParam("Bak1", tsErgencyInvestigation.getBak1());
+		}
+		if(StringUtils.isNoneBlank(tsErgencyInvestigation.getCompanyName())) {
+			finder.append(" and t1.companyName like:companyName").setParam("companyName", "%"+tsErgencyInvestigation.getCompanyName()+"%");
 		}
 		return super.queryForList(finder, TsErgencyInvestigation.class, page);
 	}
