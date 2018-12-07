@@ -135,17 +135,17 @@
 												</tr>
 												<tr>
 												  <!--first_start_no_export-->
-												  <th class="center">
+												  <th >
 															<input id="checkAll"  type="checkbox">
 												  </th>
-												  <th>操作</th>
+												  <th >操作</th>
 												  <!--first_end_no_export-->
-														<th>公司名称</th>
-														<th>单位名称</th>
-														<th>联系电话</th>
+														<th >公司名称</th>
+														<th >单位名称</th>
+														<th >联系电话</th>
 <!-- 														<th id="th_createUser" >创建人</th> -->
-														<th>创建时间</th>
-														<th>备注</th>
+														<th >创建时间</th>
+														<th >备注</th>
 												</tr> 
 											</thead>
 										  <!--first_end_export-->
@@ -155,7 +155,7 @@
 										    	<#list	returnDatas.data as _data>
 										    		<!--start_no_export-->
 													<tr class="">
-														<td class="center">
+														<td >
 																<input name="check_li" value="${_data.id}"  type="checkbox">
 														</td>
 														<td>
@@ -167,22 +167,22 @@
 								                            </@shiro.hasPermission>
 														</td>
 														<!--end_no_export-->
-														<td >
+														<td  >
 															${(_data.companyName)!''}
 														</td>
-														<td >
+														<td  >
 															${(_data.unitName)!''}
 														</td>
-														<td >
+														<td  >
 															${(_data.contactPhone)!''}
 														</td>
 <!-- 														<td > -->
 <!-- 															${(_data.createUser)!''} -->
 <!-- 														</td> -->
-														<td >
+														<td  >
 															${(_data.createTime)!''}
 														</td>
-														<td >
+														<td  >
 															${(_data.remark)!''}
 														</td>
 													</tr>

@@ -111,16 +111,16 @@
 												  <th class="center">
 															<input id="checkAll"  type="checkbox">
 												  </th>
-												  <th style="width : 80px;text-align: center">操作</th>
+												  <th style="width : 80px;">操作</th>
 												  <!--first_end_no_export-->
-												  		<th id="th_createName"style="text-align: center">创建人</th>
-														<th id="th_hwproductNum" style="text-align: center">产生量（吨/时）</th>
-														<th id="th_hwTransportNum" style="text-align: center">运输量（吨/时）</th>
-														<th id="th_hwhandleNum" style="text-align: center">处置量（吨/时）</th>
-														<th id="th_hwStorageNum" style="text-align: center">存放量（吨）</th>
-														<th id="th_handleUnitName" style="text-align: center">处置单位</th>
-														<th id="th_transportUnitName" style="text-align: center">运输单位</th>
-														<th id="th_zywld" style="text-align: center">转运五联单</th>
+												  		<th id="th_createName">创建人</th>
+														<th id="th_hwproductNum" >产生量（吨/时）</th>
+														<th id="th_hwTransportNum" >运输量（吨/时）</th>
+														<th id="th_hwhandleNum" >处置量（吨/时）</th>
+														<th id="th_hwStorageNum" >存放量（吨）</th>
+														<th id="th_handleUnitName" >处置单位</th>
+														<th id="th_transportUnitName" >运输单位</th>
+														<th id="th_zywld" >转运五联单</th>
 														<!-- <th id="th_createUser" >创建人</th>
 														<th id="th_createTime" >创建时间</th> -->
 														<!-- <th id="th_remarks" >remarks</th>
@@ -140,7 +140,7 @@
 														<td class="center">
 																<input name="check_li" value="${_data.id}"  type="checkbox">
 														</td>
-														<td class="center">
+														<td >
 															<@shiro.hasPermission name="/tswastematerialmsg/update" >
 								                           		 <a href="#" data-action="${ctx}/tswastematerialmsg/update/pre?id=${_data.id}" class="layui-btn layui-btn-normal layui-btn-mini">编辑</a>
 								                            </@shiro.hasPermission>
@@ -152,30 +152,30 @@
 								                            </@shiro.hasPermission>
 														</td>
 														<!--end_no_export-->
-														<td class="center">
+														<td >
 															${(_data.createName)!''}
 														</td>
-														<td class="center">
+														<td >
 															${(_data.hwproductNum)!''}
 														</td>
-														<td class="center">
+														<td >
 															${(_data.hwTransportNum)!''}
 														</td>
-														<td class="center">
+														<td >
 															${(_data.hwhandleNum)!''}
 														</td>
-														<td class="center">
+														<td >
 															${(_data.hwStorageNum)!''}
 														</td>
-														<td class="center">
+														<td >
 															${(_data.handleUnitName)!''}
 														</td>
 														
-														<td class="center">
+														<td >
 															${(_data.transportUnitName)!''}
 														</td>
 														
-														<td class="center">
+														<td >
 															
 															<#if (_data.zywld)?? && (_data.zywld=="1")>
 																	是

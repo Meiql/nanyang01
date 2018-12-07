@@ -132,18 +132,18 @@
 												  </th>
 												  <!-- <th rowspan="2"style="width : 80px; text-align: center">操作</th> -->
 												  <!--first_end_no_export-->
-														<th id="" rowspan="2"style=" text-align: center">序号</th>
-														<th id="th_name" rowspan="2"style=" text-align: center">物资名称</th>
-														<th id="th_quantity" rowspan="2"style=" text-align: center">数量</th>
-														<th id="th_unit" rowspan="2"style=" text-align: center">单位</th>
-														<th id="" rowspan="2"style="text-align: center">设备来源</th>
-														<th id="" rowspan="2"style=" text-align: center">外部供应单位名称</th>
+														<th id="" rowspan="2"  >序号</th>
+														<th id="th_name" rowspan="2"  >物资名称</th>
+														<th id="th_quantity" rowspan="2"  >数量</th>
+														<th id="th_unit" rowspan="2">单位</th>
+														<th id="" rowspan="2">设备来源</th>
+														<th id="" rowspan="2">外部供应单位名称</th>
 														<th id="" colspan="2" style=" text-align: center">外部供应单位联系方式</th>
-														<th id="th_bak1" rowspan="2" style=" text-align: center">审批状态</th>
+														<th id="th_bak1" rowspan="2" >审批状态</th>
 														<#if (returnDatas.userType)?? && (returnDatas.userType=='0')>
-														<th id="th_companyName" rowspan="2" style="width : 100px; text-align: center">公司名称</th>
+														<th id="th_companyName" rowspan="2" style="width : 100px; ">公司名称</th>
 														 </#if>
-														<th id="" rowspan="2" style=" text-align: center">来源</th>
+														<th id="" rowspan="2" >来源</th>
 														
 														<!-- <th id="th_create_user" >创建用户</th>
 														<th id="th_create_time" >创建时间</th>
@@ -180,19 +180,19 @@
 								                            </@shiro.hasPermission>
 														</td> -->
 														<!--end_no_export-->
-														<td class="center">
+														<td >
 															${(_data.serial_number)!0}
 														</td>
-														<td class="center">
+														<td >
 															${(_data.name)!''}
 														</td>
-														<td class="center">
+														<td >
 															${(_data.quantity)!0}
 														</td>
-														<td class="center">
+														<td >
 															${(_data.unit)!''}
 														</td>
-														<td class="center">
+														<td >
 															
 															<#if (_data.in_Equipment)?? && (_data.in_Equipment=="1")>
 																	厂内设备
@@ -201,7 +201,7 @@
 															</#if>
 														</td>
 													
-														<td class="center">
+														<td >
 															${(_data.outside_company)!''}
 														</td>
 														<td class="center">
@@ -210,7 +210,7 @@
 														<td class="center">
 															${(_data.outside_tel)!''}
 														</td>
-														<td class="center">
+														<td >
 															<#if (_data.bak1)?? && (_data.bak1=="1")>
 																	已保存
 															<#elseif (_data.bak1)?? && (_data.bak1=="2")>
@@ -222,11 +222,11 @@
 															</#if>
 														</td>
 														<#if (returnDatas.userType)?? && (returnDatas.userType=='0')>
-														<td class="center">
+														<td >
 															${(_data.companyName)!''}
 														</td>
 														 </#if>
-														<td class="center">
+														<td >
 															${(_data.table_from)!''}
 														</td>
 												

@@ -173,22 +173,22 @@
 												  <th class="center" rowspan="2">
 															<input id="checkAll"  type="checkbox">
 												  </th>
-												  <th rowspan="2"style="width : 80px; text-align: center">操作</th>
+												  <th rowspan="2"style="width : 80px;">操作</th>
 												  <!--first_end_no_export-->
-														<th  rowspan="2"style="width : 80px; text-align: center">序号</th>
-														<th id="th_category" rowspan="2"style="width : 80px; text-align: center">类别</th>
-														<th id="th_name" rowspan="2"style="width : 80px; text-align: center">名称</th>
-														<th id="th_quantity" rowspan="2"style="width : 80px; text-align: center">数量</th>
-														<th  rowspan="2"style="width : 80px; text-align: center">单位</th>
+														<th  rowspan="2"style="width : 80px; ">序号</th>
+														<th id="th_category" rowspan="2"style="width : 80px; ">类别</th>
+														<th id="th_name" rowspan="2"style="width : 80px;">名称</th>
+														<th id="th_quantity" rowspan="2"style="width : 80px; ">数量</th>
+														<th  rowspan="2"style="width : 80px; ">单位</th>
 														
 														
 														
-														<th  rowspan="2"style="width : 80px; text-align: center">设备来源</th>
-														<th  rowspan="2"style="width : 160px; text-align: center">外部供应单位名称</th>
+														<th  rowspan="2"style="width : 80px;">设备来源</th>
+														<th  rowspan="2"style="width : 160px; ">外部供应单位名称</th>
 														<th id="" colspan="2"style="width : 200px; text-align: center">外部供应单位联系方式</th>
-														<th id="bak1" rowspan="2"style="width : 80px; text-align: center">审批状态</th>
+														<th id="bak1" rowspan="2"style="width : 80px; ">审批状态</th>
 														<#if (returnDatas.userType)?? && (returnDatas.userType=='0')>
-														<th id="th_companyName" rowspan="2" style="width : 100px; text-align: center">公司名称</th>
+														<th id="th_companyName" rowspan="2" style="width : 100px; ">公司名称</th>
 														 </#if>
 														<!-- <th id="th_create_user" >创建用户</th>
 														<th id="th_create_time" >创建时间</th> 
@@ -212,7 +212,7 @@
 														<td class="center">
 																<input name="check_li" value="${_data.id}"  type="checkbox">
 														</td>
-														<td class="center">
+														<td >
 															<@shiro.hasPermission name="/tsemergencyequipmentsum/update" >
 															<#if (_data.bak1)?? && (_data.bak1=='1'||_data.bak1=='4')>
 								                           		 <a href="#" data-action="${ctx}/tsemergencyequipmentsum/update/pre?id=${(_data.id)!''}" class="layui-btn layui-btn-normal layui-btn-mini">编辑</a>
@@ -233,10 +233,10 @@
 								                            </@shiro.hasPermission>
 														</td>
 														<!--end_no_export-->
-														<td class="center">
+														<td >
 															${(_data.serial_number)!0}
 														</td>
-														<td class="center">
+														<td >
 																<#if (_data.category)?? && (_data.category==1)>
 																	医疗救护仪器
 																<#elseif (_data.category)?? && (_data.category==2)>
@@ -252,17 +252,17 @@
 															</#if>
 															
 														</td>
-														<td class="center">
+														<td  >
 															${(_data.name)!''}
 														</td>
-														<td class="center">
+														<td  >
 															${(_data.quantity)!0}
 														</td>
-														<td class="center">
+														<td  >
 															${(_data.unit)!''}
 														</td>
 													
-														<td class="center">
+														<td  >
 															
 															<#if (_data.in_Equipment)?? && (_data.in_Equipment=="1")>
 																	厂内设备
@@ -272,16 +272,16 @@
 														</td>
 														
 														
-														<td class="center">
+														<td  >
 															${(_data.outside_company)!''}
 														</td>
-														<td class="center">
+														<td  class="center">
 															${(_data.outside_people)!''}
 														</td>
-														<td class="center">
+														<td  class="center">
 															${(_data.outside_tel)!''}
 														</td>
-														<td class="center">
+														<td  >
 															
 															<#if (_data.bak1)?? && (_data.bak1=="1")>
 																	已保存
@@ -294,7 +294,7 @@
 															</#if>
 														</td>
 														<#if (returnDatas.userType)?? && (returnDatas.userType=='0')>
-														<td class="center">
+														<td  >
 															${(_data.companyName)!''}
 														</td>
 														 </#if>

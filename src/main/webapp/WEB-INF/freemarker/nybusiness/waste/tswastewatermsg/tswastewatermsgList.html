@@ -111,19 +111,19 @@
 												  <th class="center">
 															<input id="checkAll"  type="checkbox">
 												  </th>
-												  <th style="width : 80px;text-align: center">操作</th>
+												  <th style="width : 80px;">操作</th>
 												  <!--first_end_no_export-->
-												  		<th id="th_createName"style="text-align: center">创建人</th>
-														<th id="th_processingMethod" style="text-align: center">污水处理方式名称</th>
-														<th id="th_processingCapacity" style="text-align: center">处理能力 (吨/天)</th>
-														<th id="th_outletLocation" style="text-align: center">排污口方位</th>
-														<!-- <th id="th_emissionCode" style="text-align: center">排放去向代码</th> -->
-														<th id="th_sewageSource" style="text-align: center">污水来源</th>
-														<th id="th_stinkingMaterial" style="text-align: center">废水中恶臭物质</th>
-														<th id="th_controlMeasures" style="text-align: center">是否有臭气控制</th>
-														<!--<th id="th_actionBehavior" style="text-align: center">措施行为</th>
-														 <th id="th_processDesc" style="text-align: center">流程说明</th>
-														<th id="th_treatmentEffect" style="text-align: center">废水处理效果</th> -->
+												  		<th id="th_createName">创建人</th>
+														<th id="th_processingMethod" >污水处理方式名称</th>
+														<th id="th_processingCapacity" >处理能力 (吨/天)</th>
+														<th id="th_outletLocation" >排污口方位</th>
+														<!-- <th id="th_emissionCode" >排放去向代码</th> -->
+														<th id="th_sewageSource" >污水来源</th>
+														<th id="th_stinkingMaterial" >废水中恶臭物质</th>
+														<th id="th_controlMeasures" >是否有臭气控制</th>
+														<!--<th id="th_actionBehavior" >措施行为</th>
+														 <th id="th_processDesc" >流程说明</th>
+														<th id="th_treatmentEffect" >废水处理效果</th> -->
 														<!-- <th id="th_createUser" >创建人</th>
 														<th id="th_createTime" >创建时间</th> -->
 														<!-- <th id="th_remarks" >remarks</th>
@@ -143,7 +143,7 @@
 														<td class="center">
 																<input name="check_li" value="${_data.id}"  type="checkbox">
 														</td>
-														<td class="center">
+														<td >
 															<@shiro.hasPermission name="/tswastewatermsg/update" >
 								                           		 <a href="#" data-action="${ctx}/tswastewatermsg/update/pre?id=${_data.id}" class="layui-btn layui-btn-normal layui-btn-mini">编辑</a>
 								                            </@shiro.hasPermission>
@@ -155,28 +155,28 @@
 								                            </@shiro.hasPermission>
 														</td>
 														<!--end_no_export-->
-														<td class="center">
+														<td >
 															${(_data.createName)!''}
 														</td>
-														<td class="center">
+														<td >
 															${(_data.processingMethod)!''}
 														</td>
-														<td class="center">
+														<td >
 															${(_data.processingCapacity)!''}
 														</td>
-														<td class="center">
+														<td >
 															${(_data.outletLocation)!''}
 														</td>
-														<!-- <td class="center">
+														<!-- <td >
 															${(_data.emissionCode)!''}
 														</td> -->
-														<td class="center">
+														<td >
 															${(_data.sewageSource)!''}
 														</td>
-														<td class="center">
+														<td >
 															${(_data.stinkingMaterial)!''}
 														</td>
-														<td class="center">
+														<td >
 															<#if (_data.controlMeasures)?? && (_data.controlMeasures=="1")>
 																	是
 															<#elseif (_data.controlMeasures)?? && (_data.controlMeasures=="2")>

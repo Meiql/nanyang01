@@ -180,22 +180,22 @@
 												  <th class="center">
 															<input id="checkAll"  type="checkbox">
 												  </th>
-												  <th style="width : 80px; text-align: center">操作</th>
+												  <th style="width : 80px; ">操作</th>
 												  <!--first_end_no_export-->
-														<th id="serial_number" style="width : 80px; text-align: center">序号</th>
-														<th id="th_category" style="width : 80px; text-align: center">类别</th>
-														<th id="th_name" style="width : 80px; text-align: center">名称</th>
-														<th style="width : 120px; text-align: center">型号或规格</th>
-														<th id="th_quantity" style="width : 80px; text-align: center">数量</th>
-														<th style="width : 80px; text-align: center">单位</th>
-														<th  style="width : 80px; text-align: center">位置</th>
-														<th  style="width : 180px; text-align: center">保管人员岗位</th>
-														<th  style="width : 180px; text-align: center">使用人员岗位</th>
-														<th  style="width : 180px; text-align: center">最后有效期限</th>
-														<!-- <th style="width : 80px; text-align: center">备注</th> -->
-														<th id="bak1" style="width : 100px; text-align: center">审批状态</th>
+														<th id="serial_number" style="width : 80px; ">序号</th>
+														<th id="th_category" style="width : 80px; ">类别</th>
+														<th id="th_name" style="width : 80px; ">名称</th>
+														<th style="width : 120px; ">型号或规格</th>
+														<th id="th_quantity" style="width : 80px; ">数量</th>
+														<th style="width : 80px; ">单位</th>
+														<th  style="width : 80px; ">位置</th>
+														<th  style="width : 180px; ">保管人员岗位</th>
+														<th  style="width : 180px; ">使用人员岗位</th>
+														<th  style="width : 180px; ">最后有效期限</th>
+														<!-- <th style="width : 80px; ">备注</th> -->
+														<th id="bak1" style="width : 100px; ">审批状态</th>
 														<#if (returnDatas.userType)?? && (returnDatas.userType=='0')>
-														<th id="th_companyName" style="width : 100px; text-align: center">公司名称</th>
+														<th id="th_companyName" style="width : 100px; ">公司名称</th>
 														 </#if>
 														
 												</tr> 
@@ -210,7 +210,7 @@
 														<td class="center">
 																<input name="check_li" value="${_data.id}"  type="checkbox">
 														</td>
-														<td class="center">
+														<td >
 															<@shiro.hasPermission name="/tsergencyinvestigation/update" >
 															<#if (_data.bak1)?? && (_data.bak1=='1'||_data.bak1=='4')>
 								                           		 <a href="#" data-action="${ctx}/tsergencyinvestigation/update/pre?id=${(_data.id)!''}" class="layui-btn layui-btn-normal layui-btn-mini">编辑</a>
@@ -232,10 +232,10 @@
 														</td>
 														
 														<!--end_no_export-->
-														<td class="center">
+														<td >
 															${(_data.serial_number)!''}
 														</td>
-														<td class="center">
+														<td >
 															
 															<#if (_data.category)?? && (_data.category==1)>
 																	设备
@@ -248,34 +248,34 @@
 															
 															
 														</td>
-														<td class="center">
+														<td >
 															${(_data.name)!''}
 														</td>
-														<td class="center">
+														<td >
 															${(_data.type_Specifications)!''}
 														</td>
-														<td class="center">
+														<td >
 															${(_data.quantity)!0}
 														</td>
-														<td class="center">
+														<td >
 															${(_data.unit)!''}
 														</td>
-														<td class="center">
+														<td >
 															${(_data.place)!''}
 														</td>
-														<td class="center">
+														<td >
 															${(_data.custodian_or_post)!''}
 														</td>
-														<td class="center">
+														<td >
 															${(_data.user_or_posts)!''}
 														</td>
-														<td class="center">
+														<td >
 															${(_data.final_validity_time)!''}
 														</td>
-														<!-- <td class="center">
+														<!-- <td >
 															${(_data.remarks)!''}
 														</td> -->
-														<td class="center">
+														<td >
 															<#if (_data.bak1)?? && (_data.bak1=="1")>
 																	已保存
 															<#elseif (_data.bak1)?? && (_data.bak1=="2")>
@@ -287,7 +287,7 @@
 															</#if>
 														</td>
 														<#if (returnDatas.userType)?? && (returnDatas.userType=='0')>
-														<td class="center">
+														<td >
 															${(_data.companyName)!''}
 														</td>
 														 </#if>
