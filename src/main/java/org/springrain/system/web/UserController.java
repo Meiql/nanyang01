@@ -225,7 +225,14 @@ public class UserController extends BaseController {
 		model.addAttribute(GlobalStatic.returnDatas, returnObject);
 		return "/system/user/userCru";
 	}
-
+	@RequestMapping(value = "/ueditor")
+	public String ueditor(Model model, HttpServletRequest request,
+			HttpServletResponse response) throws Exception {
+		ReturnDatas returnObject = lookjson(model, request, response);
+		model.addAttribute(GlobalStatic.returnDatas, returnObject);
+		return "/system/user/userUe";
+	}
+	
 	/**
 	 * 删除操作
 	 */
