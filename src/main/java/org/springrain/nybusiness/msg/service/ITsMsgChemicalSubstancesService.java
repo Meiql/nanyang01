@@ -32,4 +32,14 @@ public interface ITsMsgChemicalSubstancesService extends IBaseSpringrainService 
 	 */
 	List<TsMsgChemicalSubstances> finderTsMsgChemicalSubstances(Page page, TsMsgChemicalSubstances tsMsgChemicalSubstances,List<String> listCompany)throws Exception;
 	
+	/**
+	 * 根据id查询公司名称
+	 * @param page
+	 * @param tsMsgEnviroRisk
+	 * @param listCompany
+	 * @return
+	 * @throws Exception
+	 */
+	String finderCompanyNameByCompanyId(String companyId) throws Exception;
+	
 }

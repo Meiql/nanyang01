@@ -23,6 +23,7 @@ import org.springrain.frame.util.Page;
 import org.springrain.frame.util.ReturnDatas;
 import org.springrain.nybusiness.company.service.ITsCompanyInfoService;
 import org.springrain.nybusiness.msg.entity.TsMsgEnviroRisk;
+import org.springrain.nybusiness.msg.service.ITsMsgChemicalSubstancesService;
 import org.springrain.nybusiness.msg.service.ITsMsgEnviroRiskService;
 
 
@@ -38,7 +39,8 @@ import org.springrain.nybusiness.msg.service.ITsMsgEnviroRiskService;
 public class TsMsgEnviroRiskController  extends BaseController {
 	@Resource
 	private ITsMsgEnviroRiskService tsMsgEnviroRiskService;
-	
+	@Resource
+	private ITsMsgChemicalSubstancesService tsMsgChemicalSubstancesService;
 	@Resource
 	private ITsCompanyInfoService tsCompanyInfoService;
 	
@@ -158,14 +160,14 @@ public class TsMsgEnviroRiskController  extends BaseController {
 			if(StringUtils.isBlank(tsMsgEnviroRisk.getCreateUser())){
 				tsMsgEnviroRisk.setCreateUser(SessionUser.getUserId());
 			}
-			//3.创建用户name
-			if(StringUtils.isBlank(tsMsgEnviroRisk.getCreateUserName())){
-				tsMsgEnviroRisk.setCreateUserName(SessionUser.getUserName());
-			}
-			//4.公司代码
+			//3.创建用户公司name
 			java.lang.String companyId = SessionUser.getCompanyid(); 
-			if(StringUtils.isBlank(tsMsgEnviroRisk.getCompanyId())){
-				
+			String CompanyName = tsMsgChemicalSubstancesService.finderCompanyNameByCompanyId(companyId);
+			if(StringUtils.isBlank(tsMsgEnviroRisk.getCreateUserName())){
+				tsMsgEnviroRisk.setCreateUserName(CompanyName);
+			}
+			//4.公司代码 
+			if(StringUtils.isBlank(tsMsgEnviroRisk.getCompanyId())){			
 				tsMsgEnviroRisk.setCompanyId(companyId);
 			}
 			//5.数据状态

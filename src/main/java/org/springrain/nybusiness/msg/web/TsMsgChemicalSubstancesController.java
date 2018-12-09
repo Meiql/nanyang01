@@ -150,15 +150,16 @@ public class TsMsgChemicalSubstancesController  extends BaseController {
 		if(StringUtils.isBlank(tsMsgChemicalSubstances.getCreateUser())){
 			tsMsgChemicalSubstances.setCreateUser(SessionUser.getUserId());
 		}
-		//3.创建用户name
+		//3.创建用户公司name
+		java.lang.String companyId = SessionUser.getCompanyid(); 
+		String CompanyName = tsMsgChemicalSubstancesService.finderCompanyNameByCompanyId(companyId);
 		if(StringUtils.isBlank(tsMsgChemicalSubstances.getCreateUserName())){
-			tsMsgChemicalSubstances.setCreateUserName(SessionUser.getUserName());
+			tsMsgChemicalSubstances.setCreateUserName(CompanyName);
 		}
 		//4.公司代码
-		java.lang.String companyId = SessionUser.getCompanyid(); 
 		if(StringUtils.isBlank(tsMsgChemicalSubstances.getCompanyId())){
 			tsMsgChemicalSubstances.setCompanyId(companyId);
-		}
+		}		
 		try {		
 			java.lang.String id =tsMsgChemicalSubstances.getId();
 			if(StringUtils.isBlank(id)){

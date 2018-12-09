@@ -2,6 +2,7 @@ package org.springrain.nybusiness.msg.service.impl;
 
 import java.io.File;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.commons.collections.CollectionUtils;
 import org.springframework.stereotype.Service;
@@ -12,6 +13,8 @@ import org.springrain.frame.entity.IBaseEntity;
 import org.springrain.frame.util.Finder;
 import org.springrain.frame.util.Page;
 import org.springrain.system.service.BaseSpringrainServiceImpl;
+
+import freemarker.template.utility.StringUtil;
 
 
 /**
@@ -98,6 +101,23 @@ public class TsMsgChemicalSubstancesServiceImpl extends BaseSpringrainServiceImp
 		}
 		System.out.println("化学物质条件查询 sql：   "+finder.getSql());
 		return super.queryForList(finder, TsMsgChemicalSubstances.class, page);
+	}
+  /**
+   * 查询公司名称
+   */
+	@Override
+	public String finderCompanyNameByCompanyId(String companyId) throws Exception {
+		if(companyId.isEmpty()){
+			return null;
+		}
+		Finder finder = new Finder();
+		finder.append("SELECT t.companyName  FROM `ts_company_info` t where t.id =:companyId")
+		.setParam("companyId", companyId);
+		System.out.println("公司名称查询 sql：   "+finder.getSql());
+		Map<String , Object> map = super.queryForObject(finder);		
+	    String companyName = (String) map.get("companyName");
+	    System.out.println("查询公司名称为："+companyName);
+		return companyName;
 	}
 
 }

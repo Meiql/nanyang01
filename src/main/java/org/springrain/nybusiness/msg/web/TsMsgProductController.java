@@ -23,6 +23,7 @@ import org.springrain.frame.util.Page;
 import org.springrain.frame.util.ReturnDatas;
 import org.springrain.nybusiness.company.service.ITsCompanyInfoService;
 import org.springrain.nybusiness.msg.entity.TsMsgProductTechnology;
+import org.springrain.nybusiness.msg.service.ITsMsgChemicalSubstancesService;
 import org.springrain.nybusiness.msg.service.ITsMsgProductTechnologyService;
 
 
@@ -39,7 +40,8 @@ public class TsMsgProductController  extends BaseController {
 	
 	@Resource
 	private ITsMsgProductTechnologyService iTsMsgProductTechnologyService;
-	
+	@Resource
+	private ITsMsgChemicalSubstancesService tsMsgChemicalSubstancesService;
 	@Resource
 	private ITsCompanyInfoService tsCompanyInfoService;
 	
@@ -153,20 +155,21 @@ public class TsMsgProductController  extends BaseController {
 			SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 			String formatStr =formatter.format(date);
 			System.out.println(formatStr);
-			//创建时间
+			//1.创建时间
 			if(StringUtils.isBlank(tsMsgProductTechnology.getCreateTime())){
 				tsMsgProductTechnology.setCreateTime(formatStr);
 			}
-			//创建用户id
+			//2.创建用户id
 			if(StringUtils.isBlank(tsMsgProductTechnology.getCreateUser())){
 				tsMsgProductTechnology.setCreateUser(SessionUser.getUserId());
 			}
-			//获取创建用户name
-			if(StringUtils.isBlank(tsMsgProductTechnology.getRemarks())){
-				tsMsgProductTechnology.setRemarks(SessionUser.getUserName());
-			}
-			//公司代码
+			//3.创建用户公司name
 			java.lang.String companyId = SessionUser.getCompanyid(); 
+			String CompanyName = tsMsgChemicalSubstancesService.finderCompanyNameByCompanyId(companyId);
+			if(StringUtils.isBlank(tsMsgProductTechnology.getRemarks())){
+				tsMsgProductTechnology.setRemarks(CompanyName);
+			}
+			//4.公司代码
 			if(StringUtils.isBlank(tsMsgProductTechnology.getCompanyId())){
 				tsMsgProductTechnology.setCompanyId(companyId);
 			}

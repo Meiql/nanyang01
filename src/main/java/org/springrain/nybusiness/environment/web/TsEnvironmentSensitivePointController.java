@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springrain.nybusiness.company.service.ITsCompanyInfoService;
 import org.springrain.nybusiness.environment.entity.TsEnvironmentSensitivePoint;
 import org.springrain.nybusiness.environment.service.ITsEnvironmentSensitivePointService;
+import org.springrain.nybusiness.msg.service.ITsMsgChemicalSubstancesService;
 import org.springrain.frame.common.SessionUser;
 import org.springrain.frame.controller.BaseController;
 import org.springrain.frame.util.DateUtils;
@@ -38,7 +39,8 @@ import org.springrain.frame.util.ReturnDatas;
 public class TsEnvironmentSensitivePointController  extends BaseController {
 	@Resource
 	private ITsEnvironmentSensitivePointService tsEnvironmentSensitivePointService;
-	
+	@Resource
+	private ITsMsgChemicalSubstancesService tsMsgChemicalSubstancesService;
 	@Resource
 	private ITsCompanyInfoService tsCompanyInfoService;
 	
@@ -146,20 +148,21 @@ public class TsEnvironmentSensitivePointController  extends BaseController {
 			if(StringUtils.isBlank(id)){
 			  tsEnvironmentSensitivePoint.setId(null);
 			}
-			//创建用户id
+			//1.创建用户id
 			if(StringUtils.isBlank(tsEnvironmentSensitivePoint.getCreateUser())){
 				tsEnvironmentSensitivePoint.setCreateUser(SessionUser.getUserId());
 			}
-			//获取创建用户name
+			//3.创建用户公司name
+			java.lang.String companyId = SessionUser.getCompanyid(); 
+			String CompanyName = tsMsgChemicalSubstancesService.finderCompanyNameByCompanyId(companyId);
 			if(StringUtils.isBlank(tsEnvironmentSensitivePoint.getCreateUserName())){
 				tsEnvironmentSensitivePoint.setCreateUserName(SessionUser.getUserName());
 			}
-			//创建时间
+			//3.创建时间
 			if(StringUtils.isBlank(tsEnvironmentSensitivePoint.getCreateTime())){
 				tsEnvironmentSensitivePoint.setCreateTime(DateUtils.convertDate2String("yyyy-MM-dd HH:mm:ss", new Date()));
 			}
-			//公司代码
-			java.lang.String companyId = SessionUser.getCompanyid(); 
+			//4.公司代码
 			if(StringUtils.isBlank(tsEnvironmentSensitivePoint.getCompanyId())){
 				tsEnvironmentSensitivePoint.setCompanyId(companyId);
 			}
