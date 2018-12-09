@@ -110,7 +110,7 @@ public class TsPreparegoodsNumServiceImpl extends BaseSpringrainServiceImpl impl
 				return null;
 			}
 			Finder finder = new Finder();
-			finder.append("select * from (SELECT t.id,t.serial_number,t.`name`,t.quantity,t.Unit,:nullvalue as in_Equipment,:nullvalue as outside_company,:nullvalue as outside_people, :nullvalue as outside_tel,t.bak1,:F1 as table_from,t.company_id FROM `ts_ergency_investigation` t  union all SELECT t.id,t.Serial_number,t.`name`,t.quantity,t.unit,t.in_Equipment,t.outside_company,t.outside_people,t.outside_tel,t.bak1,:F2 as table_from,t.company_id FROM `ts_emergency_equipment_sum` t )t where t.bak1=:bak and t.company_id in (:companyId)")
+			finder.append("select t.* ,t1.companyName as companyName from (SELECT t.id,t.serial_number,t.`name`,t.quantity,t.Unit,:nullvalue as in_Equipment,:nullvalue as outside_company,:nullvalue as outside_people, :nullvalue as outside_tel,t.bak1,:F1 as table_from,t.company_id FROM `ts_ergency_investigation` t  union all SELECT t.id,t.Serial_number,t.`name`,t.quantity,t.unit,t.in_Equipment,t.outside_company,t.outside_people,t.outside_tel,t.bak1,:F2 as table_from,t.company_id FROM `ts_emergency_equipment_sum` t )t,ts_company_info t1 where t.company_id = t1.id and t.bak1=:bak and t.company_id in (:companyId)")
 			.setParam("companyId", listCompany).setParam("nullvalue", "").setParam("F1", "F1").setParam("F2", "F2").setParam("bak", "1");
 		if(StringUtils.isNoneBlank(tsEmergencyMaterialSum.getName())) {
 			finder.append(" and t.name like:name").setParam("name", "%"+tsEmergencyMaterialSum.getName()+"%");
@@ -127,7 +127,7 @@ public class TsPreparegoodsNumServiceImpl extends BaseSpringrainServiceImpl impl
 				return null;
 			}
 			Finder finder = new Finder();
-			finder.append("SELECT * FROM `ts_eme_plan_filing` t where t.bak1=:eme and t.company_id in (:companyId)").setParam("eme", "1").setParam("companyId", listCompany);
+			finder.append("SELECT * FROM `ts_eme_plan_filing` t  where  t.bak1=:eme and t.company_id in (:companyId)").setParam("eme", "1").setParam("companyId", listCompany);
 			if (StringUtils.isNoneBlank(tsEmePlanFiling.getCompany_name())) {
 				finder.append(" and t.company_name like:name").setParam("name", "%" + tsEmePlanFiling.getCompany_name() + "%");
 			}

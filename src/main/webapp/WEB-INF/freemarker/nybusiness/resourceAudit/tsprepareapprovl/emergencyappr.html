@@ -184,7 +184,7 @@
 														<th id="" colspan="2" style="text-align: center">外部供应单位联系方式</th>
 														<th id="th_bak1" rowspan="2">审批状态</th>
 														<th id="" rowspan="2">来源</th>
-														
+														<th id="th_companyName" rowspan="2" style="width : 100px; ">公司名称</th>
 			
 												</tr> 
 												<tr>
@@ -255,7 +255,9 @@
 														<td class="center">
 															${(_data.table_from)!''}
 														</td>
-												
+														<td >
+															${(_data.companyName)!''}
+														</td>
 													</tr>
 												</#list>
 											 </#if>
