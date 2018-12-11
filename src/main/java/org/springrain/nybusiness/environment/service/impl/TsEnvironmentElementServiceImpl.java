@@ -90,6 +90,10 @@ public class TsEnvironmentElementServiceImpl extends BaseSpringrainServiceImpl i
 			if(StringUtils.isNoneBlank(tsEnvironmentElement.getEnvirElementName())){
 				finder.append(" and t.envirElementName like:envirElementName").setParam("envirElementName", "%"+tsEnvironmentElement.getEnvirElementName()+"%");
 			}
+			String createName = tsEnvironmentElement.getCreateName();
+			if(createName != null && !createName.equals("")) {
+				finder.append(" and t.createName like:createName").setParam("createName", "%"+createName+"%");
+			}
 			System.out.println(finder.getSql());
 			return super.queryForList(finder, TsEnvironmentElement.class, page);
 		}

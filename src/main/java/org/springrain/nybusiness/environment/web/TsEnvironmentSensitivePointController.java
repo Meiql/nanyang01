@@ -90,6 +90,7 @@ public class TsEnvironmentSensitivePointController  extends BaseController {
 		returnObject.setQueryBean(tsEnvironmentSensitivePoint);
 		returnObject.setPage(page);
 		returnObject.setData(datas);
+		returnObject.setUserType(String.valueOf(SessionUser.getUserType()));
 		return returnObject;
 	}
 	

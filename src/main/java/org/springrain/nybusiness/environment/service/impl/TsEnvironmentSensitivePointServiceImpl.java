@@ -98,6 +98,10 @@ public class TsEnvironmentSensitivePointServiceImpl extends BaseSpringrainServic
 		if(envirElementName != null && !envirElementName.equals("")) {
 			finder.append(" and t.envirElementName like:envirElementName").setParam("envirElementName", "%"+envirElementName+"%");
 		}
+		String createUserName = tsEnvironmentSensitivePoint.getCreateUserName();
+		if(createUserName != null && !createUserName.equals("")) {
+			finder.append(" and t.createUserName like:createUserName").setParam("createUserName", "%"+createUserName+"%");
+		}
 		System.out.println("环境敏感点查询sql   "+finder.getSql());
 		return super.queryForList(finder, TsEnvironmentSensitivePoint.class, page);
 	}

@@ -102,6 +102,7 @@ public class TsEnvironmentElementController  extends BaseController {
 			returnObject.setQueryBean(tsEnvironmentElement);
 		returnObject.setPage(page);
 		returnObject.setData(datas);
+		returnObject.setUserType(String.valueOf(SessionUser.getUserType()));
 		return returnObject;
 	}
 	

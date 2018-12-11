@@ -78,6 +78,14 @@
 															</select>   
 									                    </div>
 							                		</div>
+							                		<#if (returnDatas.userType)?? && (returnDatas.userType=='0')>
+							          				<div class="layui-inline">
+									                    <label class="layui-form-label">公司名称</label>
+									                    <div class="layui-input-inline">
+									                           <input type="text" name="createName" value="${(returnDatas.queryBean.createName)!''}" placeholder="请输入名称 " class="layui-input">
+									                    </div>
+							                		</div>
+							                	</#if>
 							          			</td>
 							          			<td>
 							          			   <div class="layui-inline">
