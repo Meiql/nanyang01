@@ -101,6 +101,7 @@
 				/errorpage/*=noSessionCreation
 				
 				/mp/**=firewall
+				/front/**=firewall
 				
 				/f/pc/** = firewall
 				/f/mp/** = firewall,wxmpautologin
