@@ -11,6 +11,16 @@
 		 @_after:保存成功后，调用的函数  可以为空，一般为对应的列表页面
 		 */
 		 springrain.initValid(null,function(){window.location.href="${ctx}/tsinfoportal/list?springraintoken="+springraintoken});
+		 //反显涉及工艺状态
+		 var  flag="${(returnDatas.data.flag)!''}";
+		 if(flag!=null && flag !=""){
+			 $("#flag option[value = "+flag+"]").attr("selected",true); 
+		 }	
+		 //反显涉及工艺状态
+		 var  stick="${(returnDatas.data.stick)!''}";
+		 if(stick!=null && stick !=""){
+			 $("#stick option[value = "+stick+"]").attr("selected",true); 
+		 }	
 	 });
 </script>
 </head>
@@ -38,7 +48,7 @@
 													<form id="validForm" class="layui-form <!--  -->"  method="post" action="${ctx}/tsinfoportal/update">
 																<input type="hidden" id="id" name="id" value="${(returnDatas.data.id)!''}"/>	
 																	<div class="layui-form-item col-lg-6">
-																		<label class="layui-form-label">对应公告新闻政策等的类型*</label>
+																		<label class="layui-form-label">公告新闻政策类型*</label>
 																		<div class="layui-inline col-lg-5">  
 																			<input type="text" name="typeId" id="typeId" datatype="*" nullmsg="不能为空" errormsg="不能为空！" autocomplete="off" class="layui-input" value="${(returnDatas.data.typeId)!''}">
 																		</div>
@@ -47,63 +57,55 @@
 																	<div class="layui-form-item col-lg-6">
 																		<label class="layui-form-label">标题*</label>
 																		<div class="layui-inline col-lg-5">  
-																			<input type="text" name="title" id="title" datatype="*" nullmsg="不能为空" errormsg="不能为空！" autocomplete="off" class="layui-input" value="${(returnDatas.data.title)!''}">
+																			<input type="text" name="title" id="title" autocomplete="off" class="layui-input" value="${(returnDatas.data.title)!''}">
 																		</div>
 																		<div class="layui-inline valid-info"></div>
 																	</div>
 																	<div class="layui-form-item col-lg-6">
-																		<label class="layui-form-label">详情的简介*</label>
+																		<label class="layui-form-label">详情简介*</label>
 																		<div class="layui-inline col-lg-5">  
 																			<input type="text" name="intro" id="intro" datatype="*" nullmsg="不能为空" errormsg="不能为空！" autocomplete="off" class="layui-input" value="${(returnDatas.data.intro)!''}">
 																		</div>
 																		<div class="layui-inline valid-info"></div>
 																	</div>
 																	<div class="layui-form-item col-lg-6">
-																		<label class="layui-form-label">对应详情表里的关联字段*</label>
+																		<label class="layui-form-label">详情关联*</label>
 																		<div class="layui-inline col-lg-5">  
 																			<input type="text" name="detailsId" id="detailsId" datatype="*" nullmsg="不能为空" errormsg="不能为空！" autocomplete="off" class="layui-input" value="${(returnDatas.data.detailsId)!''}">
 																		</div>
 																		<div class="layui-inline valid-info"></div>
 																	</div>
 																	<div class="layui-form-item col-lg-6">
-																		<label class="layui-form-label">图片的url*</label>
+																		<label class="layui-form-label">图片url*</label>
 																		<div class="layui-inline col-lg-5">  
-																			<input type="text" name="imgUrl" id="imgUrl" datatype="*" nullmsg="不能为空" errormsg="不能为空！" autocomplete="off" class="layui-input" value="${(returnDatas.data.imgUrl)!''}">
+																			<input type="text" name="imgUrl" id="imgUrl" autocomplete="off" class="layui-input" value="${(returnDatas.data.imgUrl)!''}">
 																		</div>
 																		<div class="layui-inline valid-info"></div>
-																	</div>
-																	<div class="layui-form-item col-lg-6">
-																		<label class="layui-form-label">是否删除  0是删除  1是不删除  默认为不删除*</label>
-																		<div class="layui-inline col-lg-5">  
-																			<input type="text" name="flag" id="flag" datatype="*" nullmsg="不能为空" errormsg="不能为空！" autocomplete="off" class="layui-input" value="${(returnDatas.data.flag)!''}">
-																		</div>
-																		<div class="layui-inline valid-info"></div>
-																	</div>
-																	<div class="layui-form-item col-lg-6">
-																		<label class="layui-form-label">是否置顶  0是不置顶  1是置顶   默认为0*</label>
-																		<div class="layui-inline col-lg-5">  
-																			<input type="text" name="stick" id="stick" datatype="*" nullmsg="不能为空" errormsg="不能为空！" autocomplete="off" class="layui-input" value="${(returnDatas.data.stick)!''}">
-																		</div>
-																		<div class="layui-inline valid-info"></div>
-																	</div>
+																	</div>					
+																	<div class="layui-form-item col-lg-9">
+														    			<label class="layui-form-label col-lg-3">是否删除 </label>
+														    			<div class="layui-inline">
+														      				<select id="flag" name="flag" >
+														      					<option value=""></option>
+														        				<option value="0">是</option>
+																				<option value="1">否</option>
+														      				</select>
+														    			</div>
+													  				</div>
+													  				<div class="layui-form-item col-lg-9">
+														    			<label class="layui-form-label col-lg-3">是否置顶</label>
+														    			<div class="layui-inline">
+														      				<select id="stick" name="stick" >
+														      					<option value=""></option>
+														        				<option value="0">是</option>
+																				<option value="1">否</option>
+														      				</select>
+														    			</div>
+													  				</div>
 																	<div class="layui-form-item col-lg-6">
 																		<label class="layui-form-label">备注*</label>
 																		<div class="layui-inline col-lg-5">  
-																			<input type="text" name="remark" id="remark" datatype="*" nullmsg="不能为空" errormsg="不能为空！" autocomplete="off" class="layui-input" value="${(returnDatas.data.remark)!''}">
-																		</div>
-																		<div class="layui-inline valid-info"></div>
-																	</div>
-																	<div class="layui-form-item col-lg-6">
-																		<label class="layui-form-label">创建人*</label>
-																		<div class="layui-inline col-lg-5">  
-																			<input type="text" name="create_user" id="create_user" datatype="*" nullmsg="不能为空" errormsg="不能为空！" autocomplete="off" class="layui-input" value="${(returnDatas.data.create_user)!''}">
-																		</div>
-																		<div class="layui-inline valid-info"></div>
-																	</div>
-																	<div class="layui-form-item col-lg-6">
-																		<label class="layui-form-label">创建时间*</label>
-																		<div class="layui-inline col-lg-5">  
-																			<input type="text" name="create_time" id="create_time" datatype="*" nullmsg="不能为空" errormsg="不能为空！" autocomplete="off" class="layui-input" value="${(returnDatas.data.create_time)!''}">
+																			<input type="text" name="remark" id="remark" autocomplete="off" class="layui-input" value="${(returnDatas.data.remark)!''}">
 																		</div>
 																		<div class="layui-inline valid-info"></div>
 																	</div>

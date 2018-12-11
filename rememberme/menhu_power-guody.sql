@@ -1,0 +1,9 @@
+﻿INSERT INTO `t_menu` VALUES ('05442341bcae4765b54b626b3f593ca2', '门户管理表', '6c3595a6e5b34f07a8f19168016cb5ec', '', '/tsinfoportal/list', 1, 1, NULL, '', NULL, NULL, NULL, NULL, NULL);
+INSERT INTO `t_menu` VALUES ('0fcd0b5e38424e7b9ff4600f56cb791e', '门户详情表', '6c3595a6e5b34f07a8f19168016cb5ec', '', '/tsinfodetails/list', 1, 1, NULL, '', NULL, NULL, NULL, NULL, NULL);
+INSERT INTO `t_menu` VALUES ('4de8885c220644a5bded86abd9fc72ba', '门户管理新增', '05442341bcae4765b54b626b3f593ca2', '', '/tsinfoportal/update', 0, 1, NULL, '', NULL, NULL, NULL, NULL, NULL);
+INSERT INTO `t_menu` VALUES ('5f0c026a1d0144d49037474bc4311087', '门户详情编辑', '0fcd0b5e38424e7b9ff4600f56cb791e', '', '/tsinfodetails/update/pre', 0, 1, NULL, '', NULL, NULL, NULL, NULL, NULL);
+INSERT INTO `t_menu` VALUES ('6b4c7f7059a649daaa29868792441149', '门户管理编辑', '05442341bcae4765b54b626b3f593ca2', '', '/tsinfoportal/update/pre', 0, 1, NULL, '', NULL, NULL, NULL, NULL, NULL);
+INSERT INTO `t_menu` VALUES ('6c3595a6e5b34f07a8f19168016cb5ec', '门户管理', '5588b53268e84fa3b2dbebcf24071e0d', '', NULL, 1, 1, 8, '', NULL, NULL, NULL, NULL, NULL);
+INSERT INTO `t_menu` VALUES ('b5aa93c20bf7493eaefe26584686314b', '门户详情删除', '0fcd0b5e38424e7b9ff4600f56cb791e', '', '/tsinfodetails/delete', 0, 1, NULL, '', NULL, NULL, NULL, NULL, NULL);
+INSERT INTO `t_menu` VALUES ('b9b60f3639874291a2d4edcc1f404b64', '门户详情新增', '0fcd0b5e38424e7b9ff4600f56cb791e', '', '/tsinfodetails/update', 0, 1, NULL, '', NULL, NULL, NULL, NULL, NULL);
+INSERT INTO `t_menu` VALUES ('e265a15c1f774717988891e7aacc79e8', '门户管理删除', '05442341bcae4765b54b626b3f593ca2', '', '/tsinfoportal/delete', 0, 1, NULL, '', NULL, NULL, NULL, NULL, NULL);

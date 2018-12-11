@@ -36,13 +36,6 @@
 		             	<@shiro.hasPermission name="/tsinfoportal/update" >
 		             		<button type="button"   class="layui-btn layui-btn-small" data-action="${ctx}/tsinfoportal/update/pre"><i class="layui-icon layui-icon-specil">&#xe61f;</i>新增</button>
 		             	</@shiro.hasPermission>
-		             	<@shiro.hasPermission name="/tsinfoportal/list/export" >
-				        	<button type="button"   class="layui-btn layui-btn-small"><i class="layui-icon layui-icon-specil">&#xe609;</i>导出</button>
-				        </@shiro.hasPermission>
-		                <button type="button"  class="layui-btn layui-btn-warm layui-btn-small"><i class="layui-icon layui-icon-specil">&#xe601;</i>导入</button>
-		                <@shiro.hasPermission name="/tsinfoportal/delete" >
-		               		 <button type="button"  class="layui-btn layui-btn-danger layui-btn-small"><i class="layui-icon">&#xe640;</i>批量删除</button>
-		                </@shiro.hasPermission>
 		             </li>
 	       		</ul>
 				
@@ -55,42 +48,6 @@
 							          <input type="hidden" name="pageIndex" id="pageIndex" value="${(returnDatas.page.pageIndex)!'1'}" /> 
 							          <input type="hidden" name="sort" id="page_sort" value="${(returnDatas.page.sort)!'desc'}" />
 							          <input type="hidden" name="order" id="page_order" value="${(returnDatas.page.order)!'id'}" />
-									  <table class="layui-table search-wrap">
-									  	<colgroup>
-										    <col width="">
-										    <col width="150">
-										</colgroup>
-							          	<tbody>
-							          		<tr>
-							          			<th colspan="2">首页门户的主表  用于各种信息政策的显示搜索</th>
-							          		</tr>
-							          		<tr>
-							          			<td>
-							          				<div class="layui-inline">
-									                    <label class="layui-form-label">名称</label>
-									                    <div class="layui-input-inline">
-									                           <input type="text" name="name" value="${(returnDatas.queryBean.name)!''}" placeholder="请输入名称 " class="layui-input">
-									                    </div>
-							                		</div>
-									                 <div class="layui-inline">
-									                    <label class="layui-form-label">是否可用</label>
-									                    <div class="layui-input-inline">
-									                        <select name="active" id="active" class="layui-input">
-									                          <option value="">==请选择==</option>
-															  <option value="1">是</option>
-															  <option value="0">否</option>
-															</select>   
-									                    </div>
-									                </div>
-							          			</td>
-							          			<td>
-							          			   <div class="layui-inline">
-									                    <button class="layui-btn" type="button" onclick="springrain.commonSubmit('searchForm');"><i class="layui-icon" style="top:4px;right:5px;">&#xe615;</i>搜索</button>
-									                </div>
-							          			</td>
-							          		</tr>
-							          	</tbody>
-							          </table>
 									  <!-- 查询  结束 -->
 									</form>
 									<!--start_export-->
@@ -104,7 +61,7 @@
 										  <!--first_start_export-->
 											<thead>
 												<tr>
-													<th colspan="9">首页门户的主表  用于各种信息政策的显示列表<font id='recordsView' class='recorsView'>共<span></span>页,共 <span></span>条记录</font></th>
+													<th colspan="12">首页门户显示列表<font id='recordsView' class='recorsView'>共<span></span>页,共 <span></span>条记录</font></th>
 												</tr>
 												<tr>
 												  <!--first_start_no_export-->
@@ -113,13 +70,13 @@
 												  </th>
 												  <th>操作</th>
 												  <!--first_end_no_export-->
-														<th id="th_typeId" >对应公告新闻政策等的类型</th>
+														<th id="th_typeId" >公告新闻政策类型</th>
 														<th id="th_title" >标题</th>
-														<th id="th_intro" >详情的简介</th>
-														<th id="th_detailsId" >对应详情表里的关联字段</th>
+														<th id="th_intro" >详情简介</th>
+														<th id="th_detailsId" >详情关联字</th>
 														<th id="th_imgUrl" >图片的url</th>
-														<th id="th_flag" >是否删除  0是删除  1是不删除  默认为不删除</th>
-														<th id="th_stick" >是否置顶  0是不置顶  1是置顶   默认为0</th>
+														<th id="th_flag" >是否删除</th>
+														<th id="th_stick" >是否置顶</th>
 														<th id="th_remark" >备注</th>
 														<th id="th_create_user" >创建人</th>
 														<th id="th_create_time" >创建时间</th>
@@ -137,7 +94,7 @@
 														</td>
 														<td>
 															<@shiro.hasPermission name="/tsinfoportal/update" >
-								                           		 <a href="#" data-action="${ctx}/tsinfoportal/update/pre?id=" class="layui-btn layui-btn-normal layui-btn-mini">编辑</a>
+								                           		 <a href="#" data-action="${ctx}/tsinfoportal/update/pre?id=${(_data.id)!}" class="layui-btn layui-btn-normal layui-btn-mini">编辑</a>
 								                            </@shiro.hasPermission>
 								                            <@shiro.hasPermission name="/tsinfoportal/delete" >
 								                            	<a href="javascript:del('${(_data.id)!''}')" class="layui-btn layui-btn-danger layui-btn-mini ajax-delete">删除</a>
@@ -159,12 +116,20 @@
 														<td >
 															${(_data.imgUrl)!''}
 														</td>
-														<td >
-															${(_data.flag)!''}
+														<td>															
+															<#if (_data.flag)?? && (_data.flag=="0")>
+																	是
+															<#elseif (_data.flag)?? && (_data.flag=="1")>
+																	否															
+															</#if>
 														</td>
-														<td >
-															${(_data.stick)!''}
-														</td>
+														<td>															
+															<#if (_data.stick)?? && (_data.stick=="0")>
+																	是
+															<#elseif (_data.stick)?? && (_data.stick=="1")>
+																	否															
+															</#if>
+														</td>		
 														<td >
 															${(_data.remark)!''}
 														</td>

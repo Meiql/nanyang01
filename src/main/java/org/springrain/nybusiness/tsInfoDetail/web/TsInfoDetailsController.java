@@ -1,7 +1,9 @@
 package  org.springrain.nybusiness.tsInfoDetail.web;
 
 import java.io.File;
+import java.text.SimpleDateFormat;
 import java.util.Arrays;
+import java.util.Date;
 import java.util.List;
 
 import javax.annotation.Resource;
@@ -18,6 +20,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import org.springrain.nybusiness.tsInfoDetail.entity.TsInfoDetails;
 import org.springrain.nybusiness.tsInfoDetail.service.ITsInfoDetailsService;
+import org.springrain.frame.common.SessionUser;
 import org.springrain.frame.controller.BaseController;
 import org.springrain.frame.util.GlobalStatic;
 import org.springrain.frame.util.MessageUtils;
@@ -138,7 +141,18 @@ public class TsInfoDetailsController  extends BaseController {
 			if(StringUtils.isBlank(id)){
 			  tsInfoDetails.setId(null);
 			}
-		
+			Date date = new Date();
+			SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+			String formatStr =formatter.format(date);
+			System.out.println(formatStr);
+			//创建时间
+			if(StringUtils.isBlank(tsInfoDetails.getCreate_time())){
+				tsInfoDetails.setCreate_time(formatStr);
+			}
+			//创建用户name
+			if(StringUtils.isBlank(tsInfoDetails.getCreate_user())){
+				tsInfoDetails.setCreate_user(SessionUser.getUserName());
+			}
 			tsInfoDetailsService.saveorupdate(tsInfoDetails);
 			
 		} catch (Exception e) {

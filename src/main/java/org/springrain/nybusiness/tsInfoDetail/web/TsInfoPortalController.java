@@ -1,7 +1,9 @@
 package  org.springrain.nybusiness.tsInfoDetail.web;
 
 import java.io.File;
+import java.text.SimpleDateFormat;
 import java.util.Arrays;
+import java.util.Date;
 import java.util.List;
 
 import javax.annotation.Resource;
@@ -18,6 +20,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import org.springrain.nybusiness.tsInfoDetail.entity.TsInfoPortal;
 import org.springrain.nybusiness.tsInfoDetail.service.ITsInfoPortalService;
+import org.springrain.frame.common.SessionUser;
 import org.springrain.frame.controller.BaseController;
 import org.springrain.frame.util.GlobalStatic;
 import org.springrain.frame.util.MessageUtils;
@@ -39,7 +42,6 @@ public class TsInfoPortalController  extends BaseController {
 	private ITsInfoPortalService tsInfoPortalService;
 	
 	private String listurl="/nybusiness/tsInfoDetail/tsinfoportal/tsinfoportalList";
-	
 	
 	   
 	/**
@@ -138,10 +140,22 @@ public class TsInfoPortalController  extends BaseController {
 			if(StringUtils.isBlank(id)){
 			  tsInfoPortal.setId(null);
 			}
-		
+			Date date = new Date();
+			SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+			String formatStr =formatter.format(date);
+			System.out.println(formatStr);
+			//创建时间
+			if(StringUtils.isBlank(tsInfoPortal.getCreate_time())){
+				tsInfoPortal.setCreate_time(formatStr);
+			}
+			//创建用户name
+			if(StringUtils.isBlank(tsInfoPortal.getCreate_user())){
+				tsInfoPortal.setCreate_user(SessionUser.getUserName());
+			}
 			tsInfoPortalService.saveorupdate(tsInfoPortal);
 			
 		} catch (Exception e) {
+			e.printStackTrace();
 			logger.error(e.getMessage(),e);
 			returnObject.setStatus(ReturnDatas.ERROR);
 			returnObject.setMessage(MessageUtils.UPDATE_ERROR);
