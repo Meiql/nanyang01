@@ -83,7 +83,7 @@ public class TsInfoDetailsServiceImpl extends BaseSpringrainServiceImpl implemen
 	public List<TsInfoDetails> findTsInfoDetailByProtalId(String protalId) throws Exception{
 			 
 		Finder finder = new Finder();
-		finder.append("SELECT t.*  FROM `ts_info_details` t  where  t.protalId = :protalId")
+		finder.append("SELECT t.*,t1.title  FROM ts_info_details t,ts_info_portal t1  where t1.detailsid = t.protalid  and t.protalId = :protalId")
 		.setParam("protalId", protalId); 
 		return super.queryForList(finder, TsInfoDetails.class, null);
 

@@ -6,6 +6,7 @@ import java.util.List;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Controller;
@@ -60,9 +61,8 @@ public class FrontInfoController  extends BaseController {
 	@RequestMapping("/list")
 	public String list(HttpServletRequest request, Model model,TsInfoPortal tsInfoPortal,String typeId) 
 			throws Exception {
-//		ReturnDatas returnObject = listjson(request, model, tsInfoPortal);
-//		model.addAttribute(GlobalStatic.returnDatas, returnObject);
-		
+		typeId = "1";
+		model.addAttribute("typeId", typeId);
 		return "/nybusiness/front/list";
 	}
 	
@@ -79,9 +79,12 @@ public class FrontInfoController  extends BaseController {
 	@ResponseBody   
 	public  ReturnDatas listjson(HttpServletRequest request, Model model,TsInfoPortal tsInfoPortal,String typeId) throws Exception{
 		ReturnDatas returnObject = ReturnDatas.getSuccessReturnDatas();
-		//String typeId = "1";
-		List<TsInfoPortal> datas=tsInfoPortalService.finderListForList(typeId);
-		returnObject.setData(datas);
+		if(typeId!=null){
+			List<TsInfoPortal> datas=tsInfoPortalService.finderListForList(typeId);	
+			returnObject.setData(datas);
+		}else{
+			returnObject.setStatus(ReturnDatas.ERROR);
+			}
 		return returnObject;
 	}
 	
@@ -89,9 +92,7 @@ public class FrontInfoController  extends BaseController {
 	@RequestMapping("/newdetail")
 	public String newdetail(Model model,HttpServletRequest request,HttpServletResponse response,String detailsId) 
 			throws Exception {
-		System.out.println(detailsId);
-		ReturnDatas returnObject = lookjson(model, request, response,detailsId);
-		model.addAttribute(GlobalStatic.returnDatas, returnObject);
+		model.addAttribute("detailsId", detailsId);
 		return "/nybusiness/front/new";
 	}
 	
@@ -102,12 +103,8 @@ public class FrontInfoController  extends BaseController {
 	@ResponseBody      
 	public ReturnDatas lookjson(Model model,HttpServletRequest request,HttpServletResponse response,String detailsId) throws Exception {
 		ReturnDatas returnObject = ReturnDatas.getSuccessReturnDatas();
-		//java.lang.String protalId= detailsId;
-		//java.lang.String protalId=request.getParameter("detailsId");
 		if(StringUtils.isNotBlank(detailsId)){
 			List<TsInfoDetails> datas= tsInfoDetailsService.findTsInfoDetailByProtalId(detailsId);
-			System.out.println(datas);
-			//TsInfoDetails tsInfoDetails = datas[0];
 		   returnObject.setData(datas);
 		}else{
 		returnObject.setStatus(ReturnDatas.ERROR);

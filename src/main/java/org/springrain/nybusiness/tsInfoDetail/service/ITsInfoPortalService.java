@@ -1,6 +1,7 @@
 package org.springrain.nybusiness.tsInfoDetail.service;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springrain.nybusiness.tsInfoDetail.entity.TsInfoPortal;
 import org.springrain.system.service.IBaseSpringrainService;
@@ -33,5 +34,11 @@ public interface ITsInfoPortalService extends IBaseSpringrainService {
 	 * @throws Exception
 	 */
 	List<TsInfoPortal> listInfo() throws Exception;
+	/**
+	 * 通过detailID 查询companyid
+	 * @return 通过userId 
+	 * @throws Exception
+	 */
+	List<Map<String, Object>> finderDetailId(String detailID)throws Exception;
 	
 }
