@@ -20,6 +20,11 @@
 		 var  stick="${(returnDatas.data.stick)!''}";
 		 if(stick!=null && stick !=""){
 			 $("#stick option[value = "+stick+"]").attr("selected",true); 
+		 }
+		//反显涉及工艺状态
+		 var  typeId="${(returnDatas.data.typeId)!''}";
+		 if(typeId!=null && typeId !=""){
+			 $("#typeId option[value = "+typeId+"]").attr("selected",true); 
 		 }	
 	 });
 </script>
@@ -47,13 +52,17 @@
 												<div class="larry-personal-body clearfix changepwd">
 													<form id="validForm" class="layui-form <!--  -->"  method="post" action="${ctx}/tsinfoportal/update">
 																<input type="hidden" id="id" name="id" value="${(returnDatas.data.id)!''}"/>	
-																	<div class="layui-form-item col-lg-6">
-																		<label class="layui-form-label">公告新闻政策类型*</label>
-																		<div class="layui-inline col-lg-5">  
-																			<input type="text" name="typeId" id="typeId" datatype="*" nullmsg="不能为空" errormsg="不能为空！" autocomplete="off" class="layui-input" value="${(returnDatas.data.typeId)!''}">
-																		</div>
-																		<div class="layui-inline valid-info"></div>
-																	</div>
+																	<div class="layui-form-item col-lg-9">
+														    			<label class="layui-form-label col-lg-3">公告新闻政策类型* </label>
+														    			<div class="layui-inline">
+														      				<select id="typeId" name="typeId" >
+														      					<option value=""></option>
+														        				<option value="notice">公告</option>
+																				<option value="news">新闻</option>
+																				<option value="law">法律与政策</option>
+														      				</select>
+														    			</div>
+													  				</div>
 																	<div class="layui-form-item col-lg-6">
 																		<label class="layui-form-label">标题*</label>
 																		<div class="layui-inline col-lg-5">  

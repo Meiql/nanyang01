@@ -101,8 +101,14 @@
 								                            </@shiro.hasPermission>
 														</td>
 														<!--end_no_export-->
-														<td >
-															${(_data.typeId)!''}
+														<td>															
+															<#if (_data.typeId)?? && (_data.typeId=="notice")>
+																	公告
+															<#elseif (_data.typeId)?? && (_data.typeId=="news")>
+																	新闻
+															<#elseif (_data.typeId)?? && (_data.typeId=="law")>
+																	法律与政策																																				
+															</#if>
 														</td>
 														<td >
 															${(_data.title)!''}
