@@ -3,6 +3,10 @@
 
 <script src="${ctx}/js/validform/validform.min.js"></script>
 <link rel="stylesheet" href="${ctx}/js/validform/validform.css" media="all">
+
+<!-- 引入uediter js -->
+<script src="${ctx}/js/ueditor/ueditor.config.js"></script>
+<script src="${ctx}/js/ueditor/ueditor.all.js"></script>
 <script>
 	 jQuery(function(){
 		 /*
@@ -17,6 +21,32 @@
 			 $("#flag option[value = "+flag+"]").attr("selected",true); 
 		 }	
 	 });
+	 var  htmlContent="${(returnDatas.data.htmlContent)!''}";
+	 var ue 
+	 jQuery(function(){
+	 	ue = UE.getEditor('container',{
+	 		autoHeight: false
+	 	});
+	 	 if(htmlContent != null&& htmlContent !=''){
+				$(function(){
+				    //判断ueditor 编辑器是否创建成功
+				    ue.addListener("ready", function () {
+				    // editor准备好之后才可以使用
+				    ue.setContent(htmlContent);
+				    
+				    });
+				});
+			}
+	 }); 
+	
+	 function check(){
+			var textContent = ue.getContentTxt();
+	 		var htmlContent = ue.getContent();
+	 		$("#htmlContent").val(htmlContent);
+	 		$("#textContent").val(textContent);
+			$("#smtbtn").click();
+			
+		}
 </script>
 </head>
 <body>
@@ -41,28 +71,17 @@
 												</header>
 												<div class="larry-personal-body clearfix changepwd">
 													<form id="validForm" class="layui-form <!--  -->"  method="post" action="${ctx}/tsinfodetails/update">
-																<input type="hidden" id="id" name="id" value="${(returnDatas.data.id)!''}"/>	
+																<input type="hidden" id="id" name="id" value="${(returnDatas.data.id)!''}"/>
+																<input type="hidden" id="htmlContent" name="htmlContent" value="${(returnDatas.data.htmlContent)!''}"/>
+																<input type="hidden" id="textContent" name="textContent" value="${(returnDatas.data.textContent)!''}"/>	
 																	<div class="layui-form-item col-lg-6">
-																		<label class="layui-form-label">门户详情的ID*</label>
+																		<label class="layui-form-label">详情代码</label>
 																		<div class="layui-inline col-lg-5">  
 																			<input type="text" name="protalId" id="protalId" datatype="*" nullmsg="不能为空" errormsg="不能为空！" autocomplete="off" class="layui-input" value="${(returnDatas.data.protalId)!''}">
 																		</div>
 																		<div class="layui-inline valid-info"></div>
 																	</div>
-																	<div class="layui-form-item col-lg-6">
-																		<label class="layui-form-label">文本详情*</label>
-																		<div class="layui-inline col-lg-5">  
-																			<input type="text" name="textContent" id="textContent" datatype="*" nullmsg="不能为空" errormsg="不能为空！" autocomplete="off" class="layui-input" value="${(returnDatas.data.textContent)!''}">
-																		</div>
-																		<div class="layui-inline valid-info"></div>
-																	</div>
-																	<div class="layui-form-item col-lg-6">
-																		<label class="layui-form-label">带格式的文本详情*</label>
-																		<div class="layui-inline col-lg-5">  
-																			<input type="text" name="htmlContent" id="htmlContent" datatype="*" nullmsg="不能为空" errormsg="不能为空！" autocomplete="off" class="layui-input" value="${(returnDatas.data.htmlContent)!''}">
-																		</div>
-																		<div class="layui-inline valid-info"></div>
-																	</div>
+																	
 																	<div class="layui-form-item col-lg-9">
 														    			<label class="layui-form-label col-lg-3">是否删除 </label>
 														    			<div class="layui-inline">
@@ -80,10 +99,16 @@
 																		</div>
 																		<div class="layui-inline valid-info"></div>
 																	</div>
+																		<div class="layui-form-item col-lg-7">
+																		<label class="layui-form-label">详情</label>
+																		<div class="layui-inline col-lg-5">
+																			<script id="container" name="content" type="text/plain"></script>
+																		</div><div class="help-block" for="htmlContent"></div>
+																	</div>
 													<div class="layui-form-item change-submit">
 													<label class="layui-form-label"></label>
 															<div class="layui-inline">
-																<button type="button" class="layui-btn" id="smtbtn">保存</button>
+																<button type="button" class="layui-btn" id="smtbtn" onclick="check();">保存</button>
 																<button type="button" class="layui-btn layui-btn-primary" id="rstbtn">重置</button>
 															</div>
 														</div>
