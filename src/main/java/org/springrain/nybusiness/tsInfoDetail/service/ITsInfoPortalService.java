@@ -27,5 +27,11 @@ public interface ITsInfoPortalService extends IBaseSpringrainService {
 	 * @throws Exception
 	 */
 	List<TsInfoPortal> finderListForList(String typeId) throws Exception;
+	/**
+	 * 页面公告新闻
+	 * @return
+	 * @throws Exception
+	 */
+	List<TsInfoPortal> listInfo() throws Exception;
 	
 }

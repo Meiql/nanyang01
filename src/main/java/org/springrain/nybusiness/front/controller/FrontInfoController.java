@@ -116,6 +116,24 @@ public class FrontInfoController  extends BaseController {
 		
 	}
 	
+	@RequestMapping("/info")
+	@ResponseBody
+	public ReturnDatas logoUpload(HttpServletRequest request, Model model,TsCompanyInfo tsCompanyInfo) throws Exception {
+		ReturnDatas returnDatas = ReturnDatas.getSuccessReturnDatas();
+		//MultipartHttpServletRequest multiRequest = (MultipartHttpServletRequest) request;
+		/*List<Map<String, String>> fileList = uploadFile(multiRequest, siteId,
+				businessId, siteType);*/
+		List<TsInfoPortal> list=null;
+		try {
+			list = tsInfoPortalService.listInfo();
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		returnDatas.setData(list);
+		return returnDatas;
+	}
+	
 	
 	
 }

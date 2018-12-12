@@ -95,5 +95,15 @@ public class TsInfoPortalServiceImpl extends BaseSpringrainServiceImpl implement
 			
 			return super.queryForList(finder, TsInfoPortal.class, null);
 		}
+		
+		@Override
+		public List<TsInfoPortal> listInfo() throws Exception {
+			Finder finder = new Finder();
+			/*finder.append("SELECT * FROM `ts_company_info` t where t.state=:state")
+			.setParam("state", 1);*/
+			String sql="SELECT a.* FROM ts_info_portal AS a WHERE (SELECT COUNT(*) FROM ts_info_portal AS b WHERE b.typeId = a.typeId AND b.id >= a.id) <= 6 ORDER BY a.typeId ASC , a.create_time DESC";
+			finder.append("SELECT a.* FROM ts_info_portal AS a WHERE (SELECT COUNT(*) FROM ts_info_portal AS b WHERE b.typeId = a.typeId AND b.id >= a.id) <= 6 ORDER BY a.typeId ASC , a.create_time DESC");
+			return super.queryForList(finder, TsInfoPortal.class);
+		}
 
 }
