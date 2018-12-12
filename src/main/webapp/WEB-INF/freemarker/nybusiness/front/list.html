@@ -7,7 +7,7 @@
 <meta name="Description" content="" >
 <link href="${ctx}/css/front/index.css" rel="stylesheet">
 <link href="${ctx}/css/front/main.css" rel="stylesheet">
-<script src="{ctx}/js/jquery/jquery.min.js"></script>
+<script src="${ctx}/js/jquery/jquery.min.js"></script>
 <!--[if lt IE 9]>
 <script src="{ctx}/js/front/modernizr.js"></script>
 <![endif]-->
@@ -17,6 +17,34 @@
     EvPNG.fix('.logo');
  </script>
 <![endif]-->
+
+<script>
+jQuery.post("${ctx}/front/list/json",function(_json) {
+    if (_json.status == "success") {
+	   	 //对datas进行处理
+	   	 if(_json!=null&&_json.data!=null&&_json.data.length>0){
+	   		 debugger
+	   		 var html = "";
+	   		 for(var i=0;i<_json.data.length;i++){
+	   			 var obj = _json.data[i];
+	   			 var tempHtml  = document.getElementById("template").innerHTML;
+	   			 tempHtml = tempHtml.replace('{*data01}',obj.create_time);
+	   			 tempHtml = tempHtml.replace('{*data02}',obj.title);
+	   			 tempHtml = tempHtml.replace('{*data03}',obj.detailsId);
+	   			 html+=tempHtml;
+	   		 }
+	   		 alert(html)
+	   		 if(html!=null){
+	   			document.getElementById("newlist").innerHTML = html
+	   		 }
+	   	 }
+    } else {
+        myalert(_json.message);
+        return false;
+    }
+});
+</script>
+
 </head>
 <body>
 <header>
@@ -26,41 +54,22 @@
 <!--   <div class="logo box"></div> -->
    <h3 class="logo-title">南阳市环境应急指挥管理平台</h3>
 </header>
+
+
 <!--头部 end-->
 <div class="contain">
  
   <div class="listr right">
-    <ul>
-      <li><a href="/"><span>2011-1-29</span>发票查询--方便快捷，真伪立见 <b>[图]</b></a></li>
-      <li><a href="/"><span>2011-1-29</span>找知识找工具找帮助找朋友--会计助手应有尽有 <b>[图]</b></a></li>
-      <li><a href="/"><span>2011-1-29</span>关于畅捷通T3产品价格调整的通知 <b>[图]</b></a></li>
-      <li><a href="/"><span>2011-1-29</span>用了工贸宝，生产销售都管好---广安思衡携手用友软件举办专题培训会</a></li>
-      <li><a href="/"><span>2011-1-29</span>有爱在心，我是畅捷通 <b>[图]</b></a></li>
-      <li><a href="/"><span>2011-3-2</span>招聘 </a></li>
-      <li><a href="/"><span>2011-1-29</span>广安用友软件营销服务中心--思衡公司春节放假安排 </a></li>
-      <li><a href="/"><span>2011-1-11</span>广安用友软件注册送礼活动已经开始了！ </a></li>
-      <li><a href="/"><span>2010-12-28</span>“贺岁送豪礼 天天有惊喜”畅捷通感恩大回馈 </a></li>
-      <li><a href="/"><span>2010-12-20</span>广安用友软件中心“贺岁送豪礼 天天有惊喜” <b>[图]</b> </a></li>
-      <li><a href="/"><span>2010-12-6</span>广安用友软件T1商贸宝面向商业企业应用的进销存财一体化软件 <b>[图]</b> </a></li>
-      <li><a href="/"><span>2010-11-10</span>思衡网络推出网站代管业务 </a></li>
-      <li><a href="/"><span>2010-10-23</span>T6系列是面向成长型企业的一款企业级管理软件 <b>[图]</b> </a></li>
-      <li><a href="/"><span>2010-10-23</span>广安用友畅捷通软件帮助中小企业幸福成长 [图] </a></li>
-      <li><a href="/"><span>2010-10-20</span>热烈祝贺广安经济技术开发区网站开通运行，网址：www.gakfq.gov.cn欢 <b>[图]</b> </a></li>
-      <li><a href="/"><span>2010-7-7</span>广安用友软件营销服务中心招聘信息 </a></li>
-      <li><a href="/"><span>2010-6-2</span>广安思衡网络热烈祝贺广安市普法网开通运行！ <b>[图]</b> </a></li>
-      <li><a href="/"><span>2010-6-2</span>热烈祝贺四川省中富酒业集团有限公司网站开通运行 <b>[图]</b> </a></li>
-      <li><a href="/"><span>2010-6-1</span>思衡网络谈广安网页设计十条经验总结 </a></li>
-      <li><a href="/"><span>2010-5-31</span>广安网站建设的市场将如何发展？ [图] </a></li>
-      <li><a href="/"><span>2010-5-31</span>广安网站建设网站推广：企业网络营销，定位是关键 <b>[图]</b> </a></li>
-      <li><a href="/"><span>2009-3-16</span>《剑侠世界》12大门派激荡武林 [图] </a></li>
-      <li><a href="/"><span>2009-3-16</span>《剑侠世界》首部资料片3.20热血公测 将重奖老玩家 <b>[图]</b> </a></li>
-      <li><a href="/"><span>2009-3-8</span>用友软件广安代理商-广安思衡网络 [图] </a></li>
-      <li><a href="/"><span>2009-3-5</span>《剑侠世界》新服开放 诚邀各路大侠3月6日齐聚昆仑关 <b>[图]</b> </a></li>
+    <ul id="newlist">
+     
     </ul>
     <div class="blank"></div>
       <div class="blank"></div>
   <div class="blank"></div>
      <div class="links">
+     
+     
+     
   <p>相关链接:</p>
   <ul>
   <li><a href="/">四川机构网</a></li>
@@ -71,8 +80,8 @@
   </ul>
   </div>
   </div>
-  <div id="template">
-  	  <li><a href="/"><span>{*data01}</span>{*data02} </a></li>
+  <div id="template" style="display: none">
+  	  <li><a href="${ctx}/front/newdetail?detailsId={*data03}"><span>{*data01}</span>{*data02} </a></li>
   </div>
 </div>
 <footer>

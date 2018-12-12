@@ -3,6 +3,7 @@ package org.springrain.nybusiness.tsInfoDetail.service.impl;
 import java.io.File;
 import java.util.List;
 import org.springframework.stereotype.Service;
+import org.springrain.nybusiness.ergency.entity.TsErgencyInvestigation;
 import org.springrain.nybusiness.tsInfoDetail.entity.TsInfoDetails;
 import org.springrain.nybusiness.tsInfoDetail.service.ITsInfoDetailsService;
 import org.springrain.frame.entity.IBaseEntity;
@@ -75,4 +76,16 @@ public class TsInfoDetailsServiceImpl extends BaseSpringrainServiceImpl implemen
 			 return super.findDataExportExcel(finder,ftlurl,page,clazz,o);
 		}
 
+	/**
+	 * 
+	 */
+		 @Override
+	public List<TsInfoDetails> findTsInfoDetailByProtalId(String protalId) throws Exception{
+			 
+		Finder finder = new Finder();
+		finder.append("SELECT t.*  FROM `ts_info_details` t  where  t.protalId = :protalId")
+		.setParam("protalId", protalId); 
+		return super.queryForList(finder, TsInfoDetails.class, null);
+
+	}
 }

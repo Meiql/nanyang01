@@ -1,5 +1,7 @@
 package org.springrain.nybusiness.tsInfoDetail.service;
 
+import java.util.List;
+
 import org.springrain.nybusiness.tsInfoDetail.entity.TsInfoPortal;
 import org.springrain.system.service.IBaseSpringrainService;
 /**
@@ -18,7 +20,12 @@ public interface ITsInfoPortalService extends IBaseSpringrainService {
 	 * @throws Exception
 	 */
 	TsInfoPortal findTsInfoPortalById(Object id) throws Exception;
-	
-	
+	/**
+	 * meiql 根据类型查list
+	 * @param typeId
+	 * @return
+	 * @throws Exception
+	 */
+	List<TsInfoPortal> finderListForList(String typeId) throws Exception;
 	
 }

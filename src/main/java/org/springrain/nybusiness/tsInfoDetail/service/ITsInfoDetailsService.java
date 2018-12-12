@@ -1,5 +1,8 @@
 package org.springrain.nybusiness.tsInfoDetail.service;
 
+import java.util.List;
+
+import org.springrain.nybusiness.ergency.entity.TsErgencyInvestigation;
 import org.springrain.nybusiness.tsInfoDetail.entity.TsInfoDetails;
 import org.springrain.system.service.IBaseSpringrainService;
 /**
@@ -19,6 +22,6 @@ public interface ITsInfoDetailsService extends IBaseSpringrainService {
 	 */
 	TsInfoDetails findTsInfoDetailsById(Object id) throws Exception;
 	
-	
+	public List<TsInfoDetails> findTsInfoDetailByProtalId(String protalId) throws Exception;
 	
 }

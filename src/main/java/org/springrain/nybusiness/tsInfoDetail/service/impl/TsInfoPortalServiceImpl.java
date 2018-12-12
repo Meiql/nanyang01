@@ -2,7 +2,11 @@ package org.springrain.nybusiness.tsInfoDetail.service.impl;
 
 import java.io.File;
 import java.util.List;
+
+import org.apache.commons.collections.CollectionUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;
+import org.springrain.nybusiness.ergency.entity.TsErgencyInvestigation;
 import org.springrain.nybusiness.tsInfoDetail.entity.TsInfoPortal;
 import org.springrain.nybusiness.tsInfoDetail.service.ITsInfoPortalService;
 import org.springrain.frame.entity.IBaseEntity;
@@ -73,6 +77,23 @@ public class TsInfoPortalServiceImpl extends BaseSpringrainServiceImpl implement
 			Class<T> clazz, Object o)
 			throws Exception {
 			 return super.findDataExportExcel(finder,ftlurl,page,clazz,o);
+		}
+		
+		/**
+		 * meiql: 查询不同种类的list
+		 * @param page
+		 * @param typeId
+		 * @return
+		 * @throws Exception
+		 */
+		@Override
+		public List<TsInfoPortal> finderListForList(String typeId) throws Exception {
+
+			Finder finder = new Finder();
+			finder.append("SELECT t.*  FROM `ts_info_portal` t where t.typeId = :typeId")
+			.setParam("typeId", typeId);
+			
+			return super.queryForList(finder, TsInfoPortal.class, null);
 		}
 
 }
