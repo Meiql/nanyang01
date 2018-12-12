@@ -25,7 +25,12 @@
 		 var  typeId="${(returnDatas.data.typeId)!''}";
 		 if(typeId!=null && typeId !=""){
 			 $("#typeId option[value = "+typeId+"]").attr("selected",true); 
-		 }	
+		 }
+		 var timestamp = Date.parse(new Date());
+		 var  detailsId="${(returnDatas.data.detailsId)!''}";
+		 if(detailsId==null || detailsId ==""){
+			 $("#detailsId").val("FC"+timestamp);
+		 }
 	 });
 </script>
 </head>
@@ -78,26 +83,18 @@
 																		<div class="layui-inline valid-info"></div>
 																	</div>
 																	<div class="layui-form-item col-lg-6">
-																		<label class="layui-form-label">详情关联*</label>
+																		<label class="layui-form-label">详情代码*</label>
 																		<div class="layui-inline col-lg-5">  
 																			<input type="text" name="detailsId" id="detailsId" datatype="*" nullmsg="不能为空" errormsg="不能为空！" autocomplete="off" class="layui-input" value="${(returnDatas.data.detailsId)!''}">
 																		</div>
 																		<div class="layui-inline valid-info"></div>
-																	</div>
-																	<div class="layui-form-item col-lg-6">
-																		<label class="layui-form-label">图片url*</label>
-																		<div class="layui-inline col-lg-5">  
-																			<input type="text" name="imgUrl" id="imgUrl" autocomplete="off" class="layui-input" value="${(returnDatas.data.imgUrl)!''}">
-																		</div>
-																		<div class="layui-inline valid-info"></div>
-																	</div>					
+																	</div>				
 																	<div class="layui-form-item col-lg-9">
 														    			<label class="layui-form-label col-lg-3">是否删除 </label>
 														    			<div class="layui-inline">
 														      				<select id="flag" name="flag" >
-														      					<option value=""></option>
+														      					<option value="1">否</option>
 														        				<option value="0">是</option>
-																				<option value="1">否</option>
 														      				</select>
 														    			</div>
 													  				</div>
@@ -105,9 +102,8 @@
 														    			<label class="layui-form-label col-lg-3">是否置顶</label>
 														    			<div class="layui-inline">
 														      				<select id="stick" name="stick" >
-														      					<option value=""></option>
-														        				<option value="0">是</option>
 																				<option value="1">否</option>
+																				<option value="0">是</option>
 														      				</select>
 														    			</div>
 													  				</div>

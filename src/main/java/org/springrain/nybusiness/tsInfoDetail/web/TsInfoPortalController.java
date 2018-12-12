@@ -5,6 +5,7 @@ import java.text.SimpleDateFormat;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
@@ -152,8 +153,15 @@ public class TsInfoPortalController  extends BaseController {
 			if(StringUtils.isBlank(tsInfoPortal.getCreate_user())){
 				tsInfoPortal.setCreate_user(SessionUser.getUserName());
 			}
-			tsInfoPortalService.saveorupdate(tsInfoPortal);
-			
+			//判断详情代码是否存在
+//			String detailId = tsInfoPortal.getDetailsId();
+//			if(detailId!=null && !detailId.equals("")) {
+//				List<Map<String, Object>> list  = tsInfoPortalService.finderDetailId(detailId);
+//				if(list.size()>0) {
+//					throw new Exception("详情代码已经存在，请重新输入!");
+//				}	
+//			}
+			tsInfoPortalService.saveorupdate(tsInfoPortal);			
 		} catch (Exception e) {
 			e.printStackTrace();
 			logger.error(e.getMessage(),e);

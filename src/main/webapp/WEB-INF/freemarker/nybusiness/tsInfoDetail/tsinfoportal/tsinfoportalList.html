@@ -73,8 +73,7 @@
 														<th id="th_typeId" >公告新闻政策类型</th>
 														<th id="th_title" >标题</th>
 														<th id="th_intro" >详情简介</th>
-														<th id="th_detailsId" >详情关联字</th>
-														<th id="th_imgUrl" >图片的url</th>
+														<th id="th_detailsId" >详情代码</th>
 														<th id="th_flag" >是否删除</th>
 														<th id="th_stick" >是否置顶</th>
 														<th id="th_remark" >备注</th>
@@ -118,10 +117,7 @@
 														</td>
 														<td >
 															${(_data.detailsId)!''}
-														</td>
-														<td >
-															${(_data.imgUrl)!''}
-														</td>
+														</td>													
 														<td>															
 															<#if (_data.flag)?? && (_data.flag=="0")>
 																	是

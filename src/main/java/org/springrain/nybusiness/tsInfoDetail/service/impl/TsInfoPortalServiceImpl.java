@@ -2,6 +2,7 @@ package org.springrain.nybusiness.tsInfoDetail.service.impl;
 
 import java.io.File;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
@@ -104,6 +105,15 @@ public class TsInfoPortalServiceImpl extends BaseSpringrainServiceImpl implement
 			String sql="SELECT a.* FROM ts_info_portal AS a WHERE (SELECT COUNT(*) FROM ts_info_portal AS b WHERE b.typeId = a.typeId AND b.id >= a.id) <= 6 ORDER BY a.typeId ASC , a.create_time DESC";
 			finder.append("SELECT a.* FROM ts_info_portal AS a WHERE (SELECT COUNT(*) FROM ts_info_portal AS b WHERE b.typeId = a.typeId AND b.id >= a.id) <= 6 ORDER BY a.typeId ASC , a.create_time DESC");
 			return super.queryForList(finder, TsInfoPortal.class);
+		}
+
+		@Override
+		public List<Map<String, Object>> finderDetailId(String detailID) throws Exception {
+			Finder finder = new Finder();
+			finder.append("SELECT t.*  FROM `ts_info_portal` t where t.detailsId = :detailID")
+			.setParam("detailID", detailID);
+			System.out.println("查询门户详情sql："+finder.getSql());
+			return super.queryForList(finder);
 		}
 
 }
