@@ -8,6 +8,7 @@
 <link href="${ctx}/css/front/index.css" rel="stylesheet">
 <link href="${ctx}/css/front/main.css" rel="stylesheet">
 <script src="${ctx}/js/jquery/jquery.min.js"></script>
+
 <!--[if lt IE 9]>
 <script src="{ctx}/js/front/modernizr.js"></script>
 <![endif]-->
@@ -19,7 +20,10 @@
 <![endif]-->
 
 <script>
-jQuery.post("${ctx}/front/list/json",function(_json) {
+var typeId = '${typeId}'
+
+jQuery.post("${ctx}/front/list/json?typeId=${typeId}",function(_json) {
+	
     if (_json.status == "success") {
 	   	 //对datas进行处理
 	   	 if(_json!=null&&_json.data!=null&&_json.data.length>0){
@@ -33,7 +37,6 @@ jQuery.post("${ctx}/front/list/json",function(_json) {
 	   			 tempHtml = tempHtml.replace('{*data03}',obj.detailsId);
 	   			 html+=tempHtml;
 	   		 }
-	   		 alert(html)
 	   		 if(html!=null){
 	   			document.getElementById("newlist").innerHTML = html
 	   		 }

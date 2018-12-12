@@ -2,6 +2,7 @@ package org.springrain.nybusiness.tsInfoDetail.entity;
 
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.builder.EqualsBuilder;
@@ -69,7 +70,17 @@ public class TsInfoDetails  extends BaseEntity {
 	 */
 	private java.lang.String create_time;
 	//columns END 数据库字段结束
-	
+	 @Transient
+	 private java.lang.String title;
+
+
+	public java.lang.String getTitle() {
+		return title;
+	}
+
+	public void setTitle(java.lang.String title) {
+		this.title = title;
+	}
 	//concstructor
 
 	public TsInfoDetails(){
