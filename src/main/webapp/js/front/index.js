@@ -3,9 +3,9 @@
  */
 $(function() {// 初始化内容
 	//alert(111);
-		$.ajax({
+		/*$.ajax({
             type:"post",  //传输方式为post，
-            url:"/nanyang/front/info",
+            url:"${ctx}/front/info",
             success:function(data){
             	debugger;
             	var notice='';
@@ -13,20 +13,20 @@ $(function() {// 初始化内容
             	var law='';
             	for(var i=0;i<data.data.length;i++){
             		if(data.data[i].typeId=='notice'){
-            			notice+='<li><a href="/" target="_blank">'+data.data[i].title+'<span tyle="float:right;">'+data.data[i].create_time+'</span></a></li>';
+            			notice+='<li><a href="/" target="_blank">'+data.data[i].title+'</a><span tyle="float:right;">'+data.data[i].create_time+'</span></li>';
             		}
             		if(data.data[i].typeId=='news'){
-            			news+='<li><a href="/" target="_blank">'+data.data[i].title+'</a></li>';
+            			news+='<li><a href="/" target="_blank">'+data.data[i].title+'</a><span tyle="float:right;">'+data.data[i].create_time+'</span></li>';
             		}
             		if(data.data[i].typeId=='law'){
-            			law+='<li><a href="/" target="_blank">'+data.data[i].title+'</a></li>';
+            			law+='<li><a href="/" target="_blank">'+data.data[i].title+'</a><span tyle="float:right;">'+data.data[i].create_time+'</span></li>';
             		}
             	}
             	$("#notice").html(notice);
             	$("#news").html(news);
             	$("#law").html(law);
             }
-        });
+        });*/
 })
 
 

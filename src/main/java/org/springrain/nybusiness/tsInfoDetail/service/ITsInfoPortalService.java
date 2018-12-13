@@ -40,5 +40,11 @@ public interface ITsInfoPortalService extends IBaseSpringrainService {
 	 * @throws Exception
 	 */
 	List<Map<String, Object>> finderDetailId(String detailID)throws Exception;
+	/**
+	 * 门户页面置顶内容
+	 * @return
+	 * @throws Exception
+	 */
+	List<TsInfoPortal> stick() throws Exception;
 	
 }

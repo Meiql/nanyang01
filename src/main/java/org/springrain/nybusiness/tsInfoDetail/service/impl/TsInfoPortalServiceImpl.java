@@ -115,5 +115,16 @@ public class TsInfoPortalServiceImpl extends BaseSpringrainServiceImpl implement
 			System.out.println("查询门户详情sql："+finder.getSql());
 			return super.queryForList(finder);
 		}
+		
+		@Override
+		public List<TsInfoPortal> stick() throws Exception {
+			Finder finder = new Finder();
+			int  _stick=1;
+			String sql="select t.* from ts_info_portal t where t.stick=:_stick and t.flag=:_flag ORDER BY t.create_time DESC LIMIT 8";
+			finder.append(sql);
+			finder.setParam("_stick", _stick);
+			finder.setParam("_flag", _stick);
+			return super.queryForList(finder, TsInfoPortal.class);
+		}
 
 }
