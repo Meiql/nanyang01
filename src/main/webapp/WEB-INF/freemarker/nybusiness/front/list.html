@@ -27,7 +27,6 @@ jQuery.post("${ctx}/front/list/json?typeId=${typeId}",function(_json) {
     if (_json.status == "success") {
 	   	 //对datas进行处理
 	   	 if(_json!=null&&_json.data!=null&&_json.data.length>0){
-	   		 debugger
 	   		 var html = "";
 	   		 for(var i=0;i<_json.data.length;i++){
 	   			 var obj = _json.data[i];
@@ -52,7 +51,7 @@ jQuery.post("${ctx}/front/list/json?typeId=${typeId}",function(_json) {
 <body>
 <header>
   <div class="headtop">
-    <div class="timer box"><span><a onclick="javascript:window.external.addFavorite('/','广安市广安区卫生和计划生育局')" href="/">企业登录</a> | <a onclick="this.style.behavior='url(#default#homepage)';this.setHomePage('/');" href="/">政府登录</a></span><font color=#f96c0f>北京时间：</font><font color=#333333> 2018-12-11</front></div>
+    <div class="timer box"><span><a onclick="javascript:window.external.addFavorite('/','广安市广安区卫生和计划生育局')" href="/nanyang/system/login">企业登录</a> | <a onclick="this.style.behavior='url(#default#homepage)';this.setHomePage('/');" href="/nanyang/system/login">政府登录</a></span><font color=#f96c0f>北京时间：</font><font color=#333333> 2018-12-11</front></div>
   </div>
 <!--   <div class="logo box"></div> -->
    <h3 class="logo-title">南阳市环境应急指挥管理平台</h3>
@@ -89,9 +88,9 @@ jQuery.post("${ctx}/front/list/json?typeId=${typeId}",function(_json) {
 </div>
 <!-- <footer>
   <div class="copyright">
-    <p>Copyright  2013 All Rights Reserved 版权所有 广安市广安区卫生和计划生育局</p>
-    <p>地址：广安市广安区恒荣街7号 联系电话：0826-2222962</p>
-    <p>备案号：蜀11018486号</p>
+    <p>Copyright  2013 All Rights Reserved 版权所有 南阳市环境应急与事故调查中心</p>
+   <!--  <p>地址：广安市广安区恒荣街7号 联系电话：0826-2222962</p>
+    <p>备案号：蜀11018486号</p> -->
   </div>
 </footer> -->
 </body>

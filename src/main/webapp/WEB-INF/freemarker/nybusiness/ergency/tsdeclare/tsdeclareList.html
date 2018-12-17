@@ -21,7 +21,16 @@
 		springrain.mydelete(_id,"${ctx}/tsdeclare/delete");
 	}
 </script>
-
+<style>
+	@media screen and (max-width: 1880px) {
+	    .layui-btn,
+	    .layui-btn+.layui-btn{
+	        display: block;
+	        width: 70px;
+	        margin: 3px 0 0;
+	    }
+	}
+</style>
 </head>
 <body>
 	<div class="layui-layout layui-layout-admin">
@@ -101,7 +110,7 @@
 												  <th>
 															<input id="checkAll"  type="checkbox">
 												  </th>
-												  <th>操作</th>
+												  <th rowspan="2"style="width : 80px;">操作</th>
 												  <!--first_end_no_export-->
 												  		<th id="th_createName" >创建人</th>
 														<th id="th_materialName" >物资名称</th>
