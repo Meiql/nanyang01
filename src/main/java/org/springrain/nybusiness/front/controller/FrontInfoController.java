@@ -131,6 +131,28 @@ public class FrontInfoController  extends BaseController {
 		return returnDatas;
 	}
 	
-	
+	/**
+	 * 门户页面置顶内容
+	 * @param request
+	 * @param model
+	 * @param tsCompanyInfo
+	 * @return
+	 * @throws Exception
+	 */
+	@RequestMapping("/stick")
+	@ResponseBody
+	public ReturnDatas stick(HttpServletRequest request, Model model,TsInfoPortal tsInfoPortal) throws Exception {
+		ReturnDatas returnDatas = ReturnDatas.getSuccessReturnDatas();
+		
+		List<TsInfoPortal> list=null;
+		try {
+			list = tsInfoPortalService.stick();
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		returnDatas.setData(list);
+		return returnDatas;
+	}
 	
 }
