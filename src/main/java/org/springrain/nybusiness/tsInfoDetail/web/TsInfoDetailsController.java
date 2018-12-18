@@ -156,6 +156,7 @@ public class TsInfoDetailsController  extends BaseController {
 			tsInfoDetailsService.saveorupdate(tsInfoDetails);
 			
 		} catch (Exception e) {
+			e.printStackTrace();
 			logger.error(e.getMessage(),e);
 			returnObject.setStatus(ReturnDatas.ERROR);
 			returnObject.setMessage(MessageUtils.UPDATE_ERROR);

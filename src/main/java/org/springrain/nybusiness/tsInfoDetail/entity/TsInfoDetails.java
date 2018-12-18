@@ -73,11 +73,11 @@ public class TsInfoDetails  extends BaseEntity {
 	 @Transient
 	 private java.lang.String title;
 
-
+	 @Transient
 	public java.lang.String getTitle() {
 		return title;
 	}
-
+	 @Transient
 	public void setTitle(java.lang.String title) {
 		this.title = title;
 	}
