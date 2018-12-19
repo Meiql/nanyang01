@@ -25,13 +25,13 @@ $(function() {// 初始化内容
            	var law='';
            	for(var i=0;i<data.data.length;i++){
            		if(data.data[i].typeId=='notice'){
-           			notice+='<li><a href="${ctx}/front/newdetail?detailsId='+data.data[i].detailsId+'" target="_blank">'+data.data[i].title+'</a><span style="float:right;">'+data.data[i].create_time+'</span></li>';
+           			notice+='<li><a href="${ctx}/front/newdetail?detailsId='+data.data[i].detailsId+'" target="_blank">'+data.data[i].title.substring(0,20)+'</a><span style="float:right;">'+data.data[i].create_time.substring(0,10)+'</span></li>';
            		}
            		if(data.data[i].typeId=='news'){
-           			news+='<li><a href="${ctx}/front/newdetail?detailsId='+data.data[i].detailsId+'" target="_blank">'+data.data[i].title+'</a><span style="float:right;">'+data.data[i].create_time+'</span></li>';
+           			news+='<li><a href="${ctx}/front/newdetail?detailsId='+data.data[i].detailsId+'" target="_blank">'+data.data[i].title.substring(0,20)+'</a><span style="float:right;">'+data.data[i].create_time.substring(0,10)+'</span></li>';
            		}
            		if(data.data[i].typeId=='law'){
-           			law+='<li><a href="${ctx}/front/newdetail?detailsId='+data.data[i].detailsId+'" target="_blank">'+data.data[i].title+'</a><span style="float:right;">'+data.data[i].create_time+'</span></li>';
+           			law+='<li><a href="${ctx}/front/newdetail?detailsId='+data.data[i].detailsId+'" target="_blank">'+data.data[i].title.substring(0,20)+'</a><span style="float:right;">'+data.data[i].create_time.substring(0,10)+'</span></li>';
            		}
            	}
            	$("#notice").html(notice);
@@ -40,6 +40,7 @@ $(function() {// 初始化内容
            }
        });
 	topic();
+	timeShow();
 })
 
 function topic(){
@@ -52,12 +53,21 @@ function topic(){
         	var stick='';
         	for(var i=0;i<data.data.length;i++){
         		
-        		stick+='<li><a href="${ctx}/front/newdetail?detailsId='+data.data[i].detailsId+'" target="_blank">'+data.data[i].title+'</a><span style="float:right;">'+data.data[i].create_time+'</span></li>';
+        		stick+='<li><a href="${ctx}/front/newdetail?detailsId='+data.data[i].detailsId+'" target="_blank">'+data.data[i].title.substring(0,25)+'</a><span style="float:right;">'+data.data[i].create_time.substring(0,10)+'</span></li>';
         	}
         	$("#stick").html(stick);
         }
     });
 	
+}
+function timeShow(){
+	var myDate = new Date();
+	//var year=myDate.getYear();  //获取当前年份(2位)
+	var year=myDate.getFullYear();  //获取完整的年份(4位,1970-????)
+	var month=myDate.getMonth()+1;  //获取当前月份(0-11,0代表1月)
+	var date=myDate.getDate();  //获取当前日(1-31)
+	$("#timeshow").html(year+"-"+month+"-"+date);
+	return year+"-"+month+"-"+date;
 }
 </script>
 </head>
@@ -70,7 +80,7 @@ function topic(){
 <body>
 <header>
   <div class="headtop">
-    <div class="timer box"><span><a  href="${ctx}/system/login">企业登录</a> | <a  href="${ctx}/system/governmentlogin">政府登录</a></span><font color=#f96c0f>北京时间：</font><font color=#333333> 2018-12-13</front></div>
+    <div class="timer box"><span><a  href="${ctx}/system/login">企业登录</a> | <a  href="${ctx}/system/governmentlogin">政府登录</a></span><font color=#f96c0f>北京时间：</font><font id="timeshow" color=#333333> 2018-12-13</front></div>
   </div>
   <!--<div class="logo box"></div>-->
   <h3 class="logo-title">南阳市环境应急指挥管理平台</h3>
