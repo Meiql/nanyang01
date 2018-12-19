@@ -100,15 +100,19 @@ public class TsDeclare  extends BaseEntity {
 	/**
 	 * bak1
 	 */
-	private java.lang.String bak1;
+	private java.lang.String bak1;//1：年报 2：月报
 	/**
 	 * bak2
 	 */
-	private java.lang.String bak2;
+	private java.lang.String bak2;//1：新增 2：审批中 3：通过 4：未通过
 	/**
 	 * bak3
 	 */
 	private java.lang.String bak3;
+	/**
+	 * 制表时间
+	 */
+	private java.lang.String declareTime;
 	//columns END 数据库字段结束
 	@Transient
 	private java.lang.String createName; 
@@ -419,16 +423,35 @@ public class TsDeclare  extends BaseEntity {
 			}
 		this.bak3 = value;
 	}
-	
-	
-	
 	/**
-	 * bak3
+	 *
 	 */
-     @WhereSQL(sql="bak3=:TsDeclare_bak3")
+ @WhereSQL(sql="bak3=:TsDeclare_bak3")
 	public java.lang.String getBak3() {
 		return this.bak3;
 	}
+	
+	
+	/**
+	 * 制表时间
+	 */
+     @WhereSQL(sql="declareTime=:TsDeclare_declareTime")
+	public java.lang.String getDeclareTime() {
+		return this.declareTime;
+	}
+ 		/**
+		 * 制表时间
+		 */
+	public void setDeclareTime(java.lang.String value) {
+		    if(StringUtils.isNotBlank(value)){
+			 value=value.trim();
+			}
+		this.declareTime = value;
+	}
+	
+	
+	
+	
      @Transient
  	public String getCreateName() {
  		return createName;

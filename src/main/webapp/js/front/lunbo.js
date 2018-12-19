@@ -9,7 +9,6 @@
  
     //获取各元素，方便操作
     var box=my$("box");
-    debugger
     var inner=box.children[0];
     var ulObj=inner.children[0];
     var list=ulObj.children;

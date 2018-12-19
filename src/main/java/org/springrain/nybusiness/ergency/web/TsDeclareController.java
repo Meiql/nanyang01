@@ -48,6 +48,7 @@ public class TsDeclareController  extends BaseController {
 	
 	   
 	/**
+	 * 年报表
 	 * 列表数据,调用listjson方法,保证和app端数据统一
 	 * 
 	 * @param request
@@ -59,11 +60,66 @@ public class TsDeclareController  extends BaseController {
 	@RequestMapping("/list")
 	public String list(HttpServletRequest request, Model model,TsDeclare tsDeclare) 
 			throws Exception {
+		tsDeclare.setBak1("1");
 		ReturnDatas returnObject = listjson(request, model, tsDeclare);
 		model.addAttribute(GlobalStatic.returnDatas, returnObject);
 		return listurl;
 	}
-	
+	/**
+	 * 月报表
+	 * 列表数据,调用listjson方法,保证和app端数据统一
+	 * 
+	 * @param request
+	 * @param model
+	 * @param tsDeclare
+	 * @return
+	 * @throws Exception
+	 */
+	@RequestMapping("/listmonth")
+	public String listmonth(HttpServletRequest request, Model model,TsDeclare tsDeclare) 
+			throws Exception {
+		tsDeclare.setBak1("2");
+		ReturnDatas returnObject = listjson(request, model, tsDeclare);
+		model.addAttribute(GlobalStatic.returnDatas, returnObject);
+		return "/nybusiness/ergency/tsdeclare/tsdeclareList2";
+	}
+	/**
+	 * 审核页面
+	 * 
+	 * @param request
+	 * @param model
+	 * @param tsDeclare
+	 * @return
+	 * @throws Exception
+	 */
+	@RequestMapping("/examine")
+	public String examine(HttpServletRequest request, Model model,TsDeclare tsDeclare) 
+			throws Exception {
+		tsDeclare.setBak2("2");
+		ReturnDatas returnObject = listjson(request, model, tsDeclare);
+		model.addAttribute(GlobalStatic.returnDatas, returnObject);
+		return "/nybusiness/ergency/tsdeclare/tsdeclareList3";
+	}
+	/**
+	 * 审核
+	 */
+	@RequestMapping(value="/ajax/pass")
+	@ResponseBody      
+	public  ReturnDatas companypass(HttpServletRequest request) throws Exception {
+		ReturnDatas returnDatas = ReturnDatas.getSuccessReturnDatas();
+			// 执行上报
+		try {
+		java.lang.String id=request.getParameter("id");
+		java.lang.String  type=request.getParameter("type");
+		if(StringUtils.isNotBlank(id)){
+			tsDeclareService.updateTsDeclare(id,type);
+			} 
+		returnDatas.setMessage("审批通过");
+		} catch (Exception e) {
+			logger.error(e.getMessage(), e);
+		}
+		return returnDatas;
+	}
 	/**
 	 * json数据,为APP提供数据
 	 * 
@@ -133,7 +189,6 @@ public class TsDeclareController  extends BaseController {
 		model.addAttribute(GlobalStatic.returnDatas, returnObject);
 		return "/nybusiness/ergency/tsdeclare/tsdeclareCru2";
 	}
-	
 	/**
 	 * 新增/修改 操作吗,返回json格式数据
 	 * 
@@ -143,13 +198,21 @@ public class TsDeclareController  extends BaseController {
 	public ReturnDatas saveorupdate(Model model,TsDeclare tsDeclare,HttpServletRequest request,HttpServletResponse response) throws Exception{
 		ReturnDatas returnObject = ReturnDatas.getSuccessReturnDatas();
 		returnObject.setMessage(MessageUtils.UPDATE_SUCCESS);
+		String num=request.getParameter("num");
 		try {
 		
 			java.lang.String id =tsDeclare.getId();
 			if(StringUtils.isBlank(id)){
 			  tsDeclare.setId(null);
 			}
-		
+			//bak1  1 年报 2 月报
+			//bak2  1:已保存 2：审批中  3：已通过 4：未通过
+			if(num.equals("1")){
+			tsDeclare.setBak1("1");
+			}else{
+			tsDeclare.setBak1("2");
+			}
+			tsDeclare.setBak2("1");
 			if(StringUtils.isBlank(tsDeclare.getCreateUser())){
 				tsDeclare.setCreateUser(SessionUser.getUserId());
 			}
@@ -178,7 +241,15 @@ public class TsDeclareController  extends BaseController {
 		model.addAttribute(GlobalStatic.returnDatas, returnObject);
 		return "/nybusiness/ergency/tsdeclare/tsdeclareCru";
 	}
-	
+	/**
+	 * 进入修改页面,APP端可以调用 lookjson 获取json格式数据
+	 */
+	@RequestMapping(value = "/updatemonth/pre")
+	public String updatepremonth(Model model,HttpServletRequest request,HttpServletResponse response)  throws Exception{
+		ReturnDatas returnObject = lookjson(model, request, response);
+		model.addAttribute(GlobalStatic.returnDatas, returnObject);
+		return "/nybusiness/ergency/tsdeclare/tsdeclareCru3";
+	}
 	/**
 	 * 删除操作
 	 */
@@ -199,6 +270,25 @@ public class TsDeclareController  extends BaseController {
 			logger.error(e.getMessage(), e);
 		}
 		return new ReturnDatas(ReturnDatas.WARNING, MessageUtils.DELETE_WARNING);
+	}
+	/**
+	 * 上报操作
+	 */
+	@RequestMapping(value="/ajax/approv/json")
+	@ResponseBody      
+	public  ReturnDatas approv(HttpServletRequest request) throws Exception {
+		ReturnDatas returnDatas = ReturnDatas.getSuccessReturnDatas();
+			// 执行上报
+		try {
+		java.lang.String id=request.getParameter("id");
+		if(StringUtils.isNotBlank(id)){
+			tsDeclareService.updateTsDeclare(id,null);
+			} 
+		returnDatas.setMessage("已上报");
+		} catch (Exception e) {
+			logger.error(e.getMessage(), e);
+		}
+		return returnDatas;
 	}
 	
 	/**

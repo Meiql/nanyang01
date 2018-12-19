@@ -26,4 +26,6 @@ public interface ITsDeclareService extends IBaseSpringrainService {
 	
 	public List<TsDeclare> finderTsDeclareForList(Page page,
 			TsDeclare tsDeclare, List<String> listCompany) throws Exception;
+	
+	public void updateTsDeclare(String id,String type)throws Exception;
 }

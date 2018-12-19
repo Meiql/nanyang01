@@ -8,8 +8,6 @@ import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;
 import org.springrain.nybusiness.ergency.entity.TsDeclare;
 import org.springrain.nybusiness.ergency.service.ITsDeclareService;
-import org.springrain.nybusiness.waste.entity.TsWasteAirMsg;
-import org.springrain.frame.common.SessionUser;
 import org.springrain.frame.entity.IBaseEntity;
 import org.springrain.frame.util.Finder;
 import org.springrain.frame.util.Page;
@@ -92,6 +90,36 @@ public class TsDeclareServiceImpl extends BaseSpringrainServiceImpl implements I
 			if(StringUtils.isNoneBlank(tsDeclare.getMaterialName())) {
 				finder.append(" and t.materialName like:name").setParam("name", "%"+tsDeclare.getMaterialName()+"%");
 			}
+			if(StringUtils.isNoneBlank(tsDeclare.getCreateName())) {
+				finder.append(" and t1.name like:createName").setParam("createName", "%"+tsDeclare.getCreateName()+"%");
+			}
+			if(StringUtils.isNoneBlank(tsDeclare.getBak1())){
+				finder.append(" and t.bak1 =:bak1").setParam("bak1",tsDeclare.getBak1());
+			}
+			if(StringUtils.isNoneBlank(tsDeclare.getBak2())){
+				finder.append(" and t.bak2 =:bak2").setParam("bak2", "2");
+			}
+			if(StringUtils.isNoneBlank(tsDeclare.getDeclareTime())){
+				if(tsDeclare.getDeclareTime().length()==4){
+					finder.append(" and left(declareTime,4) like:declareTime").setParam("declareTime", "%"+tsDeclare.getDeclareTime()+"%");
+				}
+				if(tsDeclare.getDeclareTime().length()==7){
+					finder.append(" and left(declareTime,7) like:declareTime").setParam("declareTime", "%"+tsDeclare.getDeclareTime()+"%");
+				}
+			}
 			return super.queryForList(finder, TsDeclare.class, page);
+		}
+		@Override
+		public void updateTsDeclare(String id,String type)throws Exception {
+			TsDeclare  tsDeclare= super.findById(id, TsDeclare.class);
+			if(StringUtils.isBlank(type)){
+			tsDeclare.setBak2("2");
+			}else if(type.equals("pass")){
+				tsDeclare.setBak2("3");
+			}else{
+				tsDeclare.setBak2("4");
+			}
+			
+			super.update(tsDeclare);
 		}
 }

@@ -1,26 +1,9 @@
 <#ftl output_format="HTML" auto_esc=true>
 <@h.commonHead title="后台管理系统" keywords="开源,永久免费" description="springrain开源系统管理后台"/>
 <script src="${ctx}/js/custom/common/form.js"></script>
+<script type="text/javascript" src="${ctx}/js/My97DatePicker/WdatePicker.js"></script>
+<link rel="stylesheet" href="${ctx}/js/My97DatePicker/skin/default/datepicker.css" />
 
-<script>
-	var _state;
-	jQuery(function(){ 
-		_state="${(returnDatas.queryBean.active)!''}";
-		jQuery("#active").val(_state);
-		/*
-		全选、反选
-		*/
-		jQuery("#checkAll").bind('click',function(){
-			var _is_check=jQuery(this).get(0).checked;
-			jQuery("input[name='check_li']").each(function(_i,_o){
-				jQuery(_o).get(0).checked=_is_check;
-			});
-		});
-	});
-	function del(_id){
-		springrain.mydelete(_id,"${ctx}/tsdeclare/delete");
-	}
-</script>
 <style>
 	@media screen and (max-width: 1880px) {
 	    .layui-btn,
@@ -71,14 +54,26 @@
 										</colgroup>
 							          	<tbody>
 							          		<tr>
-							          			<th colspan="2">年（月）度申报表搜索</th>
+							          			<th colspan="2">年度申报表搜索</th>
 							          		</tr>
 							          		<tr>
 							          			<td>
 							          				<div class="layui-inline">
+									                    <label class="layui-form-label">公司名称</label>
+									                    <div class="layui-input-inline">
+									                           <input type="text" name="createName" value="${(returnDatas.queryBean.createName)!''}" placeholder="请输入名称 " class="layui-input">
+									                    </div>
+							                		</div>
+							          				<div class="layui-inline">
 									                    <label class="layui-form-label">物资名称</label>
 									                    <div class="layui-input-inline">
 									                           <input type="text" name="materialName" value="${(returnDatas.queryBean.materialName)!''}" placeholder="请输入名称 " class="layui-input">
+									                    </div>
+							                		</div>
+							                		<div class="layui-inline">
+									                    <label class="layui-form-label">年份查询</label>
+									                    <div class="layui-input-inline">
+									                           <input type="text" name="declareTime" value="${(returnDatas.queryBean.declareTime)!''}" onClick="WdatePicker({ dateFmt: 'yyyy', isShowToday: false, isShowClear: false })" class="layui-input">
 									                    </div>
 							                		</div>
 							          			</td>
@@ -103,7 +98,7 @@
 										  <!--first_start_export-->
 											<thead>
 												<tr>
-													<th colspan="12">年（月）度申报表列表<font id='recordsView' class='recorsView'>共<span></span>页,共 <span></span>条记录</font></th>
+													<th colspan="14">年（月）度申报表列表<font id='recordsView' class='recorsView'>共<span></span>页,共 <span></span>条记录</font></th>
 												</tr>
 												<tr>
 												  <!--first_start_no_export-->
@@ -112,7 +107,7 @@
 												  </th>
 												  <th rowspan="2"style="width : 80px;">操作</th>
 												  <!--first_end_no_export-->
-												  		<th id="th_createName" >创建人</th>
+												  		<th id="th_createName" >公司名称</th>
 														<th id="th_materialName" >物资名称</th>
 														<th id="th_lastYearBalance" >上年结余</th>
 														<th id="th_unit" >单位</th>
@@ -123,7 +118,9 @@
 														<th id="th_surplus" >剩余</th>
 														<!-- <th id="th_createUser" >创建人</th>
 														<th id="th_createTime" >创建时间</th> -->
+														<th id="th_declareTime" >制表时间</th>
 														<th id="th_remarks" >备注</th>
+														<th id="bak2" style="width : 100px; ">审批状态</th>
 												</tr> 
 											</thead>
 										  <!--first_end_export-->
@@ -138,14 +135,23 @@
 														</td>
 														<td>
 															<@shiro.hasPermission name="/tsdeclare/update" >
+															<#if (_data.bak2)?? && (_data.bak2=='1'||_data.bak2=='4')>
 								                           		 <a href="#" data-action="${ctx}/tsdeclare/update/pre?id=${_data.id}" class="layui-btn layui-btn-normal layui-btn-mini">编辑</a>
+								                            </#if>
 								                            </@shiro.hasPermission>
 								                            <@shiro.hasPermission name="/tsdeclare/delete" >
+								                            <#if (_data.bak2)?? && (_data.bak2=='1'||_data.bak2=='4')>
 								                            	<a href="javascript:del('${(_data.id)!''}')" class="layui-btn layui-btn-danger layui-btn-mini ajax-delete">删除</a>
+								                            </#if>
 								                            </@shiro.hasPermission>
-								                             <@shiro.hasPermission name="/tswastewatermsg/detail" >
+								                             <@shiro.hasPermission name="/tsdeclare/detail" >
 								                            <a href="#"  data-action="${ctx}/tsdeclare/detail?id=${(_data.id)!''}" class="layui-btn layui-btn-normal layui-btn-mini" >详情</a>
 								                            </@shiro.hasPermission>
+								                             <@shiro.hasPermission name="/tsdeclare/ajax/approv" >
+								                          	<#if (_data.bak2)?? && (_data.bak2=='1'||_data.bak2=='4')>
+								                            	<a href="#"  class="layui-btn layui-btn-normal layui-btn-mini"  onclick="approv('${(_data.id)!''}')" >上报</a>
+								                           	</#if>
+								                           	</@shiro.hasPermission>
 														</td>
 														<!--end_no_export-->
 														<td >
@@ -175,14 +181,26 @@
 														<td >
 															${(_data.surplus)!''}
 														</td>
-														<!-- <td >
-															${(_data.createUser)!''}
+														 <td >
+															${(_data.declareTime)!''}
 														</td>
+														<!--
 														<td >
 															${(_data.createTime)!''}
 														</td> -->
 														<td >
 															${(_data.remarks)!''}
+														</td>
+														<td >
+															<#if (_data.bak2)?? && (_data.bak2=="1")>
+																	已保存
+															<#elseif (_data.bak2)?? && (_data.bak2=="2")>
+																	审批中
+															<#elseif (_data.bak2)?? && (_data.bak2=="3")>
+																	已通过
+															<#elseif (_data.bak2)?? && (_data.bak2=="4")>
+																	未通过
+															</#if>
 														</td>
 													</tr>
 												</#list>
@@ -202,5 +220,49 @@
 		<@h.footer />
 	</div>
 </body>
+<script>
+	var _state;
+	jQuery(function(){ 
+		_state="${(returnDatas.queryBean.active)!''}";
+		jQuery("#active").val(_state);
+		/*
+		全选、反选
+		*/
+		jQuery("#checkAll").bind('click',function(){
+			var _is_check=jQuery(this).get(0).checked;
+			jQuery("input[name='check_li']").each(function(_i,_o){
+				jQuery(_o).get(0).checked=_is_check;
+			});
+		});
+	});
+	function del(_id){
+		springrain.mydelete(_id,"${ctx}/tsdeclare/delete");
+	}
+	function approv(_id) {
+		 $.ajax({
+			url :"${ctx}/tsdeclare/ajax/approv/json", 
+		    type :"post",
+		    data:{"id":_id},
+			dataType : "json",
+			success:function(ret){
+				debugger
+				if(ret.status=="success"){
+					
+					layer.alert(ret.message, {icon: 1},function(){
+							layer.closeAll();
+		});
+					
+				}else{
+					layer.alert(ret.message,{icon: 5});
+				}
+				window.location.reload();
+			},
+			error:function(){
+				layer.closeAll('loading')
+				layer.alert('sorry,遇到问题添加失败了 ...',{icon: 5});
+			}
+		});  
+} 
+</script>
 </html>
 
