@@ -20,15 +20,26 @@
 
 <script>
 
+//document.getElementById("myid").innerText="这是第三种方法实现不转义的效果：<h1>h1标签</h1>和<b>B标签</b>。";
+
+//&lt;p&gt;ww&nbsp;&lt;/p&gt;&lt;p&gt;qq&lt;/p&gt;&lt;p&gt;全勤&lt;/p&gt;
 jQuery.post("${ctx}/front/look/json?detailsId=${detailsId}",function(_json) {
     if (_json.status == "success") {
 	   	 //对datas进行处理
 	   	 if(_json!=null&&_json.data!=null&&_json.data.length>0){
-	   		 var html = "";
+	    		 var html = "";
 	   			 var obj = _json.data[0];
 	   			 var tempHtml  = document.getElementById("template").innerHTML;
+	   			 
+	   			 var text01 =  htmlspecialchars(obj.htmlContent)
+	   			 
+	   			 
+	   			 //var a = obj.htmlContent.replace(/&lt;/g,'<')
+		   		 //var b = a.replace(/&gt;/g,'>')
+		   		 //document.getElementById("myid2").innerHTML=b
+	   			 
 	   			 tempHtml = tempHtml.replace('{*data01}',obj.title);
-	   			 tempHtml = tempHtml.replace('{*data02}',obj.htmlContent);
+	   			 tempHtml = tempHtml.replace('{*data02}',text01);
 	   			 html+=tempHtml;
 	   		 if(html!=null){
 	   			document.getElementById("newlist").innerHTML = html
@@ -48,6 +59,15 @@ jQuery.post("${ctx}/front/look/json?detailsId=${detailsId}",function(_json) {
         return false;
     }
 });
+
+//转义
+function htmlspecialchars(text) { 
+	var temp = document.createElement("div"); 
+    temp.innerHTML = text; 
+    var output = temp.innerText || temp.textContent; 
+    temp = null; 
+    return output; 
+}
 </script>
 </head>
 <body>
@@ -62,11 +82,11 @@ jQuery.post("${ctx}/front/look/json?detailsId=${detailsId}",function(_json) {
 <article>
 <div class="info_text" style="display: none" id="newlist">
   
-      <!-- <div class="a_title"></div>
- 	 <div class="a_content"></div> -->
+     <!--   <div class="a_title" id="myid1"></div>
+ 	 <div class="a_content" id="myid2"></div>  -->
 
 		
-  		<ul>
+  	<ul>
   			<p class="a_title"></p>
 	  		<ul class="a_content">
 		  		<div>  			
@@ -87,8 +107,9 @@ jQuery.post("${ctx}/front/look/json?detailsId=${detailsId}",function(_json) {
   		</div>
  		</ul>
      </ul>
-	    <!-- <div class="a_title">{*data01}</div>
- 	 <div class="a_content">{*data02}</div> -->
+     
+	 <!--  <div class="a_title">{*data01}</div>
+ 	 <div class="a_content">{*data02}</div>  -->
 	
   </div>
 </article>
@@ -100,7 +121,7 @@ jQuery.post("${ctx}/front/look/json?detailsId=${detailsId}",function(_json) {
   <div class="copyright">
     <p>Copyright  2013 All Rights Reserved 版权所有 南阳市环境应急与事故调查中心</p>
     <!-- <p>地址：广安市广安区恒荣街7号 联系电话：0826-2222962</p>
-    <p>备案号：蜀11018486号</p> -->
+    <p>备案号：蜀11018486号</p> 
   </div>
 </footer> -->
 </body>

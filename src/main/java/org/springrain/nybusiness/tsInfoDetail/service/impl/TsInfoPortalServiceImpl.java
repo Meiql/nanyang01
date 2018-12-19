@@ -102,8 +102,8 @@ public class TsInfoPortalServiceImpl extends BaseSpringrainServiceImpl implement
 			Finder finder = new Finder();
 			/*finder.append("SELECT * FROM `ts_company_info` t where t.state=:state")
 			.setParam("state", 1);*/
-			String sql="SELECT a.* FROM ts_info_portal AS a WHERE (SELECT COUNT(*) FROM ts_info_portal AS b WHERE b.typeId = a.typeId AND b.id >= a.id) <= 6 ORDER BY a.typeId ASC , a.create_time DESC";
-			finder.append("SELECT a.* FROM ts_info_portal AS a WHERE (SELECT COUNT(*) FROM ts_info_portal AS b WHERE b.typeId = a.typeId AND b.id >= a.id) <= 6 ORDER BY a.typeId ASC , a.create_time DESC");
+			String sql="SELECT a.* FROM ts_info_portal AS a WHERE (SELECT COUNT(*) FROM ts_info_portal AS b WHERE b.typeId = a.typeId AND b.id >= a.id) <= 6 ORDER BY a.typeId ASC , a.create_time ASC";
+			finder.append("SELECT a.* FROM ts_info_portal AS a WHERE (SELECT COUNT(*) FROM ts_info_portal AS b WHERE b.typeId = a.typeId AND b.id >= a.id) <= 6 ORDER BY a.typeId ASC , a.create_time ASC");
 			return super.queryForList(finder, TsInfoPortal.class);
 		}
 
@@ -120,7 +120,7 @@ public class TsInfoPortalServiceImpl extends BaseSpringrainServiceImpl implement
 		public List<TsInfoPortal> stick() throws Exception {
 			Finder finder = new Finder();
 			int  _stick=1;
-			String sql="select t.* from ts_info_portal t where t.stick=:_stick and t.flag=:_flag ORDER BY t.create_time DESC LIMIT 8";
+			String sql="select t.* from ts_info_portal t where t.stick=:_stick and t.flag=:_flag ORDER BY t.create_time ASC LIMIT 8";
 			finder.append(sql);
 			finder.setParam("_stick", _stick);
 			finder.setParam("_flag", _stick);
