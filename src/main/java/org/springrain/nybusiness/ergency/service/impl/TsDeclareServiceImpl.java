@@ -1,6 +1,7 @@
 package org.springrain.nybusiness.ergency.service.impl;
 
 import java.io.File;
+import java.util.Date;
 import java.util.List;
 
 import org.apache.commons.collections.CollectionUtils;
@@ -9,6 +10,7 @@ import org.springframework.stereotype.Service;
 import org.springrain.nybusiness.ergency.entity.TsDeclare;
 import org.springrain.nybusiness.ergency.service.ITsDeclareService;
 import org.springrain.frame.entity.IBaseEntity;
+import org.springrain.frame.util.DateUtils;
 import org.springrain.frame.util.Finder;
 import org.springrain.frame.util.Page;
 import org.springrain.system.service.BaseSpringrainServiceImpl;
@@ -85,7 +87,7 @@ public class TsDeclareServiceImpl extends BaseSpringrainServiceImpl implements I
 				return null;
 			}
 			Finder finder = new Finder();
-			finder.append("select t.*,t1.name as createName  FROM `ts_declare` t,t_user t1 where t.createUser=t1.id and t.companyid in (:companyId)")
+			finder.append("select t.*,t1.name as createName FROM `ts_declare` t,t_user t1 where t.createUser=t1.id  and t.companyid in (:companyId)")
 			.setParam("companyId", listCompany);
 			if(StringUtils.isNoneBlank(tsDeclare.getMaterialName())) {
 				finder.append(" and t.materialName like:name").setParam("name", "%"+tsDeclare.getMaterialName()+"%");
@@ -110,7 +112,7 @@ public class TsDeclareServiceImpl extends BaseSpringrainServiceImpl implements I
 			return super.queryForList(finder, TsDeclare.class, page);
 		}
 		@Override
-		public void updateTsDeclare(String id,String type)throws Exception {
+		public void updateTsDeclare(String id,String type,String userid,String userName)throws Exception {
 			TsDeclare  tsDeclare= super.findById(id, TsDeclare.class);
 			if(StringUtils.isBlank(type)){
 			tsDeclare.setBak2("2");
@@ -119,7 +121,13 @@ public class TsDeclareServiceImpl extends BaseSpringrainServiceImpl implements I
 			}else{
 				tsDeclare.setBak2("4");
 			}
-			
+			if(StringUtils.isNoneBlank(userName)){
+			tsDeclare.setAuditorName(userName);
+			}
+			if(StringUtils.isNoneBlank(userid)){
+			tsDeclare.setAuditor(userid);
+			tsDeclare.setAuditorTime(DateUtils.convertDate2String("yyyy-MM-dd HH:mm:ss", new Date()));
+				}
 			super.update(tsDeclare);
 		}
 }

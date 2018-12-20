@@ -110,11 +110,23 @@ public class TsDeclare  extends BaseEntity {
 	 */
 	private java.lang.String bak3;
 	/**
-	 * 制表时间
+	 * 年（月）报时间
 	 */
-	private java.lang.String declareTime;
+	private java.lang.String declareTime; 
+	/**
+	 * 审核人
+	 */
+	private java.lang.String auditor;
+	/**
+	 * 审核时间
+	 */
+	private java.lang.String auditorTime;
 	//columns END 数据库字段结束
 	@Transient
+	private java.lang.String auditorName; 
+	/**
+	 * 审核人姓名
+	 */
 	private java.lang.String createName; 
 	//concstructor
 
@@ -449,10 +461,51 @@ public class TsDeclare  extends BaseEntity {
 		this.declareTime = value;
 	}
 	
+	/**
+	 * 审核人
+	 */
+     @WhereSQL(sql="auditor=:TsDeclare_auditor")
+	public java.lang.String getAuditor() {
+		return this.auditor;
+	}
+ 		/**
+		 * 审核人
+		 */
+	public void setAuditor(java.lang.String value) {
+		    if(StringUtils.isNotBlank(value)){
+			 value=value.trim();
+			}
+		this.auditor = value;
+	}
+	
+	/**
+	 * 审核时间
+	 */
+     @WhereSQL(sql="auditorTime=:TsDeclare_auditorTime")
+	public java.lang.String getAuditorTime() {
+		return this.auditorTime;
+	}
+ 		/**
+		 * 审核时间
+		 */
+	public void setAuditorTime(java.lang.String value) {
+		    if(StringUtils.isNotBlank(value)){
+			 value=value.trim();
+			}
+		this.auditorTime = value;
+	}
 	
 	
-	
-     @Transient
+	 @WhereSQL(sql="auditorName=:TsDeclare_auditorName")
+ 	public String getAuditorName() {
+ 		return auditorName;
+ 	}
+
+ 	public void setAuditorName(String auditorName) {
+ 		this.auditorName = auditorName;
+ 	}
+ 	
+ 	@Transient
  	public String getCreateName() {
  		return createName;
  	}
@@ -474,6 +527,9 @@ public class TsDeclare  extends BaseEntity {
 			.append("剩余[").append(getSurplus()).append("],")
 			.append("创建人[").append(getCreateUser()).append("],")
 			.append("创建时间[").append(getCreateTime()).append("],")
+			.append("年（月）报时间[").append(getCreateTime()).append("],")
+			.append("审核人[").append(getCreateTime()).append("],")
+			.append("审核时间[").append(getCreateTime()).append("],")
 			.append("remarks[").append(getRemarks()).append("],")
 			.append("companyId[").append(getCompanyId()).append("],")
 			.append("bak1[").append(getBak1()).append("],")

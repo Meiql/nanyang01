@@ -111,8 +111,10 @@ public class TsDeclareController  extends BaseController {
 		try {
 		java.lang.String id=request.getParameter("id");
 		java.lang.String  type=request.getParameter("type");
+		java.lang.String  userid=SessionUser.getUserId();
+		java.lang.String  username=SessionUser.getUserName();
 		if(StringUtils.isNotBlank(id)){
-			tsDeclareService.updateTsDeclare(id,type);
+			tsDeclareService.updateTsDeclare(id,type,userid,username);
 			} 
 		returnDatas.setMessage("审批通过");
 		} catch (Exception e) {
@@ -200,7 +202,6 @@ public class TsDeclareController  extends BaseController {
 		returnObject.setMessage(MessageUtils.UPDATE_SUCCESS);
 		String num=request.getParameter("num");
 		try {
-		
 			java.lang.String id =tsDeclare.getId();
 			if(StringUtils.isBlank(id)){
 			  tsDeclare.setId(null);
@@ -282,7 +283,7 @@ public class TsDeclareController  extends BaseController {
 		try {
 		java.lang.String id=request.getParameter("id");
 		if(StringUtils.isNotBlank(id)){
-			tsDeclareService.updateTsDeclare(id,null);
+			tsDeclareService.updateTsDeclare(id,null,null,null);
 			} 
 		returnDatas.setMessage("已上报");
 		} catch (Exception e) {

@@ -102,7 +102,7 @@
 																	</div>
 																	 -->
 																	<div class="layui-form-item col-lg-6">
-																		<label class="layui-form-label">制表时间*</label>
+																		<label class="layui-form-label">年（月）报时间*</label>
 																		<div class="layui-inline col-lg-5">  
 																			<input type="text" name="declareTime" readonly id="declareTime" datatype="*" nullmsg="不能为空" errormsg="不能为空！" autocomplete="off" class="layui-input" value="${(returnDatas.data.declareTime)!''}">
 																		</div>
@@ -115,6 +115,22 @@
 																		</div>
 																		<div class="layui-inline valid-info"></div>
 																	</div>
+																	<#if (returnDatas.data??)&&(returnDatas.data.auditorName??)&&(returnDatas.data.auditorTime??)>
+																	<div class="layui-form-item col-lg-6">
+																		<label class="layui-form-label">审批人*</label>
+																		<div class="layui-inline col-lg-5">  
+																			<input type="text" name="auditorName" readonly id="auditorName" datatype="*" nullmsg="不能为空" errormsg="不能为空！" autocomplete="off" class="layui-input" value="${(returnDatas.data.auditorName)!''}">
+																		</div>
+																		<div class="layui-inline valid-info"></div>
+																	</div>
+																	<div class="layui-form-item col-lg-6">
+																		<label class="layui-form-label">审批时间*</label>
+																		<div class="layui-inline col-lg-5">  
+																			<input type="text" name="auditorTime" readonly id="auditorTime" datatype="*" nullmsg="不能为空" errormsg="不能为空！" autocomplete="off" class="layui-input" value="${(returnDatas.data.auditorTime)!''}">
+																		</div>
+																		<div class="layui-inline valid-info"></div>
+																	</div>
+																</#if>
 													</form>
 												</div>
 								  </div>
