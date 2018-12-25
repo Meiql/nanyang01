@@ -39,6 +39,8 @@ public class TsEmergencyEquipmentSum  extends BaseEntity {
 	public static final String ALIAS_CREATE_USER = "创建用户";
 	public static final String ALIAS_CREATE_TIME = "创建时间";
 	public static final String ALIAS_COMPANY_ID = "公司id";
+	public static final String ALIAS_APPRUSER = "apprUser";
+	public static final String ALIAS_APPRTIME = "apprTime";
     */
 	//date formats
 	
@@ -101,6 +103,15 @@ public class TsEmergencyEquipmentSum  extends BaseEntity {
 	private java.lang.String company_id;
 	
 	private java.lang.String companyName;
+	
+	/**
+	 * apprUser
+	 */
+	private java.lang.String apprUser;
+	/**
+	 * apprTime
+	 */
+	private java.lang.String apprTime;
 	 @Transient
 	public String getCompanyName() {
 			return companyName;
@@ -406,6 +417,34 @@ public class TsEmergencyEquipmentSum  extends BaseEntity {
 	public java.lang.String getCompany_id() {
 		return this.company_id;
 	}
+     
+     @WhereSQL(sql="apprUser=:TsEmergencyEquipmentSum_apprUser")
+ 	public java.lang.String getApprUser() {
+ 		return this.apprUser;
+ 	}
+ 		/**
+ 		 * apprUser
+ 		 */
+ 	public void setApprUser(java.lang.String value) {
+ 		    if(StringUtils.isNotBlank(value)){
+ 			 value=value.trim();
+ 			}
+ 		this.apprUser = value;
+ 	}
+ 	
+    @WhereSQL(sql="apprTime=:TsEmergencyEquipmentSum_apprTime")
+	public java.lang.String getApprTime() {
+		return this.apprTime;
+	}
+		/**
+		 * apprTime
+		 */
+	public void setApprTime(java.lang.String value) {
+		    if(StringUtils.isNotBlank(value)){
+			 value=value.trim();
+			}
+		this.apprTime = value;
+	}
 	@Override
 	public String toString() {
 		return new StringBuilder()
@@ -423,6 +462,8 @@ public class TsEmergencyEquipmentSum  extends BaseEntity {
 			.append("创建用户[").append(getCreate_user()).append("],")
 			.append("创建时间[").append(getCreate_time()).append("],")
 			.append("公司id[").append(getCompany_id()).append("],")
+			.append("apprUser[").append(getApprUser()).append("],")
+			.append("apprTime[").append(getApprTime()).append("],")
 			.toString();
 	}
 	@Override

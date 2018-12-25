@@ -1,6 +1,7 @@
 package org.springrain.nybusiness.resourceAudit.service.impl;
 
 import java.io.File;
+import java.util.Date;
 import java.util.List;
 
 import org.apache.commons.collections.CollectionUtils;
@@ -15,7 +16,9 @@ import org.springrain.nybusiness.msg.entity.TsMsgEnviroRisk;
 import org.springrain.nybusiness.resourceAudit.entity.TsPrepareApprovl;
 import org.springrain.nybusiness.resourceAudit.entity.TsPreparegoodsNum;
 import org.springrain.nybusiness.resourceAudit.service.ITsPrepareApprovlService;
+import org.springrain.frame.common.SessionUser;
 import org.springrain.frame.entity.IBaseEntity;
+import org.springrain.frame.util.DateUtils;
 import org.springrain.frame.util.Finder;
 import org.springrain.frame.util.Page;
 import org.springrain.system.service.BaseSpringrainServiceImpl;
@@ -108,8 +111,12 @@ public class TsPrepareApprovlServiceImpl extends BaseSpringrainServiceImpl imple
 		TsEmergencyEquipmentSum tsEmergencyEquipmentSum = super.findById(id, TsEmergencyEquipmentSum.class);
 		if (type.equals("pass")) {
 		tsEmergencyEquipmentSum.setBak1("3");
+		tsEmergencyEquipmentSum.setApprUser(SessionUser.getUserId());
+		tsEmergencyEquipmentSum.setApprTime(DateUtils.convertDate2String("yyyy-MM-dd HH:mm:ss", new Date()));
 		}else {
 			tsEmergencyEquipmentSum.setBak1("4");
+			tsEmergencyEquipmentSum.setApprUser(SessionUser.getUserId());
+			tsEmergencyEquipmentSum.setApprTime(DateUtils.convertDate2String("yyyy-MM-dd HH:mm:ss", new Date()));
 		}
 		super.update(tsEmergencyEquipmentSum);
 	}
@@ -146,8 +153,12 @@ public class TsPrepareApprovlServiceImpl extends BaseSpringrainServiceImpl imple
 		TsEmePlanFiling tsEmePlanFiling = super.findById(id, TsEmePlanFiling.class);
 		if (type.equals("pass")) {
 			tsEmePlanFiling.setBak1("3");
+			tsEmePlanFiling.setApprUser(SessionUser.getUserId());
+			tsEmePlanFiling.setApprTime(DateUtils.convertDate2String("yyyy-MM-dd HH:mm:ss", new Date()));
 		} else {
 			tsEmePlanFiling.setBak1("4");
+			tsEmePlanFiling.setApprUser(SessionUser.getUserId());
+			tsEmePlanFiling.setApprTime(DateUtils.convertDate2String("yyyy-MM-dd HH:mm:ss", new Date()));
 		}
 		super.update(tsEmePlanFiling);
 
@@ -196,11 +207,16 @@ public class TsPrepareApprovlServiceImpl extends BaseSpringrainServiceImpl imple
 		//TsMsgEnviroRisk tsMsgEnviroRisk = super.findById(id, TsMsgEnviroRisk.class);
 		Finder finder = new Finder();
 		if (type.equals("pass")) {
-			finder.append("UPDATE `ts_msg_enviro_risk` t SET t.bak1=:bak1")
-			.setParam("bak1", "3").append(" where t.id=:id").setParam("id", id);
+			finder.append("UPDATE `ts_msg_enviro_risk` t SET t.bak1=:bak1").setParam("bak1", "3");
+			finder.append(" ,t.apprUser=:apprUser").setParam("apprUser", SessionUser.getUserId());
+			finder.append(" ,t.apprTime=:apprTime").setParam("apprTime", DateUtils.convertDate2String("yyyy-MM-dd HH:mm:ss", new Date()));
+			finder.append(" where t.id=:id").setParam("id", id);
+			
 		} else {
-			finder.append("UPDATE `ts_msg_enviro_risk` t SET t.bak1=:bak1")
-			.setParam("bak1", "4").append(" where t.id=:id").setParam("id", id);
+			finder.append("UPDATE `ts_msg_enviro_risk` t SET t.bak1=:bak1").setParam("bak1", "4");
+			finder.append(" ,t.apprUser=:apprUser").setParam("apprUser", SessionUser.getUserId());
+			finder.append(" ,t.apprTime=:apprTime").setParam("apprTime", DateUtils.convertDate2String("yyyy-MM-dd HH:mm:ss", new Date()));
+			finder.append(" where t.id=:id").setParam("id", id);
 		}
 		super.update(finder);
 		
@@ -211,8 +227,12 @@ public class TsPrepareApprovlServiceImpl extends BaseSpringrainServiceImpl imple
 		TsErgencyInvestigation tsErgencyInvestigation = super.findById(id, TsErgencyInvestigation.class);
 		if (type.equals("pass")) {
 			tsErgencyInvestigation.setBak1("3");
+			tsErgencyInvestigation.setApprUser(SessionUser.getUserId());
+			tsErgencyInvestigation.setApprTime(DateUtils.convertDate2String("yyyy-MM-dd HH:mm:ss", new Date()));
 			}else {
 				tsErgencyInvestigation.setBak1("4");
+				tsErgencyInvestigation.setApprUser(SessionUser.getUserId());
+				tsErgencyInvestigation.setApprTime(DateUtils.convertDate2String("yyyy-MM-dd HH:mm:ss", new Date()));
 			}
 		super.update(tsErgencyInvestigation);
 		

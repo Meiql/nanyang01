@@ -36,6 +36,8 @@ public class TsMsgEnviroRisk  extends BaseEntity {
 	public static final String ALIAS_DEscribes = "describes";
 	public static final String ALIAS_CREATEUSERNAME = "createUserName";
 	public static final String BAK1 = "bak1";
+	public static final String ALIAS_APPRUSER = "apprUser";
+	public static final String ALIAS_APPRTIME = "apprTime";
     */
 	//date formats
 	
@@ -92,6 +94,14 @@ public class TsMsgEnviroRisk  extends BaseEntity {
 	 * bak1
 	 */
 	private java.lang.String bak1;
+	/**
+	 * apprUser
+	 */
+	private java.lang.String apprUser;
+	/**
+	 * apprTime
+	 */
+	private java.lang.String apprTime;
 	//columns END 数据库字段结束
 	
 	//concstructor
@@ -344,6 +354,36 @@ public class TsMsgEnviroRisk  extends BaseEntity {
 	public java.lang.String getCreateUserName() {
 		return this.createUserName;
 	}
+     
+     
+     @WhereSQL(sql="apprUser=:TsMsgEnviroRisk_apprUser")
+ 	public java.lang.String getApprUser() {
+ 		return this.apprUser;
+ 	}
+ 		/**
+ 		 * apprUser
+ 		 */
+ 	public void setApprUser(java.lang.String value) {
+ 		    if(StringUtils.isNotBlank(value)){
+ 			 value=value.trim();
+ 			}
+ 		this.apprUser = value;
+ 	}
+ 	
+    @WhereSQL(sql="apprTime=:TsMsgEnviroRisk_apprTime")
+	public java.lang.String getApprTime() {
+		return this.apprTime;
+	}
+		/**
+		 * apprTime
+		 */
+	public void setApprTime(java.lang.String value) {
+		    if(StringUtils.isNotBlank(value)){
+			 value=value.trim();
+			}
+		this.apprTime = value;
+	}
+ 	
 	@Override
 	public String toString() {
 		return new StringBuilder()
@@ -360,6 +400,8 @@ public class TsMsgEnviroRisk  extends BaseEntity {
 			.append("describes[").append(getDescribes()).append("],")
 			.append("createUserName[").append(getCreateUserName()).append("],")
 			.append("bak1[").append(getBak1()).append("],")
+			.append("apprUser[").append(getApprUser()).append("],")
+			.append("apprTime[").append(getApprTime()).append("],")
 			.toString();
 	}
 	@Override

@@ -60,6 +60,8 @@ public class TsEmePlanFiling  extends BaseEntity {
 	public static final String ALIAS_BAK1 = "bak1";
 	public static final String ALIAS_BAK2 = "bak2";
 	public static final String ALIAS_BAK3 = "bak3";
+	public static final String ALIAS_APPRUSER = "apprUser";
+	public static final String ALIAS_APPRTIME = "apprTime";
     */
 	//date formats
 	//public static final String FORMAT_SIGNING_DATE = DateUtils.DATETIME_FORMAT;
@@ -204,6 +206,15 @@ public class TsEmePlanFiling  extends BaseEntity {
 	 * bak3
 	 */
 	private java.lang.String bak3;
+	
+	/**
+	 * apprUser
+	 */
+	private java.lang.String apprUser;
+	/**
+	 * apprTime
+	 */
+	private java.lang.String apprTime;
 	//columns END 数据库字段结束
 	
 	//concstructor
@@ -819,14 +830,40 @@ public class TsEmePlanFiling  extends BaseEntity {
 		this.bak3 = value;
 	}
 	
-	
-	
 	/**
 	 * bak3
 	 */
      @WhereSQL(sql="bak3=:TsEmePlanFiling_bak3")
 	public java.lang.String getBak3() {
 		return this.bak3;
+	}
+     
+     @WhereSQL(sql="apprUser=:TsEmePlanFiling_apprUser")
+ 	public java.lang.String getApprUser() {
+ 		return this.apprUser;
+ 	}
+ 		/**
+ 		 * apprUser
+ 		 */
+ 	public void setApprUser(java.lang.String value) {
+ 		    if(StringUtils.isNotBlank(value)){
+ 			 value=value.trim();
+ 			}
+ 		this.apprUser = value;
+ 	}
+ 	
+    @WhereSQL(sql="apprTime=:TsEmePlanFiling_apprTime")
+	public java.lang.String getApprTime() {
+		return this.apprTime;
+	}
+		/**
+		 * apprTime
+		 */
+	public void setApprTime(java.lang.String value) {
+		    if(StringUtils.isNotBlank(value)){
+			 value=value.trim();
+			}
+		this.apprTime = value;
 	}
 	@Override
 	public String toString() {
@@ -862,6 +899,8 @@ public class TsEmePlanFiling  extends BaseEntity {
 			.append("bak1[").append(getBak1()).append("],")
 			.append("bak2[").append(getBak2()).append("],")
 			.append("bak3[").append(getBak3()).append("],")
+			.append("apprUser[").append(getApprUser()).append("],")
+			.append("apprTime[").append(getApprTime()).append("],")
 			.toString();
 	}
 	@Override

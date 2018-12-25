@@ -42,6 +42,8 @@ public class TsErgencyInvestigation  extends BaseEntity {
 	public static final String ALIAS_CREATE_TIME = "创建时间";
 	public static final String ALIAS_BAK1 = "bak1";
 	public static final String ALIAS_BAK2 = "bak2";
+    public static final String ALIAS_APPRUSER = "apprUser";
+	public static final String ALIAS_APPRTIME = "apprTime";
     */
 	//date formats
 	
@@ -114,6 +116,15 @@ public class TsErgencyInvestigation  extends BaseEntity {
 	 * bak2
 	 */
 	private java.lang.String bak2;
+	
+	/**
+	 * apprUser
+	 */
+	private java.lang.String apprUser;
+	/**
+	 * apprTime
+	 */
+	private java.lang.String apprTime;
 	//columns END 数据库字段结束
 	
 	private java.lang.String companyName;
@@ -455,6 +466,34 @@ public class TsErgencyInvestigation  extends BaseEntity {
 	public java.lang.String getBak2() {
 		return this.bak2;
 	}
+     
+     @WhereSQL(sql="apprUser=:TsErgencyInvestigation_apprUser")
+ 	public java.lang.String getApprUser() {
+ 		return this.apprUser;
+ 	}
+ 		/**
+ 		 * apprUser
+ 		 */
+ 	public void setApprUser(java.lang.String value) {
+ 		    if(StringUtils.isNotBlank(value)){
+ 			 value=value.trim();
+ 			}
+ 		this.apprUser = value;
+ 	}
+ 	
+    @WhereSQL(sql="apprTime=:TsErgencyInvestigation_apprTime")
+	public java.lang.String getApprTime() {
+		return this.apprTime;
+	}
+		/**
+		 * apprTime
+		 */
+	public void setApprTime(java.lang.String value) {
+		    if(StringUtils.isNotBlank(value)){
+			 value=value.trim();
+			}
+		this.apprTime = value;
+	}
 	@Override
 	public String toString() {
 		return new StringBuilder()
@@ -475,6 +514,8 @@ public class TsErgencyInvestigation  extends BaseEntity {
 			.append("创建时间[").append(getCreate_time()).append("],")
 			.append("bak1[").append(getBak1()).append("],")
 			.append("bak2[").append(getBak2()).append("],")
+			.append("apprUser[").append(getApprUser()).append("],")
+			.append("apprTime[").append(getApprTime()).append("],")
 			.toString();
 	}
 	@Override
