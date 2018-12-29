@@ -1,0 +1,125 @@
+<#ftl output_format="HTML" auto_esc=true>
+<@h.commonHead title="后台管理系统" keywords="开源,永久免费" description="springrain开源系统管理后台"/>
+
+<script src="${ctx}/js/validform/validform.min.js"></script>
+<script src="${ctx}/js/jquery/jquery.min.js"></script>
+<link href="${ctx}/css/front/index.css" rel="stylesheet">
+<link rel="stylesheet" href="${ctx}/js/validform/validform.css" media="all">
+<script>
+	 jQuery(function(){
+		 /*
+		 init_valid(_before,_after)
+		 @_before:提交表单前，调用 的函数   可以为空，一般有validform处理不了，独自进行处理时使用
+		 @_after:保存成功后，调用的函数  可以为空，一般为对应的列表页面
+		 */
+		 springrain.initValid(null,function(){window.location.href="${ctx}/tsmaillistinside/list?springraintoken="+springraintoken});
+	 });
+	 function yujing(falg){
+		 if(falg=="yujing"){
+			 $("#yujing").show();
+			 $("#baojing").hide();
+			 $("#yjlist").attr("href","${ctx}/front/list?typeId=notice")
+			//alert("yujing");
+		 }else if(falg=="baojing"){
+			 $("#baojing").show();
+			 $("#yujing").hide();
+			 $("#yjlist").attr("href","${ctx}/front/list?typeId=notice")
+			 //alert("baojing");
+		 }
+	 }
+</script>
+</head>
+<body>
+	<div class="layui-layout layui-layout-admin">
+		<@h.naviHeader /><@h.leftMenu />
+		<!-- 主体内容开始 -->
+<div class="layui-tab layui-tab-brief" style="padding-left:210px">
+<div class="linews left" style="width: 65%;">
+	<table style="border: #e5e5e6 1px solid;">
+		<th>
+			<td>操作</td>
+			<td>1</td>
+			<td>2</td>
+			<td>3</td>
+			<td>4</td>
+			<td>5</td>
+			<td>6</td>
+			<td>1</td>
+			<td>2</td>
+			<td>3</td>
+			<td>4</td>
+			<td>5</td>
+			<td>6</td>
+			<td>1</td>
+			<td>2</td>
+			<td>3</td>
+			<td>4</td>
+			<td>5</td>
+			<td>611111111111111111111111111111111111111111111111111111111111</td>
+		</th>
+		<tr>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+		</tr>
+	</table>
+</div>
+<div style="float: left;" class="linews">
+		<div class="linews">
+			<h3><span><a  href="${ctx}/front/list?typeId=notice" class="more">更多..</a></span>待办</h3>
+		    <ul id="notice">
+		      <li><a href="/" target="_blank">广安区喜摘全市人口计生统计与信息岗位技能竞赛桂冠开业贸易争端 矛头直指</a></li>
+		      <li><a href="/" target="_blank">广安区卫计局开展“道德讲堂”活动</a></li>
+		      <li><a href="/" target="_blank">广安区中医院开展“全国高血压日”义诊宣传活动</a></li>
+		      <li><a href="/" target="_blank">广安区“五心”做好孕前优生健康检查工作</a></li>
+		      <li><a href="/" target="_blank">广安区实施“五项工程”帮助计生家庭发家致富</a></li>
+		      <li><a href="/" target="_blank">美国挑起对华贸易争端 矛头直指</a></li> 
+		    </ul>
+		</div>
+		<div class="linews">
+			<h3><span><a id="yjlist" href="${ctx}/front/list?typeId=notice" class="more">更多..</a></span><span onclick="yujing('yujing')">预警</span>||<span onclick="yujing('baojing')">报警</span></h3>
+			<div id="yujing" style="display:block">
+				<ul >
+			      <li><a href="/" target="_blank">广安区喜摘全市人口计生统计与信息岗位技能竞赛桂冠开业贸易争端 矛头直指</a></li>
+			      <li><a href="/" target="_blank">广安区卫计局开展“道德讲堂”活动</a></li>
+			      <li><a href="/" target="_blank">广安区中医院开展“全国高血压日”义诊宣传活动</a></li>
+			      <li><a href="/" target="_blank">广安区“五心”做好孕前优生健康检查工作</a></li>
+			      <li><a href="/" target="_blank">广安区实施“五项工程”帮助计生家庭发家致富</a></li>
+			      <li><a href="/" target="_blank">美国挑起对华贸易争端 矛头直指</a></li> 
+			    </ul>
+			</div>
+			<div id="baojing" style="display:none">
+			    <ul >
+			      <li><a href="/" target="_blank">aa</a></li>
+			      <li><a href="/" target="_blank">ss</a></li>
+			      <li><a href="/" target="_blank">dd</a></li>
+			      <li><a href="/" target="_blank">广安区“五心”做好孕前优生健康检查工作</a></li>
+			      <li><a href="/" target="_blank">广安区实施“五项工程”帮助计生家庭发家致富</a></li>
+			      <li><a href="/" target="_blank">美国挑起对华贸易争端 矛头直指</a></li> 
+			    </ul>
+			</div>
+		</div>
+		
+		<div class="linews">
+			<h3>文件下载</h3>
+			<ul id="notice">
+		      <li><a href="/" target="_blank">操作手册</a></li>
+		      <li><a href="/" target="_blank">广安区卫计局开展“道德讲堂”活动</a></li>
+		      <li><a href="/" target="_blank">广安区中医院开展“全国高血压日”义诊宣传活动</a></li>
+		      <li><a href="/" target="_blank">广安区“五心”做好孕前优生健康检查工作</a></li>
+		      <li><a href="/" target="_blank">广安区实施“五项工程”帮助计生家庭发家致富</a></li>
+		      <li><a href="/" target="_blank">美国挑起对华贸易争端 矛头直指</a></li> 
+		    </ul>
+		</div>
+	</div>
+	</div>
+		<!-- 主体内容结束 -->
+		<@h.footer />
+	</div>
+</body>
+</html>
