@@ -6,25 +6,63 @@
 <link href="${ctx}/css/front/index.css" rel="stylesheet">
 <link rel="stylesheet" href="${ctx}/js/validform/validform.css" media="all">
 <script>
-	 jQuery(function(){
-		 /*
-		 init_valid(_before,_after)
-		 @_before:提交表单前，调用 的函数   可以为空，一般有validform处理不了，独自进行处理时使用
-		 @_after:保存成功后，调用的函数  可以为空，一般为对应的列表页面
-		 */
-		 springrain.initValid(null,function(){window.location.href="${ctx}/tsmaillistinside/list?springraintoken="+springraintoken});
-	 });
-	 function yujing(falg){
+$(function() {// 初始化内容
+	yujing('yujing');
+})
+	function yujing(falg){
 		 if(falg=="yujing"){
 			 $("#yujing").show();
 			 $("#baojing").hide();
-			 $("#yjlist").attr("href","${ctx}/front/list?typeId=notice")
-			//alert("yujing");
-		 }else if(falg=="baojing"){
+			 $("#yjlist").attr("href","${ctx}/myfirst/tsemeplanfilingList?type=预警")
+		$.ajax({
+        type:"post",  //传输方式为post，
+        url:"${ctx}/myfirst/list/json",
+        data : {
+			'type' : '预警',
+		},
+        success:function(data){
+        	if(data!=""&&data!=null){
+        	var stick='';
+        	var length;
+        	if(data.data.length>5) length=5;
+        	if(data.data.length<5) length=data.data.length;
+        	for(var i=0;i<length;i++){
+        		var dateFrom = new Date(data.data[i].apprTime);
+        		var year = dateFrom.getFullYear()+3;
+        		var month=dateFrom.getMonth()+1;
+        		var day=dateFrom.getDate();
+        		stick+='<li><a href="${ctx}/tsemeplanfiling/detail?id='+data.data[i].id+'" style="color: blue">'+data.data[i].company_name+'预案名称 ：'+data.data[i].plan_name+'到期时间 : '+year+'-'+month+'-'+day+'</a></li>';
+            	}
+        	$("#stick").html(stick);
+        }
+        }
+    });
+			}else if(falg=="baojing"){
 			 $("#baojing").show();
 			 $("#yujing").hide();
-			 $("#yjlist").attr("href","${ctx}/front/list?typeId=notice")
-			 //alert("baojing");
+			 $("#yjlist").attr("href","${ctx}/myfirst/tsemeplanfilingList?type=报警")
+			 $.ajax({
+			        type:"post",  //传输方式为post，
+			        url:"${ctx}/myfirst/list/json",
+			        data : {
+						'type' : '报警',
+					},
+			        success:function(data){
+			        	if(data!=""&&data!=null){
+			        	var stick='';
+			        	if(data.data.length>5) length=5;
+			        	if(data.data.length<5) length=data.data.length;
+			        	for(var i=0;i<length;i++){
+			        		var dateFrom = new Date(data.data[i].apprTime);
+			        		var year = dateFrom.getFullYear()+3;
+			        		var month=dateFrom.getMonth()+1;
+			        		var day=dateFrom.getDate();
+			        		stick+='<li><a href="${ctx}/tsemeplanfiling/detail?id='+data.data[i].id+'" style="color: red">'+data.data[i].company_name+'预案名称 ：'+data.data[i].plan_name+'到期时间 : '+year+'-'+month+'-'+day+'</a></li>';
+			            	}
+			        	$("#stick2").html(stick);
+			        }
+			        }
+			    });
 		 }
 	 }
 </script>
@@ -82,25 +120,14 @@
 		    </ul>
 		</div>
 		<div class="linews">
-			<h3><span><a id="yjlist" href="${ctx}/front/list?typeId=notice" class="more">更多..</a></span><span onclick="yujing('yujing')">预警</span>||<span onclick="yujing('baojing')">报警</span></h3>
+			<h3><span><a id="yjlist" href="${ctx}/myfirst/tsemeplanfilingList?type=预警" class="more">更多..</a></span><span onclick="yujing('yujing')">预警</span>||<span onclick="yujing('baojing')">报警</span></h3>
 			<div id="yujing" style="display:block">
-				<ul >
-			      <li><a href="/" target="_blank">广安区喜摘全市人口计生统计与信息岗位技能竞赛桂冠开业贸易争端 矛头直指</a></li>
-			      <li><a href="/" target="_blank">广安区卫计局开展“道德讲堂”活动</a></li>
-			      <li><a href="/" target="_blank">广安区中医院开展“全国高血压日”义诊宣传活动</a></li>
-			      <li><a href="/" target="_blank">广安区“五心”做好孕前优生健康检查工作</a></li>
-			      <li><a href="/" target="_blank">广安区实施“五项工程”帮助计生家庭发家致富</a></li>
-			      <li><a href="/" target="_blank">美国挑起对华贸易争端 矛头直指</a></li> 
+				<ul id="stick">
 			    </ul>
 			</div>
 			<div id="baojing" style="display:none">
-			    <ul >
-			      <li><a href="/" target="_blank">aa</a></li>
-			      <li><a href="/" target="_blank">ss</a></li>
-			      <li><a href="/" target="_blank">dd</a></li>
-			      <li><a href="/" target="_blank">广安区“五心”做好孕前优生健康检查工作</a></li>
-			      <li><a href="/" target="_blank">广安区实施“五项工程”帮助计生家庭发家致富</a></li>
-			      <li><a href="/" target="_blank">美国挑起对华贸易争端 矛头直指</a></li> 
+			    <ul id="stick2">
+			      
 			    </ul>
 			</div>
 		</div>

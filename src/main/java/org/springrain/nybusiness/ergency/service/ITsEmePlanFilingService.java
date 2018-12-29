@@ -59,4 +59,7 @@ public interface ITsEmePlanFilingService extends IBaseSpringrainService {
 	public List<TsCompanyInfo> finderCompanyInfo(List<String> listCompany) throws Exception;
 	public TsCompanyInfo findCompanyInfoById(Object id) throws Exception;
 	public void updateTsEmePlanFiling(String id)throws Exception;
+	
+	List<TsEmePlanFiling> finderForList(TsEmePlanFiling tsEmePlanFiling,List<String> listCompany)throws Exception;
+	
 }

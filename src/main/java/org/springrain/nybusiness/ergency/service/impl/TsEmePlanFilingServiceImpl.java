@@ -153,4 +153,16 @@ public class TsEmePlanFilingServiceImpl extends BaseSpringrainServiceImpl implem
 			super.update(tsEmePlanFiling);
 		}
 
+		@Override
+		public List<TsEmePlanFiling> finderForList(TsEmePlanFiling tsEmePlanFiling,
+				List<String> listCompany) throws Exception {
+			if(CollectionUtils.isEmpty(listCompany)){
+				return null;
+			}
+			Finder finder = new Finder();
+			finder.append("SELECT t.*,t1.companyName as companyName FROM (select * from ts_eme_plan_filing where id in(select max(id) from ts_eme_plan_filing s where s.bak1=:bak1 group by company_id)) t ,ts_company_info t1 where t.company_id = t1.id and t.company_id in (:companyId)")
+			.setParam("bak1", "3")
+			.setParam("companyId", listCompany);
+			return super.queryForList(finder, TsEmePlanFiling.class);
+		}
 }

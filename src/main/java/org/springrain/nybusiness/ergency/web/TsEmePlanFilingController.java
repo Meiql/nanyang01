@@ -89,7 +89,6 @@ public class TsEmePlanFilingController  extends BaseController {
 		
 		List<String> listCompany = tsCompanyInfoService.finderCompanyIdByUserId(SessionUser.getUserId());
 		List<TsEmePlanFiling> datas=tsEmePlanFilingService.finderTsMaillistForList(page, tsEmePlanFiling, listCompany);
-
 			returnObject.setQueryBean(tsEmePlanFiling);
 		returnObject.setPage(page);
 		returnObject.setData(datas);
