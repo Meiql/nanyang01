@@ -8,6 +8,10 @@
 <script>
 $(function() {// 初始化内容
 	yujing('yujing');
+	debugger;
+	appr1();
+	appr2();
+	appr3();
 })
 	function yujing(falg){
 		 if(falg=="yujing"){
@@ -65,49 +69,245 @@ $(function() {// 初始化内容
 			    });
 		 }
 	 }
+	 function appr1(){
+		 $.ajax({
+		        type:"post",  //传输方式为post，
+		        url:"${ctx}/myfirst/ajax/emergencyLook/app",
+		        data : {},
+		        dataType : "json",
+		        success:function(data){
+		         var appr1='';
+		        	var length=data.data.length;
+		        	if(data!=""&&data!=null){			        		
+		        		for(var i=0;i<length;i++){
+		        			var id=data.data[i].id;//序号
+		        			debugger;
+		        			var name=data.data[i].name;//物资名称
+		        			
+		        			var quantity=data.data[i].quantity;//数量
+		        			var unit=data.data[i].unit;//单位
+		        			var in_Equipment=data.data[i].in_Equipment;//厂内设备==1 外部供应==2
+		        			var outside_company=data.data[i].outside_company;//外部供应单位名称
+		        			var bak1=data.data[i].bak1;//审批状态
+		        			var outside_people=data.data[i].outside_people;//主要联系人
+		        			var outside_tel=data.data[i].outside_tel;//联系方式
+		        			var table_from=data.data[i].table_from;//来源
+		        			var companyName=data.data[i].companyName;//公司名称	
+		        			appr1 = appr1+'<tr>';		        			
+		        			appr1 = appr1+'<td>'+name+'</td>';
+		        			appr1 = appr1+'<td>'+quantity+'</td>';
+		        			appr1 = appr1+'<td>'+unit+'</td>';
+		        				        			  
+		        			   if(in_Equipment=1){ 
+		        					appr1 = appr1+'<td>'+'厂内设备'+'</td>';	        				  
+		        			   }else{
+		        				   appr1 = appr1+'<td>'+'外部供应'+'</td>';		        				
+		        			   }
+		        			   appr1 = appr1+'<td>'+outside_company+'</td>';
+		        			   appr1 = appr1+'<td>'+outside_people+'</td>';
+		        			   appr1 = appr1+'<td>'+outside_tel+'</td>';
+		        			   if(bak1=2){ 
+		        					appr1 = appr1+'<td>'+'待审批'+'</td>';	        				  
+		        			   }else{
+		        				   appr1 = appr1+'<td>'+bak1+'</td>';        				
+		        			   }
+		        			 
+		        			   appr1 = appr1+'<td>'+table_from+'</td>';
+		        			   appr1 = appr1+'<td>'+companyName+'</td>';
+
+		        			   appr1 = appr1+'</tr>';
+		        			
+		        		}
+		        		 $('#appr1').append(appr1);
+		        	 }
+		
+		        }
+		    });
+	 }
+	 
+	 function appr2(){
+		 $.ajax({
+		        type:"post",  //传输方式为post，
+		        url:"${ctx}/myfirst/ajax/enviroment/app",
+		        data : {},
+		        dataType : "json",
+		        success:function(data){
+		         var appr2='';
+		        	var length=data.data.length;
+		        	if(data!=""&&data!=null){			        		
+		        		for(var i=0;i<length;i++){
+		        			var id=data.data[i].id;//序号
+		        			debugger;
+		        			var riskUnitName=data.data[i].riskUnitName;//风险单元名称
+		        			var riskUnitTypeName=data.data[i].riskUnitTypeName;//风险单元类别
+		        			var reserves=data.data[i].reserves;//设计能力/储量
+		        			var involveChemical=data.data[i].involveChemical;//主要涉及的化学品
+		        			var createUserName=data.data[i].createUserName;//创建用户
+		        			var createTime=data.data[i].createTime;//创建时间
+		        			var companyId=data.data[i].companyId;//企业id
+		        			var describes=data.data[i].describes;//描述（用途、特征、危险性、曾发生事故等）
+		        			var bak1=data.data[i].bak1;//单元状态        				        		
+		        			appr2 = appr2+'<tr>';		        			
+		        			appr2 = appr2+'<td>'+riskUnitName+'</td>';
+		        			appr2 = appr2+'<td>'+riskUnitTypeName+'</td>';
+		        			appr2 = appr2+'<td>'+reserves+'</td>';	        				        			  			  
+		        			 appr2 = appr2+'<td>'+involveChemical+'</td>';
+		        			   appr2 = appr2+'<td>'+createUserName+'</td>';
+		        			   appr2 = appr2+'<td>'+createTime+'</td>';        			  
+		        			 appr2 = appr2+'<td>'+companyId+'</td>';        				
+		        			   appr2 = appr2+'<td>'+describes+'</td>';
+		        			   appr2 = appr2+'<td>'+bak1+'</td>';
+
+		        			   appr2 = appr2+'</tr>';
+		        			
+		        		}
+		        		 $('#appr2').append(appr2);
+		        	 }
+		
+		        }
+		    });
+	 }
+	 
+	 function appr3(){
+		 $.ajax({
+		        type:"post",  //传输方式为post，
+		        url:"${ctx}/myfirst/ajax/planfiling/app",
+		        data : {},
+		        dataType : "json",
+		        success:function(data){
+		         var appr3='';
+		        	var length=data.data.length;
+		        	if(data!=""&&data!=null){			        		
+		        		for(var i=0;i<length;i++){
+		        			var id=data.data[i].id;//序号
+		        			debugger;
+		        			var company_name=data.data[i].company_name;//物资名称
+		        			var company_code=data.data[i].company_code;//数量
+		        			var legal_person=data.data[i].legal_person;//单位
+		        			var legal_person_tel=data.data[i].legal_person_tel;//厂内设备==1 外部供应==2
+		        			var contacts_people=data.data[i].contacts_people;//外部供应单位名称
+		        			var contacts_people_tel=data.data[i].contacts_people_tel;//审批状态
+		        			var address=data.data[i].address;//主要联系人
+		        			var plan_name=data.data[i].plan_name;//联系方式
+		        			var risk_level=data.data[i].risk_level;//来源
+		        			var filing_number=data.data[i].filing_number;//公司名称	
+		        			var delivery_company=data.data[i].delivery_company;//公司名称
+		        			var bak1=data.data[i].bak1;//公司名称	
+		        			appr3 = appr3+'<tr>';		        			
+		        			appr3 = appr3+'<td>'+company_name+'</td>';
+		        			appr3 = appr3+'<td>'+company_code+'</td>';
+		        			appr3 = appr3+'<td>'+legal_person+'</td>';
+		        			   appr3 = appr3+'<td>'+legal_person_tel+'</td>';
+		        			   appr3 = appr3+'<td>'+contacts_people+'</td>';
+		        			   appr3 = appr3+'<td>'+contacts_people_tel+'</td>';			 
+		        				   appr3 = appr3+'<td>'+address+'</td>';        				       			 
+		        			   appr3 = appr3+'<td>'+plan_name+'</td>';
+		        			   appr3 = appr3+'<td>'+risk_level+'</td>';
+		        			   appr3 = appr3+'<td>'+filing_number+'</td>';
+		        			   appr3 = appr3+'<td>'+delivery_company+'</td>';
+		        			   if(bak1=2){ 
+		        				   appr3 = appr3+'<td>'+'待审批'+'</td>';	        				  
+		        			   }else{
+		        				   appr3 = appr3+'<td>'+bak1+'</td>';        				
+		        			   }
+		        			   appr3 = appr3+'</tr>';
+		        			
+		        		}
+		        		 $('#appr3').append(appr3);
+		        	 }
+		
+		        }
+		    });
+	 }
 </script>
+
 </head>
 <body>
 	<div class="layui-layout layui-layout-admin">
 		<@h.naviHeader /><@h.leftMenu />
 		<!-- 主体内容开始 -->
 <div class="layui-tab layui-tab-brief" style="padding-left:210px">
-<div class="linews left" style="width: 65%;">
-	<table style="border: #e5e5e6 1px solid;">
-		<th>
-			<td>操作</td>
-			<td>1</td>
-			<td>2</td>
-			<td>3</td>
-			<td>4</td>
-			<td>5</td>
-			<td>6</td>
-			<td>1</td>
-			<td>2</td>
-			<td>3</td>
-			<td>4</td>
-			<td>5</td>
-			<td>6</td>
-			<td>1</td>
-			<td>2</td>
-			<td>3</td>
-			<td>4</td>
-			<td>5</td>
-			<td>611111111111111111111111111111111111111111111111111111111111</td>
-		</th>
-		<tr>
-			<td></td>
-			<td></td>
-			<td></td>
-			<td></td>
-			<td></td>
-			<td></td>
-			<td></td>
-			<td></td>
-		</tr>
-	</table>
-</div>
-<div style="float: left;" class="linews">
+<div style="width: 70%;"  class="linews left">
+		<div >
+				<table style="border: #e5e5e6 1px solid;" class="layui-table" id ="appr1">
+											<thead>
+												<tr>
+													<th colspan="20">应急救援物资汇总审批列表</th>
+												</tr>
+												<tr>											
+													<!--	<th id="id" rowspan="2">序号</th>-->
+														<th id="th_name" rowspan="2">物资名称</th>
+														<th id="th_quantity" rowspan="2">数量</th>
+														<th id="th_unit" rowspan="2">单位</th>
+														<th id="" rowspan="2">设备来源</th>
+														<th id="" rowspan="2">外部供应单位名称</th>
+														<th id="" colspan="2" style="text-align: center">外部供应单位联系方式</th>
+														<th id="th_bak1" rowspan="2">审批状态</th>
+														<th id="" rowspan="2">来源</th>
+														<th id="th_companyName" rowspan="2" style="width : 100px; ">公司名称</th>
+			
+												</tr> 
+												<tr>
+														<th id="" style="text-align: center">主要联系人</th>
+														<th id="" style="text-align: center">联系方式</th>
+												</tr>
+											</thead>
+										
+			</table>
+		</div>
+		
+				<div>
+				<table style="border: #e5e5e6 1px solid;" class="layui-table" id ="appr2" >
+											<thead>
+												<tr>
+													<th colspan="11">环境风险单元信息审批列表<font id='recordsView' class='recorsView'>共<span></span>页,共 <span></span>条记录</font></th>
+												</tr>
+												<tr>
+												
+												 
+														<th id="th_riskUnitName" >风险单元名称</th>
+														<th id="th_riskUnitTypeName" >风险单元类别</th>
+														<th id="th_reserves" >设计能力/储量</th>
+														<th id="th_involveChemical" >主要涉及的化学品</th>														
+														<th id="th_createUserName" >创建用户</th>
+														<th id="th_createTime" >创建时间</th>
+														<th id="th_companyId" >企业id</th>
+														<th id="th_describes" >描述（用途、特征、危险性、曾发生事故等）</th>
+														<th id="th_bak1" >单元状态</th>
+												</tr> 
+											</thead>
+										
+			</table>
+		</div>
+					<div>
+				<table style="border: #e5e5e6 1px solid;" class="layui-table"  id ="appr3">
+										<thead>
+												<tr>
+													<th colspan="30">企业事业单位环境应急预案备案表审批<font id='recordsView' class='recorsView'>共<span></span>页,共 <span></span>条记录</font></th>
+												</tr>
+												<tr>											
+														<th id="" >单位名称</th>
+														<th id="" >机构代码</th>
+														<th id="" >法人</th>
+														<th id="" >法人电话</th>
+														<th id="" >联系人</th>
+														<th id="" >联系人电话</th>													
+														<th id="" >地址</th>
+														<th id="" >预案名称</th>
+														<th id="" >风险级别</th>
+														<th id="" >备案编号</th>
+														<th id="" >报送单位</th>
+														<th id="bak1" >审批状态</th>
+														
+												</tr> 
+											</thead>
+										
+			</table>
+		</div>
+		
+		
+		</div>
+<div style="float: right;" class="linews right">
 		<div class="linews">
 			<h3><span><a  href="${ctx}/front/list?typeId=notice" class="more">更多..</a></span>待办</h3>
 		    <ul id="notice">

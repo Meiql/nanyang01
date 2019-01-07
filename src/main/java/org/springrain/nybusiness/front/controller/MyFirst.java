@@ -24,8 +24,11 @@ import org.springrain.frame.controller.BaseController;
 
 import org.springrain.nybusiness.company.service.ITsCompanyInfoService;
 import org.springrain.nybusiness.ergency.entity.TsEmePlanFiling;
+import org.springrain.nybusiness.ergency.entity.TsEmergencyMaterialSum;
 import org.springrain.nybusiness.ergency.service.ITsEmePlanFilAdjustmentService;
 import org.springrain.nybusiness.ergency.service.ITsEmePlanFilingService;
+import org.springrain.nybusiness.msg.entity.TsMsgEnviroRisk;
+import org.springrain.nybusiness.resourceAudit.service.ITsPrepareApprovlService;
 import org.springrain.nybusiness.tsInfoDetail.entity.TsInfoDetails;
 
 /**
@@ -38,6 +41,8 @@ import org.springrain.nybusiness.tsInfoDetail.entity.TsInfoDetails;
 public class MyFirst extends BaseController {
 	@Resource
 	private ITsEmePlanFilingService tsEmePlanFilingService;
+	@Resource
+	private ITsPrepareApprovlService tsPrepareApprovlService;
 	@Resource
 	private ITsEmePlanFilAdjustmentService tsEmePlanFilAdjustmentService;
 	
@@ -111,6 +116,65 @@ public class MyFirst extends BaseController {
 		page.setTotalCount(data.size());
 		returnObject.setPage(page);
 		returnObject.setData(data);
+		return returnObject;
+	}
+	
+	/**
+	 * 进入应急物资申报审核界面，先查询结果，在审核
+	 */
+	@RequestMapping(value = "/ajax/emergencyLook/app")
+	@ResponseBody  
+	public ReturnDatas emergencyapp(HttpServletRequest request, Model model,TsEmergencyMaterialSum tsEmergencyMaterialSum)  throws Exception{
+//		ReturnDatas returnObject = listjsonEmergency(request, model, tsEmergencyEquipmentSum);
+		ReturnDatas returnObject = ReturnDatas.getSuccessReturnDatas();
+		System.out.println("333");
+		// ==构造分页请求
+		Page page = newPage(request);
+		// ==执行分页查询
+		
+		List<TsEmergencyMaterialSum> datas=tsPrepareApprovlService.finderTsEmergencyForList(page, tsEmergencyMaterialSum);
+		returnObject.setPage(page);
+		returnObject.setData(datas);
+	
+		return returnObject;
+	
+	}
+	
+	/**
+	 * 进入环境分险审核界面，先查询结果，在审核
+	 */
+	@RequestMapping(value = "/ajax/enviroment/app")
+	@ResponseBody  
+	public ReturnDatas enviromentapp(HttpServletRequest request, Model model,TsMsgEnviroRisk tsMsgEnviroRisk)  throws Exception{
+//		ReturnDatas returnObject = listjsonEmergency(request, model, tsEmergencyEquipmentSum);
+		ReturnDatas returnObject = ReturnDatas.getSuccessReturnDatas();
+		// ==构造分页请求
+		Page page = newPage(request);
+		// ==执行分页查询
+		List<TsMsgEnviroRisk> datas=tsPrepareApprovlService.finderTsMsgEnviroRiskForList(page, tsMsgEnviroRisk);
+		
+		returnObject.setPage(page);
+		returnObject.setData(datas);
+		return returnObject;
+	}
+	
+
+	/**
+	 * 进入应急预案备案审核界面，先查询结果，在审核
+	 */
+	@RequestMapping(value = "/ajax/planfiling/app")
+	@ResponseBody  
+	public ReturnDatas planfilingapp(HttpServletRequest request, Model model,TsEmePlanFiling tsEmePlanFiling)  throws Exception{
+//		ReturnDatas returnObject = listjsonEmergency(request, model, tsEmergencyEquipmentSum);
+		ReturnDatas returnObject = ReturnDatas.getSuccessReturnDatas();
+		// ==构造分页请求
+		Page page = newPage(request);
+		// ==执行分页查询
+		List<TsEmePlanFiling> datas=tsPrepareApprovlService.finderTsEmePlanFilingForList(page, tsEmePlanFiling);
+		
+		returnObject.setPage(page);
+		returnObject.setData(datas);
+		model.addAttribute(GlobalStatic.returnDatas, returnObject);
 		return returnObject;
 	}
 }
