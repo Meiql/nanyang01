@@ -160,8 +160,8 @@ public class TsEmePlanFilingServiceImpl extends BaseSpringrainServiceImpl implem
 				return null;
 			}
 			Finder finder = new Finder();
-			finder.append("SELECT t.*,t1.companyName as companyName FROM (select * from ts_eme_plan_filing where id in(select max(id) from ts_eme_plan_filing s where s.bak1=:bak1 group by company_id)) t ,ts_company_info t1 where t.company_id = t1.id and t.company_id in (:companyId)")
-			.setParam("bak1", "3")
+			//finder.append("SELECT t.*,t1.companyName as companyName FROM (select * from ts_eme_plan_filing where id in(select max(id) from ts_eme_plan_filing s where s.bak1=:bak1 group by company_id)) t ,ts_company_info t1 where t.company_id = t1.id and t.company_id in (:companyId)")
+			finder.append("SELECT t.*,t1.companyName as companyName FROM (SELECT t.* FROM (select * from `ts_eme_plan_filing` order by `apprTime` desc limit 10000000000) t GROUP BY t.company_id) t ,ts_company_info t1 where t.company_id = t1.id and t.company_id in (:companyId)")
 			.setParam("companyId", listCompany);
 			return super.queryForList(finder, TsEmePlanFiling.class);
 		}

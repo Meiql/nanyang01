@@ -1,5 +1,6 @@
 package org.springrain.nybusiness.front.controller;
 
+import java.io.File;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -9,6 +10,7 @@ import java.util.List;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Controller;
@@ -65,6 +67,33 @@ public class MyFirst extends BaseController {
 		ReturnDatas returnObject = listjson(request, model, tsEmePlanFiling,type);
 		model.addAttribute(GlobalStatic.returnDatas, returnObject);
 		return "/nybusiness/ergency/tsemeplanfiling/tsemeplanfilingList";
+	}
+	
+	@RequestMapping("/list/export")
+	public void listexport(HttpServletRequest request,HttpServletResponse response){
+		String type=request.getParameter("type");
+		// ==构造分页请求
+		/*Page page = newPage(request);
+		File file = tsWasteAirMsgService.findDataExportExcel(null,listurl, page,TsWasteAirMsg.class,tsWasteAirMsg);
+		String fileName="tsWasteAirMsg"+GlobalStatic.excelext;*/
+		String realPath="";
+		String fileName="";
+		if(StringUtils.isNoneBlank(type)){
+			if(type.equals("企业")){
+				realPath=request.getServletContext().getRealPath("/WEB-INF/tmpl/企业用户使用手册.doc");
+				fileName="企业用户使用手册.docx";
+			}else{
+				realPath=request.getServletContext().getRealPath("/WEB-INF/tmpl/政府用户使用手册.doc");
+				fileName="政府用户使用手册.docx";
+			}
+		}
+		File file=new File(realPath);
+		try {
+			downFile(response, file, fileName,false);
+		} catch (Exception e) {
+			
+		}
+		return;
 	}
 	
 	/**
