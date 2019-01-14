@@ -8,15 +8,40 @@
 <script>
 $(function() {// 初始化内容
 	yujing('yujing');
-	debugger;
 	appr1();
 	appr2();
 	appr3();
+	daiban();
 })
+	function daiban(){
+	$.ajax({
+        type:"post",  //传输方式为post，
+        url:"${ctx}/tsprepareapprovl/list/json",
+        data : {},
+        dataType : "json",
+        success:function(data){
+        	if(data!=""&&data!=null){
+        		debugger;
+        	var notice='';
+        	/* notice+='<li><a href="${ctx}/tsprepareapprovl/company/app</a>'+'企业信息注册:'+data.data[0].goods_name+'</li>';
+        	notice+='<li><a href="${ctx}/tsprepareapprovl/emergency/app</a>'+'应急物资申报:'+data.data[0].company+'</li>';
+        	notice+='<li><a href="${ctx}/tsprepareapprovl/enviroment/app</a>'+'环境风险信息调查:'+data.data[0].numbers+'</li>';
+        	notice+='<li><a href="${ctx}/tsprepareapprovl/planfiling/app</a>'+'应急预案备案:'+data.data[0].bak1+'</li>'; */
+        	notice+='<li>'+'企业信息注册:'+'<a href="${ctx}/tsprepareapprovl/company/app"><span style="color:red">'+data.data[0].goods_name+'个'+'</span></a></li>';
+        	notice+='<li>'+'应急物资申报:'+'<a href="${ctx}/tsprepareapprovl/emergency/app"><span style="color:red">'+data.data[0].company+'个'+'</span></a></li>';
+        	notice+='<li>'+'应急预案备案:'+'<a href="${ctx}/tsprepareapprovl/planfiling/app"><span style="color:red">'+data.data[0].bak1+'个'+'</span></a></li>'; 
+        	notice+='<li>'+'环境风险信息调查:'+'<a href="${ctx}/tsprepareapprovl/enviroment/app"><span style="color:red">'+data.data[0].numbers+'个'+'</span></a></li>';
+        	$("#notice").html(notice);
+        }
+        }
+    });
+}
 	function yujing(falg){
 		 if(falg=="yujing"){
 			 $("#yujing").show();
 			 $("#baojing").hide();
+			 document.getElementById('yj').style.color="#CD4F39";
+			 document.getElementById('bj').style.color="black";
 			 $("#yjlist").attr("href","${ctx}/myfirst/tsemeplanfilingList?type=预警")
 		$.ajax({
         type:"post",  //传输方式为post，
@@ -44,6 +69,8 @@ $(function() {// 初始化内容
 			}else if(falg=="baojing"){
 			 $("#baojing").show();
 			 $("#yujing").hide();
+			 document.getElementById('bj').style.color="#CD4F39";
+			 document.getElementById('yj').style.color="black";
 			 $("#yjlist").attr("href","${ctx}/myfirst/tsemeplanfilingList?type=报警")
 			 $.ajax({
 			        type:"post",  //传输方式为post，
@@ -81,7 +108,6 @@ $(function() {// 初始化内容
 		        	if(data!=""&&data!=null){			        		
 		        		for(var i=0;i<length;i++){
 		        			var id=data.data[i].id;//序号
-		        			debugger;
 		        			var name=data.data[i].name;//物资名称
 		        			
 		        			var quantity=data.data[i].quantity;//数量
@@ -137,7 +163,6 @@ $(function() {// 初始化内容
 		        	if(data!=""&&data!=null){			        		
 		        		for(var i=0;i<length;i++){
 		        			var id=data.data[i].id;//序号
-		        			debugger;
 		        			var riskUnitName=data.data[i].riskUnitName;//风险单元名称
 		        			var riskUnitTypeName=data.data[i].riskUnitTypeName;//风险单元类别
 		        			var reserves=data.data[i].reserves;//设计能力/储量
@@ -180,7 +205,6 @@ $(function() {// 初始化内容
 		        	if(data!=""&&data!=null){			        		
 		        		for(var i=0;i<length;i++){
 		        			var id=data.data[i].id;//序号
-		        			debugger;
 		        			var company_name=data.data[i].company_name;//物资名称
 		        			var company_code=data.data[i].company_code;//数量
 		        			var legal_person=data.data[i].legal_person;//单位
@@ -309,18 +333,12 @@ $(function() {// 初始化内容
 		</div>
 <div style="float: right;" class="linews right">
 		<div class="linews">
-			<h3><span><a  href="${ctx}/front/list?typeId=notice" class="more">更多..</a></span>待办</h3>
+			<h3>待办</h3>
 		    <ul id="notice">
-		      <li><a href="/" target="_blank">广安区喜摘全市人口计生统计与信息岗位技能竞赛桂冠开业贸易争端 矛头直指</a></li>
-		      <li><a href="/" target="_blank">广安区卫计局开展“道德讲堂”活动</a></li>
-		      <li><a href="/" target="_blank">广安区中医院开展“全国高血压日”义诊宣传活动</a></li>
-		      <li><a href="/" target="_blank">广安区“五心”做好孕前优生健康检查工作</a></li>
-		      <li><a href="/" target="_blank">广安区实施“五项工程”帮助计生家庭发家致富</a></li>
-		      <li><a href="/" target="_blank">美国挑起对华贸易争端 矛头直指</a></li> 
 		    </ul>
 		</div>
 		<div class="linews">
-			<h3><span><a id="yjlist" href="${ctx}/myfirst/tsemeplanfilingList?type=预警" class="more">更多..</a></span><span onclick="yujing('yujing')">预警</span>||<span onclick="yujing('baojing')">报警</span></h3>
+			<h3><span><a id="yjlist" href="${ctx}/myfirst/tsemeplanfilingList?type=预警" class="more">更多..</a></span><button id="yj" onclick="yujing('yujing')">预警</button>||<button id="bj" onclick="yujing('baojing')">报警</button></h3>
 			<div id="yujing" style="display:block">
 				<ul id="stick">
 			    </ul>
@@ -335,8 +353,8 @@ $(function() {// 初始化内容
 		<div class="linews">
 			<h3>文件下载</h3>
 			<ul id="notice">
-		      <li><a href="${ctx}/myfirst/list/export?type=企业">企业操作手册</a></li>
-		      <li><a href="${ctx}/myfirst/list/export?type=政府">政府操作手册</a></li>
+		      <li><a href="${ctx}/myfirst/list/export?type=1">企业操作手册</a></li>
+		      <li><a href="${ctx}/myfirst/list/export?type=2">政府操作手册</a></li>
 		    </ul>
 		</div>
 	</div>

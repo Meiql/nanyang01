@@ -79,12 +79,14 @@ public class MyFirst extends BaseController {
 		String realPath="";
 		String fileName="";
 		if(StringUtils.isNoneBlank(type)){
-			if(type.equals("企业")){
+			if(type.equals("1")){
 				realPath=request.getServletContext().getRealPath("/WEB-INF/tmpl/企业用户使用手册.doc");
 				fileName="企业用户使用手册.docx";
-			}else{
+			}else if(type.equals("2")){
 				realPath=request.getServletContext().getRealPath("/WEB-INF/tmpl/政府用户使用手册.doc");
 				fileName="政府用户使用手册.docx";
+			}else{
+				return;
 			}
 		}
 		File file=new File(realPath);
